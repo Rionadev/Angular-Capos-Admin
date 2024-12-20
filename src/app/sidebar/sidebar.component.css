@@ -1,3 +1,8 @@
 .sidebar-wrapper{
     background-color: darkslategray;
 }
+
+.logo-img{
+    width: fit-content;
+    background: transparent;
+}

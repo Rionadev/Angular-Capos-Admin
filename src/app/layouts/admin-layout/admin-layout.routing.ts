@@ -8,19 +8,16 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import { ProductOneComponent } from '../../product-one/product-one.component'; // Import ProductOneComponent
-import {ProductsComponent} from '../../products/products.component'
+import { EmployeesComponent } from '../../employees/employees.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard', component: HomeComponent },
-    { path: 'user', component: UserComponent },
-    { path: 'table', component: TablesComponent },
-    { path: 'typography', component: TypographyComponent },
-    { path: 'icons', component: IconsComponent },
-    { path: 'maps', component: MapsComponent },
-    { path: 'notifications', component: NotificationsComponent },
-    { path: 'upgrade', component: UpgradeComponent },
-    { path: 'product', component: ProductOneComponent }, // Add route for ProductOneComponent
-    { path: 'products', component: ProductsComponent } // Add route for ProductOneComponent
-
+    { path: 'dashboard',      component: HomeComponent },
+    { path: 'user',           component: UserComponent },
+    { path: 'table',          component: TablesComponent },
+    { path: 'typography',     component: TypographyComponent },
+    { path: 'icons',          component: IconsComponent },
+    { path: 'maps',           component: MapsComponent },
+    { path: 'notifications',  component: NotificationsComponent },
+    { path: 'upgrade',        component: UpgradeComponent },
+    { path: 'employees',      component: EmployeesComponent },
 ];
