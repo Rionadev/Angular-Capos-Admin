@@ -12,6 +12,7 @@ import { SidebarModule } from './sidebar/sidebar.module';
 import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { ProductEditModalComponent } from './product-edit-modal/product-edit-modal.component';
 // import { ProductsComponent } from './products/products.component';
 // import { PricebooksComponent } from './pricebooks/pricebooks.component';
 // import { ProducttypesComponent } from './producttypes/producttypes.component';
@@ -44,6 +45,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    ProductEditModalComponent,
    
     //OutletsComponent,
     //BillingComponent,

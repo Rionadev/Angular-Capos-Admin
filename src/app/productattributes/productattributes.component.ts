@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+// import $ = require('jquery');
+import * as $ from 'jquery';
+import { ProductEditModalComponent } from 'app/product-edit-modal/product-edit-modal.component';
 
 interface Product {
   id: number;
@@ -12,7 +15,10 @@ interface Product {
   templateUrl: './productattributes.component.html',
   styleUrls: ['./productattributes.component.scss']
 })
-export class ProductattributesComponent implements OnInit {
+export class ProductattributesComponent implements AfterViewInit {
+  ngAfterViewInit(): void {
+    // throw new Error('Method not implemented.');
+  }
   rows: Product[] = [];
   currentRow: Product = { id: null, name: '', description: '', product: '' };
   isContentVisible: boolean = false;
@@ -39,29 +45,30 @@ export class ProductattributesComponent implements OnInit {
     this.isContentVisible = !this.isContentVisible;
   }
 
-  saveRow() {
-    if (this.currentRow.id) {
-      const index = this.rows.findIndex(row => row.id === this.currentRow.id);
-      this.rows[index] = this.currentRow;
-    } else {
-      this.currentRow.id = this.rows.length + 1; // Simple ID assignment
-      this.rows.push(this.currentRow);
-    }
-    this.currentRow = { id: null, name: '', description: '', product: '' };
-    this.filterRows();
+  openEditModal(row: Product) {
+    this.currentRow = { ...row };
+    // $('#editModal').show();
   }
 
-  editRow(row: Product) {
-    this.currentRow = { ...row };
+  editRow(row: any) {
+    // Set the row to editing mode
+    row.isEditing = true;
+  }
+
+  saveRow(row: any) {
+    // Save changes (you can add your save logic here)
+    row.isEditing = false; // Exit editing mode
+  }
+
+  cancelEdit(row: any) {
+    // Reset the row to its original state
+    // Here we would typically reload the original data from a service or store
+    row.isEditing = false; // Exit editing mode
   }
 
   deleteRow(id: number) {
-    this.rows = this.rows.filter(row => row.id !== id);
-    this.filterRows();
-  }
-
-  cancelEdit() {
-    this.currentRow = { id: null, name: '', description: '', product: '' };
+    // Logic to delete the row
+    this.paginatedRows = this.paginatedRows.filter(row => row.id !== id);
   }
 
   filterRows() {
