@@ -12,6 +12,8 @@ import { SidebarModule } from './sidebar/sidebar.module';
 import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+//import { OutletsComponent } from './outlets/outlets.component';
+//import { BillingComponent } from './billing/billing.component';
 //import { EmployeesComponent } from './employees/employees.component';
 
 @NgModule({
@@ -28,6 +30,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    //OutletsComponent,
+    //BillingComponent,
     //EmployeesComponent
   ],
   providers: [],

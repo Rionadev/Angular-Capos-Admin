@@ -6,3 +6,8 @@
     width: fit-content;
     background: transparent;
 }
+
+.setting-content-board {
+    opacity: 70%;
+    color:aquamarine;
+}

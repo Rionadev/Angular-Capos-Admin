@@ -16,7 +16,20 @@ export const ROUTES: RouteInfo[] = [
     { path: '/maps', title: 'Maps',  icon:'pe-7s-map-marker', class: '' },
     { path: '/notifications', title: 'Notifications',  icon:'pe-7s-bell', class: '' },
     { path: '/employees', title: 'Employees',  icon:'pe-7s-users', class: '' },
-    { path: '/upgrade', title: 'Upgrade to PRO',  icon:'pe-7s-rocket', class: 'active-pro' },
+    { path: '/upgrade', title: 'Upgrade to PRO',  icon:'pe-7s-rocket', class: '' }, //active-pro
+    //{ path: '/setting', title: 'Setting',  icon:'pe-7s-config', class: '' },
+];
+
+export const SETTINGROUTES: RouteInfo[] = [
+  { path: '/setting/billing', title: 'Billing & Subscriptions',  icon: 'pe-7s-credit', class: '' },
+  { path: '/setting/outlets', title: 'Outlets & Register',  icon:'pe-7s-albums', class: '' },
+  { path: '/setting/payment', title: 'Payment Types',  icon:'pe-7s-calculator', class: '' },
+  { path: '/setting/customer', title: 'Customer Point & Gift',  icon:'pe-7s-note2', class: '' },
+  { path: '/setting/sales', title: 'Sales Taxes',  icon:'pe-7s-wallet', class: '' },
+  { path: '/setting/station', title: 'Station',  icon:'pe-7s-shuffle', class: '' },
+  { path: '/setting/storemanagement', title: 'Store Management',  icon:'pe-7s-shopbag', class: '' },
+  { path: '/setting/storepolicy', title: 'Store Policy',  icon:'pe-7s-paperclip', class: '' },
+  { path: '/setting/preferences', title: 'Preferences',  icon:'pe-7s-tools', class: '' },
 ];
 
 @Component({
@@ -26,12 +39,20 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
+  settingMenuItems: any[];
+  isSettingContentVisible: boolean = false; // Initially hidden for add or editing.
 
   constructor() { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.settingMenuItems = SETTINGROUTES.filter(menuItem => menuItem);
   }
+
+  settingContent(): void {
+    this.isSettingContentVisible = !this.isSettingContentVisible; // Toggle the visibility
+  }
+
   isMobileMenu() {
       if ($(window).width() > 991) {
           return false;

@@ -17,6 +17,8 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { EmployeesComponent } from '../../employees/employees.component';
+import { BillingComponent } from '../../billing/billing.component';
+import { OutletsComponent } from '../../outlets/outlets.component';
 
 @NgModule({
   imports: [
@@ -35,7 +37,9 @@ import { EmployeesComponent } from '../../employees/employees.component';
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
-    EmployeesComponent
+    EmployeesComponent,
+    BillingComponent,
+    OutletsComponent,
   ]
 })
 
