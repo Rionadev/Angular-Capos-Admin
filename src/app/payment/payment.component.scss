@@ -31,11 +31,6 @@
     margin-bottom: 10px;
 }
 
-.margin-bottom-3
-{
-    margin-bottom: 3px;
-}
-
 input{
     padding: 4px 6px 4px 6px;
     height: 32px;
@@ -44,4 +39,30 @@ input{
 table td{
     padding-bottom: 3px;
     padding-top: 3px; 
+}
+
+.borderless-table {
+    border-collapse: collapse; /* Ensures borders are uniform */
+  }
+
+.borderless-table,
+.borderless-table th,
+.borderless-table td {
+    border: none; /* Hides all borders */
+}
+
+.padding-bottom-0 {
+    padding-bottom: 0px;
+}
+
+.float-right{
+    float:right;
+}
+
+.padding-bottom-0{
+    padding-bottom: 0px;
+}
+
+.padding-top-20{
+    padding-top: 20px;
 }

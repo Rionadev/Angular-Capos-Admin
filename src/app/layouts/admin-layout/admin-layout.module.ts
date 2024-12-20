@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LbdModule } from '../../lbd/lbd.module';
-import { NguiMapModule} from '@ngui/map';
+import { NguiMapModule } from '@ngui/map';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -19,6 +19,8 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { EmployeesComponent } from '../../employees/employees.component';
 import { BillingComponent } from '../../billing/billing.component';
 import { OutletsComponent } from '../../outlets/outlets.component';
+import { ToggleSwitchComponent } from '../../component/toggle-switch/toggle-switch.component';
+import { PaymentComponent } from '../../payment/payment.component';
 
 @NgModule({
   imports: [
@@ -26,7 +28,7 @@ import { OutletsComponent } from '../../outlets/outlets.component';
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     LbdModule,
-    NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE'})
+    NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE' })
   ],
   declarations: [
     HomeComponent,
@@ -40,7 +42,9 @@ import { OutletsComponent } from '../../outlets/outlets.component';
     EmployeesComponent,
     BillingComponent,
     OutletsComponent,
+    ToggleSwitchComponent,
+    PaymentComponent
   ]
 })
 
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }

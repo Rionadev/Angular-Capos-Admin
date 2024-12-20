@@ -11,6 +11,7 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { EmployeesComponent } from '../../employees/employees.component';
 import { BillingComponent } from '../../billing/billing.component';
 import { OutletsComponent } from '../../outlets/outlets.component';
+import { PaymentComponent } from '../../payment/payment.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: HomeComponent },
@@ -24,4 +25,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'employees',      component: EmployeesComponent },
     { path: 'setting/billing',  component: BillingComponent },
     { path: 'setting/outlets',  component: OutletsComponent },
+    { path: 'setting/payment',  component: PaymentComponent },
 ];

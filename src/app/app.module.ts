@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -12,6 +12,7 @@ import { SidebarModule } from './sidebar/sidebar.module';
 import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+//import { PaymentComponent } from './payment/payment.component';
 //import { OutletsComponent } from './outlets/outlets.component';
 //import { BillingComponent } from './billing/billing.component';
 //import { EmployeesComponent } from './employees/employees.component';
@@ -35,6 +36,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     //EmployeesComponent
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
