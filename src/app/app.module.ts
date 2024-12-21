@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -12,14 +12,6 @@ import { SidebarModule } from './sidebar/sidebar.module';
 import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { ProductEditModalComponent } from './product-edit-modal/product-edit-modal.component';
-// import { ProductsComponent } from './products/products.component';
-// import { PricebooksComponent } from './pricebooks/pricebooks.component';
-// import { ProducttypesComponent } from './producttypes/producttypes.component';
-// import { SupplliersComponent } from './supplliers/supplliers.component';
-// import { ProducttagsComponent } from './producttags/producttags.component';
-// import { ProductattributesComponent } from './productattributes/productattributes.component';
-
 //import { OutletsComponent } from './outlets/outlets.component';
 //import { BillingComponent } from './billing/billing.component';
 //import { EmployeesComponent } from './employees/employees.component';
@@ -45,13 +37,12 @@ import { ProductEditModalComponent } from './product-edit-modal/product-edit-mod
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    ProductEditModalComponent,
-   
     //OutletsComponent,
     //BillingComponent,
     //EmployeesComponent
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

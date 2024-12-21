@@ -9,35 +9,33 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { EmployeesComponent } from '../../employees/employees.component';
-import { BillingComponent } from '../../billing/billing.component';
-import { OutletsComponent } from '../../outlets/outlets.component';
-import { ProductsComponent } from 'app/products/products.component';
-import { PricebooksComponent } from 'app/pricebooks/pricebooks.component';
-import { ProducttypesComponent } from 'app/producttypes/producttypes.component';
-import { SupplliersComponent } from 'app/supplliers/supplliers.component';
-import { ProductattributesComponent } from 'app/productattributes/productattributes.component';
-import { ProducttagsComponent } from 'app/producttags/producttags.component';
+import { BillingComponent } from '../../setting/billing/billing.component';
+import { OutletsComponent } from '../../setting/outlets/outlets.component';
+import { PaymentComponent } from '../../setting/payment/payment.component';
+import { CustomerComponent } from '../../setting/customer/customer.component';
+import { SalesComponent } from '../../setting/sales/sales.component';
+import { StationComponent } from '../../setting/station/station.component';
+import { StoreComponent } from '../../setting/store/store.component';
+import { PolicyComponent } from '../../setting/policy/policy.component';
+import { PreferencesComponent } from '../../setting/preferences/preferences.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard', component: HomeComponent },
-    { path: 'user', component: UserComponent },
-    { path: 'table', component: TablesComponent },
-    { path: 'typography', component: TypographyComponent },
-    { path: 'icons', component: IconsComponent },
-    { path: 'maps', component: MapsComponent },
-    { path: 'notifications', component: NotificationsComponent },
-    { path: 'upgrade', component: UpgradeComponent },
-    { path: 'employees', component: EmployeesComponent },
-    { path: 'setting/billing', component: BillingComponent },
-    { path: 'setting/outlets', component: OutletsComponent },
-
-    { path: 'products/product', component: ProductsComponent },
-    { path: 'products/pricebooks', component: PricebooksComponent },
-    { path: 'products/producttypes', component: ProducttypesComponent },
-    { path: 'products/supplliers', component: SupplliersComponent },
-    { path: 'products/producttags', component: ProducttagsComponent },
-    { path: 'products/productattributes', component: ProductattributesComponent },
-
-
-
+    { path: 'dashboard',      component: HomeComponent },
+    { path: 'user',           component: UserComponent },
+    { path: 'table',          component: TablesComponent },
+    { path: 'typography',     component: TypographyComponent },
+    { path: 'icons',          component: IconsComponent },
+    { path: 'maps',           component: MapsComponent },
+    { path: 'notifications',  component: NotificationsComponent },
+    { path: 'upgrade',        component: UpgradeComponent },
+    { path: 'employees',      component: EmployeesComponent },
+    { path: 'setting/billing',     component: BillingComponent },
+    { path: 'setting/outlets',     component: OutletsComponent },
+    { path: 'setting/payment',     component: PaymentComponent },
+    { path: 'setting/customer',    component: CustomerComponent },
+    { path: 'setting/sales',       component: SalesComponent },
+    { path: 'setting/station',     component: StationComponent },
+    { path: 'setting/store',       component: StoreComponent },
+    { path: 'setting/policy',      component: PolicyComponent },
+    { path: 'setting/preferences', component: PreferencesComponent },
 ];

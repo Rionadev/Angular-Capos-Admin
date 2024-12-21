@@ -2,6 +2,10 @@
     background-color: darkslategray;
 }
 
+.logo{
+    background-color: #1e88e5;
+}
+
 .logo-img{
     width: fit-content;
     background: transparent;
@@ -10,4 +14,8 @@
 .setting-content-board {
     opacity: 70%;
     color:aquamarine;
+}
+
+.padding-left-10{
+    padding-left: 10px;
 }

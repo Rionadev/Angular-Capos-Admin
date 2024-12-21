@@ -1,0 +1,42 @@
+.btn {
+    margin: 0 2px;
+}
+
+.add-content {
+    display: flex;                /* Enables Flexbox for .content */
+    justify-content: space-between; /* Distributes space between elements */
+    align-items: center;          /* Vertically centers the items */
+}
+
+.card .content {
+    padding: 10px 15px 10px 15px;
+}
+
+.dropdown{
+    margin: 0 auto;
+    padding: 6px 15px 6px 15px;
+}
+
+.dropdown a{
+    color: #9a9a9a;
+}
+
+.margin-bottom-0
+{
+    margin-bottom: 0px;
+}
+
+.margin-bottom-10
+{
+    margin-bottom: 10px;
+}
+
+input{
+    padding: 4px 6px 4px 6px;
+    height: 32px;
+}
+
+table td{
+    padding-bottom: 3px;
+    padding-top: 3px; 
+}

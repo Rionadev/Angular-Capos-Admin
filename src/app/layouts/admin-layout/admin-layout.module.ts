@@ -19,12 +19,6 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { EmployeesComponent } from '../../employees/employees.component';
 import { BillingComponent } from '../../billing/billing.component';
 import { OutletsComponent } from '../../outlets/outlets.component';
-import { ProductsComponent } from 'app/products/products.component';
-import { PricebooksComponent } from 'app/pricebooks/pricebooks.component';
-import { ProducttypesComponent } from 'app/producttypes/producttypes.component';
-import { SupplliersComponent } from 'app/supplliers/supplliers.component';
-import { ProducttagsComponent } from 'app/producttags/producttags.component';
-import { ProductattributesComponent } from 'app/productattributes/productattributes.component';
 
 @NgModule({
   imports: [
@@ -46,13 +40,6 @@ import { ProductattributesComponent } from 'app/productattributes/productattribu
     EmployeesComponent,
     BillingComponent,
     OutletsComponent,
-    
-    ProductsComponent,
-    PricebooksComponent,
-    ProducttypesComponent,
-    SupplliersComponent,
-    ProducttagsComponent,
-    ProductattributesComponent,
   ]
 })
 

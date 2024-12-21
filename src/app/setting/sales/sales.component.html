@@ -4,34 +4,28 @@
             <div class="col-md-12">
                 <div class="card margin-bottom-10">
                     <div class="content add-content">
-                        <p class="category">Manage users and their sales targets. Need help?</p>
-                        <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Add</button>
+                        <p class="category"></p>
+                        <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Add Sales Taxes</button>
                     </div>
                 </div>
                 <div class="card margin-bottom-10" *ngIf="isContentVisible">
                     <div class="header">
-                        <h4 class="title">Add a user</h4>
+                        <h4 class="title">Add the sales taxes</h4>
                         <p class="category">Here is a form for adding </p>
                     </div>
                     <div class="content">                        
                         <form (ngSubmit)="saveRow()">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Name:</label>
                                         <input type="text" class="form-control" placeholder="Name" id="name" [(ngModel)]="currentRow.name" name="name" required />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Email:</label>
-                                        <input type="text" class="form-control" placeholder="Email" id="email" [(ngModel)]="currentRow.email" name="email" required />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Phone:</label>
-                                        <input type="email" class="form-control" placeholder="Phone" id="phone" [(ngModel)]="currentRow.phone" name="phone" required />
+                                        <label for="exampleInputEmail1">Rate:</label>
+                                        <input type="text" class="form-control" placeholder="Phone" id="Rate" [(ngModel)]="currentRow.phone" name="phone" required />
                                     </div>
                                 </div>
                             </div>
@@ -39,45 +33,6 @@
                             <button class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()" *ngIf="currentRow.id">Cancel</button>
                             <div class="clearfix"></div>
                         </form>
-                    </div>
-                </div>
-                <div class="card margin-bottom-0">
-                    <div class="content add-content">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" placeholder="Search" id="search" name="search" required />
-                            </div>
-                            <div class="col-md-3 dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    All Roles<b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">All Roles</a></li>
-                                    <li><a href="#">Free</a></li>
-                                    <li><a href="#">Cashier</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Admin</a></li>
-                                </ul>
-                                <!-- <input type="text" class="form-control" placeholder="Email" id="email" [(ngModel)]="currentRow.email" name="email" required /> -->
-                            </div>
-                            <div class="col-md-4 dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    All Outlets<b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">All Outlets</a></li>
-                                    <li><a href="#">Sub Store</a></li>
-                                    <li><a href="#">Test Outlet1</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Main Outlet</a></li>
-                                </ul>
-                                <!-- <input type="text" class="form-control" placeholder="Email" id="email" [(ngModel)]="currentRow.email" name="email" required /> -->
-                            </div>
-                        </div>
-                        <div class="">
-                            <button class="btn btn-sm btn-info btn-fill">Clear Filters</button>
-                            <button class="btn btn-sm btn-info btn-fill">Search</button>
-                        </div>
                     </div>
                 </div>
                 <div class="card">
