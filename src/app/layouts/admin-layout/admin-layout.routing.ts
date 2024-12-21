@@ -16,6 +16,7 @@ import { CustomerComponent } from '../../customer/customer.component';
 import { SalesComponent } from '../../sales/sales.component';
 import { StationComponent } from '../../station/station.component';
 import { StoreComponent } from '../../store/store.component';
+import { PolicyComponent } from '../../policy/policy.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: HomeComponent },
@@ -34,4 +35,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'setting/sales',       component: SalesComponent },
     { path: 'setting/station',     component: StationComponent },
     { path: 'setting/store',       component: StoreComponent },
+    { path: 'setting/policy',      component: PolicyComponent },
 ];
