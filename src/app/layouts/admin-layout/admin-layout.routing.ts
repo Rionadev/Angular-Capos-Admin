@@ -13,6 +13,7 @@ import { BillingComponent } from '../../billing/billing.component';
 import { OutletsComponent } from '../../outlets/outlets.component';
 import { PaymentComponent } from '../../payment/payment.component';
 import { CustomerComponent } from '../../customer/customer.component';
+import { SalesComponent } from '../../sales/sales.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: HomeComponent },
@@ -28,4 +29,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'setting/outlets',   component: OutletsComponent },
     { path: 'setting/payment',   component: PaymentComponent },
     { path: 'setting/customer',  component: CustomerComponent },
+    { path: 'setting/sales',     component: SalesComponent },
 ];

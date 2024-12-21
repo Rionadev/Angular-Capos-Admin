@@ -22,6 +22,7 @@ import { OutletsComponent } from '../../outlets/outlets.component';
 import { ToggleSwitchComponent } from '../../component/toggle-switch/toggle-switch.component';
 import { PaymentComponent } from '../../payment/payment.component';
 import { CustomerComponent } from '../../customer/customer.component';
+import { SalesComponent } from '../../sales/sales.component';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { CustomerComponent } from '../../customer/customer.component';
     OutletsComponent,
     ToggleSwitchComponent,
     PaymentComponent,
-    CustomerComponent
+    CustomerComponent,
+    SalesComponent,
   ]
 })
 
