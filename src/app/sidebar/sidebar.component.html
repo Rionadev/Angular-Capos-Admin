@@ -96,7 +96,7 @@
             </a>
         </li>
         <ng-container *ngIf="isSettingContentVisible">
-            <li style="margin-left: 20px;" routerLinkActive="active" *ngFor="let menuItem of settingMenuItems"
+            <li  routerLinkActive="active" *ngFor="let menuItem of settingMenuItems"
                 class="{{menuItem.class}} setting-content-board">
                 <a class="" [routerLink]="[menuItem.path]">
                     <!-- <i class="{{menuItem.icon}}"></i> -->
