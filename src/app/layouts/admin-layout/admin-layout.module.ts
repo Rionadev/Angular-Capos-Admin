@@ -21,6 +21,7 @@ import { BillingComponent } from '../../billing/billing.component';
 import { OutletsComponent } from '../../outlets/outlets.component';
 import { ToggleSwitchComponent } from '../../component/toggle-switch/toggle-switch.component';
 import { PaymentComponent } from '../../payment/payment.component';
+import { CustomerComponent } from '../../customer/customer.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { PaymentComponent } from '../../payment/payment.component';
     BillingComponent,
     OutletsComponent,
     ToggleSwitchComponent,
-    PaymentComponent
+    PaymentComponent,
+    CustomerComponent
   ]
 })
 
