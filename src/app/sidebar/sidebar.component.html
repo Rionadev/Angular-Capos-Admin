@@ -84,7 +84,21 @@
         <ng-container *ngIf="isSettingContentVisible">
             <li routerLinkActive="active" *ngFor="let menuItem of settingMenuItems" class="{{menuItem.class}} setting-content-board">
                 <a class="" [routerLink]="[menuItem.path]">
-                    <i class="{{menuItem.icon}}"></i>
+                    <!-- <i class="{{menuItem.icon}}"></i> -->
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </li>
+        </ng-container>
+        <li>
+            <a (click)="ecommerceContent()">
+                <i class="pe-7s-shopbag"></i>
+                <p>Ecommerce</p>
+            </a>
+        </li>
+        <ng-container *ngIf="isEcommerceContentVisible">
+            <li routerLinkActive="active" *ngFor="let menuItem of ecommerceMenuItems" class="{{menuItem.class}} setting-content-board">
+                <a class="" [routerLink]="[menuItem.path]">
+                    <!-- <i class="{{menuItem.icon}}"></i> -->
                     <p>{{menuItem.title}}</p>
                 </a>
             </li>

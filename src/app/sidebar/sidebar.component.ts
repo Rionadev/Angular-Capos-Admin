@@ -47,20 +47,27 @@ export const ECOMMERCEROUTES: RouteInfo[] = [
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
+
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   settingMenuItems: any[];
+  ecommerceMenuItems: any[];
   isSettingContentVisible: boolean = false; // Initially hidden for add or editing.
-
+  isEcommerceContentVisible: boolean = false; // Initially hidden for add or editing.
   constructor() { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.settingMenuItems = SETTINGROUTES.filter(menuItem => menuItem);
+    this.ecommerceMenuItems = ECOMMERCEROUTES.filter(menuItem => menuItem);
   }
 
   settingContent(): void {
     this.isSettingContentVisible = !this.isSettingContentVisible; // Toggle the visibility
+  }
+
+  ecommerceContent(): void {
+    this.isEcommerceContentVisible = !this.isEcommerceContentVisible; // Toggle the visibility
   }
 
   isMobileMenu() {

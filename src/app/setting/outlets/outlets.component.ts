@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../data/data.service';
-import { TableRow } from '../data/table-row.model';
+import { DataService } from '../../data/data.service';
+import { TableRow } from '../../data/table-row.model';
 
 @Component({
   selector: 'app-outlets',

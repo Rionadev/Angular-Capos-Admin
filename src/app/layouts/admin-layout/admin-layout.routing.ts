@@ -9,15 +9,15 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { EmployeesComponent } from '../../employees/employees.component';
-import { BillingComponent } from '../../billing/billing.component';
-import { OutletsComponent } from '../../outlets/outlets.component';
-import { PaymentComponent } from '../../payment/payment.component';
-import { CustomerComponent } from '../../customer/customer.component';
-import { SalesComponent } from '../../sales/sales.component';
-import { StationComponent } from '../../station/station.component';
-import { StoreComponent } from '../../store/store.component';
-import { PolicyComponent } from '../../policy/policy.component';
-import { PreferencesComponent } from '../../preferences/preferences.component';
+import { BillingComponent } from '../../setting/billing/billing.component';
+import { OutletsComponent } from '../../setting/outlets/outlets.component';
+import { PaymentComponent } from '../../setting/payment/payment.component';
+import { CustomerComponent } from '../../setting/customer/customer.component';
+import { SalesComponent } from '../../setting/sales/sales.component';
+import { StationComponent } from '../../setting/station/station.component';
+import { StoreComponent } from '../../setting/store/store.component';
+import { PolicyComponent } from '../../setting/policy/policy.component';
+import { PreferencesComponent } from '../../setting/preferences/preferences.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: HomeComponent },
