@@ -26,6 +26,7 @@ import { SalesComponent } from '../../sales/sales.component';
 import { StationComponent } from '../../station/station.component';
 import { StoreComponent } from '../../store/store.component';
 import { PolicyComponent } from '../../policy/policy.component';
+import { PreferencesComponent } from '../../preferences/preferences.component';
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import { PolicyComponent } from '../../policy/policy.component';
     StationComponent,
     StoreComponent,
     PolicyComponent,
+    PreferencesComponent,
   ]
 })
 
