@@ -14,6 +14,7 @@ import { OutletsComponent } from '../../outlets/outlets.component';
 import { PaymentComponent } from '../../payment/payment.component';
 import { CustomerComponent } from '../../customer/customer.component';
 import { SalesComponent } from '../../sales/sales.component';
+import { StationComponent } from '../../station/station.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: HomeComponent },
@@ -25,9 +26,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'employees',      component: EmployeesComponent },
-    { path: 'setting/billing',   component: BillingComponent },
-    { path: 'setting/outlets',   component: OutletsComponent },
-    { path: 'setting/payment',   component: PaymentComponent },
-    { path: 'setting/customer',  component: CustomerComponent },
-    { path: 'setting/sales',     component: SalesComponent },
+    { path: 'setting/billing',     component: BillingComponent },
+    { path: 'setting/outlets',     component: OutletsComponent },
+    { path: 'setting/payment',     component: PaymentComponent },
+    { path: 'setting/customer',    component: CustomerComponent },
+    { path: 'setting/sales',       component: SalesComponent },
+    { path: 'setting/station',     component: StationComponent },
 ];

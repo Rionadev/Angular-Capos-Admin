@@ -23,6 +23,7 @@ import { ToggleSwitchComponent } from '../../component/toggle-switch/toggle-swit
 import { PaymentComponent } from '../../payment/payment.component';
 import { CustomerComponent } from '../../customer/customer.component';
 import { SalesComponent } from '../../sales/sales.component';
+import { StationComponent } from '../../station/station.component';
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import { SalesComponent } from '../../sales/sales.component';
     PaymentComponent,
     CustomerComponent,
     SalesComponent,
+    StationComponent,
   ]
 })
 
