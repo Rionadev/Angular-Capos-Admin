@@ -27,8 +27,8 @@ export const SETTINGROUTES: RouteInfo[] = [
   { path: '/setting/customer', title: 'Customer Point & Gift',  icon:'pe-7s-note2', class: '' },
   { path: '/setting/sales', title: 'Sales Taxes',  icon:'pe-7s-wallet', class: '' },
   { path: '/setting/station', title: 'Station Management',  icon:'pe-7s-shuffle', class: '' },
-  { path: '/setting/storemanagement', title: 'Store Management',  icon:'pe-7s-shopbag', class: '' },
-  { path: '/setting/storepolicy', title: 'Store Policy',  icon:'pe-7s-paperclip', class: '' },
+  { path: '/setting/store', title: 'Store Management',  icon:'pe-7s-shopbag', class: '' },
+  { path: '/setting/policy', title: 'Store Policy',  icon:'pe-7s-paperclip', class: '' },
   { path: '/setting/preferences', title: 'Preferences',  icon:'pe-7s-tools', class: '' },
 ];
 

@@ -12,6 +12,7 @@ import { SidebarModule } from './sidebar/sidebar.module';
 import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+//import { StoreComponent } from './store/store.component';
 //import { StationComponent } from './station/station.component';
 //import { SalesComponent } from './sales/sales.component';
 //import { CustomerComponent } from './customer/customer.component';
@@ -34,6 +35,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    //StoreComponent,
     //StationComponent,
     //SalesComponent,
     //CustomerComponent,
