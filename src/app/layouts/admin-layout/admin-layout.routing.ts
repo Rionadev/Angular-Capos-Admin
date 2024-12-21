@@ -18,6 +18,12 @@ import { StationComponent } from '../../setting/station/station.component';
 import { StoreComponent } from '../../setting/store/store.component';
 import { PolicyComponent } from '../../setting/policy/policy.component';
 import { PreferencesComponent } from '../../setting/preferences/preferences.component';
+import { ProductsComponent } from 'app/products/products.component';
+import { PricebooksComponent } from 'app/pricebooks/pricebooks.component';
+import { ProducttypesComponent } from 'app/producttypes/producttypes.component';
+import { SupplliersComponent } from 'app/supplliers/supplliers.component';
+import { ProducttagsComponent } from 'app/producttags/producttags.component';
+import { ProductattributesComponent } from 'app/productattributes/productattributes.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: HomeComponent },
@@ -38,4 +44,11 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'setting/store',       component: StoreComponent },
     { path: 'setting/policy',      component: PolicyComponent },
     { path: 'setting/preferences', component: PreferencesComponent },
+
+    { path: 'products/product', component: ProductsComponent },
+    { path: 'products/pricebooks', component: PricebooksComponent },
+    { path: 'products/producttypes', component: ProducttypesComponent },
+    { path: 'products/supplliers', component: SupplliersComponent },
+    { path: 'products/producttags', component: ProducttagsComponent },
+    { path: 'products/productattributes', component: ProductattributesComponent },
 ];

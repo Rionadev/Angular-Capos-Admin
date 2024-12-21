@@ -7,7 +7,8 @@
                         style="display: flex; justify-content: space-between; align-items: center;">
                         <p class="category">A list of all of your products. <a href="#">Need help?</a></p>
                         <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">
-                            <i class="pe-7s-next-2" style="font-size: 2rem;"></i>Add Product</button>
+                            <!-- <i class="pe-7s-next-2" style="font-size: 2rem;"></i> -->
+                            Add Product</button>
                     </div>
                 </div>
 
@@ -123,12 +124,12 @@
 
                 <div class="card margin-bottom-0">
                     <div class="content add-content">
-                        <div class="row">
-                            <div class="col-md-4">
+                        <div class="row" style="align-items: center;">
+                            <div class="col-md-2">
                                 <input type="text" class="form-control" placeholder="Search for products"
                                     [(ngModel)]="searchQuery" (input)="filterRows()" />
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <select class="form-control" [(ngModel)]="selectedType" (change)="filterRows()">
                                     <option value="">Select Product Type</option>
                                     <option value="Type A">Type A</option>
@@ -136,7 +137,7 @@
                                     <option value="Type C">Type C</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <select class="form-control" [(ngModel)]="selectedBrand" (change)="filterRows()">
                                     <option value="">Select Brand</option>
                                     <option value="Brand X">Brand X</option>
@@ -144,9 +145,9 @@
                                     <option value="Brand Z">Brand Z</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
+                            <!-- </div> -->
+                            <!-- <div class="row"> -->
+                            <div class="col-md-2">
                                 <select class="form-control" [(ngModel)]="selectedSupplier" (change)="filterRows()">
                                     <option value="">Select Supplier</option>
                                     <option value="Supplier 1">Supplier 1</option>
@@ -154,14 +155,14 @@
                                     <option value="Supplier 3">Supplier 3</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <select class="form-control" [(ngModel)]="selectedStatus" (change)="filterRows()">
                                     <option value="">Select Status</option>
                                     <option value="Active">Active</option>
                                     <option value="Inactive">Inactive</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2" style="gap: 1rem;">
                                 <button class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">Clear
                                     Filters</button>
                                 <button class="btn btn-sm btn-info btn-fill" (click)="filterRows()">Search</button>

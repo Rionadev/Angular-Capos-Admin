@@ -17,8 +17,17 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { EmployeesComponent } from '../../employees/employees.component';
-import { BillingComponent } from '../../billing/billing.component';
-import { OutletsComponent } from '../../outlets/outlets.component';
+import { BillingComponent } from 'app/setting/billing/billing.component';
+import { OutletsComponent } from 'app/setting/outlets/outlets.component';
+import { ProductsComponent } from 'app/products/products.component';
+import { PricebooksComponent } from 'app/pricebooks/pricebooks.component';
+import { ProducttypesComponent } from 'app/producttypes/producttypes.component';
+import { SupplliersComponent } from 'app/supplliers/supplliers.component';
+import { ProductattributesComponent } from 'app/productattributes/productattributes.component';
+import { ProducttagsComponent } from 'app/producttags/producttags.component';
+import { ToggleSwitchComponent } from 'app/component/toggle-switch/toggle-switch.component';
+import { ProductEditModalComponent } from 'app/product-edit-modal/product-edit-modal.component';
+import { PreferencesComponent } from 'app/setting/preferences/preferences.component';
 
 @NgModule({
   imports: [
@@ -40,6 +49,18 @@ import { OutletsComponent } from '../../outlets/outlets.component';
     EmployeesComponent,
     BillingComponent,
     OutletsComponent,
+    
+    PreferencesComponent,
+
+    ToggleSwitchComponent,
+    ProductEditModalComponent,
+
+    ProductsComponent,
+    PricebooksComponent,
+    ProducttypesComponent,
+    SupplliersComponent,
+    ProducttagsComponent,
+    ProductattributesComponent,
   ]
 })
 
