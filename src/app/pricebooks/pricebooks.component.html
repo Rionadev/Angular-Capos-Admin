@@ -1,1 +1,174 @@
-<p>pricebooks works!</p>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card margin-bottom-10">
+                    <div class="content add-content"
+                        style="display: flex; justify-content: space-between; align-items: center;">
+                        <p class="category">A list of all of your price books. <a href="#">Need help?</a></p>
+                        <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">
+                            <!-- <i class="pe-7s-next-2" style="font-size: 2rem;"></i> -->
+                            Add Price Book</button>
+                    </div>
+                </div>
+
+                <div class="card margin-bottom-10" *ngIf="isContentVisible">
+                    <div class="header">
+                        <h4 class="title">Add New Price Book</h4>
+                    </div>
+                    <div class="content">
+                        <form (ngSubmit)="saveRow(currentRow)">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Product Name:</label>
+                                        <input type="text" class="form-control" placeholder="Name"
+                                            [(ngModel)]="currentRow.name" name="name" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Customer Group:</label>
+                                        <input type="text" class="form-control" placeholder="Customer Group"
+                                            [(ngModel)]="currentRow.customerGroup" name="customerGroup" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Outlet:</label>
+                                        <input type="text" class="form-control" placeholder="Outlet"
+                                            [(ngModel)]="currentRow.outlet" name="outlet" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Valid From:</label>
+                                        <input type="date" class="form-control" [(ngModel)]="currentRow.validFrom"
+                                            name="validFrom" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Valid To:</label>
+                                        <input type="date" class="form-control" [(ngModel)]="currentRow.validTo"
+                                            name="validTo" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Price Book File URL:</label>
+                                        <input type="text" class="form-control" placeholder="Price Book File URL"
+                                            [(ngModel)]="currentRow.priceBookFile_url" name="priceBookFile_url"
+                                            required />
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ?
+                                'Update' : 'Add' }}</button>
+                            <button class="btn btn-sm btn-danger btn-fill pull-right" (click)="cancelEdit(currentRow)"
+                                *ngIf="currentRow.id">Cancel</button>
+                            <div class="clearfix"></div>
+                        </form>
+                        <div>
+                            You can upload your price book using a CSV.
+                            Download a template file to get started.
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card margin-bottom-0">
+                    <div class="content add-content">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchQuery"
+                                    (input)="filterRows()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Customer Group</th>
+                                    <th>Outlet</th>
+                                    <th>Valid From</th>
+                                    <th>Valid To</th>
+                                    <th>Price Book File URL</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of paginatedRows">
+                                    <td *ngIf="!row.isEditing">{{ row.name }}</td>
+                                    <td *ngIf="row.isEditing">
+                                        <input [(ngModel)]="row.name" class="form-control" />
+                                    </td>
+
+                                    <td *ngIf="!row.isEditing">{{ row.customerGroup }}</td>
+                                    <td *ngIf="row.isEditing">
+                                        <input [(ngModel)]="row.customerGroup" class="form-control" />
+                                    </td>
+
+                                    <td *ngIf="!row.isEditing">{{ row.outlet }}</td>
+                                    <td *ngIf="row.isEditing">
+                                        <input [(ngModel)]="row.outlet" class="form-control" />
+                                    </td>
+
+                                    <td *ngIf="!row.isEditing">{{ row.validFrom | date }}</td>
+                                    <td *ngIf="row.isEditing">
+                                        <input type="date" [(ngModel)]="row.validFrom" class="form-control" />
+                                    </td>
+
+                                    <td *ngIf="!row.isEditing">{{ row.validTo | date }}</td>
+                                    <td *ngIf="row.isEditing">
+                                        <input type="date" [(ngModel)]="row.validTo" class="form-control" />
+                                    </td>
+
+                                    <td *ngIf="!row.isEditing">{{ row.priceBookFile_url }}</td>
+                                    <td *ngIf="row.isEditing">
+                                        <input [(ngModel)]="row.priceBookFile_url" class="form-control" />
+                                    </td>
+
+                                    <td>
+                                        <button *ngIf="!(row.isEditing)" class="btn btn-info btn-simple btn-xs"
+                                            (click)="editRow(row)">
+                                            <i class="fa fa-edit" style="font-size: 1.7rem;"></i>
+                                        </button>
+                                        <button *ngIf="!(row.isEditing)" class="btn btn-danger btn-simple btn-xs"
+                                            (click)="deleteRow(row.id)">
+                                            <i class="fa fa-times" style="font-size: 1.7rem;"></i>
+                                        </button>
+                                        <button *ngIf="row.isEditing" class="btn btn-info btn-simple btn-xs"
+                                            (click)="saveRow(row)">
+                                            <i class="pe-7s-diskette" style="font-size: 1.7rem;"></i>
+                                        </button>
+                                        <button *ngIf="row.isEditing" class="btn btn-danger btn-simple btn-xs"
+                                            (click)="cancelEdit(row)">
+                                            <i class="pe-7s-close" style="font-size: 1.7rem;"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="pagination">
+                            <button (click)="prevPage()" [disabled]="currentPage === 1">
+                                <i class="pe-7s-angle-left" style="font-size: 2rem"></i></button>
+                            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+                            <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+                                <i class="pe-7s-angle-right" style="font-size: 2rem"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
