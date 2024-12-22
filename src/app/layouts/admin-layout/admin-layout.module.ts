@@ -30,6 +30,8 @@ import { ProductEditModalComponent } from 'app/product-edit-modal/product-edit-m
 import { PreferencesComponent } from 'app/setting/preferences/preferences.component';
 import { OpencloseComponent } from 'app/openclose/openclose.component';
 import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
+import { SalesComponent } from 'app/setting/sales/sales.component';
+import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
 
 @NgModule({
   imports: [
@@ -52,6 +54,7 @@ import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.co
     EmployeesComponent,
     BillingComponent,
     OutletsComponent,
+    SaleslegderComponent,
     
     PreferencesComponent,
     CarshmanagementComponent,

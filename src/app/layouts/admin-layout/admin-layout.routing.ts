@@ -26,11 +26,13 @@ import { ProducttagsComponent } from 'app/producttags/producttags.component';
 import { ProductattributesComponent } from 'app/productattributes/productattributes.component';
 import { OpencloseComponent } from 'app/openclose/openclose.component';
 import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
+import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
     { path: 'openclose', component: OpencloseComponent },
     { path: 'cashmanagement', component: CarshmanagementComponent },
+    { path: 'saleslegder', component: SaleslegderComponent },
     { path: 'user', component: UserComponent },
     { path: 'table', component: TablesComponent },
     { path: 'typography', component: TypographyComponent },
