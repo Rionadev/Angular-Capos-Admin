@@ -29,6 +29,7 @@ import { ToggleSwitchComponent } from 'app/component/toggle-switch/toggle-switch
 import { ProductEditModalComponent } from 'app/product-edit-modal/product-edit-modal.component';
 import { PreferencesComponent } from 'app/setting/preferences/preferences.component';
 import { OpencloseComponent } from 'app/openclose/openclose.component';
+import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ import { OpencloseComponent } from 'app/openclose/openclose.component';
     OutletsComponent,
     
     PreferencesComponent,
+    CarshmanagementComponent,
 
     ToggleSwitchComponent,
     ProductEditModalComponent,
