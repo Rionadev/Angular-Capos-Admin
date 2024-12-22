@@ -24,9 +24,11 @@ import { ProducttypesComponent } from 'app/producttypes/producttypes.component';
 import { SupplliersComponent } from 'app/supplliers/supplliers.component';
 import { ProducttagsComponent } from 'app/producttags/producttags.component';
 import { ProductattributesComponent } from 'app/productattributes/productattributes.component';
+import { OpencloseComponent } from 'app/openclose/openclose.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: HomeComponent },
+    { path: 'openclose',      component: OpencloseComponent },
     { path: 'user',           component: UserComponent },
     { path: 'table',          component: TablesComponent },
     { path: 'typography',     component: TypographyComponent },

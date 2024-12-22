@@ -28,6 +28,7 @@ import { ProducttagsComponent } from 'app/producttags/producttags.component';
 import { ToggleSwitchComponent } from 'app/component/toggle-switch/toggle-switch.component';
 import { ProductEditModalComponent } from 'app/product-edit-modal/product-edit-modal.component';
 import { PreferencesComponent } from 'app/setting/preferences/preferences.component';
+import { OpencloseComponent } from 'app/openclose/openclose.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { PreferencesComponent } from 'app/setting/preferences/preferences.compon
   ],
   declarations: [
     HomeComponent,
+    OpencloseComponent,
     UserComponent,
     TablesComponent,
     TypographyComponent,
