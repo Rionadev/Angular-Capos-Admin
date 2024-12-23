@@ -12,7 +12,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/openclose', title: 'Open / Close', icon: 'pe-7s-map', class: '' },
   { path: '/cashmanagement', title: 'Cash Management', icon: 'pe-7s-cash', class: '' },
   { path: '/saleslegder', title: 'Sales Legder', icon: 'pe-7s-shopbag', class: '' },
-  
+
   { path: '/user', title: 'User Profile', icon: 'pe-7s-user', class: '' },
   { path: '/table', title: 'Table List', icon: 'pe-7s-note2', class: '' },
   { path: '/typography', title: 'Typography', icon: 'pe-7s-news-paper', class: '' },
@@ -34,6 +34,15 @@ export const SETTINGROUTES: RouteInfo[] = [
   { path: '/setting/storemanagement', title: 'Store Management', icon: 'pe-7s-shopbag', class: '' },
   { path: '/setting/storepolicy', title: 'Store Policy', icon: 'pe-7s-paperclip', class: '' },
   { path: '/setting/preferences', title: 'Preferences', icon: 'pe-7s-tools', class: '' },
+];
+
+export const REPOTINGROUTES: RouteInfo[] = [
+  { path: '/reporting/salesreport', title: 'Sales Reports', icon: '', class: '' },
+  { path: '/reporting/inventoryreports', title: 'Inventory Reports', icon: '', class: '' },
+  { path: '/reporting/paymentreports', title: 'Payment Reports', icon: '', class: '' },
+  { path: '/reporting/registerclosures', title: 'Register Cloures', icon: '', class: '' },
+  { path: '/reporting/storecreditreports', title: 'Store Credit Reports', icon: '', class: '' },
+  { path: '/reporting/taxesreports', title: 'Taxes Reports', icon: '', class: '' },
 ];
 
 export const ECOMMERCEROUTES: RouteInfo[] = [
@@ -68,6 +77,8 @@ export class SidebarComponent implements OnInit {
   isProductsContentVisible: boolean = false; // Initially hidden for add or editing.
   ecommerceMenuItems: any[];
   isEcommerceContentVisible: boolean = false; // Initially hidden for add or editing.
+  reportingContentItems: any[];
+  isReportingContentVisible: boolean = false;
   constructor() { }
 
   ngOnInit() {
@@ -75,6 +86,7 @@ export class SidebarComponent implements OnInit {
     this.settingMenuItems = SETTINGROUTES.filter(menuItem => menuItem);
     this.productsgMenuItems = PRODUCTSROUTES.filter(menuItem => menuItem);
     this.ecommerceMenuItems = ECOMMERCEROUTES.filter(menuItem => menuItem);
+    this.reportingContentItems = REPOTINGROUTES.filter(menuItems => menuItems);
   }
 
   settingContent(): void {
@@ -86,7 +98,9 @@ export class SidebarComponent implements OnInit {
   ecommerceContent(): void {
     this.isEcommerceContentVisible = !this.isEcommerceContentVisible; // Toggle the visibility
   }
-
+  reportingContent(): void {
+    this.isReportingContentVisible = !this.isReportingContentVisible; // Toggle the visibility
+  }
   isMobileMenu() {
     if ($(window).width() > 991) {
       return false;

@@ -32,6 +32,7 @@ import { OpencloseComponent } from 'app/openclose/openclose.component';
 import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
 import { SalesComponent } from 'app/setting/sales/sales.component';
 import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
+import { SalesreportsComponent } from 'app/reporting/salesreports/salesreports.component';
 
 @NgModule({
   imports: [
@@ -56,6 +57,7 @@ import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
     OutletsComponent,
     SaleslegderComponent,
     
+    SalesreportsComponent,
     PreferencesComponent,
     CarshmanagementComponent,
 

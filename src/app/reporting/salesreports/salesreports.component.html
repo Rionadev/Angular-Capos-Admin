@@ -1,0 +1,56 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Search Bar -->
+                <div class="card margin-bottom-10">
+                    <div class="content add-content" style="display: flex; align-items: center; width: 100%;">
+                        <div style="flex-grow: 1; display: flex; justify-content: space-between;">
+                            <div class="col-md-9 flex">
+                                <label>Period of Created At:</label>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <input type="date" [(ngModel)]="startDate" class="form-control" name="startDate" />
+                                    <input style="margin-left: 2rem;"  type="date" [(ngModel)]="endDate" class="form-control" name="endDate" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 d-flex flex align-items-center" style="align-content: center;    text-align-last: center;">
+                                <button class="btn btn-sm btn-info btn-fill" (click)="searchTransactions()">Search</button>
+                                <button style="margin-left: 2rem;" class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">Clear Filters</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transactions Table -->
+                <div class="card">
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Total (Incl. Tax)</th>
+                                    <th>Revenue</th>
+                                    <th>Cost of Goods</th>
+                                    <th>Gross Profit</th>
+                                    <th>Margin (%)</th>
+                                    <th>Tax</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let transaction of filteredTransactions">
+                                    <td>{{ transaction.date }}</td>
+                                    <td>{{ transaction.totalInclTax | currency }}</td>
+                                    <td>{{ transaction.revenue | currency }}</td>
+                                    <td>{{ transaction.costOfGoods | currency }}</td>
+                                    <td>{{ transaction.grossProfit | currency }}</td>
+                                    <td>{{ transaction.margin | number:'1.0-2' }}%</td>
+                                    <td>{{ transaction.tax | currency }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

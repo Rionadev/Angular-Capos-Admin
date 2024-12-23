@@ -27,6 +27,7 @@ import { ProductattributesComponent } from 'app/productattributes/productattribu
 import { OpencloseComponent } from 'app/openclose/openclose.component';
 import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
 import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
+import { SalesreportsComponent } from 'app/reporting/salesreports/salesreports.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -41,6 +42,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications', component: NotificationsComponent },
     { path: 'upgrade', component: UpgradeComponent },
     { path: 'employees', component: EmployeesComponent },
+
+    { path: 'reporting/salesreport', component: SalesreportsComponent},
+
     { path: 'setting/billing', component: BillingComponent },
     { path: 'setting/outlets', component: OutletsComponent },
     { path: 'setting/payment', component: PaymentComponent },
