@@ -35,6 +35,7 @@ import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
 import { SalesreportsComponent } from 'app/reporting/salesreports/salesreports.component';
 import { InventoryreportsComponent } from 'app/reporting/inventoryreports/inventoryreports.component';
 import { PaymentreportsComponent } from 'app/reporting/paymentreports/paymentreports.component';
+import { RegisterclosuresComponent } from 'app/reporting/registerclosures/registerclosures.component';
 
 @NgModule({
   imports: [
@@ -64,6 +65,7 @@ import { PaymentreportsComponent } from 'app/reporting/paymentreports/paymentrep
     CarshmanagementComponent,
     InventoryreportsComponent,
     PaymentreportsComponent,
+    RegisterclosuresComponent,
 
     ToggleSwitchComponent,
     ProductEditModalComponent,
