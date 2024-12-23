@@ -221,10 +221,11 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  differentAddress: boolean = false; // To track if postal address is different
   selectedCustomer: string = '';
   selectedGroup: string = '';
   selectedCountry: string = 'All Countries';
+  isContentVisible: boolean = false;
 
   customerSearch: string = ''; // Ensure this property is defined
   newCustomer: Transaction = {
@@ -250,6 +251,9 @@ export class CustomersComponent implements OnInit {
 
   filteredTransactions: Transaction[] = [...this.transactions];
 
+  addcustomer() {
+    this.isContentVisible = !this.isContentVisible;
+  }
   searchTransactions() {
     this.filteredTransactions = this.transactions.filter(transaction => {
       return (
@@ -268,7 +272,7 @@ export class CustomersComponent implements OnInit {
     this.filteredTransactions = [...this.transactions];
   }
 
-  addCustomer() {
+  saveCustomer() {
     if (this.newCustomer.name && this.newCustomer.email) {
       this.transactions.push({ ...this.newCustomer });
       this.filteredTransactions = [...this.transactions]; // Update filtered transactions
