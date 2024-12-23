@@ -1,1 +1,246 @@
-<p>products works!</p>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card margin-bottom-10">
+                    <div class="content add-content">
+                        <p class="category">Add, view and edit your products all in one place. Need help ?</p>
+                        <div>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleImportContent()">Import</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleProductContent()">Add Product</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card margin-bottom-10" *ngIf="isImportContentVisible">
+                    <div class="header">
+                        <h4 class="title">Import Products</h4>
+                    </div>
+                    <div class="content">               
+                        <div class="add-content">
+                            <p class="category">Create a spreadsheet file. We will check your data for common errors before uploading it. Need help ?</p>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleImprotContent()">Back to Products</button>
+                        </div>
+                        <div class="text-center margin-top-10 margin-bottom-10">
+                            <i class="pe-7s-cloud-upload" style="font-size: 36px;"></i>
+                            <p class="category">Upload a spreadsheet to import products.</p>
+                        </div>
+                        <div class="item-center">
+                            <div class="file-upload-container">
+                                <label for="fileInput" class="custom-file-upload">
+                                    Upload CSV file
+                                </label>
+                                <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
+                                <input type="file" id="fileInput" class="hidden" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="card margin-bottom-10" *ngIf="isProductContentVisible">
+                    <div class="header">
+                        <h4 class="title">Add New Collection</h4>
+                    </div>
+                    <div class="content">                        
+                        <form (ngSubmit)="saveRow()">
+                            <div class="add-content">
+                                <p class="category">Add, view and edit collection all in one place. Need help?</p>
+                                <div>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Cancel</button>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="category">Collection Details</div>
+                            <div class="row item-center">
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
+                                        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                                    </select>
+                                    <!-- <a class="dropdown-toggle" data-toggle="dropdown">
+                                        Root<b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Root</a></li>
+                                    </ul> -->
+                                    <!-- <input type="text" class="form-control" placeholder="Email" id="email" [(ngModel)]="currentRow.email" name="email" required /> -->
+                                </div>
+                                <div class="col-md-2 flex-item">
+                                    <app-toggle-switch></app-toggle-switch>
+                                    Active
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="file" class="form-control" id="file" name="file">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="category">Linked Products(0)</div>
+                            <div class="row item-center">
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" placeholder="Search" id="search" name="search" />
+                                </div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3"></div>
+                            </div>
+                            <div class="content padding-top-bottom-0">
+                                <div class="sub-table table-responsive table-full-width">
+                                    <table class="table table-hover table-striped">
+                                          <thead>
+                                              <tr>
+                                                  <!-- <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th> -->
+                                                  <th>Parent</th>
+                                                  <th>Name</th>
+                                                  <th>SubCollections</th>
+                                                  <th>Products</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr *ngFor="let row of rows">
+                                                  <!-- <td *ngFor="let cell of row">{{cell}}</td> -->
+                                                  <td>{{ row.parent }}</td>
+                                                  <td>{{ row.name }}</td>
+                                                  <td>{{ row.subcollections }}</td>
+                                                  <td>{{ row.products }}</td>
+                                              </tr>
+                                          </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="category">Sub Collections(0)</div>
+                            <div class="row item-center">
+                                <div class="col-md-3">
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Add Sub Collection</button>
+                                </div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3"></div>
+                            </div>
+                            <div class="content padding-top-bottom-0">
+                                <div class="sub-table table-responsive table-full-width">
+                                    <table class="table table-hover table-striped">
+                                          <thead>
+                                              <tr>
+                                                  <!-- <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th> -->
+                                                  <th>Parent</th>
+                                                  <th>Name</th>
+                                                  <th>SubCollections</th>
+                                                  <th>Products</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr *ngFor="let row of rows">
+                                                  <!-- <td *ngFor="let cell of row">{{cell}}</td> -->
+                                                  <td>{{ row.parent }}</td>
+                                                  <td>{{ row.name }}</td>
+                                                  <td>{{ row.subcollections }}</td>
+                                                  <td>{{ row.products }}</td>
+                                              </tr>
+                                          </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Name:</label>
+                                        <input type="text" class="form-control" placeholder="Name" id="name" [(ngModel)]="currentRow.name" name="name" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Email:</label>
+                                        <input type="text" class="form-control" placeholder="Email" id="email" [(ngModel)]="currentRow.email" name="email" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Phone:</label>
+                                        <input type="email" class="form-control" placeholder="Phone" id="phone" [(ngModel)]="currentRow.phone" name="phone" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ? 'Update' : 'Add' }}</button>
+                            <button class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()" *ngIf="currentRow.id">Cancel</button> -->
+                            
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="content table-responsive table-full-width">
+                          <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <!-- <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th> -->
+                                        <th>Detail</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Barcode</th>
+                                        <th>Retail Price</th>
+                                        <th>Inventory</th>
+                                        <th>Active</th>
+                                        <th>Touch</th>
+                                        <th>Created</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let row of rows">
+                                        <tr>
+                                            <td>
+                                                <button class="btn btn-sm" (click)="toggleDetails(row.id)">
+                                                    <span *ngIf="selectedItemId  === row.id" class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                                                    <span *ngIf="selectedItemId  !== row.id" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <!-- <td *ngFor="let cell of row">{{cell}}</td> -->
+                                            <td>{{ row.name }}</td>
+                                            <td>{{ row.category }}</td>
+                                            <td>{{ row.barcode }}</td>
+                                            <td>{{ row.retailprice }}</td>
+                                            <td>{{ row.inventory }}</td>
+                                            <td><app-toggle-switch [(checked)]="row.active"></app-toggle-switch></td>
+                                            <td><app-toggle-switch [(checked)]="row.touch"></app-toggle-switch></td>
+                                            <td>{{ row.created }}</td>
+                                            <td>
+                                                <button class="btn btn-sm" (click)="editRow(row)">
+                                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                                </button>
+                                                <button class="btn btn-sm" (click)="deleteRow(row.id)">
+                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <!-- Detail Row -->
+                                        <tr *ngIf="selectedItemId === row.id">
+                                            <td colspan="10">
+                                                <div class="content margin-bottom-3">
+                                                    <p class="description"><strong>Details for {{ row.name }}</strong></p>
+                                                    <p class="description">ID: {{ row.id }}</p>
+                                                    <p class="description">Barcode: {{ row.barcode }}</p>
+                                                    <p class="description">Category: {{ row.category }}</p>
+                                                    <!-- 
+                                                    <button
+                                                        class="btn btn-sm float-right"
+                                                        (click)="toggleDetails(null)">
+                                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                    </button> -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                          </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
