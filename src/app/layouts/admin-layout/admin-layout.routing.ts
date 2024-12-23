@@ -31,6 +31,7 @@ import { SalesreportsComponent } from 'app/reporting/salesreports/salesreports.c
 import { InventoryreportsComponent } from 'app/reporting/inventoryreports/inventoryreports.component';
 import { PaymentreportsComponent } from 'app/reporting/paymentreports/paymentreports.component';
 import { RegisterclosuresComponent } from 'app/reporting/registerclosures/registerclosures.component';
+import { StorecreditreportsComponent } from 'app/reporting/storecreditreports/storecreditreports.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -50,8 +51,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'reporting/inventoryreports', component: InventoryreportsComponent},
     { path: 'reporting/paymentreports', component: PaymentreportsComponent},
     { path: 'reporting/registerclosures', component: RegisterclosuresComponent},
-    
-
+    { path: 'reporting/storecreditreports', component: StorecreditreportsComponent},
+   
 
     { path: 'setting/billing', component: BillingComponent },
     { path: 'setting/outlets', component: OutletsComponent },

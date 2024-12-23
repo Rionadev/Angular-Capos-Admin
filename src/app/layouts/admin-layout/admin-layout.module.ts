@@ -36,6 +36,7 @@ import { SalesreportsComponent } from 'app/reporting/salesreports/salesreports.c
 import { InventoryreportsComponent } from 'app/reporting/inventoryreports/inventoryreports.component';
 import { PaymentreportsComponent } from 'app/reporting/paymentreports/paymentreports.component';
 import { RegisterclosuresComponent } from 'app/reporting/registerclosures/registerclosures.component';
+import { StorecreditreportsComponent } from 'app/reporting/storecreditreports/storecreditreports.component';
 
 @NgModule({
   imports: [
@@ -66,6 +67,7 @@ import { RegisterclosuresComponent } from 'app/reporting/registerclosures/regist
     InventoryreportsComponent,
     PaymentreportsComponent,
     RegisterclosuresComponent,
+    StorecreditreportsComponent,
 
     ToggleSwitchComponent,
     ProductEditModalComponent,
