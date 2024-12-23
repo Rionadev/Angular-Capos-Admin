@@ -48,6 +48,7 @@ import { PreferencesComponent } from '../../setting/preferences/preferences.comp
 
 // Ecommerce
 import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.component';
+import { CollectionsComponent } from '../../ecommerce/collections/collections.component';
 
 @NgModule({
   imports: [
@@ -100,6 +101,7 @@ import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.componen
     
     // Ecommerce
     DashboardComponent,
+    CollectionsComponent,
   ]
 })
 
