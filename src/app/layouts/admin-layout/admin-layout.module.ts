@@ -17,14 +17,14 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { EmployeesComponent } from '../../employees/employees.component';
-import { ProductsComponent } from 'app/products/products.component';
 import { PricebooksComponent } from 'app/pricebooks/pricebooks.component';
-import { ProducttypesComponent } from 'app/producttypes/producttypes.component';
-import { SupplliersComponent } from 'app/supplliers/supplliers.component';
-import { ProductattributesComponent } from 'app/productattributes/productattributes.component';
-import { ProducttagsComponent } from 'app/producttags/producttags.component';
+import { ProductsComponent } from 'app/Old_product/products/products.component';
+import { ProductEditModalComponent } from 'app/Old_product/product-edit-modal/product-edit-modal.component';
+import { ProducttypesComponent } from 'app/Old_product/producttypes/producttypes.component';
+import { SupplliersComponent } from 'app/Old_product/supplliers/supplliers.component';
+import { ProductattributesComponent } from 'app/Old_product/productattributes/productattributes.component';
+import { ProducttagsComponent } from 'app/Old_product/producttags/producttags.component';
 import { ToggleSwitchComponent } from 'app/component/toggle-switch/toggle-switch.component';
-import { ProductEditModalComponent } from 'app/product-edit-modal/product-edit-modal.component';
 import { OpencloseComponent } from 'app/openclose/openclose.component';
 import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
 import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
@@ -49,6 +49,8 @@ import { PreferencesComponent } from '../../setting/preferences/preferences.comp
 // Ecommerce
 import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.component';
 import { CollectionsComponent } from '../../ecommerce/collections/collections.component';
+
+import { CustomersComponent } from 'app/customer_group/customers/customers.component';
 
 @NgModule({
   imports: [
@@ -89,6 +91,7 @@ import { CollectionsComponent } from '../../ecommerce/collections/collections.co
     StorecreditreportsComponent,
     TaxesreportsComponent,
 
+    CustomersComponent,
     ToggleSwitchComponent,
     ProductEditModalComponent,
 

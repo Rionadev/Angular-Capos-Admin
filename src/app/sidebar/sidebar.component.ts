@@ -54,6 +54,15 @@ export const ECOMMERCEROUTES: RouteInfo[] = [
   { path: '/ecommerce/pages', title: 'Pages', icon: 'pe-7s-shuffle', class: '' },
   { path: '/ecommerce/visit', title: 'Visit Online Store', icon: 'pe-7s-shopbag', class: '' },
 ];
+export const CUSTOMERROUTES: RouteInfo[] = [
+  { path: '/customers/customers', title: 'Customers', icon: '', class: '' },
+  { path: '/customers/groups', title: 'Groups', icon: '', class: '' },
+];
+export const STOCKCONTROLROUTES: RouteInfo[] = [
+  { path: '/stockcontrol/manageorders', title: 'Manage Orders', icon: '', class: '' },
+  { path: '/customers/receivestock', title: 'Recievie Stock', icon: '', class: '' },
+  { path: '/customers/returnstock', title: 'Return Stock', icon: '', class: '' },
+];
 
 export const PRODUCTSROUTES: RouteInfo[] = [
   { path: '/products/product', title: 'Products', icon: 'pe-7s-cart', class: '' },
@@ -79,6 +88,10 @@ export class SidebarComponent implements OnInit {
   isEcommerceContentVisible: boolean = false; // Initially hidden for add or editing.
   reportingContentItems: any[];
   isReportingContentVisible: boolean = false;
+  stockContentItems: any[];
+  isStockContentVisible: boolean = false;
+  customerContentItems: any[];
+  isCustomerContentVisible: boolean = false;
   constructor() { }
 
   ngOnInit() {
@@ -87,8 +100,15 @@ export class SidebarComponent implements OnInit {
     this.productsgMenuItems = PRODUCTSROUTES.filter(menuItem => menuItem);
     this.ecommerceMenuItems = ECOMMERCEROUTES.filter(menuItem => menuItem);
     this.reportingContentItems = REPOTINGROUTES.filter(menuItems => menuItems);
+    this.stockContentItems = STOCKCONTROLROUTES.filter(menuItems => menuItems);
+    this.customerContentItems = CUSTOMERROUTES.filter(menuItems => menuItems);
   }
-
+  stockContent(): void {
+    this.isStockContentVisible = !this.isStockContentVisible; // Toggle the visibility
+  }
+  customerContent(): void {
+    this.isCustomerContentVisible = !this.isCustomerContentVisible; // Toggle the visibility
+  }
   settingContent(): void {
     this.isSettingContentVisible = !this.isSettingContentVisible; // Toggle the visibility
   }

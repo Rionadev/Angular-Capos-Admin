@@ -18,12 +18,12 @@ import { StationComponent } from '../../setting/station/station.component';
 import { StoreComponent } from '../../setting/store/store.component';
 import { PolicyComponent } from '../../setting/policy/policy.component';
 import { PreferencesComponent } from '../../setting/preferences/preferences.component';
-import { ProductsComponent } from 'app/products/products.component';
+import { ProductsComponent } from 'app/Old_product/products/products.component';
 import { PricebooksComponent } from 'app/pricebooks/pricebooks.component';
-import { ProducttypesComponent } from 'app/producttypes/producttypes.component';
-import { SupplliersComponent } from 'app/supplliers/supplliers.component';
-import { ProducttagsComponent } from 'app/producttags/producttags.component';
-import { ProductattributesComponent } from 'app/productattributes/productattributes.component';
+import { ProducttypesComponent } from 'app/Old_product/producttypes/producttypes.component';
+import { SupplliersComponent } from 'app/Old_product/supplliers/supplliers.component';
+import { ProducttagsComponent } from 'app/Old_product/producttags/producttags.component';
+import { ProductattributesComponent } from 'app/Old_product/productattributes/productattributes.component';
 import { OpencloseComponent } from 'app/openclose/openclose.component';
 import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
 import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
@@ -33,8 +33,10 @@ import { PaymentreportsComponent } from 'app/reporting/paymentreports/paymentrep
 import { RegisterclosuresComponent } from 'app/reporting/registerclosures/registerclosures.component';
 import { StorecreditreportsComponent } from 'app/reporting/storecreditreports/storecreditreports.component';
 import { TaxesreportsComponent } from 'app/reporting/taxesreports/taxesreports.component';
+
 import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.component';
 import { CollectionsComponent } from '../../ecommerce/collections/collections.component';
+import { CustomersComponent } from 'app/customer_group/customers/customers.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -66,6 +68,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'setting/store', component: StoreComponent },
     { path: 'setting/policy', component: PolicyComponent },
     { path: 'setting/preferences', component: PreferencesComponent },
+
+    { path: 'customers/customers', component: CustomersComponent },
+    
 
     { path: 'products/product', component: ProductsComponent },
     { path: 'products/pricebooks', component: PricebooksComponent },
