@@ -33,6 +33,7 @@ import { PaymentreportsComponent } from 'app/reporting/paymentreports/paymentrep
 import { RegisterclosuresComponent } from 'app/reporting/registerclosures/registerclosures.component';
 import { StorecreditreportsComponent } from 'app/reporting/storecreditreports/storecreditreports.component';
 import { TaxesreportsComponent } from 'app/reporting/taxesreports/taxesreports.component';
+import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -71,4 +72,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'products/supplliers', component: SupplliersComponent },
     { path: 'products/producttags', component: ProducttagsComponent },
     { path: 'products/productattributes', component: ProductattributesComponent },
+
+    { path: 'ecommerce/dashboard', component: DashboardComponent },
 ];

@@ -17,8 +17,6 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { EmployeesComponent } from '../../employees/employees.component';
-import { BillingComponent } from 'app/setting/billing/billing.component';
-import { OutletsComponent } from 'app/setting/outlets/outlets.component';
 import { ProductsComponent } from 'app/products/products.component';
 import { PricebooksComponent } from 'app/pricebooks/pricebooks.component';
 import { ProducttypesComponent } from 'app/producttypes/producttypes.component';
@@ -27,10 +25,8 @@ import { ProductattributesComponent } from 'app/productattributes/productattribu
 import { ProducttagsComponent } from 'app/producttags/producttags.component';
 import { ToggleSwitchComponent } from 'app/component/toggle-switch/toggle-switch.component';
 import { ProductEditModalComponent } from 'app/product-edit-modal/product-edit-modal.component';
-import { PreferencesComponent } from 'app/setting/preferences/preferences.component';
 import { OpencloseComponent } from 'app/openclose/openclose.component';
 import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
-import { SalesComponent } from 'app/setting/sales/sales.component';
 import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
 import { SalesreportsComponent } from 'app/reporting/salesreports/salesreports.component';
 import { InventoryreportsComponent } from 'app/reporting/inventoryreports/inventoryreports.component';
@@ -38,6 +34,20 @@ import { PaymentreportsComponent } from 'app/reporting/paymentreports/paymentrep
 import { RegisterclosuresComponent } from 'app/reporting/registerclosures/registerclosures.component';
 import { StorecreditreportsComponent } from 'app/reporting/storecreditreports/storecreditreports.component';
 import { TaxesreportsComponent } from 'app/reporting/taxesreports/taxesreports.component';
+
+// Setting
+import { BillingComponent } from '../../setting/billing/billing.component';
+import { OutletsComponent } from '../../setting/outlets/outlets.component';
+import { PaymentComponent } from '../../setting/payment/payment.component';
+import { CustomerComponent } from '../../setting/customer/customer.component';
+import { SalesComponent } from '../../setting/sales/sales.component';
+import { StationComponent } from '../../setting/station/station.component';
+import { StoreComponent } from '../../setting/store/store.component';
+import { PolicyComponent } from '../../setting/policy/policy.component';
+import { PreferencesComponent } from '../../setting/preferences/preferences.component';
+
+// Ecommerce
+import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -58,12 +68,19 @@ import { TaxesreportsComponent } from 'app/reporting/taxesreports/taxesreports.c
     NotificationsComponent,
     UpgradeComponent,
     EmployeesComponent,
-    BillingComponent,
-    OutletsComponent,
     SaleslegderComponent,
     
-    SalesreportsComponent,
+    BillingComponent,
+    OutletsComponent,
     PreferencesComponent,
+    PaymentComponent,
+    CustomerComponent,
+    SalesComponent,
+    StationComponent,
+    StoreComponent,
+    PolicyComponent,
+
+    SalesreportsComponent,
     CarshmanagementComponent,
     InventoryreportsComponent,
     PaymentreportsComponent,
@@ -80,6 +97,9 @@ import { TaxesreportsComponent } from 'app/reporting/taxesreports/taxesreports.c
     SupplliersComponent,
     ProducttagsComponent,
     ProductattributesComponent,
+    
+    // Ecommerce
+    DashboardComponent,
   ]
 })
 
