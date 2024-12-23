@@ -34,6 +34,7 @@ import { RegisterclosuresComponent } from 'app/reporting/registerclosures/regist
 import { StorecreditreportsComponent } from 'app/reporting/storecreditreports/storecreditreports.component';
 import { TaxesreportsComponent } from 'app/reporting/taxesreports/taxesreports.component';
 import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.component';
+import { CollectionsComponent } from '../../ecommerce/collections/collections.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -74,4 +75,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'products/productattributes', component: ProductattributesComponent },
 
     { path: 'ecommerce/dashboard', component: DashboardComponent },
+    { path: 'ecommerce/collections', component: CollectionsComponent },
 ];

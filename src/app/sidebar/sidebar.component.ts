@@ -46,7 +46,7 @@ export const REPOTINGROUTES: RouteInfo[] = [
 ];
 
 export const ECOMMERCEROUTES: RouteInfo[] = [
-  { path: '/ecommerce/dashboard', title: 'Ecommerce Dashboard', icon: 'pe-7s-credit', class: '' },
+  { path: '/ecommerce/dashboard', title: 'Dashboard', icon: 'pe-7s-credit', class: '' },
   { path: '/ecommerce/collections', title: 'Collections', icon: 'pe-7s-albums', class: '' },
   { path: '/ecommerce/products', title: 'Products', icon: 'pe-7s-calculator', class: '' },
   { path: '/ecommerce/orders', title: 'Orders', icon: 'pe-7s-note2', class: '' },
