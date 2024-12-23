@@ -59,7 +59,7 @@ import { CustomersComponent } from 'app/customer_group/customers/customers.compo
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     LbdModule,
-    NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE' })
+    NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyC-NyZbxHv2o8wQMF5lzNqH7pevCakZbuo' })
   ],
   declarations: [
     HomeComponent,
