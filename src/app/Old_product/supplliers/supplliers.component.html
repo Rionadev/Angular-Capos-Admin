@@ -1,0 +1,321 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card margin-bottom-10">
+                    <div class="content add-content"
+                        style="display: flex;justify-content: space-between;align-items: center;">
+                        <p class="category">A list of all of your supplier.
+                            <a href="#">Need help?</a>
+                        </p>
+                        <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">
+                            <!-- <i class="pe-7s-next-2" style="font-size: 2rem;"></i> -->
+                            Add Supplier</button>
+                    </div>
+                </div>
+
+                <div class="card margin-bottom-10" *ngIf="isContentVisible">
+                    <table class="table">
+                        <tr>
+                            <td class="col-sm-4">
+                                <div style="align-items: center;">
+                                    <div><b>Details</b></div>
+                                    <div>How your supplier is identified and described in Vend. You can also choose to
+                                        set
+                                        a default markup, making setting up products easier.</div>
+                                </div>
+                            </td>
+                            <td class="col-sm-6 ">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Supplier Name</label>
+                                            <input type="text" class="form-control" placeholder="Supplier Name"
+                                                value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Default Markup</label>
+                                            <input type="text" class="form-control" placeholder="Default Markup"
+                                                value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea rows="5" class="form-control"
+                                            placeholder="Here can be your description"></textarea>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-4">
+                                <div>
+                                    <div><b>Contact Info</b></div>
+                                    <div><span>The official name and contact details for your supplier.</span></div>
+                                </div>
+                            </td>
+                            <td class="col-sm-6">
+                                <div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input type="text" class="form-control" placeholder="First name" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input type="text" class="form-control" placeholder="Last name" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Company</label>
+                                            <input type="text" class="form-control" placeholder="Company" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="text" class="form-control" placeholder="Email" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Phone</label>
+                                            <input type="text" class="form-control" placeholder="Phone" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Mobile</label>
+                                            <input type="text" class="form-control" placeholder="Mobile" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Fax</label>
+                                            <input type="text" class="form-control" placeholder="Fax" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Website</label>
+                                            <input type="text" class="form-control" placeholder="Website" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Twitter</label>
+                                            <input type="text" class="form-control" placeholder="Twitter" value="">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-sm-4">
+                                <!-- <div> -->
+                                <div><b>Address</b></div>
+                                <div><span>Physical Address / Postal Address</span></div>
+                                <!-- </div> -->
+                            </td>
+                            <td class="col-sm-6">
+                                <div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Street</label>
+                                            <input type="text" class="form-control" placeholder="Street" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input type="text" class="form-control" placeholder="City" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Suburb</label>
+                                            <input type="text" class="form-control" placeholder="Suburb" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Postcode</label>
+                                            <input type="text" class="form-control" placeholder="Postcode" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <input type="text" class="form-control" placeholder="State" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Country</label>
+                                            <input type="text" class="form-control" placeholder="Country" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="checkbox" style="width: auto;">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label for="checkbox1">
+                                            Postal Address different from Physical Address
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-info btn-fill pull-right">save</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Street</label>
+                                            <input type="text" class="form-control" placeholder="Street" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input type="text" class="form-control" placeholder="City" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Suburb</label>
+                                            <input type="text" class="form-control" placeholder="Suburb" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Postcode</label>
+                                            <input type="text" class="form-control" placeholder="Postcode" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <input type="text" class="form-control" placeholder="State" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Country</label>
+                                            <input type="text" class="form-control" placeholder="Country" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <div class="card margin-bottom-0">
+                    <div class="content add-content">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchQuery"
+                                    (input)="filterRows()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Markup</th>
+                                    <th>Products</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of paginatedRows">
+                                    <td *ngIf="!row.isEditing">{{ row.name }}</td>
+                                    <td *ngIf="row.isEditing">
+                                        <input [(ngModel)]="row.name" class="form-control" />
+                                    </td>
+
+                                    <td *ngIf="!row.isEditing">{{ row.description }}</td>
+                                    <td *ngIf="row.isEditing">
+                                        <input [(ngModel)]="row.description" class="form-control" />
+                                    </td>
+
+                                    <td *ngIf="!row.isEditing">{{ row.markup }}%</td>
+                                    <td *ngIf="row.isEditing">
+                                        <input [(ngModel)]="row.markup" class="form-control" />
+                                    </td>
+
+                                    <td *ngIf="!row.isEditing">{{ row.product }}</td>
+                                    <td *ngIf="row.isEditing">
+                                        <input [(ngModel)]="row.product" class="form-control" />
+                                    </td>
+
+                                    <td>
+                                        <button *ngIf="!(row.isEditing)" class="btn btn-info btn-simple btn-xs"
+                                            (click)="editRow(row)">
+                                            <i class="fa fa-edit" style="font-size: 1.7rem;"></i>
+                                        </button>
+                                        <button *ngIf="!(row.isEditing)" class="btn btn-danger btn-simple btn-xs"
+                                            (click)="deleteRow(row.id)">
+                                            <i class="fa fa-times" style="font-size: 1.7rem;"></i>
+                                        </button>
+                                        <button *ngIf="row.isEditing" class="btn btn-info btn-simple btn-xs"
+                                            (click)="saveRow(row)">
+                                            <i class="pe-7s-diskette" style="font-size: 1.7rem;"></i>
+                                        </button>
+                                        <button *ngIf="row.isEditing" class="btn btn-danger btn-simple btn-xs"
+                                            (click)="cancelEdit(row)">
+                                            <i class="pe-7s-close" style="font-size: 1.7rem;"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="pagination">
+                            <button (click)="prevPage()" [disabled]="currentPage === 1">
+                                <i class="pe-7s-angle-left" style="font-size: 2rem"></i></button>
+                            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+                            <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+                                <i class="pe-7s-angle-right" style="font-size: 2rem"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+
+    </div>
+</div>

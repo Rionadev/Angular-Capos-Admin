@@ -1,0 +1,42 @@
+.cr-bg {
+    background-color: #e5eaed;
+}
+
+.card1 {
+    background-color: #e5eaed;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+.reg-item {
+    margin: 5px;
+}
+
+.table thead th {
+    border-top: 1px solid #000;
+    /* Top border for the header */
+    border-bottom: 1px solid #000;
+    /* Bottom border for the header */
+}
+
+.table tbody td {
+    border: none;
+    /* Remove borders from body cells */
+}
+
+.table {
+    border: none;
+    font-size: 1.5rem;
+}
+
+.total-border {
+    border-top: 1px solid #9b9b9b;
+    /* Top border for the header */
+}
+textarea{
+    background-color: #ffffff;
+}

@@ -1,58 +1,54 @@
-
 <div class="sidebar-wrapper">
     <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text">
-            <div class="logo-img">
-                <img src="/assets/img/angular2-logo-white.png"/>
-            </div>
-            Creative Tim
+        <a href="http://localhost:4200" class="simple-text">
+            <img class="logo-img" src="/assets/img/logo.png" />
         </a>
     </div>
     <ul class="nav responsive-nav">
         <li *ngIf="isMobileMenu()">
             <a class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-dashboard"></i>
-				<p class="hidden-lg hidden-md">Dashboard</p>
+                <p class="hidden-lg hidden-md">Dashboard</p>
             </a>
         </li>
         <li class="dropdown" *ngIf="isMobileMenu()">
-              <a class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-globe"></i>
-                    <b class="caret hidden-sm hidden-xs"></b>
-                    <span class="notification hidden-sm hidden-xs">5</span>
-					<p class="hidden-lg hidden-md">
-						5 Notifications
-						<b class="caret"></b>
-					</p>
-              </a>
-              <ul class="dropdown-menu">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-globe"></i>
+                <b class="caret hidden-sm hidden-xs"></b>
+                <span class="notification hidden-sm hidden-xs">5</span>
+                <p class="hidden-lg hidden-md">
+                    5 Notifications
+                    <b class="caret"></b>
+                </p>
+            </a>
+            <ul class="dropdown-menu">
                 <li><a href="#">Notification 1</a></li>
                 <li><a href="#">Notification 2</a></li>
                 <li><a href="#">Notification 3</a></li>
                 <li><a href="#">Notification 4</a></li>
                 <li><a href="#">Another notification</a></li>
-              </ul>
+            </ul>
         </li>
         <li *ngIf="isMobileMenu()">
-           <a>
+            <a>
                 <i class="fa fa-search"></i>
-				<p class="hidden-lg hidden-md">Search</p>
+                <p class="hidden-lg hidden-md">Search</p>
             </a>
         </li>
         <li *ngIf="isMobileMenu()">
-           <a href="">
-               <p>Account</p>
+            <a href="">
+                <p>Account</p>
             </a>
         </li>
         <li class="dropdown" *ngIf="isMobileMenu()">
-              <a class="dropdown-toggle" data-toggle="dropdown">
-                    <p>
-    					Dropdown
-    					<b class="caret"></b>
-    				</p>
+            <a class="dropdown-toggle" data-toggle="dropdown">
+                <p>
+                    Dropdown
+                    <b class="caret"></b>
+                </p>
 
-              </a>
-              <ul class="dropdown-menu">
+            </a>
+            <ul class="dropdown-menu">
                 <li><a href="#">Action</a></li>
                 <li><a href="#">Another action</a></li>
                 <li><a href="#">Something</a></li>
@@ -60,7 +56,7 @@
                 <li><a href="#">Something</a></li>
                 <li class="divider"></li>
                 <li><a href="#">Separated link</a></li>
-              </ul>
+            </ul>
         </li>
         <li *ngIf="isMobileMenu()">
             <a>
@@ -69,10 +65,103 @@
         </li>
         <li class="separator hidden-lg hidden-md" *ngIf="isMobileMenu()"></li>
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}">
-            <a  [routerLink]="[menuItem.path]">
+            <a *ngIf="menuItem.title != 'Setting'" [routerLink]="[menuItem.path]">
                 <i class="{{menuItem.icon}}"></i>
                 <p>{{menuItem.title}}</p>
             </a>
+            <!-- <a *ngIf="menuItem.title == 'Setting'" (click)="settingContent()" [routerLink]="[menuItem.path]">
+                <i class="{{menuItem.icon}}"></i>
+                <p>{{menuItem.title}}</p>
+            </a> -->
         </li>
+        <li>
+            <a (click)="reportingContent()">
+                <i class="pe-7s-note2"></i>
+                <p>Reporting</p>
+            </a>
+        </li>
+        <ng-container *ngIf="  isReportingContentVisible ">
+            <li routerLinkActive="active" *ngFor="let menuItem of reportingContentItems"
+                class="{{menuItem.class}} setting-content-board">
+                <a class="" [routerLink]="[menuItem.path]">
+                    <!-- <i class="{{menuItem.icon}}"></i> -->
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </li>
+        </ng-container>
+        <li>
+            <a (click)="stockContent()">
+                <i class="pe-7s-graph3"></i>
+                <p>Stock Control</p>
+            </a>
+        </li>
+        <ng-container *ngIf="  isStockContentVisible ">
+            <li routerLinkActive="active" *ngFor="let menuItem of stockContentItems"
+                class="{{menuItem.class}} setting-content-board">
+                <a class="" [routerLink]="[menuItem.path]">
+                    <!-- <i class="{{menuItem.icon}}"></i> -->
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </li>
+        </ng-container>
+        <li>
+            <a (click)="customerContent()">
+                <i class="pe-7s-user"></i>
+                <p>Customers</p>
+            </a>
+        </li>
+        <ng-container *ngIf="  isCustomerContentVisible ">
+            <li routerLinkActive="active" *ngFor="let menuItem of customerContentItems"
+                class="{{menuItem.class}} setting-content-board">
+                <a class="" [routerLink]="[menuItem.path]">
+                    <!-- <i class="{{menuItem.icon}}"></i> -->
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </li>
+        </ng-container>
+        <!-- <li>
+            <a (click)="productsContent()">
+                <i class="pe-7s-box1"></i>
+                <p>Products</p>
+            </a>
+        </li>
+        <ng-container *ngIf="isProductsContentVisible">
+            <li routerLinkActive="active" *ngFor="let menuItem of productsgMenuItems"
+                class="{{menuItem.class}} setting-content-board">
+                <a class="" [routerLink]="[menuItem.path]">
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </li>
+        </ng-container> -->
+        <li>
+            <a (click)="ecommerceContent()">
+                <i class="pe-7s-shopbag"></i>
+                <p>Ecommerce</p>
+            </a>
+        </li>
+        <ng-container *ngIf="isEcommerceContentVisible">
+            <li routerLinkActive="active" *ngFor="let menuItem of ecommerceMenuItems"
+                class="{{menuItem.class}} setting-content-board">
+                <a class="" [routerLink]="[menuItem.path]">
+                    <!-- <i class="{{menuItem.icon}}"></i> -->
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </li>
+        </ng-container>
+        <li>
+            <a (click)="settingContent()">
+                <i class="pe-7s-config"></i>
+                <p>Setting</p>
+            </a>
+        </li>
+        <ng-container *ngIf="isSettingContentVisible">
+            <li  routerLinkActive="active" *ngFor="let menuItem of settingMenuItems"
+                class="{{menuItem.class}} setting-content-board">
+                <a class="" [routerLink]="[menuItem.path]">
+                    <!-- <i class="{{menuItem.icon}}"></i> -->
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </li>
+        </ng-container>
     </ul>
 </div>

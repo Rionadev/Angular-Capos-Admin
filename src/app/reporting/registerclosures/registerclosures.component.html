@@ -1,0 +1,71 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Search Bar -->
+                <div class="card margin-bottom-10">
+                    <div class="content add-content" style="display: flex; align-items: center; width: 100%;">
+                        <div class="d-flex align-items-center" style="width: 100%;display: flex; justify-content: space-between;gap: 3rem;">
+                            <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;">
+                                <option *ngFor="let register of sel_reg" [value]="register">{{ register }}</option>
+                            </select>
+                            <button class="btn btn-sm btn-danger btn-fill mx-2" (click)="initFilters()">Clear Filters</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="searchRecords()">Search</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transactions Table -->
+                <div class="card">
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Register</th>
+                                    <th>Time Opened</th>
+                                    <th>Time Closed</th>
+                                    <th>Store Credit</th>
+                                    <th>Cash (Concealed Total)</th>
+                                    <th>Cash</th>
+                                    <th>Credit</th>
+                                    <th>Debit</th>
+                                    <th>Refunds</th>
+                                    <th>Voided</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let record of filteredRecords">
+                                    <td>{{ record.register }}</td>
+                                    <td>{{ record.timeOpened }}</td>
+                                    <td>{{ record.timeClosed }}</td>
+                                    <td>{{ record.storeCredit | currency }}</td>
+                                    <td>{{ record.cashConcealedTotal | currency }}</td>
+                                    <td>{{ record.cash | currency }}</td>
+                                    <td>{{ record.credit | currency }}</td>
+                                    <td>{{ record.debit | currency }}</td>
+                                    <td>{{ record.refunds | currency }}</td>
+                                    <td>{{ record.voided | currency }}</td>
+                                    <td>{{ record.total | currency }}</td>
+                                </tr>
+                                <tr style="font-weight: bold; background-color: #cbfff2;font-weight: bold;">
+                                    <td>Total</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{ getTotal('storeCredit') | currency }}</td>
+                                    <td>{{ getTotal('cashConcealedTotal') | currency }}</td>
+                                    <td>{{ getTotal('cash') | currency }}</td>
+                                    <td>{{ getTotal('credit') | currency }}</td>
+                                    <td>{{ getTotal('debit') | currency }}</td>
+                                    <td>{{ getTotal('refunds') | currency }}</td>
+                                    <td>{{ getTotal('voided') | currency }}</td>
+                                    <td>{{ getTotal('total') | currency }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

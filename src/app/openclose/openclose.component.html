@@ -1,0 +1,220 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card margin-bottom-10">
+                    <div class="content add-content cr-bg"
+                        style="display: flex;justify-content: space-between;align-items: center;">
+                        <p class="category">Help about Sell-close
+                        </p>
+                        <button class="btn btn-sm btn-success btn-fill" (click)="toggleContent()">
+                            <!-- <i class="pe-7s-next-2" style="font-size: 2rem;"></i> -->
+                            close Register</button>
+                    </div>
+                </div>
+
+                <div class="card margin-bottom-10" *ngIf="isContentVisible">
+                    <div class="header">
+                        <h4 class="title">Add a Product</h4>
+                        <p class="category">Here is a form for adding a product attribute</p>
+                    </div>
+                    <div class="content">
+                        <form (ngSubmit)="saveRow()">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Attribute Name:</label>
+                                        <input type="text" class="form-control" placeholder="Name"
+                                            [(ngModel)]="currentRow.name" name="name" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Description:</label>
+                                        <input type="text" class="form-control" placeholder="Description"
+                                            [(ngModel)]="currentRow.description" name="description" required />
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Product:</label>
+                                        <input type="text" class="form-control" placeholder="Product"
+                                            [(ngModel)]="currentRow.product" name="product" required />
+                                    </div>
+                                </div> -->
+                            </div>
+                            <button type="submit" (click)="openEditModal(row)"
+                                class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ? 'Update' : 'Add'
+                                }}</button>
+                            <button class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()"
+                                *ngIf="currentRow.id">Cancel</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card1 mb-3">
+                    <div class="col-md-3 reg-item">
+                        <h3><b>Register Details</b></h3>
+                    </div>
+                    <div class="col-md-9 ">
+                        <div class="row reg-item">
+                            <div class="col-md-4">
+                                <b>Outlet</b>
+                            </div>
+                            <div class="col-md-8">
+                                {{reg_outlet}}
+                            </div>
+                        </div>
+                        <div class="row reg-item">
+                            <div class="col-md-4">
+                                <b>Register</b>
+                            </div>
+                            <div class="col-md-8">
+                                {{reg_register}}
+                            </div>
+                        </div>
+                        <div class="row reg-item">
+                            <div class="col-md-4">
+                                <b>ID #</b>
+                            </div>
+                            <div class="col-md-8">
+                                {{reg_id}}
+                            </div>
+                        </div>
+                        <div class="row reg-item">
+                            <div class="col-md-4">
+                                <b>Opening Time</b>
+                            </div>
+                            <div class="col-md-8">
+                                {{reg_openingTime}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card1 mt-5">
+                    <div>
+
+                        <div>
+                            <div class="col-md-3">
+                                <h3><b>Payments Summary</b></h3>
+                                <span>
+                                    Balance your register by entering the amount counted from the till and other payment
+                                    terminals into the empty fields here.
+                                </span>
+                            </div>
+                            <div class="col-md-9">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th><b>Payment Types</b></th>
+                                            <th><b>Expected ($)</b></th>
+                                            <th><b>Counted ($)</b></th>
+                                            <th><b>Differences ($)</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Cash</td>
+                                            <td>178</td>
+                                            <td>0</td>
+                                            <td>178</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Credit Card</td>
+                                            <td>178</td>
+                                            <td>0</td>
+                                            <td>178</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Debit Card</td>
+                                            <td>178</td>
+                                            <td>0</td>
+                                            <td>178</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Store Credit</td>
+                                            <td>178</td>
+                                            <td>0</td>
+                                            <td>178</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Refunds</td>
+                                            <td>178</td>
+                                            <td>0</td>
+                                            <td>178</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Voided</td>
+                                            <td>178</td>
+                                            <td>0</td>
+                                            <td>178</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Penny</td>
+                                            <td>178</td>
+                                            <td>0</td>
+                                            <td>178</td>
+                                        </tr>
+                                        <tr class="total-border">
+                                            <td><strong>Total</strong></td>
+                                            <td><strong>163</strong></td>
+                                            <td><strong>0</strong></td>
+                                            <td><strong>-315</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="col-md-3 total-border">
+                                <h3><b>Category Summary</b></h3>
+                            </div>
+                            <div class="col-md-9">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th><b>category</b></th>
+                                            <th><b>Sale Qty</b></th>
+                                            <th><b>Sale Sum($)</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of salesData">
+                                            <td>{{ item.category }}</td>
+                                            <td>{{ item.saleQty }}</td>
+                                            <td>{{ item.saleSum }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <div class="col-md-3 total-border">
+                                <h3><b>Closing Summary</b></h3>
+                            </div>
+                            <div class="col-md-9">
+                                <div>
+                                    <b>Note</b>
+                                </div>
+                                <div>
+                                    <textarea rows="5" class="form-control"
+                                        placeholder="Type to add a register closure note..."></textarea>
+                                </div>
+                                <div style="display: flex;justify-content: center;margin: 1rem;">
+                                    <button class="btn btn-success btn-fill" (click)="toggleContent()">
+                                        Close Register
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

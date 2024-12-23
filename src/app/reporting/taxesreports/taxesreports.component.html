@@ -1,0 +1,57 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Search Bar -->
+              
+
+                <!-- Date Picker Selection -->
+                <div class="card margin-bottom-10">
+                    <div class="content" style="display: flex; align-items: center;">
+                        <select class="form-control" [(ngModel)]="selectedPeriod" (change)="updateDateRange()">
+                            <option value="today">Today</option>
+                            <option value="thisWeek">This Week</option>
+                            <option value="thisMonth">This Month</option>
+                            <option value="thisYear">This Year</option>
+                        </select>
+                        <label style="margin-right: 10px;">From:</label>
+                        <input class="form-control" type="date" [(ngModel)]="startDate" (change)="filterData()" />
+                        <label style="margin: 0 10px;">To:</label>
+                        <input class="form-control" type="date" [(ngModel)]="endDate" (change)="filterData()" />
+                        <button class="btn btn-primary" (click)="filterData()"
+                            style="margin-left: 10px;">Search</button>
+                        <button class="btn btn-success" (click)="clearFilters()" style="margin-left: 10px;">Clear
+                            Filter</button>
+                    </div>
+                </div>
+
+                <!-- Sales Table -->
+                <div class="card">
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Sale</th>
+                                    <th>Tax</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let record of filteredRecords">
+                                    <td>{{ record.category }}</td>
+                                    <td>{{ record.sale }}</td>
+                                    <td>{{ record.tax }}</td>
+                                </tr>
+                                <tr style="font-weight: bold; background-color: #f0f0f0;">
+                                    <td>Total</td>
+                                    <td>{{ getTotal('sale') }}</td>
+                                    <td>{{ getTotal('tax') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
