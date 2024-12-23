@@ -32,6 +32,7 @@ import { InventoryreportsComponent } from 'app/reporting/inventoryreports/invent
 import { PaymentreportsComponent } from 'app/reporting/paymentreports/paymentreports.component';
 import { RegisterclosuresComponent } from 'app/reporting/registerclosures/registerclosures.component';
 import { StorecreditreportsComponent } from 'app/reporting/storecreditreports/storecreditreports.component';
+import { TaxesreportsComponent } from 'app/reporting/taxesreports/taxesreports.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -52,8 +53,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'reporting/paymentreports', component: PaymentreportsComponent},
     { path: 'reporting/registerclosures', component: RegisterclosuresComponent},
     { path: 'reporting/storecreditreports', component: StorecreditreportsComponent},
+    { path: 'reporting/taxesreports', component: TaxesreportsComponent},
    
-
     { path: 'setting/billing', component: BillingComponent },
     { path: 'setting/outlets', component: OutletsComponent },
     { path: 'setting/payment', component: PaymentComponent },
