@@ -33,6 +33,7 @@ import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.co
 import { SalesComponent } from 'app/setting/sales/sales.component';
 import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
 import { SalesreportsComponent } from 'app/reporting/salesreports/salesreports.component';
+import { InventoryreportsComponent } from 'app/reporting/inventoryreports/inventoryreports.component';
 
 @NgModule({
   imports: [
@@ -60,6 +61,7 @@ import { SalesreportsComponent } from 'app/reporting/salesreports/salesreports.c
     SalesreportsComponent,
     PreferencesComponent,
     CarshmanagementComponent,
+    InventoryreportsComponent,
 
     ToggleSwitchComponent,
     ProductEditModalComponent,

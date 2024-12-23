@@ -1,0 +1,51 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Search Bar -->
+                <div class="card margin-bottom-10">
+                    <div class="content add-content" style="display: flex; justify-content: flex-end; width: 100%;">
+                        <button class="btn btn-sm btn-success btn-fill">
+                            Excel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="card">
+                    <div style="flex-grow: 1; margin: 2rem;">
+                        <label>Search:</label>
+                        <input type="text" [(ngModel)]="searchTerm" class="form-control"
+                            placeholder="Search for products or outlets" (keydown.enter)="searchProducts()" />
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Outlet</th>
+                                    <th>Current Stock</th>
+                                    <th>Item Value</th>
+                                    <th>Stock Value</th>
+                                    <th>Reorder Point</th>
+                                    <th>Reorder Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of filteredProducts">
+                                    <td>{{ item.product }}</td>
+                                    <td>{{ item.outlet }}</td>
+                                    <td>{{ item.currentStock }}</td>
+                                    <td>{{ item.itemValue | currency }}</td>
+                                    <td>{{ item.stockValue | currency }}</td>
+                                    <td>{{ item.reorderPoint }}</td>
+                                    <td>{{ item.reorderAmount }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

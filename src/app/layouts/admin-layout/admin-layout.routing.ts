@@ -28,6 +28,7 @@ import { OpencloseComponent } from 'app/openclose/openclose.component';
 import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
 import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
 import { SalesreportsComponent } from 'app/reporting/salesreports/salesreports.component';
+import { InventoryreportsComponent } from 'app/reporting/inventoryreports/inventoryreports.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -44,6 +45,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'employees', component: EmployeesComponent },
 
     { path: 'reporting/salesreport', component: SalesreportsComponent},
+    { path: 'reporting/inventoryreports', component: InventoryreportsComponent},
 
     { path: 'setting/billing', component: BillingComponent },
     { path: 'setting/outlets', component: OutletsComponent },
