@@ -7,7 +7,7 @@ export interface TableRow {
   name: string;
   subcollections: string;
   products: string;
-  active: string;
+  active: boolean;
 }
 
 @Component({
@@ -18,15 +18,16 @@ export interface TableRow {
 
 export class CollectionsComponent implements OnInit {
 
-
   rows: TableRow[] = [
-    { id: 1, parent: 'Parent A', name: 'John Doe', subcollections: 'Subcollection 1', products: 'Product 1', active: 'Yes' },
-    { id: 2, parent: 'Parent B', name: 'Jane Smith', subcollections: 'Subcollection 2', products: 'Product 2', active: 'No' },
+    { id: 1, parent: 'Parent A', name: 'John Doe', subcollections: 'Subcollection 1', products: 'Product 1', active: true },
+    { id: 2, parent: 'Parent B', name: 'Jane Smith', subcollections: 'Subcollection 2', products: 'Product 2', active: false },
   ];
 
   isContentVisible: boolean = false; // Initially hidden for add or editing.
   currentRow: TableRow = this.resetRow();
-
+  cities: string[] = ['London', 'New York', 'Paris', 'Tokyo'];
+  selectedCity: string = 'London'; // Default selected value
+  
   constructor() {}
 
   ngOnInit(): void {
@@ -71,7 +72,7 @@ export class CollectionsComponent implements OnInit {
   }
 
   private resetRow(): TableRow {
-    return { id: 0, parent: '', name: '', subcollections: '', products: '', active: '' };
+    return { id: 0, parent: '', name: '', subcollections: '', products: '', active: false };
   }
 
   private generateId(): number {
