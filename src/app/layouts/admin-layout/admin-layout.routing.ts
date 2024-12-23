@@ -36,6 +36,8 @@ import { TaxesreportsComponent } from 'app/reporting/taxesreports/taxesreports.c
 
 import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.component';
 import { CollectionsComponent } from '../../ecommerce/collections/collections.component';
+import { EcommerceProductsComponent } from '../../ecommerce/products/products.component';
+
 import { CustomersComponent } from 'app/customer_group/customers/customers.component';
 
 export const AdminLayoutRoutes: Routes = [
@@ -81,4 +83,5 @@ export const AdminLayoutRoutes: Routes = [
 
     { path: 'ecommerce/dashboard', component: DashboardComponent },
     { path: 'ecommerce/collections', component: CollectionsComponent },
+    { path: 'ecommerce/products', component: EcommerceProductsComponent },
 ];

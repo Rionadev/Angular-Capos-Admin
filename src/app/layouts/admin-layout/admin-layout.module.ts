@@ -49,6 +49,7 @@ import { PreferencesComponent } from '../../setting/preferences/preferences.comp
 // Ecommerce
 import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.component';
 import { CollectionsComponent } from '../../ecommerce/collections/collections.component';
+import { EcommerceProductsComponent } from '../../ecommerce/products/products.component';
 
 import { CustomersComponent } from 'app/customer_group/customers/customers.component';
 
@@ -105,6 +106,7 @@ import { CustomersComponent } from 'app/customer_group/customers/customers.compo
     // Ecommerce
     DashboardComponent,
     CollectionsComponent,
+    EcommerceProductsComponent,
   ]
 })
 
