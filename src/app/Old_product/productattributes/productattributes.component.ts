@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 // import $ = require('jquery');
 import * as $ from 'jquery';
-import { ProductEditModalComponent } from 'app/product-edit-modal/product-edit-modal.component';
+import { ProductEditModalComponent } from 'app/Old_product/product-edit-modal/product-edit-modal.component';
 
 interface Product {
   id: number;
