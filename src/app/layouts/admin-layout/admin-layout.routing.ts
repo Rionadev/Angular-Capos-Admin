@@ -29,6 +29,7 @@ import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.co
 import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
 import { SalesreportsComponent } from 'app/reporting/salesreports/salesreports.component';
 import { InventoryreportsComponent } from 'app/reporting/inventoryreports/inventoryreports.component';
+import { PaymentreportsComponent } from 'app/reporting/paymentreports/paymentreports.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -46,6 +47,8 @@ export const AdminLayoutRoutes: Routes = [
 
     { path: 'reporting/salesreport', component: SalesreportsComponent},
     { path: 'reporting/inventoryreports', component: InventoryreportsComponent},
+    { path: 'reporting/paymentreports', component: PaymentreportsComponent},
+
 
     { path: 'setting/billing', component: BillingComponent },
     { path: 'setting/outlets', component: OutletsComponent },
