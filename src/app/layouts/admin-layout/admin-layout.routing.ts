@@ -42,6 +42,10 @@ import { SettingsComponent } from '../../ecommerce/settings/settings.component';
 import { PagesComponent } from '../../ecommerce/pages/pages.component';
 
 import { CustomersComponent } from 'app/customer_group/customers/customers.component';
+import { GroupsComponent } from 'app/customer_group/groups/groups.component';
+import { ManageordersComponent } from 'app/stockcontrol/manageorders/manageorders.component';
+import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestock.component';
+import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -57,13 +61,13 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade', component: UpgradeComponent },
     { path: 'employees', component: EmployeesComponent },
 
-    { path: 'reporting/salesreport', component: SalesreportsComponent},
-    { path: 'reporting/inventoryreports', component: InventoryreportsComponent},
-    { path: 'reporting/paymentreports', component: PaymentreportsComponent},
-    { path: 'reporting/registerclosures', component: RegisterclosuresComponent},
-    { path: 'reporting/storecreditreports', component: StorecreditreportsComponent},
-    { path: 'reporting/taxesreports', component: TaxesreportsComponent},
-   
+    { path: 'reporting/salesreport', component: SalesreportsComponent },
+    { path: 'reporting/inventoryreports', component: InventoryreportsComponent },
+    { path: 'reporting/paymentreports', component: PaymentreportsComponent },
+    { path: 'reporting/registerclosures', component: RegisterclosuresComponent },
+    { path: 'reporting/storecreditreports', component: StorecreditreportsComponent },
+    { path: 'reporting/taxesreports', component: TaxesreportsComponent },
+
     { path: 'setting/billing', component: BillingComponent },
     { path: 'setting/outlets', component: OutletsComponent },
     { path: 'setting/payment', component: PaymentComponent },
@@ -75,6 +79,12 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'setting/preferences', component: PreferencesComponent },
 
     { path: 'customers/customers', component: CustomersComponent },
+    { path: 'customers/groups', component: GroupsComponent },
+
+    { path: 'stockcontrol/manageorders', component: ManageordersComponent },
+    { path: 'stockcontrol/receivestock', component: ReceivestockComponent },
+    { path: 'stockcontrol/returnstock', component: ReturnstockComponent },
+
 
     { path: 'products/product', component: ProductsComponent },
     { path: 'products/pricebooks', component: PricebooksComponent },
