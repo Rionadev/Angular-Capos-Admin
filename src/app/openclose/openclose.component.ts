@@ -12,6 +12,16 @@ interface Product {
   styleUrls: ['./openclose.component.scss']
 })
 export class OpencloseComponent implements OnInit {
+  payments = [
+    { type: 'Cash', expected: 178, counted: 0, difference: 0 },
+    { type: 'Credit Card', expected: 178, counted: 0, difference: 0 },
+    { type: 'Debit Card', expected: 178, counted: 0, difference: 0 },
+    { type: 'Store Credit', expected: 178, counted: 0, difference: 0 },
+    { type: 'Refunds', expected: 178, counted: 0, difference: 0 },
+    { type: 'Voided', expected: 178, counted: 0, difference: 0 },
+    { type: 'Penny', expected: 178, counted: 0, difference: 0 },
+  ];
+
   salesData = [
     { category: 'Test Product', saleQty: 0, saleSum: 0 },
     { category: 'Accessories', saleQty: 0, saleSum: 0 },
@@ -20,7 +30,7 @@ export class OpencloseComponent implements OnInit {
     { category: 'Cables', saleQty: 6, saleSum: 464.10 },
     { category: 'Belmont', saleQty: 0, saleSum: 0 },
     { category: 'Test W', saleQty: 0, saleSum: 0 }
-];
+  ];
   date_s = new Date();
   formtted_date = this.date_s.toISOString().slice(0, 19).replace('T', '');
 
@@ -49,11 +59,11 @@ export class OpencloseComponent implements OnInit {
       { id: 6, name: 'Product 6', description: 'Description 6', product: 'Product F' },
       // Add more products as needed
     ];
-    this.filterRows(); // Initialize pagination
   }
 
   toggleContent() {
-    this.isContentVisible = !this.isContentVisible;
+    // this.isContentVisible = !this.isContentVisible;
+
   }
 
   openEditModal(row: Product) {
@@ -82,39 +92,21 @@ export class OpencloseComponent implements OnInit {
     this.paginatedRows = this.paginatedRows.filter(row => row.id !== id);
   }
 
-  filterRows() {
-    const filtered = this.rows.filter(row =>
-      row.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-      row.description.toLowerCase().includes(this.searchQuery.toLowerCase())
-    );
-    this.currentPage = 1; // Reset to first page
-    this.paginate(filtered);
+  calculateDifferences() {
+    this.payments.forEach(payment => {
+      payment.difference = payment.expected - payment.counted;
+    });
   }
 
-  paginate(filteredRows: Product[]) {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    this.paginatedRows = filteredRows.slice(start, start + this.itemsPerPage);
+  totalExpected(): number {
+    return this.payments.reduce((total, payment) => total + payment.expected, 0);
   }
 
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePagination();
-    }
+  totalCounted(): number {
+    return this.payments.reduce((total, payment) => total + payment.counted, 0);
   }
 
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePagination();
-    }
-  }
-
-  get totalPages(): number {
-    return Math.ceil(this.rows.length / this.itemsPerPage);
-  }
-
-  updatePagination() {
-    this.filterRows(); // Reapply filtering to ensure correct pagination
+  totalDifference(): number {
+    return this.payments.reduce((total, payment) => total + payment.difference, 0);
   }
 }

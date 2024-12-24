@@ -13,7 +13,7 @@
                     </div>
                 </div>
 
-                <div class="card margin-bottom-10" *ngIf="isContentVisible">
+                <!-- <div class="card margin-bottom-10" *ngIf="isContentVisible">
                     <div class="header">
                         <h4 class="title">Add a Product</h4>
                         <p class="category">Here is a form for adding a product attribute</p>
@@ -35,13 +35,7 @@
                                             [(ngModel)]="currentRow.description" name="description" required />
                                     </div>
                                 </div>
-                                <!-- <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Product:</label>
-                                        <input type="text" class="form-control" placeholder="Product"
-                                            [(ngModel)]="currentRow.product" name="product" required />
-                                    </div>
-                                </div> -->
+                             
                             </div>
                             <button type="submit" (click)="openEditModal(row)"
                                 class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ? 'Update' : 'Add'
@@ -51,7 +45,7 @@
                             <div class="clearfix"></div>
                         </form>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="card1 mb-3">
                     <div class="col-md-3 reg-item">
@@ -116,53 +110,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Cash</td>
-                                            <td>178</td>
-                                            <td>0</td>
-                                            <td>178</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Credit Card</td>
-                                            <td>178</td>
-                                            <td>0</td>
-                                            <td>178</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Debit Card</td>
-                                            <td>178</td>
-                                            <td>0</td>
-                                            <td>178</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Store Credit</td>
-                                            <td>178</td>
-                                            <td>0</td>
-                                            <td>178</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Refunds</td>
-                                            <td>178</td>
-                                            <td>0</td>
-                                            <td>178</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Voided</td>
-                                            <td>178</td>
-                                            <td>0</td>
-                                            <td>178</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Penny</td>
-                                            <td>178</td>
-                                            <td>0</td>
-                                            <td>178</td>
+                                        <tr *ngFor="let payment of payments">
+                                            <td>{{ payment.type }}</td>
+                                            <td>{{ payment.expected }}</td>
+                                            <td>
+                                                <input type="number" [(ngModel)]="payment.counted"
+                                                    (input)="calculateDifferences()" />
+                                            </td>
+                                            <td>{{ payment.difference }}</td>
                                         </tr>
                                         <tr class="total-border">
                                             <td><strong>Total</strong></td>
-                                            <td><strong>163</strong></td>
-                                            <td><strong>0</strong></td>
-                                            <td><strong>-315</strong></td>
+                                            <td><strong>{{ totalExpected() }}</strong></td>
+                                            <td><strong>{{ totalCounted() }}</strong></td>
+                                            <td><strong>{{ totalDifference() }}</strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
