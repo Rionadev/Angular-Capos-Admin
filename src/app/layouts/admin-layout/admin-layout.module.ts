@@ -55,6 +55,10 @@ import { SettingsComponent } from '../../ecommerce/settings/settings.component';
 import { PagesComponent } from '../../ecommerce/pages/pages.component';
 
 import { CustomersComponent } from 'app/customer_group/customers/customers.component';
+import { GroupsComponent } from 'app/customer_group/groups/groups.component';
+import { ManageordersComponent } from 'app/stockcontrol/manageorders/manageorders.component';
+import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestock.component';
+import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
 
 @NgModule({
   imports: [
@@ -98,6 +102,12 @@ import { CustomersComponent } from 'app/customer_group/customers/customers.compo
     CustomersComponent,
     ToggleSwitchComponent,
     ProductEditModalComponent,
+
+    GroupsComponent,
+
+    ManageordersComponent,
+    ReceivestockComponent,
+    ReturnstockComponent,
 
     ProductsComponent,
     PricebooksComponent,

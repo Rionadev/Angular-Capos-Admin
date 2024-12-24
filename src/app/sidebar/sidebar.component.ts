@@ -60,8 +60,8 @@ export const CUSTOMERROUTES: RouteInfo[] = [
 ];
 export const STOCKCONTROLROUTES: RouteInfo[] = [
   { path: '/stockcontrol/manageorders', title: 'Manage Orders', icon: '', class: '' },
-  { path: '/customers/receivestock', title: 'Recievie Stock', icon: '', class: '' },
-  { path: '/customers/returnstock', title: 'Return Stock', icon: '', class: '' },
+  { path: '/stockcontrol/receivestock', title: 'Recievie Stock', icon: '', class: '' },
+  { path: '/stockcontrol/returnstock', title: 'Return Stock', icon: '', class: '' },
 ];
 
 export const PRODUCTSROUTES: RouteInfo[] = [

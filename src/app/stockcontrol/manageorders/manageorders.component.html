@@ -1,0 +1,125 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card margin-bottom-10">
+                    <div class="content add-content"
+                        style="display: flex; justify-content: space-between; align-items: center;">
+                        <p class="category">View and manage your consignments. <a href="#">Need help?</a></p>
+                        <div style="gap:1rem">
+                            <button class="btn btn-sm btn-info btn-fill">Order Stock</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Filters -->
+                <div class="card margin-bottom-10">
+                    <div class="content">
+                        <div class="row" style="align-items: center; display: flex;">
+                            <div class="col-12 col-md-2 mb-2">
+                                <label>Invoice/Order Number</label>
+                                <input type="text" class="form-control" placeholder="Invoice/Order Number"
+                                    [(ngModel)]="searchInvoice" />
+                            </div>
+                            <div class="col-12 col-md-2 mb-2">
+                                <label>Order Type</label>
+                                <select class="form-control" [(ngModel)]="selectedOrderType">
+                                    <option value="">All Orders</option>
+                                    <option value="Purchase Orders">Purchase Orders</option>
+                                    <option value="Return Orders">Return Orders</option>
+                                    <option value="Receive Orders">Receive Orders</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-2 mb-2">
+                                <label>Outlet</label>
+                                <select class="form-control" [(ngModel)]="selectedOutlet">
+                                    <option value="">All Outlets</option>
+                                    <option value="Sub Store">Sub Store</option>
+                                    <option value="Test Outlet1">Test Outlet1</option>
+                                    <option value="Main Outlet">Main Outlet</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-2 mb-2">
+                                <label>Supplier</label>
+                                <select class="form-control" [(ngModel)]="selectedSupplier">
+                                    <option value="">All Suppliers</option>
+                                    <option value="New Up">New Up</option>
+                                    <option value="Computer Plug">Computer Plug</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-2 mb-2">
+                                <label>Created At:</label>
+                                <div class="input-group">
+                                    <div>
+                                        <input type="date" class="form-control" [(ngModel)]="createdAtStart" />
+                                    </div>
+                                    <div>
+                                        <input type="date" class="form-control" [(ngModel)]="createdAtEnd" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-2 mb-2">
+                                <label>Due Date:</label>
+                                <div class="input-group">
+                                    <div>
+                                        <input type="date" class="form-control" [(ngModel)]="dueDateStart" />
+                                    </div>
+                                    <div>
+                                        <input type="date" class="form-control" [(ngModel)]="dueDateEnd" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-1 mb-2 d-flex justify-content-between"
+                                style="align-self: center;">
+                                <button class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">Clear
+                                    Filters</button>
+                                <button class="btn btn-sm btn-info btn-fill" (click)="filterRows()">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="card">
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Number</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Status</th>
+                                    <th>Items</th>
+                                    <th>Cost</th>
+                                    <th>Created</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of filteredRows">
+                                    <td>{{ row.type }}</td>
+                                    <td>{{ row.number }}</td>
+                                    <td>{{ row.from }}</td>
+                                    <td>{{ row.to }}</td>
+                                    <td>{{ row.status }}</td>
+                                    <td>{{ row.items }}</td>
+                                    <td>{{ row.cost | currency }}</td>
+                                    <td>{{ row.created | date }}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" class="text-center"><strong>Total:</strong></td>
+                                    <td>{{ getTotalItems() }}</td>
+
+                                    <td>{{ getTotalCost() | currency }}</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,94 @@
-<p>groups works!</p>
+<div class="main-content">
+    <div class="card ">
+        <div class="content add-content flex" style="display: flex;justify-content: space-between;">
+            <div style="display: flex; align-items: center;">
+                <span>
+                    Count and receive products that have been delivered from your suppliers to ensure your inventory
+                    stays accurate.
+                    <a href="#">Need help ?</a>
+                </span>
+            </div>
+            <div style="display: flex; justify-content: right;">
+                <button class="btn btn-sm btn-success btn-fill">
+                    Add Group
+                </button>
+
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Limit</th>
+                    <th>Point Rates</th>
+                    <th style="display: flex;justify-content: right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pointRate of pointRates">
+                    <td>{{ pointRate.name }}</td>
+                    <td>{{ pointRate.limit }}</td>
+                    <td>{{ calculateAverage(pointRate.rates) }}</td>
+                    <td style="display: flex;justify-content: right;">
+                        <button *ngIf="!pointRate.isEditing" class="btn btn-info btn-xs"
+                            (click)="editPointRate(pointRate)">
+                            Edit
+                        </button>
+                        <button *ngIf="!pointRate.isEditing" class="btn btn-danger btn-xs"
+                            (click)="deletePointRate(pointRate)">
+                            Delete
+                        </button>
+                        <button *ngIf="pointRate.isEditing" class="btn btn-success btn-xs"
+                            (click)="savePointRate(pointRate)">
+                            Save
+                        </button>
+                        <button *ngIf="pointRate.isEditing" class="btn btn-secondary btn-xs"
+                            (click)="cancelEdit(pointRate)">
+                            Cancel
+                        </button>
+                    </td>
+                    <!-- Edit Dialog -->
+
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="isAnyEditing()" class="edit-dialog">
+            <h3>Edit Point Rate</h3>
+            <div *ngFor="let pointRate of pointRates">
+                <div *ngIf="pointRate.isEditing" class="edit-container">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input id="name" [(ngModel)]="pointRate.name" class="form-control" placeholder="Enter name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="limit">Limit</label>
+                        <input id="limit" type="number" [(ngModel)]="pointRate.limit" class="form-control"
+                            placeholder="Enter limit" />
+                    </div>
+                    <h4>Point Rates</h4>
+                    <div class="rates-grid">
+                        <div *ngFor="let key of (pointRate.rates | keyvalue)" class="rate-item">
+                            <label>{{ key.key }}</label>
+                            <input [(ngModel)]="pointRate.rates[key.key]" class="form-control"
+                                placeholder="Enter rate" />
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-success" (click)="savePointRate(pointRate)">
+                            Save
+                        </button>
+                        <button class="btn btn-secondary" (click)="cancelEdit(pointRate)">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
