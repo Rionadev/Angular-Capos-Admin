@@ -152,17 +152,21 @@
                                 <div class="row padding-top-5">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Title" id="title" name="title" />
+                                        <p class="category">ex: Biggest discount</p>
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Sub Title" id="subtitle" name="subtitle" />
+                                        <p class="category">ex: Check the promotion</p>
                                     </div>
                                 </div>
                                 <div class="row padding-top-5">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Button Label" id="buttonlabel" name="buttonlabel" />
+                                        <p class="category">ex: Shop Now</p>
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" placeholder="Link" id="link" name="link" />
+                                        <p class="category">ex: /products/laptop</p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -182,6 +186,180 @@
                             </div>
                         </div> 
                     </ng-container>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'banners'">
+                    <div class="card margin-bottom-10">
+                        <div class="content">
+                            <div class="add-content">
+                                <div class="item-center">
+                                    <div class="flex-item">
+                                        <app-toggle-switch></app-toggle-switch>
+                                        Active
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                </div>
+                            </div>
+                            <div class="add-content padding-top-5">
+                                <div class=""></div>
+                                <div>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddSliderContent()">Add Banner</button>
+                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <ng-container *ngIf="isAddSliderContentVisible">
+                        <div class="card margin-bottom-10">
+                            <div class="content">
+                                <div class="add-content">
+                                    <p class="category">Banner 1</p>
+                                    <button class="btn btn-sm btn-info btn-fill">Delete</button>
+                                </div>
+                                <div class="row padding-top-5">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Title" id="title" name="title" />
+                                        <p class="category">ex: Biggest discount</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Sub Title" id="subtitle" name="subtitle" />
+                                        <p class="category">ex: Check the promotion</p>
+                                    </div>
+                                </div>
+                                <div class="row padding-top-5">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Button Label" id="buttonlabel" name="buttonlabel" />
+                                        <p class="category">ex: Shop Now</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Link" id="link" name="link" />
+                                        <p class="category">ex: /products/laptop</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="flex-item category">
+                                            <div class="file-upload-container">
+                                                <label for="fileInput" class="custom-file-upload">
+                                                    Upload Image
+                                                </label>
+                                                <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
+                                                <input type="file" id="fileInput" class="hidden" />
+                                            </div>
+                                            Recommended size: 1920 x 805px
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'services'">
+                    <div class="card margin-bottom-10">
+                        <div class="content">
+                            <div class="add-content">
+                                <div class="item-center">
+                                    <div class="flex-item">
+                                        <app-toggle-switch></app-toggle-switch>
+                                        Active
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                </div>
+                            </div>
+                            <div class="add-content padding-top-5">
+                                <div class=""></div>
+                                <div>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddSliderContent()">Add Service</button>
+                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <ng-container *ngIf="isAddSliderContentVisible">
+                        <div class="card margin-bottom-10">
+                            <div class="content">
+                                <div class="add-content">
+                                    <p class="category">Banner 1</p>
+                                    <button class="btn btn-sm btn-info btn-fill">Delete</button>
+                                </div>
+                                <div class="row padding-top-5">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Title" id="title" name="title" />
+                                        <p class="category">ex: Biggest discount</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Sub Title" id="subtitle" name="subtitle" />
+                                        <p class="category">ex: Check the promotion</p>
+                                    </div>
+                                </div>
+                                <div class="row padding-top-5">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Button Label" id="buttonlabel" name="buttonlabel" />
+                                        <p class="category">ex: Shop Now</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="flex-item category">
+                                            <div class="file-upload-container">
+                                                <label for="fileInput" class="custom-file-upload">
+                                                    Upload Image
+                                                </label>
+                                                <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
+                                                <input type="file" id="fileInput" class="hidden" />
+                                            </div>
+                                            Recommended size: 1920 x 805px
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'clickAndCollect'">
+                    <div class="card margin-bottom-0">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-center">
+                                        <div class="header">
+                                            <h4 class="title">Buy Online, Pick Up In-Store</h4>
+                                        </div>
+                                        <p class="category">Click & Collect lets your customers buy online and pick up their orders in-store at there own convenience.</p>
+                                        <div class="item-center padding-top-5 padding-bottom-5">
+                                            <button class="btn btn-sm btn-info btn-fill">Enable Click & Collect</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="header">
+                                        <h4 class="title">Let shoppers make purchases on their own terms.</h4>
+                                    </div>
+                                    <p class="category">Click & Collect lets your customers pick up purchases at their own convenience — no delivery, no tracking, no waiting!</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="header">
+                                        <h4 class="title">Buy Online, Pick Up In-Store</h4>
+                                    </div>
+                                    <p class="category">Stack up against ecommerce giants with face-to-face relationships, tailored shopping experiences, and on-the-spot exchanges in-store.</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="header">
+                                        <h4 class="title">Upsell and cross-sell when customers arrive.</h4>
+                                    </div>
+                                    <p class="category">Have the perfect additions ready at the counter — whether that&apos;s a matching belt or set of headphones — to go with an online purchase.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
                 </ng-container>
             </div>
         </div>
