@@ -23,11 +23,18 @@ export class StationComponent implements OnInit {
 
   isContentVisible: boolean = false; // Initially hidden for add or editing.
   currentRow: TableRow = this.resetRow();
-
+  activeTab: string = 'general'; // Default to the 'Modules' tab
+  cities: string[] = ['London', 'New York', 'Paris', 'Tokyo'];
+  selectedCity: string = 'London'; // Default selected value
+  
   constructor() {}
 
   ngOnInit(): void {
     // No dataService to subscribe to; rows are managed directly.
+  }
+
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
   }
 
   toggleContent(): void {
