@@ -67,8 +67,17 @@ hr{
 .category{
     margin-top: 5px;
 }
+
 .padding-top-2 {
     padding-top: 2px;
+}
+
+.padding-bottom-0 {
+    padding-top: 0px !important;
+}
+
+.padding-top-0 {
+    padding-top: 0px !important;
 }
 
 .margin-top-10 {
@@ -151,7 +160,7 @@ td div .description {
 
 .custom-file-upload {
     display: inline-block;
-    padding: 7px 10px;
+    padding: 10px 10px;
     cursor: pointer;
     background-color: #1dc7ea; /* Customize button color */
     color: white;
@@ -159,6 +168,7 @@ td div .description {
     font-size: 12px;
     transition: background-color 0.3s ease;
     text-transform: none;
+    line-height: 1;
 }
 
 .custom-file-upload:hover {
@@ -198,4 +208,12 @@ td div .description {
 
 .font-size-12 {
     font-size: 12px;
+}
+
+ul.nav-tabs li {
+    cursor: pointer; /* Changes cursor to pointer (hand) */
+}
+
+input[type=checkbox], input[type=radio] {
+    margin: 0px 0 0;
 }
