@@ -39,6 +39,10 @@ import { RegisterclosuresComponent } from 'app/reporting/registerclosures/regist
 import { StorecreditreportsComponent } from 'app/reporting/storecreditreports/storecreditreports.component';
 import { TaxesreportsComponent } from 'app/reporting/taxesreports/taxesreports.component';
 import { CustomersComponent } from 'app/customer_group/customers/customers.component';
+import { GroupsComponent } from 'app/customer_group/groups/groups.component';
+import { ManageordersComponent } from 'app/stockcontrol/manageorders/manageorders.component';
+import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestock.component';
+import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
 
 @NgModule({
   imports: [
@@ -62,7 +66,7 @@ import { CustomersComponent } from 'app/customer_group/customers/customers.compo
     BillingComponent,
     OutletsComponent,
     SaleslegderComponent,
-    
+
     SalesreportsComponent,
     PreferencesComponent,
     CarshmanagementComponent,
@@ -75,6 +79,12 @@ import { CustomersComponent } from 'app/customer_group/customers/customers.compo
     CustomersComponent,
     ToggleSwitchComponent,
     ProductEditModalComponent,
+
+    GroupsComponent,
+
+    ManageordersComponent,
+    ReceivestockComponent,
+    ReturnstockComponent,
 
     ProductsComponent,
     PricebooksComponent,
