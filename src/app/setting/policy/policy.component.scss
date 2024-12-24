@@ -35,7 +35,7 @@
     padding-top: 2px;
 }
 
-input{
+input, select{
     padding: 4px 6px 4px 6px;
     height: 32px;
 }
@@ -53,4 +53,25 @@ table td{
 hr{
     margin: 0px 0px;
     margin-bottom: 5px;
+}
+
+ul.nav-tabs li {
+    cursor: pointer; /* Changes cursor to pointer (hand) */
+}
+
+.font-size-12 {
+    font-size: 12px;
+}
+
+.align-center {
+    align-items: center; 
+    display: flex;
+}
+
+.flex-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    line-height: 1;
+    gap: 5px;
 }

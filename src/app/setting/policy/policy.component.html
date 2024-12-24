@@ -3,255 +3,930 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="#">Modules</a></li>
-                    <li role="presentation"><a href="#">Print</a></li>
-                    <li role="presentation"><a href="#">Batch/Cashier Closing</a></li>
-                    <li role="presentation"><a href="#">Others</a></li>
-                    <li role="presentation"><a href="#">System</a></li>
-                    <li role="presentation"><a href="#">Employee/Timesheet</a></li>
+                    <li role="presentation" [class.active]="activeTab === 'modules'" (click)="setActive('modules')"><a>Modules</a></li>
+                    <li role="presentation" [class.active]="activeTab === 'print'" (click)="setActive('print')"><a>Print</a></li>
+                    <li role="presentation" [class.active]="activeTab === 'batch'" (click)="setActive('batch')"><a>Batch/Cashier Closing</a></li>
+                    <li role="presentation" [class.active]="activeTab === 'others'" (click)="setActive('others')"><a>Others</a></li>
+                    <li role="presentation" [class.active]="activeTab === 'system'" (click)="setActive('system')"><a>System</a></li>
+                    <li role="presentation" [class.active]="activeTab === 'employee'" (click)="setActive('employee')"><a>Employee/Timesheet</a></li>
                 </ul>
-                <div class="card margin-bottom-0">
-                    <div class="content">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Box Barcode Sale Used</label>
+                <ng-container *ngIf="activeTab === 'modules'">
+                    <div class="card margin-bottom-0">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Box Barcode Sale Used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox2" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox2">Buying Barcode Sale Used</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">Buying Barcode Sale Used</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox3" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox3">Same Code used for different Products</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox4" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox4">PDCode and PDBarcode is the same for scale product</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox3" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox3">Same Code used for different Products</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox5" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox5">The size of UPC E code is 8 rather than 6</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox6" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox6">10 digit barcode used for UPC A</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox4" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox4">PDCode and PDBarcode is the same for scale product</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox7" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox7">Price included barcode is $123.45 style</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox8" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox8">First 5 digit used instead of 6 digit for price included barcode</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox5" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox5">The size of UPC E code is 8 rather than 6</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox9" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox9">Sale Price Used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox6" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox6">10 digit barcode used for UPC A</label>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox11" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox11">Automatic customer ID used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox12" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox12">Customer information required</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox7" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox7">Price included barcode is $123.45 style</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox13" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox13">OpenDrawer on Credit payment</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox14" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox14">Cash Drawer Open status checked</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox8" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox8">First 5 digit used instead of 6 digit for price included barcode</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">Quick open cashdrawer needs password</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox16" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox16">Debit over payment allowed (Cashback)</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox9" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox9">Sale Price Used</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox17" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox17">Cashier password prompted for sale screen access</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox18" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox18">Cashier password always prompted for each transaction</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox11" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox11">Automatic customer ID used</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox19" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox19">Discount password prompted for add discount sale or item</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox20" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox20">Sales helper always prompted</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox12" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox12">Customer information required</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox19" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox19">Kg instead of lb</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox20" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox20">Weight handled as quantity</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox13" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox13">OpenDrawer on Credit payment</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox19" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox19">24 Hour Service</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox20" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox20">Last item first line displayed</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox14" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox14">Cash Drawer Open status checked</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox19" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox19">Alt tab is not allowed</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox15" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox15">Quick open cashdrawer needs password</label>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox19" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox19">Barcode generated automatically</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox20" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox20">AR account is different form customers</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox16" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox16">Debit over payment allowed (Cashback)</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox19" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox19">Tran summary table used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox20" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox20">PD code manual</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox17" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox17">Cashier password prompted for sale screen access</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox19" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox19">Can not update product information</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox20" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox20">Canada Penny round used</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox18" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox18">Cashier password always prompted for each transaction</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox19" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox19">Event marketing used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox20" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox20">Price included barcode not used</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox19" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox19">Discount password prompted for add discount sale or item</label>
+                            <div class="row">
+                                <div class="content add-content">
+                                    <p class="category"></p>
+                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox20" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox20">Sales helper always prompted</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox19" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox19">Kg instead of lb</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox20" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox20">Weight handled as quantity</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox19" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox19">24 Hour Service</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox20" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox20">Last item first line displayed</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox19" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox19">Alt tab is not allowed</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox19" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox19">Barcode generated automatically</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox20" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox20">AR account is different form customers</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox19" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox19">Tran summary table used</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox20" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox20">PD code manual</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox19" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox19">Can not update product information</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox20" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox20">Canada Penny round used</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox19" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox19">Event marketing used</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox20" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox20">Price included barcode not used</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="content add-content">
-                                <p class="category"></p>
-                                <button class="btn btn-sm btn-info btn-fill">Save</button>
                             </div>
                         </div>
                     </div>
-                </div> 
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'print'">
+                    <div class="card margin-bottom-0">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Receipt Printed</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox2" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox2">Store Copy Used</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox3" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox3">Print Barcode on Receipt</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox4" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox4">Techtrex Receipt used</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox5" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox5">Description printed</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox6" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox6">Store logo image used on receipt</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox7" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox7">Do not print customer information on receipt</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox8" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox8">Small size printer font used</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox11" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox11">Invoice printing prompted</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox12" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox12">Do not print second product name on receipt</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox13" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox13">Do not display / print sales information on receipt</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox14" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox14">Print product barcode number on receipt</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">Email receipt</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox16" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox16">Print bill on Hold</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox17" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox17">Print cost on inventory change report</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox18" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox18">Price is not printed on barcode label</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox19" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox19">Name2 printed on barcode label instead of description</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox20" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox20">Vendor and vendor code printed on shelf sticker</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="content add-content">
+                                    <p class="category"></p>
+                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'batch'">
+                    <div class="card margin-bottom-0">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Automatically batch close at 4:00 AM</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox2" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox2">Email inventory report on End of day</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox3" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox3">Batch report is not printed</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox4" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox4">Batch: All category printed</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox5" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox5">Batch: Category not included</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox6" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox6">Products under basic stock count are listed on batch report</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox7" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox7">Summary for payment machine included in batch report</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox8" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox8">Payment summary is not included in Batch / Account summary report</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox11" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox11">Cigarette summary is not included in Batch / Account summary report</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox12" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox12">Not revenue category is not included in Account summary report</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox13" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox13">Sales person report included in Batch report</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">KPOS support required</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox17" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox17">Cashier report is not printed</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox18" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox18">Cashier closing final money managed</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox19" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox19">Canceled products are printed on cashier report</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox20" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox20">Can not close cashier with holding tran(s)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="content add-content">
+                                    <p class="category"></p>
+                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'others'">
+                    <div class="card margin-bottom-0">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Foreign Currency Used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <div class="row align-center">
+                                <div class="col-md-3">
+                                    <p class="category font-size-12">MARGIN RATE(%):</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Vendor margin rate used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <div class="row align-center">
+                                <div class="col-md-3">
+                                    <p class="category font-size-12">CHARGE ACCOUNT BALANCE LIMIT($):</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox5" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox5">No tax on whole sale</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox6" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox6">PD Age check used</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox7" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox7">Keyboard I/F used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox8" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox8">Zero item sale not allowed</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox11" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox11">PD button image used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox12" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox12">Same line for the same product</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox13" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox13">Pickup DueDate required</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox13" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox13">Product image displayed on second monitor</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox13" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox13">No tax information on second monitor</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox13" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox13">Display in red when inventory is under basic stock count in sale scanning</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox13" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox13">Display other terminal’s HOLD Transactions</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <p class="category font-size-12">SCALE WEIGHT UNIT:</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="content add-content">
+                                    <p class="category"></p>
+                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'system'">
+                    <div class="card margin-bottom-0">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Ecommerce Used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox2" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox2">Cancel / void saved on DB</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox3" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox3">Cashier Side AD used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox4" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox4">Franchise mode based on VPN</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox5" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox5">Multiple store support</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox6" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox6">HQ</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox7" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox7">Data collection used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox8" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox8">Each store has different price</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox11" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox11">Only HQ change product information</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox12" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox12">Direct SQL access used instead of FTP</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox13" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox13">Customer DB located on HQ</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">Daily inventory used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">Inventory used</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">PI based inventory</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">Different price applied on weekend</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">Restaurant style biz model</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">Fast batch closing used</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">Email point / gift card information on end of day</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">Grocery style sale screen used</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">Send Email on End of Day</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <hr>
+                            <p class="category font-size-12">SMS</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox17" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox17">Paid SMS used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox18" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox18">Email SMS used</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox19" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox19">Smart Phone SMS used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="content add-content">
+                                    <p class="category"></p>
+                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'employee'">
+                    <div class="card margin-bottom-0">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Pay Start Day automatically set</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <hr>
+                            <p class="category font-size-12">Pay Start Day</p>
+                            <div class="row align-center">
+                                <div class="col-md-2 flex-item">
+                                    <input type="radio" id="left" name="day" />
+                                    <p class="category font-size-12 padding-top-2">Weekly</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                </div>
+                                <div class="col-md-7">
+                                </div>
+                            </div>
+                            <div class="row align-center">
+                                <div class="col-md-2 flex-item">
+                                    <input type="radio" id="left" name="day" />
+                                    <p class="category font-size-12 padding-top-2">Bi Weekly</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                </div>
+                                <div class="col-md-7">
+                                </div>
+                            </div>
+                            <div class="row align-center">
+                                <div class="col-md-2 flex-item">
+                                    <input type="radio" id="left" name="day" />
+                                    <p class="category font-size-12 padding-top-2">Monthly</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                </div>
+                                <div class="col-md-7">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox7" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox7">Round up Timesheet in / out time by quater</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox8" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox8">Timesheet is not printed</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="content add-content">
+                                    <p class="category"></p>
+                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
             </div>
         </div>
     </div>
