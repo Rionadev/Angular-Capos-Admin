@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PolicyComponent implements OnInit {
 
+  activeTab: string = 'modules'; // Default active tab
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  setActive(tab: string): void {
+    this.activeTab = tab;
+  }
 }
