@@ -3,159 +3,506 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="#">Payment</a></li>
-                    <li role="presentation"><a href="#">Receipt</a></li>
+                    <li role="presentation" [class.active]="activeTab === 'payment'" (click)="setActiveTab('payment')"><a>Payment</a></li>
+                    <li role="presentation" [class.active]="activeTab === 'receipt'" (click)="setActiveTab('receipt')"><a>Receipt</a></li>
                 </ul>
-                <div class="card margin-bottom-0">
-                    <div class="content">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Cash Accepted</label>
+                <ng-container *ngIf="activeTab === 'payment'">
+                    <div class="card margin-bottom-0">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Cash Accepted</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox2" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox2">Rewards Accepted</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">Rewards Accepted</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox3" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox3">Credit Card Accepted</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox4" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox4">Others Accepted</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox5" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox5">Visa</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox6" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox6">Others2 Accepted</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox7" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox7">Master</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox8" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox8">Layby Accepted</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox9" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox9">Amex</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox10" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox10">Store Credit Accepted</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox11" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox11">Discover</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox12" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox12">On Account Accepted</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox13" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox13">Diners</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox14" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox14">FoodStamp Accepted</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox15" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox15">Jcb</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox16" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox16">Check Accepted</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox17" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox17">Debit Accepted</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox18" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox18">EBT Cash Accepted</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox19" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox19">Gift Accepted</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox20" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox20">Charge Account Accepted</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="content add-content">
+                                    <p class="category"></p>
+                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox3" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox3">Credit Card Accepted</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox4" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox4">Others Accepted</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox5" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox5">Visa</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox6" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox6">Others2 Accepted</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox7" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox7">Master</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox8" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox8">Layby Accepted</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox9" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox9">Amex</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox10" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox10">Store Credit Accepted</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox11" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox11">Discover</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox12" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox12">On Account Accepted</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox13" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox13">Diners</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox14" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox14">FoodStamp Accepted</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox15" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox15">Jcb</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox16" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox16">Check Accepted</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox17" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox17">Debit Accepted</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox18" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox18">EBT Cash Accepted</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox19" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox19">Gift Accepted</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkbox">
-                                    <input id="checkbox20" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox20">Charge Account Accepted</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="content add-content">
-                                <p class="category"></p>
-                                <button class="btn btn-sm btn-info btn-fill">Save</button>
-                            </div>
+                    </div> 
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'receipt'">
+                    <div class="card margin-bottom-0">
+                        <div class="content">
+                            <ul class="nav nav-tabs">
+                                <li role="presentation" [class.active]="activeSubTab === 'header'" (click)="setActiveSubTab('header')"><a>Header</a></li>
+                                <li role="presentation" [class.active]="activeSubTab === 'policy'" (click)="setActiveSubTab('policy')"><a>Policy</a></li>
+                                <li role="presentation" [class.active]="activeSubTab === 'marketing'" (click)="setActiveSubTab('marketing')"><a>Marketing</a></li>
+                                <li role="presentation" [class.active]="activeSubTab === 'ticketpolicy'" (click)="setActiveSubTab('ticketpolicy')"><a>TicketPolicy</a></li>
+                            </ul>
+                            <ng-container *ngIf="activeSubTab === 'header'">
+                                <div class="card margin-bottom-0">
+                                    <div class="content">
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">1st Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox1" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox1">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="1st Line" id="1stline" name="1stline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">2nd Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox2" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox2">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="2nd Line" id="2ndline" name="2ndline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">3rd Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox3" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox3">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="3rd Line" id="3rdline" name="3rdline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">4th Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox4" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox4">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="4th Line" id="4thline" name="4thline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">5th Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox5" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox5">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="5th Line" id="5thline" name="5thline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-4">
+                                                <p class="category">Pole display line1:</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="Pole display line1" id="line1" name="line1" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-4">
+                                                <p class="category">Pole display line2:</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="Pole display line2" id="line2" name="line2" required />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="content add-content">
+                                                <p class="category"></p>
+                                                <button class="btn btn-sm btn-info btn-fill">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </ng-container>
+                            <ng-container *ngIf="activeSubTab === 'policy'">
+                                <div class="card margin-bottom-0">
+                                    <div class="content">
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">1st Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox1" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox1">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="1st Line" id="1stline" name="1stline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">2nd Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox2" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox2">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="2nd Line" id="2ndline" name="2ndline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">3rd Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox3" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox3">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="3rd Line" id="3rdline" name="3rdline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">4th Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox4" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox4">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="4th Line" id="4thline" name="4thline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">5th Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox5" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox5">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="5th Line" id="5thline" name="5thline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-4">
+                                                <p class="category">Pole display line1:</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="Pole display line1" id="line1" name="line1" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-4">
+                                                <p class="category">Pole display line2:</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="Pole display line2" id="line2" name="line2" required />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="content add-content">
+                                                <p class="category"></p>
+                                                <button class="btn btn-sm btn-info btn-fill">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </ng-container>
+                            <ng-container *ngIf="activeSubTab === 'marketing'">
+                                <div class="card margin-bottom-0">
+                                    <div class="content">
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">1st Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox1" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox1">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="1st Line" id="1stline" name="1stline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">2nd Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox2" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox2">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="2nd Line" id="2ndline" name="2ndline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">3rd Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox3" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox3">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="3rd Line" id="3rdline" name="3rdline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">4th Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox4" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox4">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="4th Line" id="4thline" name="4thline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <p class="category">5th Line(BOLD)</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox5" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox5">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="5th Line" id="5thline" name="5thline" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-4">
+                                                <p class="category">Pole display line1:</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="Pole display line1" id="line1" name="line1" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-4">
+                                                <p class="category">Pole display line2:</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="Pole display line2" id="line2" name="line2" required />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="content add-content">
+                                                <p class="category"></p>
+                                                <button class="btn btn-sm btn-info btn-fill">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </ng-container>
+                            <ng-container *ngIf="activeSubTab === 'ticketpolicy'">
+                                <div class="card margin-bottom-0">
+                                    <div class="content">
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-2">
+                                                <div class="checkbox">
+                                                    <input id="checkbox1" type="checkbox">
+                                                    <label class="padding-top-2" for="checkbox1">Used</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <textarea type="text" class="form-control" placeholder="" id="text" name="text" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-4">
+                                                <p class="category">Pole display line1:</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="Pole display line1" id="line1" name="line1" required />
+                                            </div>
+                                        </div>
+                                        <div class="row align-center padding-top-3">
+                                            <div class="col-md-4">
+                                                <p class="category">Pole display line2:</p>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="Pole display line2" id="line2" name="line2" required />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="content add-content">
+                                                <p class="category"></p>
+                                                <button class="btn btn-sm btn-info btn-fill">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </ng-container>
                         </div>
                     </div>
-                </div> 
+                </ng-container>
             </div>
         </div>
     </div>

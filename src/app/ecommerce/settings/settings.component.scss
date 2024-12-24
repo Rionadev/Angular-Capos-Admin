@@ -1,0 +1,214 @@
+.btn {
+    margin: 0 2px;
+}
+
+.add-content {
+    display: flex;                /* Enables Flexbox for .content */
+    justify-content: space-between; /* Distributes space between elements */
+    align-items: center;          /* Vertically centers the items */
+}
+
+.card .content {
+    padding: 10px 15px 10px 15px;
+}
+
+.dropdown{
+    margin: 0 auto;
+    padding: 6px 15px 6px 15px;
+}
+
+.dropdown a{
+    color: #9a9a9a;
+}
+
+.margin-bottom-0
+{
+    margin-bottom: 0px;
+}
+
+.margin-bottom-3
+{
+    margin-bottom: 3px;
+}
+
+.margin-bottom-10
+{
+    margin-bottom: 10px;
+}
+
+input, select{
+    padding: 4px 6px 4px 6px;
+    height: 32px;
+}
+
+table td{
+    padding-bottom: 3px;
+    padding-top: 3px; 
+}
+
+.col-md-5 {
+    padding-right: 0px;
+}
+
+.col-md-7 {
+    padding-left: 10px;
+}
+
+.nav li a:active {
+    box-shadow: 0 1px 2px #0000000d, 0 0 0 1px #3f3f441a;
+}
+
+hr{
+    margin: 0px 0px;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+.category{
+    margin-top: 5px;
+}
+
+.padding-top-2 {
+    padding-top: 2px;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.margin-top-5 {
+    margin-top: 5px;
+}
+
+.margin-top-3 {
+    margin-top: 3px;
+}
+
+.margin-top-0 {
+    margin-top: 0px;
+}
+
+.padding-top-6 {
+    margin-top: 6px;
+}
+
+.padding-top-5 {
+    margin-top: 5px;
+}
+
+.padding-bottom-5 {
+    margin-bottom: 5px;
+}
+
+div .form-group {
+    margin-bottom: 5px;
+}
+
+div.checkbox {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.padding-left-0 {
+    padding-left: 0px;
+}
+
+.padding-left-6 {
+    padding-left: 6px;
+}
+
+.padding-left-10 {
+    padding-left: 10px;
+}
+
+
+.item-center {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center;
+}
+
+.flex-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    line-height: 1;
+    gap: 5px;
+}
+
+.sub-table {
+    border: 1px solid #E3E3E3;
+    border-radius: 5px;
+}
+
+.padding-top-bottom-0 {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+td div .description {
+    margin-bottom: 0px;
+}
+
+.float-right {
+    float: right;
+}
+
+.hidden {
+    display: none; /* Hide the default file input */
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 10px;
+    cursor: pointer;
+    background-color: #1dc7ea; /* Customize button color */
+    color: white;
+    border-radius: 3px;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+    text-transform: none;
+}
+
+.custom-file-upload:hover {
+    opacity: 0.8; /* Darker shade on hover */
+}
+
+.btn-default{
+    height: 32px;
+}
+
+.line-height-1{
+    line-height: 1.1;
+}
+
+.text-transform-none{
+    text-transform: none !important;
+}
+
+.item-justify {
+    display: flex; 
+    flex-direction: row; 
+    justify-content:space-between;
+}
+
+.input-group-btn .btn {
+    padding: 3px 16px !important;
+}
+
+.col-md-2 {
+    padding-left: 0px;
+}
+
+.justify-content-center{
+    display: flex;
+    justify-content: center;
+}
+
+.font-size-12 {
+    font-size: 12px;
+}
+
+ul.nav-tabs li {
+    cursor: pointer; /* Changes cursor to pointer (hand) */
+}

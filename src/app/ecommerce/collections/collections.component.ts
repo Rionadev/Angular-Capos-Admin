@@ -3,27 +3,28 @@ import { Component, OnInit } from '@angular/core';
 // Declare the TableRow interface outside of the component
 export interface TableRow {
   id: number;
-  station: string;
+  parent: string;
   name: string;
-  store: string;
+  subcollections: string;
+  products: string;
+  active: boolean;
 }
 
 @Component({
-  selector: 'app-station',
-  templateUrl: './station.component.html',
-  styleUrls: ['./station.component.scss']
+  selector: 'app-collections',
+  templateUrl: './collections.component.html',
+  styleUrls: ['./collections.component.scss']
 })
 
-export class StationComponent implements OnInit {
+export class CollectionsComponent implements OnInit {
 
   rows: TableRow[] = [
-    { id: 1, station: 'Station A', name: 'John Doe', store: 'Store 1' },
-    { id: 2, station: 'Station B', name: 'Jane Smith', store: 'Store 2' },
+    { id: 1, parent: 'Parent A', name: 'John Doe', subcollections: 'Subcollection 1', products: 'Product 1', active: true },
+    { id: 2, parent: 'Parent B', name: 'Jane Smith', subcollections: 'Subcollection 2', products: 'Product 2', active: false },
   ];
 
   isContentVisible: boolean = false; // Initially hidden for add or editing.
   currentRow: TableRow = this.resetRow();
-  activeTab: string = 'general'; // Default to the 'Modules' tab
   cities: string[] = ['London', 'New York', 'Paris', 'Tokyo'];
   selectedCity: string = 'London'; // Default selected value
   
@@ -31,10 +32,6 @@ export class StationComponent implements OnInit {
 
   ngOnInit(): void {
     // No dataService to subscribe to; rows are managed directly.
-  }
-
-  setActiveTab(tab: string): void {
-    this.activeTab = tab;
   }
 
   toggleContent(): void {
@@ -75,7 +72,7 @@ export class StationComponent implements OnInit {
   }
 
   private resetRow(): TableRow {
-    return { id: 0, station: '', name: '', store: '' };
+    return { id: 0, parent: '', name: '', subcollections: '', products: '', active: false };
   }
 
   private generateId(): number {

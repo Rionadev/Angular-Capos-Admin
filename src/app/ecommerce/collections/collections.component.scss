@@ -56,18 +56,14 @@ table td{
 hr{
     margin: 0px 0px;
     margin-bottom: 0px;
+    margin-top: 5px;
 }
 
+.category{
+    margin-top: 5px;
+}
 .padding-top-2 {
     padding-top: 2px;
-}
-
-.padding-top-5 {
-    padding-top: 5px;
-}
-
-.padding-bottom-5 {
-    padding-bottom: 5px;
 }
 
 .margin-top-10 {
@@ -76,11 +72,6 @@ hr{
 
 .margin-top-5 {
     margin-top: 5px;
-}
-
-.margin-top-bottom-3 {
-    margin-top: 3px;
-    margin-bottom: 3px;
 }
 
 .padding-top-6 {
@@ -100,11 +91,31 @@ div.checkbox {
     padding-left: 0px;
 }
 
-
-ul.nav-tabs li {
-    cursor: pointer; /* Changes cursor to pointer (hand) */
+.padding-left-6 {
+    padding-left: 6px;
 }
 
-.font-size-12 {
-    font-size: 12px !important;
+.item-center {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center;
+}
+
+.flex-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    gap: 5px;
+}
+
+.sub-table {
+    border: 1px solid #E3E3E3;
+    border-radius: 5px;
+}
+
+.padding-top-bottom-0 {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
 }

@@ -65,7 +65,7 @@
         </li>
         <li class="separator hidden-lg hidden-md" *ngIf="isMobileMenu()"></li>
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}">
-            <a *ngIf="menuItem.title != 'Setting'" [routerLink]="[menuItem.path]">
+            <a [routerLink]="[menuItem.path]">
                 <i class="{{menuItem.icon}}"></i>
                 <p>{{menuItem.title}}</p>
             </a>
@@ -134,13 +134,13 @@
             </li>
         </ng-container> -->
         <li>
-            <a (click)="settingContent()">
-                <i class="pe-7s-config"></i>
-                <p>Setting</p>
+            <a (click)="ecommerceContent()">
+                <i class="pe-7s-shopbag"></i>
+                <p>Ecommerce</p>
             </a>
         </li>
-        <ng-container *ngIf="isSettingContentVisible">
-            <li routerLinkActive="active" *ngFor="let menuItem of settingMenuItems"
+        <ng-container *ngIf="isEcommerceContentVisible">
+            <li routerLinkActive="active" *ngFor="let menuItem of ecommerceMenuItems"
                 class="{{menuItem.class}} setting-content-board">
                 <a class="" [routerLink]="[menuItem.path]">
                     <!-- <i class="{{menuItem.icon}}"></i> -->
@@ -149,13 +149,13 @@
             </li>
         </ng-container>
         <li>
-            <a (click)="ecommerceContent()">
-                <i class="pe-7s-shopbag"></i>
-                <p>Ecommerce</p>
+            <a (click)="settingContent()">
+                <i class="pe-7s-config"></i>
+                <p>Setting</p>
             </a>
         </li>
-        <ng-container *ngIf="isEcommerceContentVisible">
-            <li routerLinkActive="active" *ngFor="let menuItem of ecommerceMenuItems"
+        <ng-container *ngIf="isSettingContentVisible">
+            <li  routerLinkActive="active" *ngFor="let menuItem of settingMenuItems"
                 class="{{menuItem.class}} setting-content-board">
                 <a class="" [routerLink]="[menuItem.path]">
                     <!-- <i class="{{menuItem.icon}}"></i> -->
