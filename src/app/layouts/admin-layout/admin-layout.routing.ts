@@ -39,6 +39,7 @@ import { CollectionsComponent } from '../../ecommerce/collections/collections.co
 import { EcommerceProductsComponent } from '../../ecommerce/products/products.component';
 import { OrdersComponent } from '../../ecommerce/orders/orders.component';
 import { SettingsComponent } from '../../ecommerce/settings/settings.component';
+import { PagesComponent } from '../../ecommerce/pages/pages.component';
 
 import { CustomersComponent } from 'app/customer_group/customers/customers.component';
 
@@ -87,5 +88,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'ecommerce/products', component: EcommerceProductsComponent },
     { path: 'ecommerce/orders', component: OrdersComponent },
     { path: 'ecommerce/settings', component: SettingsComponent },
-    
+    { path: 'ecommerce/pages', component: PagesComponent },
 ];
