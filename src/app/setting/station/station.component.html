@@ -78,55 +78,39 @@
             </div>
             <div class="col-md-7">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="#">General</a></li>
-                    <li role="presentation"><a href="#">Printer</a></li>
-                    <li role="presentation"><a href="#">Screen</a></li>
+                    <li role="presentation" [class.active]="activeTab === 'general'" (click)="setActiveTab('general')"><a>General</a></li>
+                    <li role="presentation" [class.active]="activeTab === 'printer'" (click)="setActiveTab('printer')"><a>Printer</a></li>
+                    <li role="presentation" [class.active]="activeTab === 'screen'" (click)="setActiveTab('screen')"><a>Screen</a></li>
                 </ul>
-                <div class="card margin-bottom-0">
-                    <div class="content">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Station ID:</label>
-                                    <input type="text" class="form-control" placeholder="Station ID" id="stationId" name="stationId" required />
+                <ng-container *ngIf="activeTab === 'general'">
+                    <div class="card margin-bottom-0">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Station ID:</label>
+                                        <input type="text" class="form-control" placeholder="Station ID" id="stationId" name="stationId" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Station Name:</label>
+                                        <input type="text" class="form-control" placeholder="Station Name" id="stationName" name="stationName" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Store ID:</label>
+                                        <input type="text" class="form-control" placeholder="Store ID" id="storeId" name="storeId" required />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Station Name:</label>
-                                    <input type="text" class="form-control" placeholder="Station Name" id="stationName" name="stationName" required />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Store ID:</label>
-                                    <input type="text" class="form-control" placeholder="Store ID" id="storeId" name="storeId" required />
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-4 dropdown">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Receipter Printer</label>
-                                </div>
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    Please select<b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">All Roles</a></li>
-                                    <li><a href="#">Free</a></li>
-                                    <li><a href="#">Cashier</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Admin</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="padding-left-0 dropdown">
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4 dropdown">
                                     <div class="checkbox">
                                         <input id="checkbox1" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox1">Windows Font Used</label>
+                                        <label class="padding-top-2" for="checkbox1">Receipter Printer</label>
                                     </div>
                                     <a class="dropdown-toggle" data-toggle="dropdown">
                                         Please select<b class="caret"></b>
@@ -139,98 +123,193 @@
                                         <li><a href="#">Admin</a></li>
                                     </ul>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Width" id="width" name="width" required />
+                                <div class="col-md-4">
+                                    <div class="padding-left-0 dropdown">
+                                        <div class="checkbox">
+                                            <input id="checkbox1" type="checkbox">
+                                            <label class="padding-top-2" for="checkbox1">Windows Font Used</label>
+                                        </div>
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            Please select<b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">All Roles</a></li>
+                                            <li><a href="#">Free</a></li>
+                                            <li><a href="#">Cashier</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Admin</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Width" id="width" name="width" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-sm btn-info btn-fill margin-top-5">Select Font</button>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-sm btn-info btn-fill margin-top-5">Select Font</button>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-4 dropdown">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Receipter Printer 2</label>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4 dropdown">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Receipter Printer 2</label>
+                                    </div>
+                                    <a class="dropdown-toggle" data-toggle="dropdown">
+                                        Please select<b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">All Roles</a></li>
+                                        <li><a href="#">Free</a></li>
+                                        <li><a href="#">Cashier</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Admin</a></li>
+                                    </ul>
                                 </div>
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    Please select<b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">All Roles</a></li>
-                                    <li><a href="#">Free</a></li>
-                                    <li><a href="#">Cashier</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Admin</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4">
-                            </div>
-                            <div class="col-md-4">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-4 dropdown">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Cash Drawer</label>
+                                <div class="col-md-4">
                                 </div>
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    Please select<b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">All Roles</a></li>
-                                    <li><a href="#">Free</a></li>
-                                    <li><a href="#">Cashier</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Admin</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-4 dropdown">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Low Voltage Used</label>
+                                <div class="col-md-4">
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-4 dropdown">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Barcode Reader</label>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4 dropdown">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Cash Drawer</label>
+                                    </div>
+                                    <a class="dropdown-toggle" data-toggle="dropdown">
+                                        Please select<b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">All Roles</a></li>
+                                        <li><a href="#">Free</a></li>
+                                        <li><a href="#">Cashier</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Admin</a></li>
+                                    </ul>
                                 </div>
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    Please select<b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">All Roles</a></li>
-                                    <li><a href="#">Free</a></li>
-                                    <li><a href="#">Cashier</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Admin</a></li>
-                                </ul>
+                                <div class="col-md-4 dropdown">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Low Voltage Used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                </div>
                             </div>
-                            <div class="col-md-4">
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4 dropdown">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Barcode Reader</label>
+                                    </div>
+                                    <a class="dropdown-toggle" data-toggle="dropdown">
+                                        Please select<b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">All Roles</a></li>
+                                        <li><a href="#">Free</a></li>
+                                        <li><a href="#">Cashier</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Admin</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="content add-content">
-                                <p></p>
-                                <div>
-                                    <button class="btn btn-sm btn-info btn-fill">Update</button>
-                                    <button class="btn btn-sm btn-info btn-fill">Delete</button>
+                            <div class="row">
+                                <div class="content add-content">
+                                    <p></p>
+                                    <div>
+                                        <button class="btn btn-sm btn-info btn-fill">Update</button>
+                                        <button class="btn btn-sm btn-info btn-fill">Delete</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'printer'">
+                    <!-- <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
+                        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                    </select> -->
+                    <div class="card margin-bottom-0">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Report Printer</label>
+                                    </div>
+                                    <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
+                                        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <hr class="margin-top-5">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox2" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox2">Barcode Writer</label>
+                                    </div>
+                                    <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
+                                        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="category font-size-12 padding-top-5 padding-bottom-5 margin-top-bottom-3">MEDIA TYPE</p>
+                                    <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
+                                        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="content add-content">
+                                    <p></p>
+                                    <div>
+                                        <button class="btn btn-sm btn-info btn-fill">Update</button>
+                                        <button class="btn btn-sm btn-info btn-fill">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'screen'">
+                    <div class="card margin-bottom-0">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox1">Scale</label>
+                                    </div>
+                                    <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
+                                        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="content add-content">
+                                    <p></p>
+                                    <div>
+                                        <button class="btn btn-sm btn-info btn-fill">Update</button>
+                                        <button class="btn btn-sm btn-info btn-fill">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
             </div>
         </div>
     </div>

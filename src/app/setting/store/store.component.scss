@@ -35,6 +35,10 @@
     padding-top: 2px;
 }
 
+.padding-top-3 {
+    padding-top: 3px;
+}
+
 input{
     padding: 4px 6px 4px 6px;
     height: 32px;
@@ -48,4 +52,9 @@ table td{
 .checkbox {
     margin-top: 3px;
     margin-bottom: 3px;
+}
+
+.align-center {
+    align-items: center; 
+    display: flex;
 }
