@@ -79,6 +79,10 @@ hr{
     margin-top: 5px;
 }
 
+.margin-top-3 {
+    margin-top: 3px;
+}
+
 .margin-top-0 {
     margin-top: 0px;
 }
@@ -108,9 +112,6 @@ div.checkbox {
     padding-left: 10px;
 }
 
-.padding-left-15 {
-    padding-left: 15px;
-}
 
 .item-center {
     display: flex; 
@@ -188,4 +189,13 @@ td div .description {
 
 .col-md-2 {
     padding-left: 0px;
+}
+
+.justify-content-center{
+    display: flex;
+    justify-content: center;
+}
+
+.font-size-12 {
+    font-size: 12px;
 }

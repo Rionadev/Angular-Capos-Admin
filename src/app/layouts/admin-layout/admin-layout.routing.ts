@@ -38,6 +38,8 @@ import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.componen
 import { CollectionsComponent } from '../../ecommerce/collections/collections.component';
 import { EcommerceProductsComponent } from '../../ecommerce/products/products.component';
 import { OrdersComponent } from '../../ecommerce/orders/orders.component';
+import { SettingsComponent } from '../../ecommerce/settings/settings.component';
+import { PagesComponent } from '../../ecommerce/pages/pages.component';
 
 import { CustomersComponent } from 'app/customer_group/customers/customers.component';
 
@@ -73,7 +75,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'setting/preferences', component: PreferencesComponent },
 
     { path: 'customers/customers', component: CustomersComponent },
-    
 
     { path: 'products/product', component: ProductsComponent },
     { path: 'products/pricebooks', component: PricebooksComponent },
@@ -86,4 +87,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'ecommerce/collections', component: CollectionsComponent },
     { path: 'ecommerce/products', component: EcommerceProductsComponent },
     { path: 'ecommerce/orders', component: OrdersComponent },
+    { path: 'ecommerce/settings', component: SettingsComponent },
+    { path: 'ecommerce/pages', component: PagesComponent },
 ];

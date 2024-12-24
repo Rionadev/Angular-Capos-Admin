@@ -1,0 +1,70 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a href="#">Modules</a></li>
+                    <li role="presentation"><a href="#">Payment Methods</a></li>
+                    <li role="presentation"><a href="#">Sliders</a></li>
+                    <li role="presentation"><a href="#">Banners</a></li>
+                    <li role="presentation"><a href="#">Services</a></li>
+                    <li role="presentation"><a href="#">Click & Collect</a></li>
+                </ul>
+                <div class="card margin-bottom-0">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <p class="category">Store Status</p>
+                                    <div class="item-center">
+                                        <app-toggle-switch></app-toggle-switch>
+                                    </div>
+                                    <p class="category margin-top-0">Your store is currently online.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <p class="category">Upgrade your plan to publish your store.</p>
+                                    <div class="item-center">
+                                        <button class="btn btn-sm btn-info btn-fill">Upgrade Plan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <p class="category margin-bottom-3">Appearance</p>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="">Theme Color:</label>
+                                    <input type="color" class="form-control" placeholder="Color" id="color" name="color" required />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="category font-size-12">STORE LOGO:</p>
+                                <p class="category margin-top-0">Recommended size: 158 x 44</p>
+                                <div class="margin-top-3 file-upload-container">
+                                    <label for="fileInput" class="custom-file-upload">
+                                        Upload Image
+                                    </label>
+                                    <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
+                                    <input type="file" id="fileInput" class="hidden" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Description:</label>
+                                    <textarea rows="5" class="form-control" placeholder="Description" id="description" name="description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-content">
+                            <p></p>
+                            <button class="btn btn-sm btn-info btn-fill">Save</button>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>

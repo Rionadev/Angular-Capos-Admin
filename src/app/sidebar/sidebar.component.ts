@@ -50,8 +50,8 @@ export const ECOMMERCEROUTES: RouteInfo[] = [
   { path: '/ecommerce/collections', title: 'Collections', icon: 'pe-7s-albums', class: '' },
   { path: '/ecommerce/products', title: 'Products', icon: 'pe-7s-calculator', class: '' },
   { path: '/ecommerce/orders', title: 'Orders', icon: 'pe-7s-note2', class: '' },
-  { path: '/ecommerce/settings', title: 'Settings', icon: 'pe-7s-wallet', class: '' },
-  { path: '/ecommerce/pages', title: 'Pages', icon: 'pe-7s-shuffle', class: '' },
+  { path: '/ecommerce/settings', title: 'Ecommerce Settings', icon: 'pe-7s-wallet', class: '' },
+  { path: '/ecommerce/pages', title: 'Ecommerce Pages', icon: 'pe-7s-shuffle', class: '' },
   { path: '/ecommerce/visit', title: 'Visit Online Store', icon: 'pe-7s-shopbag', class: '' },
 ];
 export const CUSTOMERROUTES: RouteInfo[] = [
