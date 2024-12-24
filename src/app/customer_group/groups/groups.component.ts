@@ -182,4 +182,16 @@ export class GroupsComponent implements OnInit {
   isAnyEditing(): boolean {
     return this.pointRates.some(rate => rate.isEditing);
   }
+  isDialogOpen: boolean = false;
+
+  // Method to open the dialog
+  openReceiveDialog() {
+    this.isDialogOpen = true;
+  }
+
+  // Method to close the dialog
+  closeReceiveDialog() {
+    this.isDialogOpen = false;
+  }
+
 }
