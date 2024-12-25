@@ -72,6 +72,7 @@ import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/
 import { ModifierComponent } from '../../menus/modifier/modifier.component';
 import { ModifierTypesComponent } from '../../menus/modifier-types/modifier-types.component';
 import { SingleForcedModifierComponent } from '../../menus/single-forced-modifier/single-forced-modifier.component';
+import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/toggle-icon-button.component';
 
 @NgModule({
   imports: [
@@ -114,6 +115,7 @@ import { SingleForcedModifierComponent } from '../../menus/single-forced-modifie
 
     CustomersComponent,
     ToggleSwitchComponent,
+    ToggleIconButtonComponent,
     ProductEditModalComponent,
 
     GroupsComponent,

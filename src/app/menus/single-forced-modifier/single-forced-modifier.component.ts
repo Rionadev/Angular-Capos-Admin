@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleForcedModifierComponent implements OnInit {
 
+  isProductContentVisible: boolean = false; // Initially hidden for add or editing.
+  cities: string[] = ['London', 'New York', 'Paris', 'Tokyo'];
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  
+  toggleProductContent(): void {
+    this.isProductContentVisible = !this.isProductContentVisible;
+  }
 }
