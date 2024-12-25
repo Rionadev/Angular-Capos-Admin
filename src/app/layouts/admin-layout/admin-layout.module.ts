@@ -61,6 +61,8 @@ import { ManageordersComponent } from 'app/stockcontrol/manageorders/manageorder
 import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestock.component';
 import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
 
+import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -124,6 +126,9 @@ import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.c
     OrdersComponent,
     SettingsComponent,
     PagesComponent,
+
+    //Menus
+    MenusLayoutComponent,
   ]
 })
 
