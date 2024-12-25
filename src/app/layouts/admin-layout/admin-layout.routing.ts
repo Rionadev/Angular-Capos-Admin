@@ -48,6 +48,18 @@ import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestoc
 import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
 import { SaletransactionComponent } from 'app/saletransaction/saletransaction.component';
 
+import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.component';
+import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-modifiers.component';
+import { MixComponent } from '../../menus/mix/mix.component';
+import { PriceBooksComponent } from '../../menus/price-books/price-books.component';
+import { CategoriesComponent } from '../../menus/categories/categories.component';
+import { AttributesComponent } from '../../menus/attributes/attributes.component';
+import { PriorityComponent } from '../../menus/priority/priority.component';
+import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/forced-modifier-group.component';
+import { ModifierComponent } from '../../menus/modifier/modifier.component';
+import { ModifierTypesComponent } from '../../menus/modifier-types/modifier-types.component';
+import { SingleForcedModifierComponent } from '../../menus/single-forced-modifier/single-forced-modifier.component';
+
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
     { path: 'openclose', component: OpencloseComponent },
@@ -102,4 +114,17 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'ecommerce/orders', component: OrdersComponent },
     { path: 'ecommerce/settings', component: SettingsComponent },
     { path: 'ecommerce/pages', component: PagesComponent },
+
+    { path: 'menus/layout', component: MenusLayoutComponent },
+    { path: 'menus/menusmodifiers', component: ForcedModifiersComponent },
+    { path: 'menus/mix', component: MixComponent },
+    { path: 'menus/price', component: PriceBooksComponent },
+    { path: 'menus/categories', component: CategoriesComponent },
+    { path: 'menus/attributes', component: AttributesComponent },
+    { path: 'menus/priority', component: PriorityComponent },
+    { path: 'menus/forcedmodifiergroup', component: ForcedModifierGroupComponent },
+    { path: 'menus/modifier', component: ModifierComponent },
+    { path: 'menus/modifiertypes', component: ModifierTypesComponent },
+    { path: 'menus/forcedmodifier', component: SingleForcedModifierComponent },
+    
 ];

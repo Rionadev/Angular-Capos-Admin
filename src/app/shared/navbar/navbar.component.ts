@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { CUSTOMERROUTES, PRODUCTSROUTES, REPOTINGROUTES, ROUTES, SETTINGROUTES, ECOMMERCEROUTES, STOCKCONTROLROUTES } from '../../sidebar/sidebar.component';
+import { CUSTOMERROUTES, PRODUCTSROUTES, REPOTINGROUTES, ROUTES, SETTINGROUTES, ECOMMERCEROUTES, STOCKCONTROLROUTES, MENUSROUTES } from '../../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
@@ -21,7 +21,16 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.listTitles = [...ROUTES.filter(listTitle => listTitle), ...SETTINGROUTES.filter(listTitle => listTitle), ...CUSTOMERROUTES.filter(listTitle => listTitle), ...STOCKCONTROLROUTES.filter(listTitle => listTitle), ...REPOTINGROUTES.filter(listTitles => listTitles), ...ECOMMERCEROUTES.filter(listTitles => listTitles), ...PRODUCTSROUTES.filter(listTitles => listTitles)];
+
+        this.listTitles = [
+            ...ROUTES.filter(listTitle => listTitle),
+            ...SETTINGROUTES.filter(listTitle => listTitle),
+            ...CUSTOMERROUTES.filter(listTitle => listTitle),
+            ...STOCKCONTROLROUTES.filter(listTitle => listTitle),
+            ...REPOTINGROUTES.filter(listTitles => listTitles),
+            ...ECOMMERCEROUTES.filter(listTitles => listTitles),
+            ...MENUSROUTES.filter(listTitles => listTitles),
+            ...PRODUCTSROUTES.filter(listTitles => listTitles)];
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
     }

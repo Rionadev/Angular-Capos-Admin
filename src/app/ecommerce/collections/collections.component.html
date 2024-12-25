@@ -28,7 +28,11 @@
                                     <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
                                 </div>
                                 <div class="col-md-3">
-                                    <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
+                                    <select 
+                                        class="form-control" 
+                                        id="city-select" 
+                                        [(ngModel)]="selectedCity"
+                                    >
                                         <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
                                     </select>
                                     <!-- <a class="dropdown-toggle" data-toggle="dropdown">
@@ -167,10 +171,10 @@
                                         <td>{{ row.products }}</td>
                                         <td><app-toggle-switch [(checked)]="row.active"></app-toggle-switch></td>
                                         <td>
-                                            <button class="btn btn-sm" (click)="editRow(row)">
+                                            <button class="btn btn-sm btn-info" (click)="editRow(row)">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                             </button>
-                                            <button class="btn btn-sm" (click)="deleteRow(row.id)">
+                                            <button class="btn btn-sm btn-danger" (click)="deleteRow(row.id)">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </button>
                                         </td>

@@ -113,19 +113,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ?
-                                'Update' : 'Add' }}</button>
-                            <button class="btn btn-sm btn-danger btn-fill pull-right" (click)="cancelEdit(currentRow)"
-                                *ngIf="currentRow.id">Cancel</button>
-                            <div class="clearfix"></div>
+
+                            <div class="clearfix">
+                                <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ?
+                                    'Update' : 'Add' }}</button>
+                                <button class="btn btn-sm btn-danger btn-fill pull-right"
+                                    (click)="cancelEdit(currentRow)" *ngIf="currentRow.id">Cancel</button>
+                            </div>
                         </form>
                     </div>
                 </div>
 
                 <div class="card margin-bottom-0">
                     <div class="content add-content">
-                        <div class="row" style="align-items: center;justify-content:space-between; ">
-                            <div style=" display: flex;flex-direction: row;gap: 1rem;">
+                        <div class="row"
+                            style="display: flex; align-items: center; margin: 0 2rem; justify-content: space-between;">
+                            <div style="display: flex; flex-direction: row; gap: 1rem;">
                                 <div>
                                     <input type="text" class="form-control" placeholder="Search for products"
                                         [(ngModel)]="searchQuery" (input)="filterRows()" />
@@ -146,8 +149,6 @@
                                         <option value="Brand Z">Brand Z</option>
                                     </select>
                                 </div>
-                                <!-- </div> -->
-                                <!-- <div class="row"> -->
                                 <div>
                                     <select class="form-control" [(ngModel)]="selectedSupplier" (change)="filterRows()">
                                         <option value="">Select Supplier</option>
@@ -164,15 +165,14 @@
                                     </select>
                                 </div>
                             </div>
-                            <div style="gap: 1rem;gap: 1rem;
-                              display: flex;">
-
+                            <div style="display: flex; gap: 1rem; margin-left: auto;">
                                 <button class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">Clear
                                     Filters</button>
                                 <button class="btn btn-sm btn-info btn-fill" (click)="filterRows()">Search</button>
                             </div>
                         </div>
                     </div>
+
 
                     <div class="card">
                         <div class="content table-responsive table-full-width">

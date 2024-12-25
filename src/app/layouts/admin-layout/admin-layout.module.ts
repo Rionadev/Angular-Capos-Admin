@@ -25,6 +25,7 @@ import { SupplliersComponent } from 'app/Old_product/supplliers/supplliers.compo
 import { ProductattributesComponent } from 'app/Old_product/productattributes/productattributes.component';
 import { ProducttagsComponent } from 'app/Old_product/producttags/producttags.component';
 import { ToggleSwitchComponent } from 'app/component/toggle-switch/toggle-switch.component';
+
 import { OpencloseComponent } from 'app/openclose/openclose.component';
 import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
 import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
@@ -60,6 +61,19 @@ import { ManageordersComponent } from 'app/stockcontrol/manageorders/manageorder
 import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestock.component';
 import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
 import { SaletransactionComponent } from 'app/saletransaction/saletransaction.component';
+
+import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.component';
+import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-modifiers.component';
+import { MixComponent } from '../../menus/mix/mix.component';
+import { PriceBooksComponent } from '../../menus/price-books/price-books.component';
+import { CategoriesComponent } from '../../menus/categories/categories.component';
+import { AttributesComponent } from '../../menus/attributes/attributes.component';
+import { PriorityComponent } from '../../menus/priority/priority.component';
+import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/forced-modifier-group.component';
+import { ModifierComponent } from '../../menus/modifier/modifier.component';
+import { ModifierTypesComponent } from '../../menus/modifier-types/modifier-types.component';
+import { SingleForcedModifierComponent } from '../../menus/single-forced-modifier/single-forced-modifier.component';
+import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/toggle-icon-button.component';
 
 @NgModule({
   imports: [
@@ -102,6 +116,7 @@ import { SaletransactionComponent } from 'app/saletransaction/saletransaction.co
 
     CustomersComponent,
     ToggleSwitchComponent,
+    ToggleIconButtonComponent,
     ProductEditModalComponent,
 
     SaletransactionComponent,
@@ -125,6 +140,19 @@ import { SaletransactionComponent } from 'app/saletransaction/saletransaction.co
     OrdersComponent,
     SettingsComponent,
     PagesComponent,
+
+    //Menus
+    MenusLayoutComponent,
+    ForcedModifiersComponent,
+    MixComponent,
+    PriceBooksComponent,
+    CategoriesComponent,
+    AttributesComponent,
+    PriorityComponent,
+    ForcedModifierGroupComponent,
+    ModifierComponent,
+    ModifierTypesComponent,
+    SingleForcedModifierComponent,
   ]
 })
 
