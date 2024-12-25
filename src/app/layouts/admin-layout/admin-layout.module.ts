@@ -65,6 +65,14 @@ import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.comp
 import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-modifiers.component';
 import { MixComponent } from '../../menus/mix/mix.component';
 import { PriceBooksComponent } from '../../menus/price-books/price-books.component';
+import { CategoriesComponent } from '../../menus/categories/categories.component';
+import { AttributesComponent } from '../../menus/attributes/attributes.component';
+import { PriorityComponent } from '../../menus/priority/priority.component';
+import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/forced-modifier-group.component';
+import { ModifierComponent } from '../../menus/modifier/modifier.component';
+import { ModifierTypesComponent } from '../../menus/modifier-types/modifier-types.component';
+import { SingleForcedModifierComponent } from '../../menus/single-forced-modifier/single-forced-modifier.component';
+import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/toggle-icon-button.component';
 
 @NgModule({
   imports: [
@@ -107,6 +115,7 @@ import { PriceBooksComponent } from '../../menus/price-books/price-books.compone
 
     CustomersComponent,
     ToggleSwitchComponent,
+    ToggleIconButtonComponent,
     ProductEditModalComponent,
 
     GroupsComponent,
@@ -135,6 +144,13 @@ import { PriceBooksComponent } from '../../menus/price-books/price-books.compone
     ForcedModifiersComponent,
     MixComponent,
     PriceBooksComponent,
+    CategoriesComponent,
+    AttributesComponent,
+    PriorityComponent,
+    ForcedModifierGroupComponent,
+    ModifierComponent,
+    ModifierTypesComponent,
+    SingleForcedModifierComponent,
   ]
 })
 

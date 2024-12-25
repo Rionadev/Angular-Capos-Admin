@@ -1,0 +1,18 @@
+<!-- <div class="flex-item category">
+    <span class="glyphicon" [class.glyphicon-ok-circle]="checked" [class.glyphicon-ok]="checked"></span>
+    {{title}}
+</div>
+<div class="flex-item category padding-top-3">
+    <span class="glyphicon " [class.glyphicon-remove-circle]="checked" [class.glyphicon-remove]="checked"></span>
+    {{title}}
+</div> -->
+<div class="flex-item category">
+    <span class="glyphicon" 
+          [ngClass]="{
+              'glyphicon-ok-circle': checked,
+              'glyphicon-ok': checked,
+              'glyphicon-remove-circle': !checked,
+              'glyphicon-remove': !checked
+          }"></span>
+    {{title}}
+</div>
