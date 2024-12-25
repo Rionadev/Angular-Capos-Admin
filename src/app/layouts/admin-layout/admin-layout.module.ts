@@ -25,6 +25,7 @@ import { SupplliersComponent } from 'app/Old_product/supplliers/supplliers.compo
 import { ProductattributesComponent } from 'app/Old_product/productattributes/productattributes.component';
 import { ProducttagsComponent } from 'app/Old_product/producttags/producttags.component';
 import { ToggleSwitchComponent } from 'app/component/toggle-switch/toggle-switch.component';
+
 import { OpencloseComponent } from 'app/openclose/openclose.component';
 import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
 import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';

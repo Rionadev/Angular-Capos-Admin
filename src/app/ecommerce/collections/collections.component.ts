@@ -78,5 +78,4 @@ export class CollectionsComponent implements OnInit {
   private generateId(): number {
     return Math.max(...this.rows.map((r) => r.id), 0) + 1;
   }
-
 }
