@@ -32,236 +32,258 @@
                             </button> -->
                         </div>
                     </div>
-                    <div class="card margin-bottom-10" *ngIf="isContentVisible">
-                        <div
-                            style="display: flex; border-bottom: 1px solid rgb(212, 212, 212);padding-top: 1rem;padding-bottom: 1rem;">
-                            <div class="col-md-3">
-                                <h3>Details</h3>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="row space-between">
-                                    <div class="col-md-6">
-                                        <label for="name">Name:</label>
-                                        <input type="text" id="name" class="form-control" placeholder="Enter Name"
-                                            [(ngModel)]="newCustomer.name" />
+                    <div class="modal" tabindex="-1" role="dialog" *ngIf="isContentVisible" style="overflow-y: auto;" (click)="closeModal()">
+                        <div class="modal-dialog" role="document" (click)="$event.stopPropagation()">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div
+                                        style="display: flex; border-bottom: 1px solid rgb(212, 212, 212);padding-top: 1rem;padding-bottom: 1rem;">
+                                        <div class="col-md-3">
+                                            <h3>Details</h3>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row space-between">
+                                                <div class="col-md-6">
+                                                    <label for="name">Name:</label>
+                                                    <input type="text" id="name" class="form-control"
+                                                        placeholder="Enter Name" [(ngModel)]="newCustomer.name" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="companyName">Company Name:</label>
+                                                    <input type="text" id="companyName" class="form-control"
+                                                        placeholder="Enter Company Name"
+                                                        [(ngModel)]="newCustomer.companyName" />
+                                                </div>
+                                            </div>
+                                            <div class="row space-between">
+                                                <div class="col-md-6">
+                                                    <label for="customerCode">Customer Code:</label>
+                                                    <input type="text" id="customerCode" class="form-control"
+                                                        placeholder="Enter Customer Code"
+                                                        [(ngModel)]="newCustomer.customerCode" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="group">Group:</label>
+                                                    <select id="group" class="form-control"
+                                                        [(ngModel)]="newCustomer.group">
+                                                        <option value="Regular">Regular Customers</option>
+                                                        <option value="VIP">VIP Customers</option>
+                                                        <option value="New">New Customers</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row space-between">
+                                                <div class="col-md-6">
+                                                    <label for="dob">Date of Birth:</label>
+                                                    <input type="date" id="dob" class="form-control"
+                                                        [(ngModel)]="newCustomer.dob" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="gender">Gender:</label>
+                                                    <select id="gender" class="form-control"
+                                                        [(ngModel)]="newCustomer.gender">
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="companyName">Company Name:</label>
-                                        <input type="text" id="companyName" class="form-control"
-                                            placeholder="Enter Company Name" [(ngModel)]="newCustomer.companyName" />
+                                    <div
+                                        style="display: flex; border-bottom: 1px solid rgb(212, 212, 212); padding-top: 1rem;padding-bottom: 1rem;">
+                                        <div class="col-md-3">
+                                            <h3>Contact Information</h3>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row space-between">
+                                                <div class="col-md-6">
+                                                    <label for="email">Email:</label>
+                                                    <input type="email" id="email" class="form-control"
+                                                        placeholder="Enter Email" [(ngModel)]="newCustomer.email" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="mobile">Mobile:</label>
+                                                    <input type="tel" id="mobile" class="form-control"
+                                                        placeholder="Enter Mobile" [(ngModel)]="newCustomer.mobile" />
+                                                </div>
+                                            </div>
+                                            <div class="row space-between">
+                                                <div class="col-md-6">
+                                                    <label for="phone">Phone:</label>
+                                                    <input type="tel" id="phone" class="form-control"
+                                                        placeholder="Enter Phone" [(ngModel)]="newCustomer.phone" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="fax">Fax:</label>
+                                                    <input type="tel" id="fax" class="form-control"
+                                                        placeholder="Enter Fax" [(ngModel)]="newCustomer.fax" />
+                                                </div>
+                                            </div>
+                                            <div class="row space-between">
+                                                <div class="col-md-6">
+                                                    <label for="twitter">Twitter:</label>
+                                                    <input type="text" id="twitter" class="form-control"
+                                                        placeholder="Enter Twitter Handle"
+                                                        [(ngModel)]="newCustomer.twitter" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="website">Website:</label>
+                                                    <input type="url" id="website" class="form-control"
+                                                        placeholder="Enter Website URL"
+                                                        [(ngModel)]="newCustomer.website" />
+                                                </div>
+                                            </div>
+                                            <div class="row space-between">
+                                                <div class="col-md-12">
+                                                    <label for="note">Note:</label>
+                                                    <textarea id="note" class="form-control" rows="3"
+                                                        placeholder="Enter any notes"
+                                                        [(ngModel)]="newCustomer.note"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row space-between">
-                                    <div class="col-md-6">
-                                        <label for="customerCode">Customer Code:</label>
-                                        <input type="text" id="customerCode" class="form-control"
-                                            placeholder="Enter Customer Code" [(ngModel)]="newCustomer.customerCode" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="group">Group:</label>
-                                        <select id="group" class="form-control" [(ngModel)]="newCustomer.group">
-                                            <option value="Regular">Regular Customers</option>
-                                            <option value="VIP">VIP Customers</option>
-                                            <option value="New">New Customers</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row space-between">
-                                    <div class="col-md-6">
-                                        <label for="dob">Date of Birth:</label>
-                                        <input type="date" id="dob" class="form-control"
-                                            [(ngModel)]="newCustomer.dob" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="gender">Gender:</label>
-                                        <select id="gender" class="form-control" [(ngModel)]="newCustomer.gender">
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            style="display: flex; border-bottom: 1px solid rgb(212, 212, 212); padding-top: 1rem;padding-bottom: 1rem;">
-                            <div class="col-md-3">
-                                <h3>Contact Information</h3>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="row space-between">
-                                    <div class="col-md-6">
-                                        <label for="email">Email:</label>
-                                        <input type="email" id="email" class="form-control" placeholder="Enter Email"
-                                            [(ngModel)]="newCustomer.email" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="mobile">Mobile:</label>
-                                        <input type="tel" id="mobile" class="form-control" placeholder="Enter Mobile"
-                                            [(ngModel)]="newCustomer.mobile" />
-                                    </div>
-                                </div>
-                                <div class="row space-between">
-                                    <div class="col-md-6">
-                                        <label for="phone">Phone:</label>
-                                        <input type="tel" id="phone" class="form-control" placeholder="Enter Phone"
-                                            [(ngModel)]="newCustomer.phone" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="fax">Fax:</label>
-                                        <input type="tel" id="fax" class="form-control" placeholder="Enter Fax"
-                                            [(ngModel)]="newCustomer.fax" />
-                                    </div>
-                                </div>
-                                <div class="row space-between">
-                                    <div class="col-md-6">
-                                        <label for="twitter">Twitter:</label>
-                                        <input type="text" id="twitter" class="form-control"
-                                            placeholder="Enter Twitter Handle" [(ngModel)]="newCustomer.twitter" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="website">Website:</label>
-                                        <input type="url" id="website" class="form-control"
-                                            placeholder="Enter Website URL" [(ngModel)]="newCustomer.website" />
-                                    </div>
-                                </div>
-                                <div class="row space-between">
-                                    <div class="col-md-12">
-                                        <label for="note">Note:</label>
-                                        <textarea id="note" class="form-control" rows="3" placeholder="Enter any notes"
-                                            [(ngModel)]="newCustomer.note"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            style="display: flex; border-bottom: 1px solid rgb(212, 212, 212); padding-top: 1rem;padding-bottom: 1rem;">
-                            <div class="col-md-3">
-                                <h3>Address Information</h3>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="row space-between">
-                                    <div class="col-md-6">
-                                        <label for="street">Street:</label>
-                                        <input type="text" id="street" class="form-control" placeholder="Enter Street"
-                                            [(ngModel)]="newCustomer.street" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="city">City:</label>
-                                        <input type="text" id="city" class="form-control" placeholder="Enter City"
-                                            [(ngModel)]="newCustomer.city" />
-                                    </div>
-                                </div>
-                                <div class="row space-between">
-                                    <div class="col-md-6">
-                                        <label for="suburb">Suburb:</label>
-                                        <input type="text" id="suburb" class="form-control" placeholder="Enter Suburb"
-                                            [(ngModel)]="newCustomer.suburb" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="postcode">Postcode:</label>
-                                        <input type="text" id="postcode" class="form-control"
-                                            placeholder="Enter Postcode" [(ngModel)]="newCustomer.postcode" />
-                                    </div>
-                                </div>
-                                <div class="row space-between">
-                                    <div class="col-md-6">
-                                        <label for="state">State:</label>
-                                        <input type="text" id="state" class="form-control" placeholder="Enter State"
-                                            [(ngModel)]="newCustomer.state" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="country">Country:</label>
-                                        <select id="country" class="form-control" [(ngModel)]="newCustomer.country">
-                                            <option *ngFor="let country of countries" [value]="country">{{ country }}
-                                            </option>
-                                            <!-- Add more countries as needed -->
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" id="differentAddress" class="form-check-input"
-                                        [(ngModel)]="differentAddress" />
-                                    <label for="differentAddress" class="form-check-label">Postal Address different from
-                                        Physical Address</label>
-                                </div>
+                                    <div
+                                        style="display: flex; border-bottom: 1px solid rgb(212, 212, 212); padding-top: 1rem;padding-bottom: 1rem;">
+                                        <div class="col-md-3">
+                                            <h3>Address Information</h3>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row space-between">
+                                                <div class="col-md-6">
+                                                    <label for="street">Street:</label>
+                                                    <input type="text" id="street" class="form-control"
+                                                        placeholder="Enter Street" [(ngModel)]="newCustomer.street" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="city">City:</label>
+                                                    <input type="text" id="city" class="form-control"
+                                                        placeholder="Enter City" [(ngModel)]="newCustomer.city" />
+                                                </div>
+                                            </div>
+                                            <div class="row space-between">
+                                                <div class="col-md-6">
+                                                    <label for="suburb">Suburb:</label>
+                                                    <input type="text" id="suburb" class="form-control"
+                                                        placeholder="Enter Suburb" [(ngModel)]="newCustomer.suburb" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="postcode">Postcode:</label>
+                                                    <input type="text" id="postcode" class="form-control"
+                                                        placeholder="Enter Postcode"
+                                                        [(ngModel)]="newCustomer.postcode" />
+                                                </div>
+                                            </div>
+                                            <div class="row space-between">
+                                                <div class="col-md-6">
+                                                    <label for="state">State:</label>
+                                                    <input type="text" id="state" class="form-control"
+                                                        placeholder="Enter State" [(ngModel)]="newCustomer.state" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="country">Country:</label>
+                                                    <select id="country" class="form-control"
+                                                        [(ngModel)]="newCustomer.country">
+                                                        <option *ngFor="let country of countries" [value]="country">{{
+                                                            country }}
+                                                        </option>
+                                                        <!-- Add more countries as needed -->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" id="differentAddress" class="form-check-input"
+                                                    [(ngModel)]="differentAddress" />
+                                                <label for="differentAddress" class="form-check-label">Postal Address
+                                                    different from
+                                                    Physical Address</label>
+                                            </div>
 
-                                <div *ngIf="differentAddress" style="margin-top: 20px;">
-                                    <h4>Postal Address</h4>
-                                    <div class="row space-between">
-                                        <div class="col-md-6">
-                                            <label for="postalStreet">Street:</label>
-                                            <input type="text" id="postalStreet" class="form-control"
-                                                placeholder="Enter Postal Street"
-                                                [(ngModel)]="newCustomer.postalStreet" />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="postalCity">City:</label>
-                                            <input type="text" id="postalCity" class="form-control"
-                                                placeholder="Enter Postal City" [(ngModel)]="newCustomer.postalCity" />
+                                            <div *ngIf="differentAddress" style="margin-top: 20px;">
+                                                <h4>Postal Address</h4>
+                                                <div class="row space-between">
+                                                    <div class="col-md-6">
+                                                        <label for="postalStreet">Street:</label>
+                                                        <input type="text" id="postalStreet" class="form-control"
+                                                            placeholder="Enter Postal Street"
+                                                            [(ngModel)]="newCustomer.postalStreet" />
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="postalCity">City:</label>
+                                                        <input type="text" id="postalCity" class="form-control"
+                                                            placeholder="Enter Postal City"
+                                                            [(ngModel)]="newCustomer.postalCity" />
+                                                    </div>
+                                                </div>
+                                                <div class="row space-between">
+                                                    <div class="col-md-6">
+                                                        <label for="postalSuburb">Suburb:</label>
+                                                        <input type="text" id="postalSuburb" class="form-control"
+                                                            placeholder="Enter Postal Suburb"
+                                                            [(ngModel)]="newCustomer.postalSuburb" />
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="postalPostcode">Postcode:</label>
+                                                        <input type="text" id="postalPostcode" class="form-control"
+                                                            placeholder="Enter Postal Postcode"
+                                                            [(ngModel)]="newCustomer.postalPostcode" />
+                                                    </div>
+                                                </div>
+                                                <div class="row space-between">
+                                                    <div class="col-md-6">
+                                                        <label for="postalState">State:</label>
+                                                        <input type="text" id="postalState" class="form-control"
+                                                            placeholder="Enter Postal State"
+                                                            [(ngModel)]="newCustomer.postalState" />
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="postalCountry">Country:</label>
+                                                        <select id="postalCountry" class="form-control"
+                                                            [(ngModel)]="newCustomer.postalCountry">
+                                                            <option *ngFor="let country of countries" [value]="country">
+                                                                {{ country
+                                                                }}
+                                                            </option>
+                                                            <!-- Add more countries as needed -->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                         </div>
                                     </div>
-                                    <div class="row space-between">
-                                        <div class="col-md-6">
-                                            <label for="postalSuburb">Suburb:</label>
-                                            <input type="text" id="postalSuburb" class="form-control"
-                                                placeholder="Enter Postal Suburb"
-                                                [(ngModel)]="newCustomer.postalSuburb" />
+                                    <div style="display: flex;  margin-top: 20px;">
+                                        <div class="col-md-3">
+                                            <h3>Custom Fields</h3>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="postalPostcode">Postcode:</label>
-                                            <input type="text" id="postalPostcode" class="form-control"
-                                                placeholder="Enter Postal Postcode"
-                                                [(ngModel)]="newCustomer.postalPostcode" />
-                                        </div>
-                                    </div>
-                                    <div class="row space-between">
-                                        <div class="col-md-6">
-                                            <label for="postalState">State:</label>
-                                            <input type="text" id="postalState" class="form-control"
-                                                placeholder="Enter Postal State"
-                                                [(ngModel)]="newCustomer.postalState" />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="postalCountry">Country:</label>
-                                            <select id="postalCountry" class="form-control"
-                                                [(ngModel)]="newCustomer.postalCountry">
-                                                <option *ngFor="let country of countries" [value]="country">{{ country
-                                                    }}
-                                                </option>
-                                                <!-- Add more countries as needed -->
-                                            </select>
+                                        <div class="col-md-9">
+                                            <div class="row space-between">
+                                                <div class="col-md-6">
+                                                    <label for="customField1">Custom Field 1:</label>
+                                                    <input type="text" id="customField1" class="form-control"
+                                                        placeholder="Enter Custom Field 1"
+                                                        [(ngModel)]="newCustomer.customField1" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="customField2">Custom Field 2:</label>
+                                                    <input type="text" id="customField2" class="form-control"
+                                                        placeholder="Enter Custom Field 2"
+                                                        [(ngModel)]="newCustomer.customField2" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
-
-
-                            </div>
-                        </div>
-                        <div style="display: flex;  margin-top: 20px;">
-                            <div class="col-md-3">
-                                <h3>Custom Fields</h3>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="row space-between">
-                                    <div class="col-md-6">
-                                        <label for="customField1">Custom Field 1:</label>
-                                        <input type="text" id="customField1" class="form-control"
-                                            placeholder="Enter Custom Field 1" [(ngModel)]="newCustomer.customField1" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="customField2">Custom Field 2:</label>
-                                        <input type="text" id="customField2" class="form-control"
-                                            placeholder="Enter Custom Field 2" [(ngModel)]="newCustomer.customField2" />
-                                    </div>
+                                <div
+                                    style="display: flex;align-content: center;margin-top: 1rem;margin-bottom: 1rem;padding-bottom: 1rem;    place-content: center;flex-direction: row;gap: 1rem;">
+                                    <button class="btn btn-sm btn-info btn-fill " (click)="saveCustomer()">Save</button>
+                                    <button class="btn btn-sm btn-danger btn-fill "
+                                        (click)="closecustomer()">Cancel</button>
                                 </div>
                             </div>
                         </div>
-                        <div
-                            style="display: flex;align-content: center;margin-top: 1rem;margin-bottom: 1rem;padding-bottom: 1rem;    place-content: center;">
-                            <button class="btn btn-sm btn-info btn-fill " style="margin-right: 2rem;">Save</button>
-                            <button class="btn btn-sm btn-danger btn-fill ">Cancel</button>
-                        </div>
-
                     </div>
 
                     <!-- Search Bar -->
@@ -329,17 +351,163 @@
                                         <td>{{ transaction.balance | currency }}</td>
                                         <td>{{ transaction.points }}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-info"
-                                                (click)="viewTransaction(transaction)">View</button>
-                                            <button class="btn btn-sm btn-warning"
-                                                (click)="editTransaction(transaction)">Edit</button>
-                                            <button class="btn btn-sm btn-danger"
-                                                (click)="deleteTransaction(transaction)">Delete</button>
+                                            <div style="display: flex;flex-direction: row;gap: 1rem;">
+                                                <button class="btn btn-sm btn-info"
+                                                    (click)="viewTransaction(transaction)">View</button>
+                                                <button class="btn btn-sm btn-warning"
+                                                    (click)="editTransaction(transaction)">Edit</button>
+                                                <button class="btn btn-sm btn-danger"
+                                                    (click)="deleteTransaction(transaction)">Delete</button>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                        <div class="modal" tabindex="-1" role="dialog" *ngIf="isModalOpen" (click)="closeModal()">
+                            <div class="modal-dialog" role="document" (click)="$event.stopPropagation()">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Transaction Details</h5>
+                                        <!-- Close button can be uncommented if needed -->
+                                        <!-- <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button> -->
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row" style="text-align: center; display: flex; justify-content: center;
+                                            border-bottom: 1px solid rgb(221, 221, 221);">
+                                            <div class="col-md-5">
+                                                <h3><b>Contact Info</b></h3>
+                                                <table class="info-table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><strong>Name:</strong></td>
+                                                            <td>{{ selectedTransaction.name }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Email:</strong></td>
+                                                            <td>{{ selectedTransaction.email }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Mobile:</strong></td>
+                                                            <td>{{ selectedTransaction.mobile }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Phone:</strong></td>
+                                                            <td>{{ selectedTransaction.phone }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Group:</strong></td>
+                                                            <td>{{ selectedTransaction.group }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <h3><b>Balance</b></h3>
+                                                <table class="info-table">
+                                                    <tbody style="text-align: right;">
+                                                        <tr>
+                                                            <td><strong>Account</strong></td>
+                                                            <td>{{ formatCurrency(selectedTransaction.bal_account) }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total Spent</td>
+                                                            <td>{{ formatCurrency(selectedTransaction.bal_totalSpent) }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Store Credit</strong></td>
+                                                            <td>{{ formatCurrency(selectedTransaction.storeCredit) }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total Issued</td>
+                                                            <td>{{
+                                                                formatCurrency(selectedTransaction.bal_sotreCredit_issued)
+                                                                }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total Redeemed</td>
+                                                            <td>{{
+                                                                formatCurrency(selectedTransaction.bal_sotreCredit_redeemed)
+                                                                }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Points</strong></td>
+                                                            <td>{{ formatCurrency(selectedTransaction.points) }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total Points Issued</td>
+                                                            <td>{{ formatCurrency(selectedTransaction.bal_issued) }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total Points Redeemed</td>
+                                                            <td>{{ formatCurrency(selectedTransaction.bal_redeemed) }}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- Pay Account Balance Card -->
+                                        <div class="pay-balance-card" *ngIf="isPayBalanceOpen"
+                                            style="text-align: center;">
+                                            <h4><b>Pay Account Balance</b></h4>
+
+                                            <div class="form-group" style="margin: 1rem;">
+                                                <label>Sales (Layby & Account):</label>
+                                                <select class="form-control">
+                                                    <option value="layby">Layby</option>
+                                                    <option value="account">Account</option>
+                                                </select>
+                                            </div>
+                                            <div style="display: flex;justify-content: space-between;">
+                                                <div class="form-group col-md-6">
+                                                    <label>Amount to Pay:</label>
+                                                    <input type="number" class="form-control"
+                                                        placeholder="Enter amount" />
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <label>Payment Type:</label>
+                                                    <select class="form-control">
+                                                        <option value="cash">Cash</option>
+                                                        <option value="creditCard">Credit Card</option>
+                                                        <option value="masterCard">Master Card</option>
+                                                        <option value="storeCredit">Store Credit</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div class="pay-balance-actions" style="justify-self:right;">
+                                                <button type="button" class="btn btn-success">Pay Balance</button>
+                                                <!-- <button type="button" class="btn btn-danger"
+                                                    (click)="isPayBalanceOpen = false">Cancel</button> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary"
+                                                (click)="showPayAccountBalance()">Pay Account Balance</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                (click)="closeModal()">Close</button>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
                     </div>
 
                 </div>

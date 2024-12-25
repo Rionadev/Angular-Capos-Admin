@@ -4,7 +4,8 @@
     display: inline-block;
     padding: 8px 10px;
     cursor: pointer;
-    background-color: #1dc7ea; /* Customize button color */
+    background-color: #1dc7ea;
+    /* Customize button color */
     color: white;
     border-radius: 3px;
     font-size: 12px;
@@ -14,9 +15,135 @@
 }
 
 .custom-file-upload:hover {
-    opacity: 0.8; /* Darker shade on hover */
+    opacity: 0.8;
+    /* Darker shade on hover */
 }
 
 .btn-addcustomer {
     height: 30px;
+}
+
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-dialog {
+
+    top: 5%;
+    left: 10%;
+    max-width: 800px;
+    width: 90%;
+    margin: 1rem auto;
+}
+
+.modal-content {
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgb(202, 202, 202);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 0px 20px;
+    /* Add some padding */
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    /* Space between columns */
+    align-items: flex-start;
+    /* Align items at the start */
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.info-table td {
+    padding: 5px;
+    // border: 1px solid #dee2e6;
+}
+
+.info-table tr:nth-child(even) {
+    // background-color: #f8f9fa;
+}
+
+.info-table td:first-child {
+    // font-weight: bold;
+    min-width: 120px;
+    /* Ensure labels have enough width */
+}
+
+/* Modal footer styling */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    /* Align buttons to the right */
+    padding-top: 10px;
+    /* Space above buttons */
+}
+
+.pay-balance-card {
+    // padding: 20px;
+    /* Add padding around the card */
+    // background-color: #f9f9f9;
+    /* Light background color */
+    // border: 1px solid #dee2e6;
+    /* Border for the card */
+    // border-radius: 8px;
+    /* Rounded corners */
+    // box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    // max-width: 400px;
+    /* Max width for the card */
+    // margin: auto;
+    /* Center the card */
+}
+
+.form-group {
+    margin-bottom: 15px;
+    /* Space between form elements */
+    text-align: left;
+    /* Align labels to the left */
+}
+
+label {
+    font-weight: bold;
+    /* Bold labels */
+    margin-bottom: 5px;
+    /* Space below labels */
+    display: block;
+    /* Ensure labels take full width */
+}
+
+.form-control {
+    width: 100%;
+    /* Full width for inputs and selects */
+    padding: 10px;
+    /* Padding inside inputs */
+    border: 1px solid #ccc;
+    /* Border for inputs */
+    border-radius: 4px;
+    /* Rounded corners for inputs */
+}
+
+.pay-balance-actions {
+    // margin-top: 20px;
+    /* Space above action buttons */
 }

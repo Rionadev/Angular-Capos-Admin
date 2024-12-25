@@ -71,6 +71,20 @@
             </a>
         </li>
         <li>
+            <a (click)="productsContent()">
+                <i class="pe-7s-box1"></i>
+                <p>Products</p>
+            </a>
+        </li>
+        <ng-container *ngIf="isProductsContentVisible">
+            <li routerLinkActive="active" *ngFor="let menuItem of productsgMenuItems"
+                class="{{menuItem.class}} setting-content-board">
+                <a class="" [routerLink]="[menuItem.path]">
+                    <p>{{menuItem.title}}</p>
+                </a>
+            </li>
+        </ng-container>
+        <li>
             <a (click)="reportingContent()">
                 <i class="pe-7s-note2"></i>
                 <p>Reporting</p>
@@ -115,20 +129,7 @@
                 </a>
             </li>
         </ng-container>
-        <!-- <li>
-            <a (click)="productsContent()">
-                <i class="pe-7s-box1"></i>
-                <p>Products</p>
-            </a>
-        </li>
-        <ng-container *ngIf="isProductsContentVisible">
-            <li routerLinkActive="active" *ngFor="let menuItem of productsgMenuItems"
-                class="{{menuItem.class}} setting-content-board">
-                <a class="" [routerLink]="[menuItem.path]">
-                    <p>{{menuItem.title}}</p>
-                </a>
-            </li>
-        </ng-container> -->
+
         <li>
             <a (click)="ecommerceContent()">
                 <i class="pe-7s-shopbag"></i>
@@ -151,7 +152,7 @@
             </a>
         </li>
         <ng-container *ngIf="isSettingContentVisible">
-            <li  routerLinkActive="active" *ngFor="let menuItem of settingMenuItems"
+            <li routerLinkActive="active" *ngFor="let menuItem of settingMenuItems"
                 class="{{menuItem.class}} setting-content-board">
                 <a class="" [routerLink]="[menuItem.path]">
                     <!-- <i class="{{menuItem.icon}}"></i> -->
