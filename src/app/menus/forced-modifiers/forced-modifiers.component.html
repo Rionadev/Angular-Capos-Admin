@@ -1,0 +1,48 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card margin-bottom-10">
+                    <div class="content add-content">
+                        <div class="">
+                        </div>
+                        <div class="">
+                            <button class="btn btn-sm btn-info btn-fill">Clear Filters</button>
+                            <button class="btn btn-sm btn-info btn-fill">Search</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="content table-responsive table-full-width">
+                          <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Name</th>
+                                        <th>Forced Modifier</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of rows">
+                                        <td>{{ row.category }}</td>
+                                        <td>{{ row.name }}</td>
+                                        <td>{{ row.modifier }}</td>
+                                        <td>
+                                            <button class="btn btn-sm" (click)="editRow(row)">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </button>
+                                            <button class="btn btn-sm" (click)="deleteRow(row.id)">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                          </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

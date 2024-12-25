@@ -48,6 +48,7 @@ import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestoc
 import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
 
 import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.component';
+import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-modifiers.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -103,4 +104,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'ecommerce/pages', component: PagesComponent },
 
     { path: 'menus/layout', component: MenusLayoutComponent },
+    { path: 'menus/menusmodifiers', component: ForcedModifiersComponent },
 ];
