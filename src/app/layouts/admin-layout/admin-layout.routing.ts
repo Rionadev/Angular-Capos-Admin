@@ -49,6 +49,7 @@ import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.c
 
 import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.component';
 import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-modifiers.component';
+import { MixComponent } from '../../menus/mix/mix.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -105,4 +106,5 @@ export const AdminLayoutRoutes: Routes = [
 
     { path: 'menus/layout', component: MenusLayoutComponent },
     { path: 'menus/menusmodifiers', component: ForcedModifiersComponent },
+    { path: 'menus/mix', component: MixComponent },
 ];
