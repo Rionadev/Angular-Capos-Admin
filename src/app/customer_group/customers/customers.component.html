@@ -12,12 +12,24 @@
                             </span>
                         </div>
                         <div style="display: flex; justify-content: right;">
-                            <button class="btn btn-sm btn-info btn-fill" style="margin-right: 2rem;">
+                            <div class="file-upload-container" style="align-items: center;">
+                                <label for="fileInput" class="custom-file-upload" style="margin: 2px ;">
+                                    Import Customers
+                                </label>
+                                <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Import Customers</button> -->
+                                <input type="file" id="fileInput" class="hidden" />
+                            </div>
+                            <!-- <button class="btn btn-sm btn-info btn-fill" style="margin-right: 2rem;">
                                 Import Customers
-                            </button>
-                            <button class="btn btn-sm btn-info btn-fill" (click)="addcustomer()">
+                            </button> -->
+                            <div>
+                                <label (click)="addcustomer()" class="custom-file-upload" style="margin: 2px ;">
+                                    Add Customer
+                                </label>
+                            </div>
+                            <!-- <button class="btn btn-sm btn-info btn-fill" style="height: 30px;margin: 2px;" (click)="addcustomer()">
                                 Add Customer
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                     <div class="card margin-bottom-10" *ngIf="isContentVisible">
@@ -244,7 +256,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="display: flex;align-content: center;margin-top: 1rem;margin-bottom: 1rem;padding-bottom: 1rem;    place-content: center;">
+                        <div
+                            style="display: flex;align-content: center;margin-top: 1rem;margin-bottom: 1rem;padding-bottom: 1rem;    place-content: center;">
                             <button class="btn btn-sm btn-info btn-fill " style="margin-right: 2rem;">Save</button>
                             <button class="btn btn-sm btn-danger btn-fill ">Cancel</button>
                         </div>

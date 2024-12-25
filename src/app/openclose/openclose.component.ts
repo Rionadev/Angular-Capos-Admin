@@ -104,7 +104,6 @@ export class OpencloseComponent implements OnInit {
     return this.creditCardBreakdown.reduce((total, payment) => total + payment.amount, 0);
   }
   toggleContent() {
-
     this.isContentVisible = !this.isContentVisible;
     if(this.isContentVisible){    this.closeRegister();}
   }
