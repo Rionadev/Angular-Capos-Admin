@@ -28,6 +28,7 @@
     /* Remove borders from body cells */
 }
 
+
 .table {
     border: none;
     font-size: 1.5rem;
@@ -37,6 +38,111 @@
     border-top: 1px solid #9b9b9b;
     /* Top border for the header */
 }
-textarea{
+
+textarea {
     background-color: #ffffff;
+}
+
+.border {
+    border-bottom: 1px solid gray;
+}
+
+.just-row {
+    justify-content: space-between;
+    display: flex;
+}
+.print-roll-bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+}
+.print-roll {
+    // z-index: 100;
+    width: 300px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.z-report {
+    padding: 20px;
+    /* Add padding for better spacing */
+    border: 1px solid #ccc;
+    /* Light border for definition */
+    background-color: #f9f9f9;
+    /* Light background for readability */
+    margin-top: 20px;
+    /* Space above the report */
+}
+
+.z-report h3 {
+    text-align: center;
+    /* Center the main title */
+    font-size: 24px;
+    /* Larger font for title */
+    margin-bottom: 20px;
+    /* Space below the title */
+}
+
+.z-report h4 {
+    font-size: 20px;
+    /* Slightly smaller font for section titles */
+    margin-top: 15px;
+    /* Space above section titles */
+}
+
+.z-report p {
+    font-size: 16px;
+    /* Standard font size for text */
+}
+
+.z-report table {
+    width: 100%;
+    /* Full width for the table */
+    border-collapse: collapse;
+    /* Merge table borders */
+    margin-top: 10px;
+    /* Space above the table */
+}
+
+.z-report th,
+.z-report td {
+    border: 1px solid #ddd;
+    /* Light border for table cells */
+    padding: 8px;
+    /* Padding inside table cells */
+    text-align: left;
+    /* Left-align text */
+}
+
+.z-report th {
+    background-color: #f2f2f2;
+    /* Light gray background for headers */
+    font-weight: bold;
+    /* Bold text for headers */
+}
+
+.z-report .total-border {
+    font-weight: bold;
+    /* Bold text for total row */
+    background-color: #e9e9e9;
+    /* Slightly darker background for total row */
+}
+
+.print-table {
+    border: none !important;
+    background: none !important;
+    font-size: 1.3rem;
+    padding: 0% !important;
+    margin: 0% !important;
+    text-align: center;
+    text-align-last: center;
+    // margin:0;
+}
+
+.mb-1{
+    margin-bottom: 1rem;
 }

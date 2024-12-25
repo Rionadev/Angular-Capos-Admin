@@ -3,26 +3,36 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Search Bar -->
-              
 
                 <!-- Date Picker Selection -->
-                <div class="card margin-bottom-10">
-                    <div class="content" style="display: flex; align-items: center;">
+                <div class="card"
+                    style="display: flex; align-items: center; justify-content: space-between;padding: 2rem;">
+                    <div class="col-md-6" style="display: flex;align-items: center;">
                         <select class="form-control" [(ngModel)]="selectedPeriod" (change)="updateDateRange()">
                             <option value="today">Today</option>
                             <option value="thisWeek">This Week</option>
                             <option value="thisMonth">This Month</option>
                             <option value="thisYear">This Year</option>
                         </select>
-                        <label style="margin-right: 10px;">From:</label>
+
+                        <!-- <div class="row" style="display: flex;align-items: center;flex-direction: row;gap: 2rem;"> -->
+                        <label style="margin-left: 2rem; margin-right: 10px;">From:</label>
                         <input class="form-control" type="date" [(ngModel)]="startDate" (change)="filterData()" />
                         <label style="margin: 0 10px;">To:</label>
                         <input class="form-control" type="date" [(ngModel)]="endDate" (change)="filterData()" />
-                        <button class="btn btn-primary" (click)="filterData()"
-                            style="margin-left: 10px;">Search</button>
-                        <button class="btn btn-success" (click)="clearFilters()" style="margin-left: 10px;">Clear
-                            Filter</button>
+                        <!-- </div> -->
                     </div>
+                    <div class="col-md-2"
+                        style=" display: flex;flex-direction: row;gap: 1rem;   justify-content: right;">
+                        <button class="btn btn-sm btn-info btn-fill" (click)="filterData()">
+                            Search
+                        </button>
+                        <button class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">
+                            Clear Filter
+                        </button>
+
+                    </div>
+
                 </div>
 
                 <!-- Sales Table -->
