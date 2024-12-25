@@ -64,6 +64,7 @@ import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.c
 import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.component';
 import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-modifiers.component';
 import { MixComponent } from '../../menus/mix/mix.component';
+import { PriceBooksComponent } from '../../menus/price-books/price-books.component';
 
 @NgModule({
   imports: [
@@ -133,6 +134,7 @@ import { MixComponent } from '../../menus/mix/mix.component';
     MenusLayoutComponent,
     ForcedModifiersComponent,
     MixComponent,
+    PriceBooksComponent,
   ]
 })
 
