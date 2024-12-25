@@ -56,6 +56,7 @@ import { AttributesComponent } from '../../menus/attributes/attributes.component
 import { PriorityComponent } from '../../menus/priority/priority.component';
 import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/forced-modifier-group.component';
 import { ModifierComponent } from '../../menus/modifier/modifier.component';
+import { ModifierTypesComponent } from '../../menus/modifier-types/modifier-types.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -119,5 +120,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'menus/priority', component: PriorityComponent },
     { path: 'menus/forcedmodifiergroup', component: ForcedModifierGroupComponent },
     { path: 'menus/modifier', component: ModifierComponent },
+    { path: 'menus/modifiertypes', component: ModifierTypesComponent },
     
 ];
