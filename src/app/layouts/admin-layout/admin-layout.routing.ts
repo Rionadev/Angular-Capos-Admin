@@ -54,6 +54,7 @@ import { PriceBooksComponent } from '../../menus/price-books/price-books.compone
 import { CategoriesComponent } from '../../menus/categories/categories.component';
 import { AttributesComponent } from '../../menus/attributes/attributes.component';
 import { PriorityComponent } from '../../menus/priority/priority.component';
+import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/forced-modifier-group.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -115,5 +116,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'menus/categories', component: CategoriesComponent },
     { path: 'menus/attributes', component: AttributesComponent },
     { path: 'menus/priority', component: PriorityComponent },
+    { path: 'menus/forcedmodifiergroup', component: ForcedModifierGroupComponent },
     
 ];

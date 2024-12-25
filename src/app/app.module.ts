@@ -12,7 +12,6 @@ import { SidebarModule } from './sidebar/sidebar.module';
 import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { ForcedModifierGroupComponent } from './forced-modifier-group/forced-modifier-group.component';
 
 @NgModule({
   imports: [
@@ -28,9 +27,7 @@ import { ForcedModifierGroupComponent } from './forced-modifier-group/forced-mod
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
-    ForcedModifierGroupComponent,
-  
+    AdminLayoutComponent,  
   ],
   providers: [],
   bootstrap: [AppComponent],

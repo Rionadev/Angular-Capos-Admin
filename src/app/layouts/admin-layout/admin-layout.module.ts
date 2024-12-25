@@ -68,6 +68,7 @@ import { PriceBooksComponent } from '../../menus/price-books/price-books.compone
 import { CategoriesComponent } from '../../menus/categories/categories.component';
 import { AttributesComponent } from '../../menus/attributes/attributes.component';
 import { PriorityComponent } from '../../menus/priority/priority.component';
+import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/forced-modifier-group.component';
 
 @NgModule({
   imports: [
@@ -141,6 +142,7 @@ import { PriorityComponent } from '../../menus/priority/priority.component';
     CategoriesComponent,
     AttributesComponent,
     PriorityComponent,
+    ForcedModifierGroupComponent,
   ]
 })
 
