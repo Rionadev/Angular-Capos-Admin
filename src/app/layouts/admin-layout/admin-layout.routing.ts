@@ -46,12 +46,15 @@ import { GroupsComponent } from 'app/customer_group/groups/groups.component';
 import { ManageordersComponent } from 'app/stockcontrol/manageorders/manageorders.component';
 import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestock.component';
 import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
+import { SaletransactionComponent } from 'app/saletransaction/saletransaction.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
     { path: 'openclose', component: OpencloseComponent },
     { path: 'cashmanagement', component: CarshmanagementComponent },
     { path: 'saleslegder', component: SaleslegderComponent },
+    { path: 'salestransaction', component: SaletransactionComponent },
+
     { path: 'user', component: UserComponent },
     { path: 'table', component: TablesComponent },
     { path: 'typography', component: TypographyComponent },

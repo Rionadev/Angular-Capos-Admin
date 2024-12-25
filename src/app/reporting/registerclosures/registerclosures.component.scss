@@ -1,0 +1,70 @@
+td,
+tr :hover {
+    cursor: pointer;
+}
+
+.details-container {
+    position: fixed;
+    /* Fixed position to cover the entire viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+    display: flex;
+    /* Use flexbox to center the dialog */
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    z-index: 1000;
+    /* Ensure it appears above other content */
+}
+
+.details-box {
+    background-color: #fff;
+    /* White background for the dialog */
+    padding: 20px;
+    /* Padding inside the dialog */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow for depth */
+    max-width: 500px;
+    /* Maximum width of the dialog */
+    width: 90%;
+    /* Responsive width */
+}
+
+.details-box h4 {
+    margin-top: 0;
+    /* Remove default margin */
+}
+
+.details-box p {
+    margin: 10px 0;
+    /* Add margin between paragraphs */
+}
+
+.details-box button {
+    background-color: #007bff;
+    /* Primary button color */
+    color: white;
+    /* White text */
+    border: none;
+    /* Remove border */
+    padding: 10px 15px;
+    /* Padding for the button */
+    border-radius: 5px;
+    /* Rounded corners for the button */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: background-color 0.3s;
+    /* Smooth transition for hover effect */
+}
+
+.details-box button:hover {
+    background-color: #0056b3;
+    /* Darker shade on hover */
+}

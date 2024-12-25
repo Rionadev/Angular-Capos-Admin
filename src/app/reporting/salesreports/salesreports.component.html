@@ -5,15 +5,15 @@
                 <!-- Search Bar -->
                 <div class="card margin-bottom-10">
                     <div class="content add-content" style="display: flex; align-items: center; width: 100%;">
-                        <div style="flex-grow: 1; display: flex; justify-content: space-between;">
-                            <div class="col-md-9 flex">
+                        <div style="flex-grow: 1; display: flex; justify-content: space-between;align-items: center;">
+                            <div class="col-md-4 flex"  style="display: flex;align-items: center;">
                                 <label>Period of Created At:</label>
                                 <div style="display: flex; justify-content: space-between;">
-                                    <input type="date" [(ngModel)]="startDate" class="form-control" name="startDate" />
+                                    <input type="date" [(ngModel)]="startDate" class="form-control" name="startDate" />~
                                     <input style="margin-left: 2rem;"  type="date" [(ngModel)]="endDate" class="form-control" name="endDate" />
                                 </div>
                             </div>
-                            <div class="col-md-3 d-flex flex align-items-center" style="align-content: center;    text-align-last: center;">
+                            <div class="col-md-3 d-flex flex align-items-center" style="align-content: right; align-items: center;   text-align-last: center;">
                                 <button class="btn btn-sm btn-info btn-fill" (click)="searchTransactions()">Search</button>
                                 <button style="margin-left: 2rem;" class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">Clear Filters</button>
                             </div>

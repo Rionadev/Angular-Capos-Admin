@@ -5,17 +5,17 @@
                 <!-- Search Bar -->
                 <div class="card margin-bottom-10">
                     <div class="content add-content" style="display: flex; align-items: center; width: 100%;">
-                        <div class="d-flex align-items-center" style="width: 100%;display: flex; justify-content: space-between;gap: 3rem;">
-                            <div class="col-md-3">
+                        <div class="d-flex align-items-center"
+                            style="width: 100%;display: flex; justify-content: space-between;gap: 3rem;">
+                            <div class="col-md-2">
                                 <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;">
                                     <option *ngFor="let register of sel_reg" [value]="register">{{ register }}</option>
                                 </select>
-
                             </div>
                             <div class="col-md-2" style="float: right;">
-                                <button class="btn btn-sm btn-danger btn-fill" style="margin-left: 1rem;" (click)="initFilters()">Clear Filters</button>
+                                <button class="btn btn-sm btn-danger btn-fill" style="margin-right: 1rem;"
+                                    (click)="initFilters()">Clear Filters</button>
                                 <button class="btn btn-sm btn-info btn-fill" (click)="searchRecords()">Search</button>
-
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let record of filteredRecords">
+                                <tr *ngFor="let record of filteredRecords" (click)="showDetails(record)">
                                     <td>{{ record.register }}</td>
                                     <td>{{ record.timeOpened }}</td>
                                     <td>{{ record.timeClosed }}</td>
@@ -54,10 +54,10 @@
                                     <td>{{ record.voided | currency }}</td>
                                     <td>{{ record.total | currency }}</td>
                                 </tr>
-                                <tr style="font-weight: bold; background-color: #cbfff2;font-weight: bold;">
-                                    <td>Total</td>
-                                    <td></td>
-                                    <td></td>
+                                <tr style="font-weight: bold; background-color: #bbbbbb;font-weight:bolder;">
+                                    <td colspan="3">Total</td>
+                                    <!-- <td></td>
+                                    <td></td> -->
                                     <td>{{ getTotal('storeCredit') | currency }}</td>
                                     <td>{{ getTotal('cashConcealedTotal') | currency }}</td>
                                     <td>{{ getTotal('cash') | currency }}</td>
@@ -71,7 +71,26 @@
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+</div>
+<div class="details-container" *ngIf="selectedRecord" (click)="onBackdropClick($event)">
+    <div class="details-box" (click)="$event.stopPropagation()">
+        <h4>Details for Register: {{ selectedRecord.register }}</h4>
+        <p><strong>Time Opened:</strong> {{ selectedRecord.timeOpened }}</p>
+        <p><strong>Time Closed:</strong> {{ selectedRecord.timeClosed }}</p>
+        <p><strong>Store Credit:</strong> {{ selectedRecord.storeCredit | currency }}</p>
+        <p><strong>Cash Concealed Total:</strong> {{ selectedRecord.cashConcealedTotal | currency }}</p>
+        <p><strong>Cash:</strong> {{ selectedRecord.cash | currency }}</p>
+        <p><strong>Credit:</strong> {{ selectedRecord.credit | currency }}</p>
+        <p><strong>Debit:</strong> {{ selectedRecord.debit | currency }}</p>
+        <p><strong>Refunds:</strong> {{ selectedRecord.refunds | currency }}</p>
+        <p><strong>Voided:</strong> {{ selectedRecord.voided | currency }}</p>
+        <p><strong>Total:</strong> {{ selectedRecord.total | currency }}</p>
+        <!-- <button (click)="selectedRecord = null">Close</button> -->
+        <button (click)="onBackdropClick(selectedRecord)">Close</button>
+
+    </div> 
 </div>

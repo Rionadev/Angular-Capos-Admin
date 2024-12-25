@@ -24,14 +24,23 @@ export class RegisterclosuresComponent implements OnInit {
     { register: 'Register3', timeOpened: '11:30 AM', timeClosed: '07:30 PM', storeCredit: 70, cashConcealedTotal: 140, cash: 100, credit: 30, debit: 5, refunds: 0, voided: 0, total: 135 },
     { register: 'Register4', timeOpened: '08:00 AM', timeClosed: '04:00 PM', storeCredit: 60, cashConcealedTotal: 120, cash: 90, credit: 20, debit: 0, refunds: 0, voided: 2, total: 110 },
     { register: 'Main Register', timeOpened: '09:45 AM', timeClosed: '05:45 PM', storeCredit: 140, cashConcealedTotal: 240, cash: 200, credit: 30, debit: 10, refunds: 5, voided: 0, total: 235 },
-];
-
-
+  ];
+  selectedRecord: any = null; // Holds the clicked record for details
+  isShowdetailflag: boolean = false;
   filteredRecords = [...this.records];
-
+  // Function to handle clicks on the backdrop
+  onBackdropClick(event: MouseEvent) {
+    this.isShowdetailflag = false; // Hide the details box
+    this.selectedRecord = null; // Clear the selected record
+  }
   initFilters() {
     this.selectedRegister = this.sel_reg[0]; // Reset to 'All Registers'
     this.filteredRecords = [...this.records]; // Reset filtered results
+  }
+  showDetails(record: any) {
+    this.isShowdetailflag = true;
+    // console.log(record);
+    this.selectedRecord = record; // Set the clicked record as the selectedRecord
   }
 
   searchRecords() {

@@ -59,6 +59,7 @@ import { GroupsComponent } from 'app/customer_group/groups/groups.component';
 import { ManageordersComponent } from 'app/stockcontrol/manageorders/manageorders.component';
 import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestock.component';
 import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
+import { SaletransactionComponent } from 'app/saletransaction/saletransaction.component';
 
 @NgModule({
   imports: [
@@ -103,6 +104,7 @@ import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.c
     ToggleSwitchComponent,
     ProductEditModalComponent,
 
+    SaletransactionComponent,
     GroupsComponent,
 
     ManageordersComponent,

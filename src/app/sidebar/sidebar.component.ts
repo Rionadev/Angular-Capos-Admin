@@ -12,6 +12,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/openclose', title: 'Open / Close', icon: 'pe-7s-map', class: '' },
   { path: '/cashmanagement', title: 'Cash Management', icon: 'pe-7s-cash', class: '' },
   { path: '/saleslegder', title: 'Sales Legder', icon: 'pe-7s-shopbag', class: '' },
+  { path: '/salestransaction', title: 'Sales Transaction', icon: 'pe-7s-news-paper', class: '' },
 
   { path: '/user', title: 'User Profile', icon: 'pe-7s-user', class: '' },
   { path: '/table', title: 'Table List', icon: 'pe-7s-note2', class: '' },
