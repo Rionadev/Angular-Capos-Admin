@@ -42,19 +42,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-sm btn-success btn-fill pull-right">
-                                    <!-- Save -->
-                                    <i style="font-size: large;" class="
+                                <div style="display: flex;gap: 1rem;justify-content: right;">
+                                    <button type="submit" class="btn btn-sm btn-success btn-fill pull-right">
+                                        <!-- Save -->
+                                        <i style="font-size: large;" class="
                                     pe-7s-diskette
                                     "></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-danger btn-fill pull-right"
-                                    (click)="cancelAddCash()">
-                                    <i style="font-size: large;" class="
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger btn-fill pull-right"
+                                        (click)="cancelAddCash()">
+                                        <i style="font-size: large;" class="
                                     pe-7s-back
                                     "></i>
-                                    <!-- Cancel -->
-                                </button>
+                                        <!-- Cancel -->
+                                    </button>
+                                </div>
+
                                 <div class="clearfix"></div>
                             </form>
                         </div>
@@ -100,26 +103,29 @@
                                     </td>
 
                                     <td>
-                                        <button *ngIf="!transaction.isEditing" class="btn btn-info btn-xs"
-                                            (click)="editTransaction(transaction)">
-                                            <i class="pe-7s-note" style="font-size: large;"></i>
-                                            <!-- Edit -->
-                                        </button>
-                                        <button *ngIf="!transaction.isEditing" class="btn btn-danger btn-xs"
-                                            (click)="deleteTransaction(transaction)">
-                                            <i class="pe-7s-trash" style="font-size: large;"></i>
-                                            <!-- Delete -->
-                                        </button>
-                                        <button *ngIf="transaction.isEditing" class="btn btn-success btn-xs"
-                                            (click)="saveTransaction(transaction)">
-                                            <i class="pe-7s-diskette" style="font-size: large;"></i>
-                                            <!-- Save -->
-                                        </button>
-                                        <button *ngIf="transaction.isEditing" class="btn btn-secondary btn-xs"
-                                            (click)="editTransaction(transaction)">
-                                            <i class="pe-7s-back" style="font-size: large;"></i>
-                                            <!-- Cancel -->
-                                        </button>
+                                        <div style="display: flex;gap: 1rem;">
+
+                                            <button *ngIf="!transaction.isEditing" class="btn btn-info btn-xs"
+                                                (click)="editTransaction(transaction)">
+                                                <i class="pe-7s-note" style="font-size: large;"></i>
+                                                <!-- Edit -->
+                                            </button>
+                                            <button *ngIf="!transaction.isEditing" class="btn btn-danger btn-xs"
+                                                (click)="deleteTransaction(transaction)">
+                                                <i class="pe-7s-trash" style="font-size: large;"></i>
+                                                <!-- Delete -->
+                                            </button>
+                                            <button *ngIf="transaction.isEditing" class="btn btn-success btn-xs"
+                                                (click)="saveTransaction(transaction)">
+                                                <i class="pe-7s-diskette" style="font-size: large;"></i>
+                                                <!-- Save -->
+                                            </button>
+                                            <button *ngIf="transaction.isEditing" class="btn btn-secondary btn-xs"
+                                                (click)="editTransaction(transaction)">
+                                                <i class="pe-7s-back" style="font-size: large;"></i>
+                                                <!-- Cancel -->
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
