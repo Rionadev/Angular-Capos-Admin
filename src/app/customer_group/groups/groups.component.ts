@@ -160,6 +160,8 @@ export class GroupsComponent implements OnInit {
     // You can add more PointRates as needed
   ];
 
+  isEditing = false; // Controls the visibility of the edit modal
+  editingPointRate: any; // Holds the point rate being edited
 
   editPointRate(pointRate: PointRate): void {
     pointRate.isEditing = true;
@@ -172,7 +174,9 @@ export class GroupsComponent implements OnInit {
   cancelEdit(pointRate: PointRate): void {
     pointRate.isEditing = false;
   }
-
+  deletePointRate(pointRate: any) {
+    this.pointRates = this.pointRates.filter(pr => pr !== pointRate); // Remove the point rate from the array
+  }
   calculateAverage(rates: PointRates): number {
     const total = Object.values(rates).reduce((acc, rate) => acc + rate, 0);
     const count = Object.keys(rates).length;

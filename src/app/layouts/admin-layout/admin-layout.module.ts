@@ -17,7 +17,7 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { EmployeesComponent } from '../../employees/employees.component';
-import { PricebooksComponent } from 'app/pricebooks/pricebooks.component';
+import { PricebooksComponent } from 'app/Old_product/pricebooks/pricebooks.component';
 import { ProductsComponent } from 'app/Old_product/products/products.component';
 import { ProductEditModalComponent } from 'app/Old_product/product-edit-modal/product-edit-modal.component';
 import { ProducttypesComponent } from 'app/Old_product/producttypes/producttypes.component';

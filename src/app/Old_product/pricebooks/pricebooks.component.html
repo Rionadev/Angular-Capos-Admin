@@ -6,9 +6,7 @@
                     <div class="content add-content"
                         style="display: flex; justify-content: space-between; align-items: center;">
                         <p class="category">A list of all of your price books. <a href="#">Need help?</a></p>
-                        <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">
-                            <!-- <i class="pe-7s-next-2" style="font-size: 2rem;"></i> -->
-                            Add Price Book</button>
+                        <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Add Price Book</button>
                     </div>
                 </div>
 
@@ -72,9 +70,7 @@
                             <div class="clearfix"></div>
                         </form>
                         <div>
-                            You can upload your price book using a CSV.
-                            Download a template file to get started.
-
+                            You can upload your price book using a CSV. Download a template file to get started.
                         </div>
                     </div>
                 </div>
@@ -160,7 +156,8 @@
 
                         <div class="pagination">
                             <button (click)="prevPage()" [disabled]="currentPage === 1">
-                                <i class="pe-7s-angle-left" style="font-size: 2rem"></i></button>
+                                <i class="pe-7s-angle-left" style="font-size: 2rem"></i>
+                            </button>
                             <span>Page {{ currentPage }} of {{ totalPages }}</span>
                             <button (click)="nextPage()" [disabled]="currentPage === totalPages">
                                 <i class="pe-7s-angle-right" style="font-size: 2rem"></i>

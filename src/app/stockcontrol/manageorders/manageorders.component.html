@@ -15,7 +15,7 @@
                 <!-- Search Filters -->
                 <div class="card margin-bottom-10">
                     <div class="content">
-                        <div class="row" style="align-items: center; display: flex;">
+                        <div class="row" style="align-items: center; display: flex;overflow-x: auto;">
                             <div class="col-12 col-md-2 mb-2">
                                 <label>Invoice/Order Number</label>
                                 <input type="text" class="form-control" placeholder="Invoice/Order Number"
@@ -69,11 +69,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-1 mb-2 d-flex justify-content-between"
-                                style="align-self: center;">
-                                <button class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">Clear
-                                    Filters</button>
-                                <button class="btn btn-sm btn-info btn-fill" (click)="filterRows()">Search</button>
+                            <div class="col "
+                                style="align-self: center;gap: 1rem; flex-direction: column;
+                                font-size: 2rem;">
+                                <button style="margin-bottom: 1rem;" class="btn btn-sm btn-danger btn-fill"
+                                    (click)="clearFilters()">
+                                    <i class="pe-7s-refresh"></i>
+                                </button>
+                                <button class="btn btn-sm btn-info btn-fill" (click)="filterRows()">
+                                    <i class="pe-7s-search"></i>
+
+                                </button>
                             </div>
                         </div>
                     </div>

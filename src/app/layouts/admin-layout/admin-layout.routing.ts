@@ -19,7 +19,7 @@ import { StoreComponent } from '../../setting/store/store.component';
 import { PolicyComponent } from '../../setting/policy/policy.component';
 import { PreferencesComponent } from '../../setting/preferences/preferences.component';
 import { ProductsComponent } from 'app/Old_product/products/products.component';
-import { PricebooksComponent } from 'app/pricebooks/pricebooks.component';
+import { PricebooksComponent } from 'app/Old_product/pricebooks/pricebooks.component';
 import { ProducttypesComponent } from 'app/Old_product/producttypes/producttypes.component';
 import { SupplliersComponent } from 'app/Old_product/supplliers/supplliers.component';
 import { ProducttagsComponent } from 'app/Old_product/producttags/producttags.component';

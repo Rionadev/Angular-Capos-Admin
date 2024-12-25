@@ -8,7 +8,7 @@ interface Product {
   outlet: string;
   validFrom: Date;
   validTo: Date;
-  priceBookFile_url: string; 
+  priceBookFile_url: string;
 }
 
 @Component({
@@ -24,8 +24,8 @@ export class PricebooksComponent implements OnInit {
   paginatedRows: Product[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 5;
-  isEditing : boolean = false;
-
+  isEditing: boolean = false;
+  pointRates = []; // Your existing pointRates array
   ngOnInit() {
     // Load initial data
     this.rows = [
@@ -42,6 +42,9 @@ export class PricebooksComponent implements OnInit {
 
   toggleContent() {
     this.isContentVisible = !this.isContentVisible;
+    if (!this.isContentVisible) {
+      this.currentRow = { id: null, name: '', customerGroup: '', outlet: '', validFrom: new Date(), validTo: new Date(), priceBookFile_url: '' }; // Reset currentRow when hiding
+    }
   }
 
   openEditModal(row: Product) {
@@ -49,19 +52,35 @@ export class PricebooksComponent implements OnInit {
   }
 
   editRow(row: Product) {
+    this.currentRow = { ...row }; // Create a copy for editing
     this.isEditing = true;
+    this.isContentVisible = true;
+
   }
 
   saveRow(row: Product) {
     this.isEditing = false; // Exit editing mode
+    if (row.id) {
+      // Update existing row
+      const index = this.pointRates.findIndex(pr => pr.id === row.id);
+      if (index !== -1) {
+        this.pointRates[index] = row;
+      }
+    } else {
+      // Add new row
+      row.id = this.pointRates.length + 1; // Assign a new ID (or use a better ID generation method)
+      this.pointRates.push(row);
+    }
+    this.toggleContent(); // Hide the form after saving
   }
 
   cancelEdit(row: Product) {
     this.isEditing = false; // Exit editing mode
+    this.currentRow = { id: null, name: '', customerGroup: '', outlet: '', validFrom: new Date(), validTo: new Date(), priceBookFile_url: '' }; // Reset currentRow when hiding
   }
 
   deleteRow(id: number) {
-    this.paginatedRows = this.paginatedRows.filter(row => row.id !== id);
+    this.rows = this.rows.filter(row => row.id !== id);
   }
 
   filterRows() {

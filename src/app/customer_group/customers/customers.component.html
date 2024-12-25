@@ -32,7 +32,8 @@
                             </button> -->
                         </div>
                     </div>
-                    <div class="modal" tabindex="-1" role="dialog" *ngIf="isContentVisible" style="overflow-y: auto;" (click)="closeModal()">
+                    <div class="modal" tabindex="-1" role="dialog" *ngIf="isContentVisible" style="overflow-y: auto;"
+                        (click)="closeModal()">
                         <div class="modal-dialog" role="document" (click)="$event.stopPropagation()">
                             <div class="modal-content">
                                 <div class="modal-body">
@@ -315,11 +316,12 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2 d-flex align-items-center"
-                                    style="display: flex; align-items:center;justify-content: space-between;">
+                                    style="display: flex; align-items:center;justify-content:right;">
                                     <button class="btn btn-sm btn-info btn-fill"
                                         [disabled]="!customerSearch && !selectedGroup && selectedCountry === 'All Countries'"
                                         (click)="searchTransactions()">Search</button>
-                                    <button class="btn btn-sm btn-danger btn-fill ml-2" (click)="clearFilters()">Clear
+                                    <button style="margin-left: 1rem;" class="btn btn-sm btn-danger btn-fill ml-2"
+                                        (click)="clearFilters()">Clear
                                         Filters</button>
                                 </div>
                             </div>
@@ -353,11 +355,17 @@
                                         <td>
                                             <div style="display: flex;flex-direction: row;gap: 1rem;">
                                                 <button class="btn btn-sm btn-info"
-                                                    (click)="viewTransaction(transaction)">View</button>
+                                                    (click)="viewTransaction(transaction)">
+                                                    <i class="pe-7s-look" style="font-size:large;"></i>
+                                                </button>
                                                 <button class="btn btn-sm btn-warning"
-                                                    (click)="editTransaction(transaction)">Edit</button>
+                                                    (click)="editTransaction(transaction)">
+                                                    <i class="pe-7s-note" style="font-size:large;"></i>
+                                                </button>
                                                 <button class="btn btn-sm btn-danger"
-                                                    (click)="deleteTransaction(transaction)">Delete</button>
+                                                    (click)="deleteTransaction(transaction)">
+                                                    <i class="pe-7s-trash" style="font-size:large;"></i>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
