@@ -66,6 +66,7 @@ import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-mo
 import { MixComponent } from '../../menus/mix/mix.component';
 import { PriceBooksComponent } from '../../menus/price-books/price-books.component';
 import { CategoriesComponent } from '../../menus/categories/categories.component';
+import { AttributesComponent } from '../../menus/attributes/attributes.component';
 
 @NgModule({
   imports: [
@@ -137,6 +138,7 @@ import { CategoriesComponent } from '../../menus/categories/categories.component
     MixComponent,
     PriceBooksComponent,
     CategoriesComponent,
+    AttributesComponent,
   ]
 })
 
