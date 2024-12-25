@@ -65,6 +65,7 @@ import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.comp
 import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-modifiers.component';
 import { MixComponent } from '../../menus/mix/mix.component';
 import { PriceBooksComponent } from '../../menus/price-books/price-books.component';
+import { CategoriesComponent } from '../../menus/categories/categories.component';
 
 @NgModule({
   imports: [
@@ -135,6 +136,7 @@ import { PriceBooksComponent } from '../../menus/price-books/price-books.compone
     ForcedModifiersComponent,
     MixComponent,
     PriceBooksComponent,
+    CategoriesComponent,
   ]
 })
 

@@ -51,6 +51,7 @@ import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.comp
 import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-modifiers.component';
 import { MixComponent } from '../../menus/mix/mix.component';
 import { PriceBooksComponent } from '../../menus/price-books/price-books.component';
+import { CategoriesComponent } from '../../menus/categories/categories.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -109,4 +110,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'menus/menusmodifiers', component: ForcedModifiersComponent },
     { path: 'menus/mix', component: MixComponent },
     { path: 'menus/price', component: PriceBooksComponent },
+    { path: 'menus/categories', component: CategoriesComponent },
 ];
