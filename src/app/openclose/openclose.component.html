@@ -1,19 +1,20 @@
-<div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card margin-bottom-10">
-                    <div class="content add-content cr-bg"
-                        style="display: flex;justify-content: space-between;align-items: center;">
-                        <p class="category">Help about Sell-close
-                        </p>
-                        <button class="btn btn-sm btn-success btn-fill" (click)="toggleContent()">
-                            <!-- <i class="pe-7s-next-2" style="font-size: 2rem;"></i> -->
-                            close Register</button>
+<div style="height: 100vh;">
+    <div class="main-content" *ngIf="!isContentVisible">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card margin-bottom-10">
+                        <div class="content add-content cr-bg"
+                            style="display: flex;justify-content: space-between;align-items: center;">
+                            <p class="category">Help about Sell-close
+                            </p>
+                            <button class="btn btn-sm btn-success btn-fill" (click)="toggleContent()">
+                                <!-- <i class="pe-7s-next-2" style="font-size: 2rem;"></i> -->
+                                Close Register</button>
+                        </div>
                     </div>
-                </div>
 
-                <!-- <div class="card margin-bottom-10" *ngIf="isContentVisible">
+                    <!-- <div class="card margin-bottom-10" *ngIf="isContentVisible">
                     <div class="header">
                         <h4 class="title">Add a Product</h4>
                         <p class="category">Here is a form for adding a product attribute</p>
@@ -47,135 +48,352 @@
                     </div>
                 </div> -->
 
-                <div class="card1 mb-3">
-                    <div class="col-md-3 reg-item">
-                        <h3><b>Register Details</b></h3>
+                    <div class="card1 mb-3">
+                        <div class="col-md-3 reg-item">
+                            <h3><b>Register Details</b></h3>
+                        </div>
+                        <div class="col-md-9 ">
+                            <div class="row reg-item">
+                                <div class="col-md-4">
+                                    <b>Outlet</b>
+                                </div>
+                                <div class="col-md-8">
+                                    {{reg_outlet}}
+                                </div>
+                            </div>
+                            <div class="row reg-item">
+                                <div class="col-md-4">
+                                    <b>Register</b>
+                                </div>
+                                <div class="col-md-8">
+                                    {{reg_register}}
+                                </div>
+                            </div>
+                            <div class="row reg-item">
+                                <div class="col-md-4">
+                                    <b>ID #</b>
+                                </div>
+                                <div class="col-md-8">
+                                    {{reg_id}}
+                                </div>
+                            </div>
+                            <div class="row reg-item">
+                                <div class="col-md-4">
+                                    <b>Opening Time</b>
+                                </div>
+                                <div class="col-md-8">
+                                    {{reg_openingTime}}
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="col-md-9 ">
-                        <div class="row reg-item">
-                            <div class="col-md-4">
-                                <b>Outlet</b>
-                            </div>
-                            <div class="col-md-8">
-                                {{reg_outlet}}
-                            </div>
-                        </div>
-                        <div class="row reg-item">
-                            <div class="col-md-4">
-                                <b>Register</b>
-                            </div>
-                            <div class="col-md-8">
-                                {{reg_register}}
-                            </div>
-                        </div>
-                        <div class="row reg-item">
-                            <div class="col-md-4">
-                                <b>ID #</b>
-                            </div>
-                            <div class="col-md-8">
-                                {{reg_id}}
-                            </div>
-                        </div>
-                        <div class="row reg-item">
-                            <div class="col-md-4">
-                                <b>Opening Time</b>
-                            </div>
-                            <div class="col-md-8">
-                                {{reg_openingTime}}
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
-
-                <div class="card1 mt-5">
-                    <div>
-
+                    <div class="card1 mt-5">
                         <div>
-                            <div class="col-md-3">
-                                <h3><b>Payments Summary</b></h3>
-                                <span>
-                                    Balance your register by entering the amount counted from the till and other payment
-                                    terminals into the empty fields here.
-                                </span>
-                            </div>
-                            <div class="col-md-9">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th><b>Payment Types</b></th>
-                                            <th><b>Expected ($)</b></th>
-                                            <th><b>Counted ($)</b></th>
-                                            <th><b>Differences ($)</b></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let payment of payments">
-                                            <td>{{ payment.type }}</td>
-                                            <td>{{ payment.expected }}</td>
-                                            <td>
-                                                <input type="number" [(ngModel)]="payment.counted"
-                                                    (input)="calculateDifferences()" />
-                                            </td>
-                                            <td>{{ payment.difference }}</td>
-                                        </tr>
-                                        <tr class="total-border">
-                                            <td><strong>Total</strong></td>
-                                            <td><strong>{{ totalExpected() }}</strong></td>
-                                            <td><strong>{{ totalCounted() }}</strong></td>
-                                            <td><strong>{{ totalDifference() }}</strong></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="col-md-3 total-border">
-                                <h3><b>Category Summary</b></h3>
-                            </div>
-                            <div class="col-md-9">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th><b>category</b></th>
-                                            <th><b>Sale Qty</b></th>
-                                            <th><b>Sale Sum($)</b></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let item of salesData">
-                                            <td>{{ item.category }}</td>
-                                            <td>{{ item.saleQty }}</td>
-                                            <td>{{ item.saleSum }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <div class="col-md-3 total-border">
-                                <h3><b>Closing Summary</b></h3>
-                            </div>
-                            <div class="col-md-9">
-                                <div>
-                                    <b>Note</b>
-                                </div>
-                                <div>
-                                    <textarea rows="5" class="form-control"
-                                        placeholder="Type to add a register closure note..."></textarea>
-                                </div>
-                                <div style="display: flex;justify-content: center;margin: 1rem;">
-                                    <button class="btn btn-success btn-fill" (click)="toggleContent()">
-                                        Close Register
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
 
+                            <div>
+                                <div class="col-md-3">
+                                    <h3><b>Payments Summary</b></h3>
+                                    <span>
+                                        Balance your register by entering the amount counted from the till and other
+                                        payment
+                                        terminals into the empty fields here.
+                                    </span>
+                                </div>
+                                <div class="col-md-9">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th><b>Payment Types</b></th>
+                                                <th><b>Expected ($)</b></th>
+                                                <th><b>Counted ($)</b></th>
+                                                <th><b>Differences ($)</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let payment of payments">
+                                                <td>{{ payment.type }}</td>
+                                                <td>{{ payment.expected }}</td>
+                                                <td>
+                                                    <input type="number" [(ngModel)]="payment.counted"
+                                                        (input)="calculateDifferences()" />
+                                                </td>
+                                                <td>{{ payment.difference }}</td>
+                                            </tr>
+                                            <tr class="total-border">
+                                                <td><strong>Total</strong></td>
+                                                <td><strong>{{ totalExpected() }}</strong></td>
+                                                <td><strong>{{ totalCounted() }}</strong></td>
+                                                <td><strong>{{ totalDifference() }}</strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-md-3 total-border">
+                                    <h3><b>Category Summary</b></h3>
+                                </div>
+                                <div class="col-md-9">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th><b>category</b></th>
+                                                <th><b>Sale Qty</b></th>
+                                                <th><b>Sale Sum($)</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of salesData">
+                                                <td>{{ item.category }}</td>
+                                                <td>{{ item.saleQty }}</td>
+                                                <td>{{ item.saleSum }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <div class="col-md-3 total-border">
+                                    <h3><b>Closing Summary</b></h3>
+                                </div>
+                                <div class="col-md-9">
+                                    <div>
+                                        <b>Note</b>
+                                    </div>
+                                    <div>
+                                        <textarea rows="5" class="form-control"
+                                            placeholder="Type to add a register closure note..."></textarea>
+                                    </div>
+                                    <div style="display: flex;justify-content: center;margin: 1rem;">
+                                        <button class="btn btn-success btn-fill" (click)="toggleContent()">
+                                            Close Register
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div>
+                            <div class="col-md-3 total-border">
+                                <h3><b>Summary</b></h3>
+                            </div>
+                            <div class="col-md-9">
+                                <div style="width: 100%;">
+                                    <table style="width: 100%;padding: auto;">
+                                        <thead>
+                                            <tr>
+                                                <th>Sub Total</th>
+                                                <th>HST</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{summary_subtotal}}</td>
+                                                <td>{{summary_hst}}</td>
+                                                <td>{{summary_total}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> -->
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Z Report Section -->
+<!-- <div  class="z-report  print-roll"> -->
+    <div *ngIf="isContentVisible" class="print-roll-bg" (click)="toggleContent()">
+        <div class="z-report  print-roll">
+            <div class="print-table">
+                <div class="border just-row mb-1">
+                    <b>Z Report</b>
+                    <b>{{today}}</b>
+                </div>
+                <div class="mb-1">
+                    <div class="border" style="text-align: center;">
+                        <b>SALES AND TAXES SUMMARY</b>
+                    </div>
+                    <div class="border">
+                        <div class="just-row">
+                            <span>Total Net Sales</span>
+                            <span>{{formatCurrency(print_totalnetsales)}}</span>
+                        </div>
+                        <div class="just-row">
+                            <span>Tax</span>
+                            <span>{{formatCurrency(print_tax)}}</span>
+                        </div>
+                    </div>
+                    <div class="just-row">
+                        <span><b>Total Sales</b></span>
+                        <span><b>{{formatCurrency(print_totalnetsales+print_tax)}}</b></span>
+                    </div>
+                </div>
+
+                <div class="mb-1">
+                    <div><b>SALES CATEGORIES</b></div>
+                    <table style="border: none;" class="print-table">
+                        <thead class="border">
+                            <tr>
+                                <td class="print-table" style="float: left;">Category</td>
+                                <td class="print-table">Quantity</td>
+                                <td class="print-table" style="float: right;">Net Sales</td>
+                            </tr>
+                        </thead>
+                        <tbody class="border">
+                            <tr *ngFor="let product of product_list">
+                                <td class="print-table" style="float: left;">{{ product.category }}</td>
+                                <td class="print-table">({{ product.quantity }})</td>
+                                <td class="print-table" style="float: right;">{{ product.netSales | currency }}</td>
+                            </tr>
+
+                        </tbody>
+                        <tr>
+                            <td class="print-table" style="float: left;"><b>Total Net Sales</b></td>
+                            <td class="print-table"></td>
+                            <td class="print-table" style="float: right;">
+                                <b>{{ formatCurrency(calculateTotalNetSales()) }}</b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="mb-1">
+                    <div class="border"><b>PAYMENT DETAILS</b></div>
+                    <table style="border: none;" class="print-table">
+                        <!-- <thead class="border">
+                    <tr>
+                        <td class="print-table" style="float: left;">Type</td>
+                        <td class="print-table" style="float: right;">Counted</td>
+                    </tr>
+                </thead> -->
+                        <tbody class="border">
+                            <tr *ngFor="let payment of payments">
+                                <td class="print-table" style="float: left;">{{ payment.type }}</td>
+                                <td class="print-table" style="float: right;">{{formatCurrency(payment.counted) }}</td>
+                            </tr>
+                        </tbody>
+                        <tr>
+                            <td class="print-table" style="float: left;"><b>Total Payments</b></td>
+                            <td class="print-table" style="float: right;">
+                                <b>{{ formatCurrency(calculateTotalCounted()) }}</b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="mb-1">
+                    <div class="just-row">
+                        <b>Total Payments - Total Sales =</b>
+                        <b>{{formatCurrency(calculateTotalCounted()-print_totalnetsales+print_tax) }}</b>
+                    </div>
+                </div>
+                <div class="mb-1">
+                    <div class="border"><b>SERVER TIPOUTS</b></div>
+                    <table style="border: none;" class="print-table">
+                        <!-- <thead class="border">
+                    <tr>
+                        <td class="print-table" style="float: left;">Type</td>
+                        <td class="print-table" style="float: right;">Counted</td>
+                    </tr>
+                </thead> -->
+                        <tbody class="border">
+                            <tr *ngFor="let payment of serverTipOut">
+                                <td class="print-table" style="float: left;">{{ payment.type }}</td>
+                                <td class="print-table" style="float: right;">{{ formatCurrency(payment.value)
+                                    }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="print-table" style="float: left;font-style: italic;">
+                                    Total Non-Cash Tips and Total Gratuity:
+                                    {{formatCurrency(totalnonecashtipsandGratuity)}}
+                                </td>
+                                <td class="print-table" style="float: right;"></td>
+                            </tr>
+                        </tbody>
+                        <tr>
+                            <td class="print-table" style="float: left;"><b>Total Cash</b></td>
+                            <td class="print-table" style="float: right;">
+                                <b>{{ formatCurrency(calculateTotalCash()+totalnonecashtipsandGratuity) }}</b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="mb-1">
+                    <div><b>TOTAL DISCOUNTS</b></div>
+                    <table style="border: none;" class="print-table">
+                        <thead class="border">
+                            <tr>
+                                <td class="print-table" style="float: left;">Discount Name</td>
+                                <td class="print-table">Count</td>
+                                <td class="print-table" style="float: right;">Amount</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="print-table" style="float: left;">Rewards Card</td>
+                                <td class="print-table">1</td>
+                                <td class="print-table" style="float: right;">{{ formatCurrency(21.65)
+                                    }}
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="mb-1">
+                    <div><b>CREDIT CARD BREAKDOWN</b></div>
+                    <table style="border: none;" class="print-table">
+                        <thead class="border">
+                            <tr>
+                                <td class="print-table" style="float: left;">Discount Name</td>
+                                <td class="print-table">Count</td>
+                                <td class="print-table" style="float: right;">Amount</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="print-table" style="float: left;">Rewards Card</td>
+                                <td class="print-table">1</td>
+                                <td class="print-table" style="float: right;">{{ formatCurrency(21.65)
+                                    }}
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="mb-1">
+                    <div><b>CREDIT CARD BREAKDOWN</b></div>
+                    <table style="border: none;" class="print-table">
+                        <tbody class="border">
+                            <tr *ngFor="let payment of creditCardBreakdown">
+                                <td class="print-table" style="float: left;">{{payment.type}}</td>
+                                <td class="print-table" style="float: right;">{{ formatCurrency(payment.amount)
+                                    }}
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tr>
+                            <td class="print-table" style="float: left;"><b>Total</b></td>
+                            <td class="print-table" style="float: right;">
+                                <b>{{ formatCurrency(calcTotalCreditCard()) }}</b>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<!-- </div> -->

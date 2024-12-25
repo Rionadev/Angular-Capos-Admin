@@ -6,11 +6,17 @@
                 <div class="card margin-bottom-10">
                     <div class="content add-content" style="display: flex; align-items: center; width: 100%;">
                         <div class="d-flex align-items-center" style="width: 100%;display: flex; justify-content: space-between;gap: 3rem;">
-                            <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;">
-                                <option *ngFor="let register of sel_reg" [value]="register">{{ register }}</option>
-                            </select>
-                            <button class="btn btn-sm btn-danger btn-fill mx-2" (click)="initFilters()">Clear Filters</button>
-                            <button class="btn btn-sm btn-info btn-fill" (click)="searchRecords()">Search</button>
+                            <div class="col-md-3">
+                                <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;">
+                                    <option *ngFor="let register of sel_reg" [value]="register">{{ register }}</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-2" style="float: right;">
+                                <button class="btn btn-sm btn-danger btn-fill" style="margin-left: 1rem;" (click)="initFilters()">Clear Filters</button>
+                                <button class="btn btn-sm btn-info btn-fill" (click)="searchRecords()">Search</button>
+
+                            </div>
                         </div>
                     </div>
                 </div>
