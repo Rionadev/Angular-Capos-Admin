@@ -28,7 +28,11 @@
                                     <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
                                 </div>
                                 <div class="col-md-3">
-                                    <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
+                                    <select 
+                                        class="form-control" 
+                                        id="city-select" 
+                                        [(ngModel)]="selectedCity"
+                                    >
                                         <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
                                     </select>
                                     <!-- <a class="dropdown-toggle" data-toggle="dropdown">

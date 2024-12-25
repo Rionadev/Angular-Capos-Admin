@@ -119,3 +119,31 @@ div.checkbox {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
 }
+
+/* Dropdown styling (for options) */
+select option {
+    color: #9a9a9a; /* Default option text color */
+    background-color: #fff; /* Default dropdown background */
+}
+  
+/* Hover effects for options (in most browsers) */
+/* select option:hover {
+    background-color: #f5f5f5; /* Hover background
+} */
+
+/* select option:focus{
+    background-color: #f5f5f5;
+}
+    
+select option:active{
+    background-color: #f5f5f5;
+} */
+
+/* select option:checked{
+    background-color: #f5f5f5;
+}
+ */
+option:checked,
+option:hover {
+    box-shadow: #f5f5f5;
+}
