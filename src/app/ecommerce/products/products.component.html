@@ -442,7 +442,7 @@
                                     <ng-container *ngFor="let row of rows">
                                         <tr>
                                             <td>
-                                                <button class="btn btn-sm" (click)="toggleDetails(row.id)">
+                                                <button class="btn btn-sm btn-success" (click)="toggleDetails(row.id)">
                                                     <span *ngIf="selectedItemId  === row.id" class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                                                     <span *ngIf="selectedItemId  !== row.id" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                 </button>
@@ -457,10 +457,10 @@
                                             <td><app-toggle-switch [(checked)]="row.touch"></app-toggle-switch></td>
                                             <td>{{ row.created }}</td>
                                             <td>
-                                                <button class="btn btn-sm" (click)="editRow(row)">
+                                                <button class="btn btn-sm btn-info" (click)="editRow(row)">
                                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                                 </button>
-                                                <button class="btn btn-sm" (click)="deleteRow(row.id)">
+                                                <button class="btn btn-sm btn-danger" (click)="deleteRow(row.id)">
                                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                 </button>
                                             </td>
