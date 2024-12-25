@@ -63,10 +63,22 @@
                                 <tbody>
                                     <tr *ngFor="let row of rows">
                                         <td>{{ row.groupname }}</td>
-                                        <td>{{ row.touch }}</td>
-                                        <td>{{ row.pizzasizestyle }}</td>
-                                        <td>{{ row.pizzatopping }}</td>
-                                        <td>{{ row.pizzafullorhalf }}</td>
+                                        <td>
+                                            <app-toggle-icon-button [checked]="row.touch" title="">
+                                            </app-toggle-icon-button>
+                                        </td>
+                                        <td>
+                                            <app-toggle-icon-button [checked]="row.pizzasizestyle" title="">
+                                            </app-toggle-icon-button>
+                                        </td>
+                                        <td>
+                                            <app-toggle-icon-button [checked]="row.pizzatopping" title="">
+                                            </app-toggle-icon-button>
+                                        </td>
+                                        <td>
+                                            <app-toggle-icon-button [checked]="row.pizzafullorhalf" title="">
+                                            </app-toggle-icon-button>
+                                        </td>
                                         <td>
                                             <button class="btn btn-sm" (click)="editRow(row)">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

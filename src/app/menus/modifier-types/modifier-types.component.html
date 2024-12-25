@@ -61,7 +61,10 @@
                                 <tbody>
                                     <tr *ngFor="let row of rows">
                                         <td>{{ row.name }}</td>
-                                        <td>{{ row.touch }}</td>
+                                        <td>
+                                            <app-toggle-icon-button [checked]="row.touch" title="">
+                                            </app-toggle-icon-button>
+                                        </td>
                                         <td>{{ row.description }}</td>
                                         <td>
                                             <button class="btn btn-sm" (click)="editRow(row)">
