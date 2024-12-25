@@ -52,7 +52,7 @@ export const ECOMMERCEROUTES: RouteInfo[] = [
   { path: '/ecommerce/orders', title: 'Orders', icon: 'pe-7s-note2', class: '' },
   { path: '/ecommerce/settings', title: 'Ecommerce Settings', icon: 'pe-7s-wallet', class: '' },
   { path: '/ecommerce/pages', title: 'Ecommerce Pages', icon: 'pe-7s-shuffle', class: '' },
-  { path: '/ecommerce/visit', title: 'Visit Online Store', icon: 'pe-7s-shopbag', class: '' },
+  { path: '/', title: 'Visit Online Store', icon: 'pe-7s-shopbag', class: '' },
 ];
 export const CUSTOMERROUTES: RouteInfo[] = [
   { path: '/customers/customers', title: 'Customers', icon: '', class: '' },
