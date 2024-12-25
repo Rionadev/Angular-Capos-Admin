@@ -47,6 +47,11 @@ import { ManageordersComponent } from 'app/stockcontrol/manageorders/manageorder
 import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestock.component';
 import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
 
+import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.component';
+import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-modifiers.component';
+import { MixComponent } from '../../menus/mix/mix.component';
+import { PriceBooksComponent } from '../../menus/price-books/price-books.component';
+
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
     { path: 'openclose', component: OpencloseComponent },
@@ -99,4 +104,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'ecommerce/orders', component: OrdersComponent },
     { path: 'ecommerce/settings', component: SettingsComponent },
     { path: 'ecommerce/pages', component: PagesComponent },
+
+    { path: 'menus/layout', component: MenusLayoutComponent },
+    { path: 'menus/menusmodifiers', component: ForcedModifiersComponent },
+    { path: 'menus/mix', component: MixComponent },
+    { path: 'menus/price', component: PriceBooksComponent },
 ];

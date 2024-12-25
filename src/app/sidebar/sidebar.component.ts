@@ -72,6 +72,21 @@ export const PRODUCTSROUTES: RouteInfo[] = [
   { path: '/products/producttags', title: 'Product Tags', icon: 'pe-7s-ticket', class: '' },
   { path: '/products/productattributes', title: 'Product Attributes', icon: 'pe-7s-way', class: '' },
 ];
+
+export const MENUSROUTES: RouteInfo[] = [
+  { path: '/menus/layout', title: 'Menus Layout', icon: 'pe-7s-cart', class: '' },
+  { path: '/menus/menusmodifiers', title: 'Menus with Forced Modifiers', icon: 'pe-7s-notebook', class: '' },
+  { path: '/menus/mix', title: 'Mix & Match', icon: 'pe-7s-keypad', class: '' },
+  { path: '/menus/price', title: 'Price Books', icon: 'pe-7s-albums', class: '' },
+  { path: '/menus/categories', title: 'Menu Categories', icon: 'pe-7s-ticket', class: '' },
+  { path: '/menus/attributs', title: 'Menu Attributes', icon: 'pe-7s-way', class: '' },
+  { path: '/menus/priority', title: 'Menu Priority', icon: 'pe-7s-cart', class: '' },
+  { path: '/menus/forcedmodifier', title: 'Forced Modifier', icon: 'pe-7s-notebook', class: '' },
+  { path: '/menus/forcedmodifiergroup', title: 'Forced Modifier Group', icon: 'pe-7s-ticket', class: '' },
+  { path: '/menus/modifier', title: 'Modifier', icon: 'pe-7s-keypad', class: '' },
+  { path: '/menus/modifiertypes', title: 'Modifier Types', icon: 'pe-7s-albums', class: '' },
+];
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -92,6 +107,8 @@ export class SidebarComponent implements OnInit {
   isStockContentVisible: boolean = false;
   customerContentItems: any[];
   isCustomerContentVisible: boolean = false;
+  menusContentItems: any[];
+  isMenusContentVisible: boolean = false;
   constructor() { }
 
   ngOnInit() {
@@ -102,6 +119,7 @@ export class SidebarComponent implements OnInit {
     this.reportingContentItems = REPOTINGROUTES.filter(menuItems => menuItems);
     this.stockContentItems = STOCKCONTROLROUTES.filter(menuItems => menuItems);
     this.customerContentItems = CUSTOMERROUTES.filter(menuItems => menuItems);
+    this.menusContentItems = MENUSROUTES.filter(menuItems => menuItems);
   }
   stockContent(): void {
     this.isStockContentVisible = !this.isStockContentVisible; // Toggle the visibility
@@ -120,6 +138,9 @@ export class SidebarComponent implements OnInit {
   }
   reportingContent(): void {
     this.isReportingContentVisible = !this.isReportingContentVisible; // Toggle the visibility
+  }
+  menusContent(): void {
+    this.isMenusContentVisible = !this.isMenusContentVisible; // Toggle the visibility
   }
   isMobileMenu() {
     if ($(window).width() > 991) {

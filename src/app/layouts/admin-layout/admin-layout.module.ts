@@ -61,6 +61,11 @@ import { ManageordersComponent } from 'app/stockcontrol/manageorders/manageorder
 import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestock.component';
 import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
 
+import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.component';
+import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-modifiers.component';
+import { MixComponent } from '../../menus/mix/mix.component';
+import { PriceBooksComponent } from '../../menus/price-books/price-books.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -124,6 +129,12 @@ import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.c
     OrdersComponent,
     SettingsComponent,
     PagesComponent,
+
+    //Menus
+    MenusLayoutComponent,
+    ForcedModifiersComponent,
+    MixComponent,
+    PriceBooksComponent,
   ]
 })
 
