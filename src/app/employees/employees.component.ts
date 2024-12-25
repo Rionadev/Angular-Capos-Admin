@@ -12,11 +12,17 @@ export class EmployeesComponent implements OnInit {
 
   rows: TableRow[] = [];
   isContentVisible: boolean = false; // Initially hidden for add or editing.
+  isImportContentVisible: boolean = false; // Initially hidden for add or editing.
   currentRow: TableRow = this.resetRow();
   constructor(private dataService: DataService) { }
   
   toggleContent(): void {
     this.isContentVisible = !this.isContentVisible; // Toggle the visibility
+  }
+
+  toggleImportContent(): void {
+    this.isImportContentVisible = !this.isImportContentVisible; // Toggle the visibility
+    this.isContentVisible = false;
   }
 
   ngOnInit(): void {

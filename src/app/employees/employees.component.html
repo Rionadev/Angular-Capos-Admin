@@ -5,7 +5,10 @@
                 <div class="card margin-bottom-10">
                     <div class="content add-content">
                         <p class="category">Manage users and their sales targets. Need help?</p>
-                        <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Add</button>
+                        <div>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Add</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleImportContent()">Import</button>
+                        </div>
                     </div>
                 </div>
                 <div class="card margin-bottom-10" *ngIf="isContentVisible">
@@ -39,6 +42,31 @@
                             <button class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()" *ngIf="currentRow.id">Cancel</button>
                             <div class="clearfix"></div>
                         </form>
+                    </div>
+                </div>
+                <div class="card margin-bottom-10" *ngIf="isImportContentVisible">
+                    <div class="header">
+                        <h4 class="title">Import Products</h4>
+                    </div>
+                    <div class="content">               
+                        <div class="add-content">
+                            <p class="category">Create a spreadsheet file. We will check your data for common errors before uploading it. Need help ?</p>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleImportContent()">Back to Products</button>
+                        </div>
+                        <div class="text-center margin-top-10 margin-bottom-10">
+                            <i class="pe-7s-cloud-upload" style="font-size: 36px;"></i>
+                            <p class="category">Upload a spreadsheet to import products.</p>
+                        </div>
+                        <div class="item-center">
+                            <div class="file-upload-container">
+                                <label for="fileInput" class="custom-file-upload">
+                                    Upload CSV file
+                                </label>
+                                <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
+                                <input type="file" id="fileInput" class="hidden" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
                 <div class="card margin-bottom-0">
