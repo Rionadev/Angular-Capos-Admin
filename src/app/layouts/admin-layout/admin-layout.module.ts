@@ -69,6 +69,7 @@ import { CategoriesComponent } from '../../menus/categories/categories.component
 import { AttributesComponent } from '../../menus/attributes/attributes.component';
 import { PriorityComponent } from '../../menus/priority/priority.component';
 import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/forced-modifier-group.component';
+import { ModifierComponent } from '../../menus/modifier/modifier.component';
 
 @NgModule({
   imports: [
@@ -143,6 +144,7 @@ import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/
     AttributesComponent,
     PriorityComponent,
     ForcedModifierGroupComponent,
+    ModifierComponent,
   ]
 })
 
