@@ -51,7 +51,13 @@ export class NavbarComponent implements OnInit {
     sidebarToggle() {
         // const toggleButton = this.toggleButton;
         // const body = document.getElementsByTagName('body')[0];
-        if (this.sidebarVisible === false) {
+        /* if (this.sidebarVisible === false) {
+            this.sidebarOpen();
+        } else {
+            this.sidebarClose();
+        } */
+        const toggleButton = this.toggleButton;
+        if (!toggleButton.classList.contains('toggled')) {
             this.sidebarOpen();
         } else {
             this.sidebarClose();

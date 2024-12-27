@@ -148,4 +148,13 @@ export class SidebarComponent implements OnInit {
     }
     return true;
   };
+
+  sidebarClose() {
+    const body = document.getElementsByTagName('body')[0];
+    const toggleButton = body.getElementsByClassName('navbar-toggle')[0];
+    toggleButton.classList.remove('toggled');
+    /* const navbar: HTMLElement = this.element.nativeElement;
+    navbar.getElementsByClassName('navbar-toggle')[0].classList.remove('toggled'); */
+    body.classList.remove('nav-open');
+  };
 }
