@@ -1,1 +1,166 @@
-<p>roles works!</p>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card margin-bottom-10">
+                    <div class="content add-content">
+                        <p class="category">Manage user roles. Need help?</p>
+                        <div>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Add Role</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card margin-bottom-10" *ngIf="isContentVisible">
+                    <div class="content add-content">
+                        <div class="header">
+                            <h4 class="title">Add Role</h4>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Cancel</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+                        </div>
+                    </div>
+                    <div class="content">                        
+                        <form (ngSubmit)="saveRow()">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Name:</label>
+                                        <input type="text" class="form-control" placeholder="Name" id="name" [(ngModel)]="currentRow.name" name="name" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Email:</label>
+                                        <input type="text" class="form-control" placeholder="Email" id="email" [(ngModel)]="currentRow.email" name="email" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Phone:</label>
+                                        <input type="email" class="form-control" placeholder="Phone" id="phone" [(ngModel)]="currentRow.phone" name="phone" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ? 'Update' : 'Add' }}</button>
+                            <button class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()" *ngIf="currentRow.id">Cancel</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card margin-bottom-10" *ngIf="isImportContentVisible">
+                    <div class="header">
+                        <h4 class="title">Import Products</h4>
+                    </div>
+                    <div class="content">               
+                        <div class="add-content">
+                            <p class="category">Create a spreadsheet file. We will check your data for common errors before uploading it. Need help ?</p>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleImportContent()">Back to Products</button>
+                        </div>
+                        <div class="text-center margin-top-10 margin-bottom-10">
+                            <i class="pe-7s-cloud-upload" style="font-size: 36px;"></i>
+                            <p class="category">Upload a spreadsheet to import products.</p>
+                        </div>
+                        <div class="item-center">
+                            <div class="file-upload-container">
+                                <label for="fileInput" class="custom-file-upload">
+                                    Upload CSV file
+                                </label>
+                                <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
+                                <input type="file" id="fileInput" class="hidden" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="card margin-bottom-0">
+                    <div class="content add-content">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" placeholder="Search" id="search" name="search" required />
+                            </div>
+                            <div class="col-md-3 dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    All Roles<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">All Roles</a></li>
+                                    <li><a href="#">Free</a></li>
+                                    <li><a href="#">Cashier</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Admin</a></li>
+                                </ul>
+                                <!-- <input type="text" class="form-control" placeholder="Email" id="email" [(ngModel)]="currentRow.email" name="email" required /> -->
+                            </div>
+                            <div class="col-md-4 dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    All Outlets<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">All Outlets</a></li>
+                                    <li><a href="#">Sub Store</a></li>
+                                    <li><a href="#">Test Outlet1</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Main Outlet</a></li>
+                                </ul>
+                                <!-- <input type="text" class="form-control" placeholder="Email" id="email" [(ngModel)]="currentRow.email" name="email" required /> -->
+                            </div>
+                        </div>
+                        <div class="">
+                            <button class="btn btn-sm btn-info btn-fill">Clear Filters</button>
+                            <button class="btn btn-sm btn-info btn-fill">Search</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="content table-responsive table-full-width">
+                          <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <!-- <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th> -->
+                                        <th>Role Name</th>
+                                        <th>Last Updated</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of rows">
+                                        <td>{{ row.name }}</td>
+                                        <td>{{ row.updated }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" (click)="editRow(row)">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger" (click)="deleteModal(row.id)">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                          </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-12">
+                <div class="card card-plain">
+                    <div class="header">
+                        <h4 class="title">Table on Plain Background</h4>
+                        <p class="category">Here is a subtitle for this table</p>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+<app-confirm-modal *ngIf="isDeleteModal" 
+    [title]="'Remove User Role'"
+    [description]="'Do you really want to remove this User Role ?'"
+    [confirmButtonCaption]="'Delete'"
+    [cancelButtonCaption]="'Cancel'"
+    (confirmed)="deleteRow()" 
+    (cancelled)="deleteRow()">
+</app-confirm-modal>

@@ -26,12 +26,17 @@
     margin-bottom: 0px;
 }
 
+.margin-top-10
+{
+    margin-top: 10px;
+}
+
 .margin-bottom-10
 {
     margin-bottom: 10px;
 }
 
-input{
+input, select{
     padding: 4px 6px 4px 6px;
     height: 32px;
 }
@@ -65,4 +70,26 @@ table td{
     display: flex; 
     flex-direction: row; 
     justify-content: center;
+}
+
+.col-md-4, .col-sm-4, .col-md-6 {
+    padding-right: 0px;
+}
+
+@media (max-width: 991px) {
+    .row-responsive {
+        width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+.width-125{
+    width: 125px;
+}
+
+.form-group {
+    margin-bottom: 0px;
 }

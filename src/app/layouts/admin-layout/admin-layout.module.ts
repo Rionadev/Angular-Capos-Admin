@@ -76,6 +76,7 @@ import { ModifierComponent } from '../../menus/modifier/modifier.component';
 import { ModifierTypesComponent } from '../../menus/modifier-types/modifier-types.component';
 import { SingleForcedModifierComponent } from '../../menus/single-forced-modifier/single-forced-modifier.component';
 import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/toggle-icon-button.component';
+import { ConfirmModalComponent } from '../../component/confirm-modal/confirm-modal.component';
 
 @NgModule({
   imports: [
@@ -120,6 +121,7 @@ import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/to
     CustomersComponent,
     ToggleSwitchComponent,
     ToggleIconButtonComponent,
+    ConfirmModalComponent,
     ProductEditModalComponent,
 
     GroupsComponent,

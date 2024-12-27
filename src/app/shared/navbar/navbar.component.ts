@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { CUSTOMERROUTES, PRODUCTSROUTES, REPOTINGROUTES, ROUTES, SETTINGROUTES, ECOMMERCEROUTES, STOCKCONTROLROUTES, MENUSROUTES } from '../../sidebar/sidebar.component';
+import { CUSTOMERROUTES, PRODUCTSROUTES, REPOTINGROUTES, ROUTES, SETTINGROUTES, ECOMMERCEROUTES, STOCKCONTROLROUTES, MENUSROUTES, EMPLOYEESROUTES } from '../../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
@@ -28,7 +28,8 @@ export class NavbarComponent implements OnInit {
             ...STOCKCONTROLROUTES.filter(listTitle => listTitle),
             ...REPOTINGROUTES.filter(listTitles=>listTitles),
             ...ECOMMERCEROUTES.filter(listTitles=>listTitles),
-            ...MENUSROUTES.filter(listTitles=>listTitles)];
+            ...MENUSROUTES.filter(listTitles=>listTitles),
+            ...EMPLOYEESROUTES.filter(listTitles=>listTitles)];
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
     }

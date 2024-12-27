@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../data/data.service';
-import { TableRow } from '../../data/table-row.model';
+
+export interface TableRow {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  outlet: string;
+  dailytarget: string;
+  weeklytarget: string;
+  monthlytarget: string;
+}
 
 @Component({
   selector: 'app-employees',
@@ -10,11 +19,73 @@ import { TableRow } from '../../data/table-row.model';
 
 export class EmployeesComponent implements OnInit {
 
-  rows: TableRow[] = [];
+  rows: TableRow[] = [
+    {
+      id: 1,
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      role: 'Manager',
+      outlet: 'Outlet A',
+      dailytarget: '100',
+      weeklytarget: '500',
+      monthlytarget: '2000',
+    },
+    {
+      id: 2,
+      name: 'Jane Smith',
+      email: 'jane.smith@example.com',
+      role: 'Salesperson',
+      outlet: 'Outlet B',
+      dailytarget: '80',
+      weeklytarget: '400',
+      monthlytarget: '1600',
+    },
+    {
+      id: 3,
+      name: 'Michael Johnson',
+      email: 'michael.johnson@example.com',
+      role: 'Supervisor',
+      outlet: 'Outlet C',
+      dailytarget: '120',
+      weeklytarget: '600',
+      monthlytarget: '2400',
+    },
+    {
+      id: 4,
+      name: 'Emily Davis',
+      email: 'emily.davis@example.com',
+      role: 'Clerk',
+      outlet: 'Outlet D',
+      dailytarget: '70',
+      weeklytarget: '350',
+      monthlytarget: '1400',
+    },
+    {
+      id: 5,
+      name: 'William Brown',
+      email: 'william.brown@example.com',
+      role: 'Assistant Manager',
+      outlet: 'Outlet A',
+      dailytarget: '90',
+      weeklytarget: '450',
+      monthlytarget: '1800',
+    },
+  ];
+
   isContentVisible: boolean = false; // Initially hidden for add or editing.
   isImportContentVisible: boolean = false; // Initially hidden for add or editing.
   currentRow: TableRow = this.resetRow();
-  constructor(private dataService: DataService) { }
+
+  selectedRole: string = 'All Roles';
+  roles: string[] = ['All Roles', 'Free', 'Cashier', 'Admin'];
+  selectedOutlet: string = 'All Outlets';
+  outlets: string[] = ['All Outlets', 'Free', 'Cashier', 'Admin'];
+  search: string = '';
+
+  isDeleteModal: boolean = false;
+  currentDeleteID: number = 0;
+
+  constructor() { }
   
   toggleContent(): void {
     this.isContentVisible = !this.isContentVisible; // Toggle the visibility
@@ -26,16 +97,18 @@ export class EmployeesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataService.data$.subscribe((data) => {
-      this.rows = data;
-    });
   }
 
-  saveRow() {
+  saveRow(): void {
     if (this.currentRow.id) {
-      this.dataService.updateRow(this.currentRow);
+      // Update existing row
+      const index = this.rows.findIndex((row) => row.id === this.currentRow.id);
+      if (index !== -1) {
+        this.rows[index] = { ...this.currentRow }; // Update row
+      }
     } else {
-      this.dataService.addRow({
+      // Add new row
+      this.rows.push({
         ...this.currentRow,
         id: this.generateId(),
       });
@@ -44,27 +117,46 @@ export class EmployeesComponent implements OnInit {
     this.isContentVisible = false;
   }
 
-  editRow(row: TableRow) {
+  editRow(row: TableRow): void {
     this.currentRow = { ...row }; // Clone the row to avoid direct edits
     this.isContentVisible = true;
   }
 
-  deleteRow(id: number) {
-    this.dataService.deleteRow(id);
-    this.isContentVisible = false;
-  }
-
-  cancelEdit() {
+  cancelEdit(): void {
     this.currentRow = this.resetRow();
     this.isContentVisible = false;
   }
 
+  showDeleteModal(id: number) {
+    this.currentDeleteID = id;
+    this.isDeleteModal = true;
+  }
+
+  closeDeleteModal(){
+    this.isDeleteModal = false;
+  }
+
+  deleteRow() {
+    this.rows = this.rows.filter((row) => row.id !== this.currentDeleteID); // Remove row by id
+    this.isDeleteModal = false;
+  }
+
   private resetRow(): TableRow {
-    return { id: 0, name: '', email: '', phone: '' };
+    return { id: 0, name: '', email: '', role: '', outlet: '', dailytarget: '', weeklytarget: '', monthlytarget:'' };
   }
 
   private generateId(): number {
     return Math.max(...this.rows.map((r) => r.id), 0) + 1;
+  }
+
+  onClearFilters() {
+    this.search = '';
+    this.selectedRole = 'All Roles';
+    this.selectedOutlet = 'All Outlets';
+  }
+
+  onSearch() {
+
   }
 }
 
