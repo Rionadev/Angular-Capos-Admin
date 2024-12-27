@@ -22,7 +22,7 @@ import { StoreComponent } from '../../setting/store/store.component';
 import { PolicyComponent } from '../../setting/policy/policy.component';
 import { PreferencesComponent } from '../../setting/preferences/preferences.component';
 import { ProductsComponent } from 'app/Old_product/products/products.component';
-import { PricebooksComponent } from 'app/pricebooks/pricebooks.component';
+import { PricebooksComponent } from 'app/Old_product/pricebooks/pricebooks.component';
 import { ProducttypesComponent } from 'app/Old_product/producttypes/producttypes.component';
 import { SupplliersComponent } from 'app/Old_product/supplliers/supplliers.component';
 import { ProducttagsComponent } from 'app/Old_product/producttags/producttags.component';
@@ -49,6 +49,7 @@ import { GroupsComponent } from 'app/customer_group/groups/groups.component';
 import { ManageordersComponent } from 'app/stockcontrol/manageorders/manageorders.component';
 import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestock.component';
 import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
+import { SaletransactionComponent } from 'app/saletransaction/saletransaction.component';
 
 import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.component';
 import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-modifiers.component';
@@ -67,6 +68,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'openclose', component: OpencloseComponent },
     { path: 'cashmanagement', component: CarshmanagementComponent },
     { path: 'saleslegder', component: SaleslegderComponent },
+    { path: 'salestransaction', component: SaletransactionComponent },
+
     { path: 'user', component: UserComponent },
     { path: 'table', component: TablesComponent },
     { path: 'typography', component: TypographyComponent },

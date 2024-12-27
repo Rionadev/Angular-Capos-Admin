@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { quantity } from 'chartist';
 interface Product {
   id: number;
   name: string;
@@ -12,6 +13,37 @@ interface Product {
   styleUrls: ['./openclose.component.scss']
 })
 export class OpencloseComponent implements OnInit {
+  print_totalnetsales = 2434.24;
+  print_tax = 147.85;
+  today: string;
+  summary_subtotal = 0;
+  summary_hst = 0;
+  summary_total = 0;
+  product_list = [
+    { category: 'Bottled Beer Sales', quantity: 22, netSales: 243.23 },
+    { category: 'Craft Beer Sales', quantity: 15, netSales: 180.50 },
+    { category: 'Cider Sales', quantity: 10, netSales: 120.75 },
+    { category: 'Wine Sales', quantity: 18, netSales: 300.00 },
+    { category: 'Spirits Sales', quantity: 25, netSales: 450.00 },
+  ];
+  payments = [
+    { type: 'Cash', expected: 178, counted: 45.6, difference: 0 },
+    { type: 'Credit Card', expected: 178, counted: 25.43, difference: 0 },
+    { type: 'Debit Card', expected: 178, counted: 345.86, difference: 0 },
+    { type: 'Store Credit', expected: 178, counted: 1124.7, difference: 0 },
+    { type: 'Refunds', expected: 178, counted: 156.45, difference: 0 },
+    { type: 'Voided', expected: 345, counted: 453.3, difference: 0 },
+    { type: 'Penny', expected: 252, counted: 324.6, difference: 0 },
+  ];
+  serverTipOut = [
+    { type: 'Total Cash Payments', value: 45.6 },
+    { type: 'Cash Adjustments', value: 37.52 },
+    { type: 'Cash before Tipouts', value: 569.58 },
+    { type: 'Cash Gratuity', value: 0 },
+    { type: 'Credit/Non-Cash Gratuity', value: 0 },
+    { type: 'Credit/Non-Cash tips', value: -366.79 },
+  ];
+  totalnonecashtipsandGratuity = -366.79;
   salesData = [
     { category: 'Test Product', saleQty: 0, saleSum: 0 },
     { category: 'Accessories', saleQty: 0, saleSum: 0 },
@@ -20,7 +52,12 @@ export class OpencloseComponent implements OnInit {
     { category: 'Cables', saleQty: 6, saleSum: 464.10 },
     { category: 'Belmont', saleQty: 0, saleSum: 0 },
     { category: 'Test W', saleQty: 0, saleSum: 0 }
-];
+  ];
+  creditCardBreakdown = [
+    {type:'Amex', amount:263.01},
+    {type:'Mastercard', amount:624.24},
+    {type:'Visa', amount:1527.51},
+  ];
   date_s = new Date();
   formtted_date = this.date_s.toISOString().slice(0, 19).replace('T', '');
 
@@ -28,7 +65,7 @@ export class OpencloseComponent implements OnInit {
   reg_register: string = 'Main Register';
   reg_id: number = 1662059421489;
   reg_openingTime = this.formtted_date;
-
+  showZReport = false; // To control visibility of the Z Report
 
   rows: Product[] = [];
   currentRow: Product = { id: null, name: '', description: '', product: '' };
@@ -38,6 +75,10 @@ export class OpencloseComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
+  constructor() {
+    const currentDate = new Date();
+    this.today = currentDate.toLocaleDateString(); // Default format (MM/DD/YYYY)
+  }
   ngOnInit() {
     // Load initial data
     this.rows = [
@@ -49,11 +90,22 @@ export class OpencloseComponent implements OnInit {
       { id: 6, name: 'Product 6', description: 'Description 6', product: 'Product F' },
       // Add more products as needed
     ];
-    this.filterRows(); // Initialize pagination
   }
-
+  formatCurrency(total: number): string {
+    return `$${total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  }
+  calculateTotalCounted(): any {
+    return this.payments.reduce((total, payment) => total + payment.counted, 0);
+  }
+  calculateTotalCash(): any {
+    return this.serverTipOut.reduce((total, payment) => total + payment.value, 0);
+  }
+  calcTotalCreditCard():number{
+    return this.creditCardBreakdown.reduce((total, payment) => total + payment.amount, 0);
+  }
   toggleContent() {
     this.isContentVisible = !this.isContentVisible;
+    if(this.isContentVisible){    this.closeRegister();}
   }
 
   openEditModal(row: Product) {
@@ -82,39 +134,35 @@ export class OpencloseComponent implements OnInit {
     this.paginatedRows = this.paginatedRows.filter(row => row.id !== id);
   }
 
-  filterRows() {
-    const filtered = this.rows.filter(row =>
-      row.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-      row.description.toLowerCase().includes(this.searchQuery.toLowerCase())
-    );
-    this.currentPage = 1; // Reset to first page
-    this.paginate(filtered);
+  calculateDifferences() {
+    this.payments.forEach(payment => {
+      payment.difference = payment.expected - payment.counted;
+    });
   }
 
-  paginate(filteredRows: Product[]) {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    this.paginatedRows = filteredRows.slice(start, start + this.itemsPerPage);
+  totalExpected(): number {
+    return this.payments.reduce((total, payment) => total + payment.expected, 0);
   }
 
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePagination();
-    }
+  totalCounted(): number {
+    return this.payments.reduce((total, payment) => total + payment.counted, 0);
+  }
+  calculateTotalNetSales(): any {
+    return (this.product_list.reduce((total, product) => total + product.netSales, 0));
+  }
+  totalDifference(): number {
+    return this.payments.reduce((total, payment) => total + payment.difference, 0);
+  }
+  closeRegister() {
+    this.showZReport = true; // Show Z Report
+    this.calculateDifferences(); // Ensure differences are calculated
+    this.printZReport(); // Optionally, print immediately
   }
 
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePagination();
-    }
+  printZReport() {
+    setTimeout(() => {
+      window.print(); // Print the current window
+    }, 1000); // Delay to allow the Z Report to render
   }
 
-  get totalPages(): number {
-    return Math.ceil(this.rows.length / this.itemsPerPage);
-  }
-
-  updatePagination() {
-    this.filterRows(); // Reapply filtering to ensure correct pagination
-  }
 }

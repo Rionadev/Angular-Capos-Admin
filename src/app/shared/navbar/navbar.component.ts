@@ -21,14 +21,16 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.listTitles = [ 
-            ...ROUTES.filter(listTitle => listTitle), 
+
+        this.listTitles = [
+            ...ROUTES.filter(listTitle => listTitle),
             ...SETTINGROUTES.filter(listTitle => listTitle),
             ...CUSTOMERROUTES.filter(listTitle => listTitle),
             ...STOCKCONTROLROUTES.filter(listTitle => listTitle),
-            ...REPOTINGROUTES.filter(listTitles=>listTitles),
-            ...ECOMMERCEROUTES.filter(listTitles=>listTitles),
-            ...MENUSROUTES.filter(listTitles=>listTitles),
+            ...REPOTINGROUTES.filter(listTitles => listTitles),
+            ...ECOMMERCEROUTES.filter(listTitles => listTitles),
+            ...MENUSROUTES.filter(listTitles => listTitles),
+            ...PRODUCTSROUTES.filter(listTitles => listTitles),
             ...EMPLOYEESROUTES.filter(listTitles=>listTitles)];
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];

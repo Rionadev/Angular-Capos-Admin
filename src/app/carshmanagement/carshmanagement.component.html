@@ -3,8 +3,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card margin-bottom-10">
-
-
                     <div class="content add-content flex" style="justify-self: right;">
                         <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddCashForm()">
                             Add Cash
@@ -45,11 +43,17 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-sm btn-success btn-fill pull-right">
-                                    Save
+                                    <!-- Save -->
+                                    <i style="font-size: large;" class="
+                                    pe-7s-diskette
+                                    "></i>
                                 </button>
                                 <button type="button" class="btn btn-sm btn-danger btn-fill pull-right"
                                     (click)="cancelAddCash()">
-                                    Cancel
+                                    <i style="font-size: large;" class="
+                                    pe-7s-back
+                                    "></i>
+                                    <!-- Cancel -->
                                 </button>
                                 <div class="clearfix"></div>
                             </form>
@@ -98,19 +102,23 @@
                                     <td>
                                         <button *ngIf="!transaction.isEditing" class="btn btn-info btn-xs"
                                             (click)="editTransaction(transaction)">
-                                            Edit
+                                            <i class="pe-7s-note" style="font-size: large;"></i>
+                                            <!-- Edit -->
                                         </button>
                                         <button *ngIf="!transaction.isEditing" class="btn btn-danger btn-xs"
                                             (click)="deleteTransaction(transaction)">
-                                            Delete
+                                            <i class="pe-7s-trash" style="font-size: large;"></i>
+                                            <!-- Delete -->
                                         </button>
                                         <button *ngIf="transaction.isEditing" class="btn btn-success btn-xs"
                                             (click)="saveTransaction(transaction)">
-                                            Save
+                                            <i class="pe-7s-diskette" style="font-size: large;"></i>
+                                            <!-- Save -->
                                         </button>
                                         <button *ngIf="transaction.isEditing" class="btn btn-secondary btn-xs"
                                             (click)="editTransaction(transaction)">
-                                            Cancel
+                                            <i class="pe-7s-back" style="font-size: large;"></i>
+                                            <!-- Cancel -->
                                         </button>
                                     </td>
                                 </tr>

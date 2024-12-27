@@ -20,7 +20,7 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { EmployeesComponent } from '../../employees/employees/employees.component';
 import { RolesComponent } from '../../employees/roles/roles.component';
 
-import { PricebooksComponent } from 'app/pricebooks/pricebooks.component';
+import { PricebooksComponent } from 'app/Old_product/pricebooks/pricebooks.component';
 import { ProductsComponent } from 'app/Old_product/products/products.component';
 import { ProductEditModalComponent } from 'app/Old_product/product-edit-modal/product-edit-modal.component';
 import { ProducttypesComponent } from 'app/Old_product/producttypes/producttypes.component';
@@ -63,6 +63,7 @@ import { GroupsComponent } from 'app/customer_group/groups/groups.component';
 import { ManageordersComponent } from 'app/stockcontrol/manageorders/manageorders.component';
 import { ReceivestockComponent } from 'app/stockcontrol/receivestock/receivestock.component';
 import { ReturnstockComponent } from 'app/stockcontrol/returnstock/returnstock.component';
+import { SaletransactionComponent } from 'app/saletransaction/saletransaction.component';
 
 import { MenusLayoutComponent } from '../../menus/menus-layout/menus-layout.component';
 import { ForcedModifiersComponent } from '../../menus/forced-modifiers/forced-modifiers.component';
@@ -124,6 +125,7 @@ import { ConfirmModalComponent } from '../../component/confirm-modal/confirm-mod
     ConfirmModalComponent,
     ProductEditModalComponent,
 
+    SaletransactionComponent,
     GroupsComponent,
 
     ManageordersComponent,
