@@ -4,17 +4,21 @@
             <div class="col-md-12">
                 <div class="card margin-bottom-10">
                     <div class="content add-content">
-                        <p class="category">Manage users and their sales targets. Need help?</p>
+                        <p class="category">Manage user roles. Need help?</p>
                         <div>
-                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Add</button>
-                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleImportContent()">Import</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Add Role</button>
                         </div>
                     </div>
                 </div>
                 <div class="card margin-bottom-10" *ngIf="isContentVisible">
-                    <div class="header">
-                        <h4 class="title">Add a user</h4>
-                        <p class="category">Here is a form for adding </p>
+                    <div class="content add-content">
+                        <div class="header">
+                            <h4 class="title">Add Role</h4>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Cancel</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+                        </div>
                     </div>
                     <div class="content">                        
                         <form (ngSubmit)="saveRow()">
@@ -114,25 +118,20 @@
                                 <thead>
                                     <tr>
                                         <!-- <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th> -->
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
+                                        <th>Role Name</th>
+                                        <th>Last Updated</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let row of rows">
-                                        <!-- <td *ngFor="let cell of row">{{cell}}</td> -->
-                                        <td>{{ row.id }}</td>
                                         <td>{{ row.name }}</td>
-                                        <td>{{ row.email }}</td>
-                                        <td>{{ row.phone }}</td>
+                                        <td>{{ row.updated }}</td>
                                         <td>
                                             <button class="btn btn-sm btn-info" (click)="editRow(row)">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                             </button>
-                                            <button class="btn btn-sm btn-danger" (click)="deleteRow(row.id)">
+                                            <button class="btn btn-sm btn-danger" (click)="deleteModal(row.id)">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </button>
                                         </td>
@@ -157,3 +156,11 @@
         </div>
     </div>
 </div>
+<app-confirm-modal *ngIf="isDeleteModal" 
+    [title]="'Remove User Role'"
+    [description]="'Do you really want to remove this User Role ?'"
+    [confirmButtonCaption]="'Delete'"
+    [cancelButtonCaption]="'Cancel'"
+    (confirmed)="deleteRow()" 
+    (cancelled)="deleteRow()">
+</app-confirm-modal>

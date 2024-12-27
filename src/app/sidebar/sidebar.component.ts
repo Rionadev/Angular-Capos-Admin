@@ -20,9 +20,21 @@ export const ROUTES: RouteInfo[] = [
   // { path: '/icons', title: 'Icons', icon: 'pe-7s-science', class: '' },
   // { path: '/maps', title: 'Maps', icon: 'pe-7s-map-marker', class: '' },
   // { path: '/notifications', title: 'Notifications', icon: 'pe-7s-bell', class: '' },
-  { path: '/employees', title: 'Employees', icon: 'pe-7s-users', class: '' },
+  //{ path: '/employees', title: 'Employees', icon: 'pe-7s-users', class: '' },
+  /* { path: '/user', title: 'User Profile', icon: 'pe-7s-user', class: '' },
+  { path: '/table', title: 'Table List', icon: 'pe-7s-note2', class: '' },
+  { path: '/typography', title: 'Typography', icon: 'pe-7s-news-paper', class: '' },
+  { path: '/icons', title: 'Icons', icon: 'pe-7s-science', class: '' },
+  { path: '/maps', title: 'Maps', icon: 'pe-7s-map-marker', class: '' },
+  { path: '/notifications', title: 'Notifications', icon: 'pe-7s-bell', class: '' }, */
+  //{ path: '/employees', title: 'Employees', icon: 'pe-7s-users', class: '' },
   // { path: '/upgrade', title: 'Upgrade to PRO', icon: 'pe-7s-rocket', class: '' }, //active-pro
   /* { path: '/setting', title: 'Setting', icon: 'pe-7s-config', class: '' }, */
+];
+
+export const EMPLOYEESROUTES: RouteInfo[] = [
+  { path: '/employees/employees', title: 'User/Employee', icon: 'pe-7s-credit', class: '' },
+  { path: '/employees/roles', title: 'User Roles', icon: 'pe-7s-albums', class: '' },
 ];
 
 export const SETTINGROUTES: RouteInfo[] = [
@@ -110,6 +122,8 @@ export class SidebarComponent implements OnInit {
   isCustomerContentVisible: boolean = false;
   menusContentItems: any[];
   isMenusContentVisible: boolean = false;
+  employeesContentItems: any[];
+  isEmployeesContentVisible: boolean = false;
   constructor() { }
 
   ngOnInit() {
@@ -121,6 +135,7 @@ export class SidebarComponent implements OnInit {
     this.stockContentItems = STOCKCONTROLROUTES.filter(menuItems => menuItems);
     this.customerContentItems = CUSTOMERROUTES.filter(menuItems => menuItems);
     this.menusContentItems = MENUSROUTES.filter(menuItems => menuItems);
+    this.employeesContentItems = EMPLOYEESROUTES.filter(menuItems => menuItems);
   }
   stockContent(): void {
     this.isStockContentVisible = !this.isStockContentVisible; // Toggle the visibility
@@ -143,10 +158,22 @@ export class SidebarComponent implements OnInit {
   menusContent(): void {
     this.isMenusContentVisible = !this.isMenusContentVisible; // Toggle the visibility
   }
+  employeesContent(): void {
+    this.isEmployeesContentVisible = !this.isEmployeesContentVisible; // Toggle the visibility
+  }
   isMobileMenu() {
     if ($(window).width() > 991) {
       return false;
     }
     return true;
+  };
+
+  sidebarClose() {
+    const body = document.getElementsByTagName('body')[0];
+    const toggleButton = body.getElementsByClassName('navbar-toggle')[0];
+    toggleButton.classList.remove('toggled');
+    /* const navbar: HTMLElement = this.element.nativeElement;
+    navbar.getElementsByClassName('navbar-toggle')[0].classList.remove('toggled'); */
+    body.classList.remove('nav-open');
   };
 }

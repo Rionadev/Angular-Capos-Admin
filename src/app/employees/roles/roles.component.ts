@@ -1,20 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../data/data.service';
-import { TableRow } from '../data/table-row.model';
+
+export interface TableRow {
+  id: number;
+  name: string;
+  updated: string;
+}
 
 @Component({
-  selector: 'app-employees',
-  templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.scss']
+  selector: 'app-roles',
+  templateUrl: './roles.component.html',
+  styleUrls: ['./roles.component.scss']
 })
 
-export class EmployeesComponent implements OnInit {
+export class RolesComponent implements OnInit {
 
-  rows: TableRow[] = [];
+  rows: TableRow[] = [
+    { id: 1, name: 'John Doe', updated: '555-1234' },
+    { id: 2, name: 'Jane Smith', updated: '555-5678' },
+  ];
+
   isContentVisible: boolean = false; // Initially hidden for add or editing.
   isImportContentVisible: boolean = false; // Initially hidden for add or editing.
+  isDeleteModal: boolean = false;
   currentRow: TableRow = this.resetRow();
-  constructor(private dataService: DataService) { }
+  currentID: number = 0;
+
+  constructor() { }
   
   toggleContent(): void {
     this.isContentVisible = !this.isContentVisible; // Toggle the visibility
@@ -26,20 +37,9 @@ export class EmployeesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataService.data$.subscribe((data) => {
-      this.rows = data;
-    });
   }
 
   saveRow() {
-    if (this.currentRow.id) {
-      this.dataService.updateRow(this.currentRow);
-    } else {
-      this.dataService.addRow({
-        ...this.currentRow,
-        id: this.generateId(),
-      });
-    }
     this.currentRow = this.resetRow();
     this.isContentVisible = false;
   }
@@ -49,9 +49,13 @@ export class EmployeesComponent implements OnInit {
     this.isContentVisible = true;
   }
 
-  deleteRow(id: number) {
-    this.dataService.deleteRow(id);
-    this.isContentVisible = false;
+  deleteModal(id: number) {
+    this.currentID = id;
+    this.isDeleteModal = true;
+  }
+
+  deleteRow() {
+    this.isDeleteModal = false;
   }
 
   cancelEdit() {
@@ -60,11 +64,11 @@ export class EmployeesComponent implements OnInit {
   }
 
   private resetRow(): TableRow {
-    return { id: 0, name: '', email: '', phone: '' };
+    return { id: 0, name: '', updated: '' };
   }
 
   private generateId(): number {
     return Math.max(...this.rows.map((r) => r.id), 0) + 1;
   }
-}
 
+}
