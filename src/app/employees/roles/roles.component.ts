@@ -19,21 +19,15 @@ export class RolesComponent implements OnInit {
     { id: 2, name: 'Jane Smith', updated: '555-5678' },
   ];
 
-  isContentVisible: boolean = false; // Initially hidden for add or editing.
-  isImportContentVisible: boolean = false; // Initially hidden for add or editing.
+  isAddRoleContentVisible: boolean = false; // Initially hidden for add or editing.
   isDeleteModal: boolean = false;
   currentRow: TableRow = this.resetRow();
-  currentID: number = 0;
+  currentDeleteID: number = 0;
 
   constructor() { }
   
-  toggleContent(): void {
-    this.isContentVisible = !this.isContentVisible; // Toggle the visibility
-  }
-
-  toggleImportContent(): void {
-    this.isImportContentVisible = !this.isImportContentVisible; // Toggle the visibility
-    this.isContentVisible = false;
+  toggleAddRoleContent(): void {
+    this.isAddRoleContentVisible = !this.isAddRoleContentVisible; // Toggle the visibility
   }
 
   ngOnInit(): void {
@@ -41,26 +35,32 @@ export class RolesComponent implements OnInit {
 
   saveRow() {
     this.currentRow = this.resetRow();
-    this.isContentVisible = false;
+    this.isAddRoleContentVisible = false;
   }
 
   editRow(row: TableRow) {
     this.currentRow = { ...row }; // Clone the row to avoid direct edits
-    this.isContentVisible = true;
+    this.isAddRoleContentVisible = true;
   }
 
-  deleteModal(id: number) {
-    this.currentID = id;
+  showDeleteModal(id: number) {
+    this.currentDeleteID = id;
     this.isDeleteModal = true;
   }
 
-  deleteRow() {
+  closeDeleteModal(){
     this.isDeleteModal = false;
   }
 
+  deleteRow() {
+    this.rows = this.rows.filter((row) => row.id !== this.currentDeleteID); // Remove row by id
+    this.isDeleteModal = false;
+  }
+
+
   cancelEdit() {
     this.currentRow = this.resetRow();
-    this.isContentVisible = false;
+    this.isAddRoleContentVisible = false;
   }
 
   private resetRow(): TableRow {
