@@ -71,4 +71,11 @@ export class RolesComponent implements OnInit {
     return Math.max(...this.rows.map((r) => r.id), 0) + 1;
   }
 
+  onSelectAll() {
+    
+  }
+
+  onDeselectAll() {
+
+  }
 }
