@@ -1,0 +1,15 @@
+<div class="modal-backdrop" (click)="onCancel()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <div>{{title}}</div>
+        </div>
+        <div class="category modal-description">
+            {{description}}
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-sm btn-info btn-fill"(click)="onCancel()">{{cancelButtonCaption}}</button>
+            <button class="btn btn-sm btn-danger btn-fill" (click)="onConfirm()">{{confirmButtonCaption}}</button>
+        </div>
+    </div>
+</div>
+  

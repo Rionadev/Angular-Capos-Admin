@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { CUSTOMERROUTES, PRODUCTSROUTES, REPOTINGROUTES, ROUTES, SETTINGROUTES, ECOMMERCEROUTES, STOCKCONTROLROUTES, MENUSROUTES } from '../../sidebar/sidebar.component';
+import { CUSTOMERROUTES, PRODUCTSROUTES, REPOTINGROUTES, ROUTES, SETTINGROUTES, ECOMMERCEROUTES, STOCKCONTROLROUTES, MENUSROUTES, EMPLOYEESROUTES } from '../../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
@@ -30,7 +30,8 @@ export class NavbarComponent implements OnInit {
             ...REPOTINGROUTES.filter(listTitles => listTitles),
             ...ECOMMERCEROUTES.filter(listTitles => listTitles),
             ...MENUSROUTES.filter(listTitles => listTitles),
-            ...PRODUCTSROUTES.filter(listTitles => listTitles)];
+            ...PRODUCTSROUTES.filter(listTitles => listTitles),
+            ...EMPLOYEESROUTES.filter(listTitles=>listTitles)];
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
     }
@@ -53,7 +54,13 @@ export class NavbarComponent implements OnInit {
     sidebarToggle() {
         // const toggleButton = this.toggleButton;
         // const body = document.getElementsByTagName('body')[0];
-        if (this.sidebarVisible === false) {
+        /* if (this.sidebarVisible === false) {
+            this.sidebarOpen();
+        } else {
+            this.sidebarClose();
+        } */
+        const toggleButton = this.toggleButton;
+        if (!toggleButton.classList.contains('toggled')) {
             this.sidebarOpen();
         } else {
             this.sidebarClose();

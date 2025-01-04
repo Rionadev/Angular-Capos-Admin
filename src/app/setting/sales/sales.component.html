@@ -25,7 +25,11 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Rate:</label>
-                                        <input type="text" class="form-control" placeholder="Phone" id="Rate" [(ngModel)]="currentRow.phone" name="phone" required />
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" [(ngModel)]="currentRow.phone" placeholder="0" aria-describedby="debit">
+                                            <span class="input-group-addon" id="debit">%</span>
+                                        </div>
+                                        <!-- <input type="text" class="form-control" placeholder="Phone" id="Rate" [(ngModel)]="currentRow.phone" name="phone" required /> -->
                                     </div>
                                 </div>
                             </div>

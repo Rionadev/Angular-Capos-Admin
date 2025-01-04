@@ -8,7 +8,10 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import { EmployeesComponent } from '../../employees/employees.component';
+
+import { EmployeesComponent } from '../../employees/employees/employees.component';
+import { RolesComponent } from '../../employees/roles/roles.component';
+
 import { BillingComponent } from '../../setting/billing/billing.component';
 import { OutletsComponent } from '../../setting/outlets/outlets.component';
 import { PaymentComponent } from '../../setting/payment/payment.component';
@@ -74,7 +77,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps', component: MapsComponent },
     { path: 'notifications', component: NotificationsComponent },
     { path: 'upgrade', component: UpgradeComponent },
-    { path: 'employees', component: EmployeesComponent },
+
+    { path: 'employees/employees', component: EmployeesComponent },
+    { path: 'employees/roles', component: RolesComponent },
 
     { path: 'reporting/salesreport', component: SalesreportsComponent },
     { path: 'reporting/inventoryreports', component: InventoryreportsComponent },

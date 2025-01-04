@@ -16,7 +16,10 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import { EmployeesComponent } from '../../employees/employees.component';
+
+import { EmployeesComponent } from '../../employees/employees/employees.component';
+import { RolesComponent } from '../../employees/roles/roles.component';
+
 import { PricebooksComponent } from 'app/Old_product/pricebooks/pricebooks.component';
 import { ProductsComponent } from 'app/Old_product/products/products.component';
 import { ProductEditModalComponent } from 'app/Old_product/product-edit-modal/product-edit-modal.component';
@@ -74,6 +77,7 @@ import { ModifierComponent } from '../../menus/modifier/modifier.component';
 import { ModifierTypesComponent } from '../../menus/modifier-types/modifier-types.component';
 import { SingleForcedModifierComponent } from '../../menus/single-forced-modifier/single-forced-modifier.component';
 import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/toggle-icon-button.component';
+import { ConfirmModalComponent } from '../../component/confirm-modal/confirm-modal.component';
 
 @NgModule({
   imports: [
@@ -94,6 +98,7 @@ import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/to
     NotificationsComponent,
     UpgradeComponent,
     EmployeesComponent,
+    RolesComponent,
     SaleslegderComponent,
     
     BillingComponent,
@@ -117,6 +122,7 @@ import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/to
     CustomersComponent,
     ToggleSwitchComponent,
     ToggleIconButtonComponent,
+    ConfirmModalComponent,
     ProductEditModalComponent,
 
     SaletransactionComponent,
@@ -153,6 +159,7 @@ import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/to
     ModifierComponent,
     ModifierTypesComponent,
     SingleForcedModifierComponent,
+
   ]
 })
 

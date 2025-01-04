@@ -1,0 +1,459 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card margin-bottom-10" *ngIf="!isAddRoleContentVisible">
+                    <div class="content add-content">
+                        <p class="category">Manage user roles. Need help?</p>
+                        <div>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddRoleContent()">Add Role</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card margin-bottom-0" *ngIf="isAddRoleContentVisible">
+                    <div class="content add-content padding-bottom-0">
+                        <div class="header">
+                            <h4 class="title">Add Role</h4>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddRoleContent()">Cancel</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddRoleContent()">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Role Name:</label>
+                                    <input type="text" class="form-control" placeholder="Role Name" id="rolename" name="rolename" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 items-center">
+                                <label class="margin-bottom-0">Permissions:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <button class="btn btn-sm btn-info btn-fill pull-right" (click)="onSelectAll()">Select All</button>
+                                <button class="btn btn-sm btn-info btn-fill pull-right" (click)="onDeselectAll()">Deselect All</button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="items-center">
+                                <div class="col-md-2">
+                                    <label class="margin-bottom-5">Product Costs:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="checkbox">
+                                        <input id="checkbox2" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox2">Show Product Costs&nbsp;&nbsp;<small>(Show product costs, margins and profitability information in the Sell screen, product catalog, reporting and stock control)</small></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="items-center">
+                                <div class="col-md-2">
+                                    <label class="margin-bottom-5">Labels:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="checkbox">
+                                        <input id="checkbox2" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox2">Print Labels&nbsp;&nbsp;<small>(Allow Admin to print labels from the product catalogue and on stock control)</small></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="items-center">
+                                <div class="col-md-2">
+                                    <label class="margin-bottom-5">Discounts:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="checkbox">
+                                        <input id="checkbox2" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox2">Apply Discounts&nbsp;&nbsp;<small>(Allow Admin to provide discounts on a sale, including individual line items. This excludes managing price books.)</small></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="margin-bottom-5">Sell:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Create or continue On-Account sales</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox2">Issue store credit for a return sale</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Perform cash movements</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox2">Make sales</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Perform sale returns and exchanges</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox2">Void sales on Sales Ledger</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Close registers at the end of the day</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox2">Refund</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="margin-bottom-5">Customers:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Export customer list</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox2">Remove a customer</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Add customer groups</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox2">Add customers in bulk with a CSV import</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Add a new customer</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="margin-bottom-5">Products:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Perform supplier stock orders and returns</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox2">Create and edit products</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Perform inventory counts</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox2">Perform a stock transfer</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Create and edit price books</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox2">Create and edit product type</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Create and edit supplier</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox2">Create and edit product brand</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Create and edit product attribute</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="margin-bottom-5">Reporting:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">View Sales Report</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox2">View reporting on payments</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Only own sales</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox2" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox2">All sales made at assigned outlets</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="margin-bottom-5">Ecommerce:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Access Ecommerce</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="margin-bottom-5">Setup:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Manage User Roles</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Create and Edit Outlet & Register</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Add and edit Cashiers</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Add and edit Managers</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Enable Add-ons</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Manage Payment Types</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Manage Taxes</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Manage Loyalty</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Manage hardware on iOS</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox1">Manage Quick Keys</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ? 'Update' : 'Add' }}</button>
+                        <button class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()" *ngIf="currentRow.id">Cancel</button> -->
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="card" *ngIf="!isAddRoleContentVisible">
+                    <div class="content table-responsive table-full-width">
+                          <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <!-- <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th> -->
+                                        <th>Role Name</th>
+                                        <th>Last Updated</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of rows">
+                                        <td>{{ row.name }}</td>
+                                        <td>{{ row.updated }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" (click)="editRow(row)">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger" (click)="showDeleteModal(row.id)">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                          </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-12">
+                <div class="card card-plain">
+                    <div class="header">
+                        <h4 class="title">Table on Plain Background</h4>
+                        <p class="category">Here is a subtitle for this table</p>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+<app-confirm-modal *ngIf="isDeleteModal" 
+    [title]="'Remove User Role'"
+    [description]="'Do you really want to remove this User Role ?'"
+    [confirmButtonCaption]="'Delete'"
+    [cancelButtonCaption]="'Cancel'"
+    (confirmed)="deleteRow()" 
+    (cancelled)="closeDeleteModal()">
+</app-confirm-modal>
