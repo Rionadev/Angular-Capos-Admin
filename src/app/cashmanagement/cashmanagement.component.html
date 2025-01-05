@@ -20,7 +20,7 @@
                                         <div class="form-group">
                                             <label>Reason:</label>
                                             <input type="text" class="form-control" placeholder="Reason"
-                                                [(ngModel)]="newTransaction.reason" name="reason" required />
+                                                [(ngModel)]="newTransaction.reasons" name="reason" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -90,7 +90,8 @@
                                     </td>
 
                                     <td [ngClass]="transaction.is_credit === '1' ? 'credit-clr' : 'debit-clr'"
-                                        *ngIf="!transaction.isEditing">{{ transaction.type }}</td>
+                                        *ngIf="!transaction.isEditing">{{ transaction.is_credit==='1'?'Credit':'Debit'
+                                        }}</td>
                                     <td *ngIf="transaction.isEditing">
                                         <select [(ngModel)]="transaction.type" class="form-control">
                                             <option value="Credit">Credit</option>
@@ -100,7 +101,7 @@
 
                                     <td [ngClass]="transaction.is_credit === '1' ? 'credit-clr' : 'debit-clr'"
                                         *ngIf="!transaction.isEditing">
-                                        {{ transaction.is_credit === '1' ? '+' : '-' }}${{ transaction.transaction
+                                        {{ transaction.is_credit === '1' ? '+ ' : '- ' }} ${{ transaction.transaction
                                         }}
                                     </td>
 
@@ -111,13 +112,13 @@
                                     <td>
                                         <div style="display: flex;gap: 1rem;">
 
-                                            <button *ngIf="!transaction.isEditing" class="btn btn-info btn-xs"
+                                            <button *ngIf="!transaction.isActionButton" class="btn btn-info btn-xs"
                                                 (click)="editTransaction(transaction)">
                                                 <i class="pe-7s-note" style="font-size: large;"></i>
                                                 <!-- Edit -->
                                             </button>
-                                            <button *ngIf="!transaction.isEditing" class="btn btn-danger btn-xs"
-                                                (click)="deleteTransaction(transaction)">
+                                            <button *ngIf="!transaction.isActionButton" class="btn btn-danger btn-xs"
+                                                (click)="confirmDelete(transaction)">
                                                 <i class="pe-7s-trash" style="font-size: large;"></i>
                                                 <!-- Delete -->
                                             </button>
@@ -127,9 +128,17 @@
                                                 <!-- Save -->
                                             </button>
                                             <button *ngIf="transaction.isEditing" class="btn btn-secondary btn-xs"
-                                                (click)="editTransaction(transaction)">
+                                                (click)="cancelTransaction(transaction)">
                                                 <i class="pe-7s-back" style="font-size: large;"></i>
                                                 <!-- Cancel -->
+                                            </button>
+                                            <button *ngIf="transaction.isConfirming" class="btn btn-danger btn-xs"
+                                                (click)="deleteTransaction(transaction)">
+                                                Yes
+                                            </button>
+                                            <button *ngIf="transaction.isConfirming" class="btn btn-secondary btn-xs"
+                                                (click)="cancelConfirm(transaction)">
+                                                No
                                             </button>
                                         </div>
                                     </td>
