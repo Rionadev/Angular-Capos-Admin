@@ -86,10 +86,11 @@
 
                                     <td *ngIf="!transaction.isEditing">{{ transaction.reasons }}</td>
                                     <td *ngIf="transaction.isEditing">
-                                        <input [(ngModel)]="transaction.reason" class="form-control" />
+                                        <input [(ngModel)]="transaction.reasons" class="form-control" />
                                     </td>
 
-                                    <td *ngIf="!transaction.isEditing">{{ transaction.type }}</td>
+                                    <td [ngClass]="transaction.is_credit === '1' ? 'credit-clr' : 'debit-clr'"
+                                        *ngIf="!transaction.isEditing">{{ transaction.type }}</td>
                                     <td *ngIf="transaction.isEditing">
                                         <select [(ngModel)]="transaction.type" class="form-control">
                                             <option value="Credit">Credit</option>
@@ -97,7 +98,12 @@
                                         </select>
                                     </td>
 
-                                    <td *ngIf="!transaction.isEditing">{{ transaction.transaction }}</td>
+                                    <td [ngClass]="transaction.is_credit === '1' ? 'credit-clr' : 'debit-clr'"
+                                        *ngIf="!transaction.isEditing">
+                                        {{ transaction.is_credit === '1' ? '+' : '-' }}${{ transaction.transaction
+                                        }}
+                                    </td>
+
                                     <td *ngIf="transaction.isEditing">
                                         <input [(ngModel)]="transaction.transaction" class="form-control" />
                                     </td>

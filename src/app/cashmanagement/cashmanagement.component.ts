@@ -37,8 +37,8 @@ export class CashmanagementComponent implements OnInit {
       this.transactions = data.map(transaction => ({
         ...transaction,
         date: new Date(transaction.created_at).toLocaleString(),
-        type: transaction.is_credit ? 'Credit' : 'Debit',
-        transaction: `${transaction.is_credit ? '+' : '-'} $${transaction.transaction}`
+        type: transaction.is_credit == 1 ? 'Credit' : 'Debit',
+        // transaction: `${transaction.is_credit == 1 ? '+' : '-'} $${transaction.transaction}`
       }));
     });
   }
