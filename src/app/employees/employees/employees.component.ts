@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject  } from '@angular/core';
+import { ApiService } from '../../api/employees/api.service';
 
 export interface TableRow {
   id: number;
@@ -83,20 +84,55 @@ export class EmployeesComponent implements OnInit {
   search: string = '';
 
   isDeleteModal: boolean = false;
+  loading:boolean = true;
   currentDeleteID: number = 0;
+  users: any[] = [];
 
-  constructor() { }
+  constructor(@Inject('APP_CONFIG') private config: any, private apiService: ApiService) { 
+    console.log(this.config.apiUrl);
+
+  }
+
+  ngOnInit(): void {
+    this.fetchUsers();
+  }
   
   toggleContent(): void {
+    /* this.apiService.getUsers().subscribe({
+      next: (data) => {
+        //this.users = data;
+        console.log('Response:', data);
+      },
+      error: (error) => {
+        console.error('Error fetching users:', error);
+      },
+    }); */
     this.isContentVisible = !this.isContentVisible; // Toggle the visibility
+  }
+
+  fetchUsers(): void {
+    const params = {
+      role: '', // Example role
+      outlet: '', // Example outlet
+      private_web_address: this.config.private_web_address, // Example private_web_address
+    };
+
+    this.apiService.getUsers(params).subscribe({
+      next: (data) => {
+        this.users = data;
+        console.log(data);
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching users:', err);
+        this.loading = false;
+      },
+    });
   }
 
   toggleImportContent(): void {
     this.isImportContentVisible = !this.isImportContentVisible; // Toggle the visibility
     this.isContentVisible = false;
-  }
-
-  ngOnInit(): void {
   }
 
   saveRow(): void {
