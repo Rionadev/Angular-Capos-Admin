@@ -235,7 +235,7 @@ export class RolesComponent implements OnInit {
         console.log(data);
       },
       error: (err) => {
-        console.error('Error fetching users:', err);
+        console.error('Error fetching roles:', err);
       },
     });
     this.isDeleteModal = false;
@@ -364,7 +364,7 @@ export class RolesComponent implements OnInit {
           this.onGetRoles();
         },
         error: (err) => {
-          console.error('Error fetching users:', err);
+          console.error('Error fetching roles:', err);
         },
       });
     }
@@ -378,7 +378,7 @@ export class RolesComponent implements OnInit {
           this.onGetRoles();
         },
         error: (err) => {
-          console.error('Error fetching users:', err);
+          console.error('Error fetching roles:', err);
         },
       });
     }
@@ -392,7 +392,7 @@ export class RolesComponent implements OnInit {
         this.data = data;
       },
       error: (err) => {
-        console.error('Error fetching users:', err);
+        console.error('Error fetching roles:', err);
       },
     });
   }
