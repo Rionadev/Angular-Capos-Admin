@@ -20,7 +20,7 @@
                                         <div class="form-group">
                                             <label>Reason:</label>
                                             <input type="text" class="form-control" placeholder="Reason"
-                                                [(ngModel)]="newTransaction.reason" name="reason" required />
+                                                [(ngModel)]="newTransaction.reasons" name="reason" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -42,19 +42,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-sm btn-success btn-fill pull-right">
-                                    <!-- Save -->
-                                    <i style="font-size: large;" class="
+                                <div style="display: flex;gap: 1rem;justify-content: right;">
+                                    <button type="submit" class="btn btn-sm btn-success btn-fill pull-right">
+                                        <!-- Save -->
+                                        <i style="font-size: large;" class="
                                     pe-7s-diskette
                                     "></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-danger btn-fill pull-right"
-                                    (click)="cancelAddCash()">
-                                    <i style="font-size: large;" class="
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger btn-fill pull-right"
+                                        (click)="cancelAddCash()">
+                                        <i style="font-size: large;" class="
                                     pe-7s-back
                                     "></i>
-                                    <!-- Cancel -->
-                                </button>
+                                        <!-- Cancel -->
+                                    </button>
+                                </div>
+
                                 <div class="clearfix"></div>
                             </form>
                         </div>
@@ -78,15 +81,17 @@
                             <tbody>
                                 <tr *ngFor="let transaction of transactions">
                                     <td>{{ transaction.date }}</td>
-                                    <td>{{ transaction.user }}</td>
+                                    <td>{{ transaction.user_id }}</td>
                                     <td>{{ transaction.register }}</td>
 
-                                    <td *ngIf="!transaction.isEditing">{{ transaction.reason }}</td>
+                                    <td *ngIf="!transaction.isEditing">{{ transaction.reasons }}</td>
                                     <td *ngIf="transaction.isEditing">
-                                        <input [(ngModel)]="transaction.reason" class="form-control" />
+                                        <input [(ngModel)]="transaction.reasons" class="form-control" />
                                     </td>
 
-                                    <td *ngIf="!transaction.isEditing">{{ transaction.type }}</td>
+                                    <td [ngClass]="transaction.is_credit === '1' ? 'credit-clr' : 'debit-clr'"
+                                        *ngIf="!transaction.isEditing">{{ transaction.is_credit==='1'?'Credit':'Debit'
+                                        }}</td>
                                     <td *ngIf="transaction.isEditing">
                                         <select [(ngModel)]="transaction.type" class="form-control">
                                             <option value="Credit">Credit</option>
@@ -94,32 +99,48 @@
                                         </select>
                                     </td>
 
-                                    <td *ngIf="!transaction.isEditing">{{ transaction.transaction }}</td>
+                                    <td [ngClass]="transaction.is_credit === '1' ? 'credit-clr' : 'debit-clr'"
+                                        *ngIf="!transaction.isEditing">
+                                        {{ transaction.is_credit === '1' ? '+ ' : '- ' }} ${{ transaction.transaction
+                                        }}
+                                    </td>
+
                                     <td *ngIf="transaction.isEditing">
                                         <input [(ngModel)]="transaction.transaction" class="form-control" />
                                     </td>
 
                                     <td>
-                                        <button *ngIf="!transaction.isEditing" class="btn btn-info btn-xs"
-                                            (click)="editTransaction(transaction)">
-                                            <i class="pe-7s-note" style="font-size: large;"></i>
-                                            <!-- Edit -->
-                                        </button>
-                                        <button *ngIf="!transaction.isEditing" class="btn btn-danger btn-xs"
-                                            (click)="deleteTransaction(transaction)">
-                                            <i class="pe-7s-trash" style="font-size: large;"></i>
-                                            <!-- Delete -->
-                                        </button>
-                                        <button *ngIf="transaction.isEditing" class="btn btn-success btn-xs"
-                                            (click)="saveTransaction(transaction)">
-                                            <i class="pe-7s-diskette" style="font-size: large;"></i>
-                                            <!-- Save -->
-                                        </button>
-                                        <button *ngIf="transaction.isEditing" class="btn btn-secondary btn-xs"
-                                            (click)="editTransaction(transaction)">
-                                            <i class="pe-7s-back" style="font-size: large;"></i>
-                                            <!-- Cancel -->
-                                        </button>
+                                        <div style="display: flex;gap: 1rem;">
+
+                                            <button *ngIf="!transaction.isActionButton" class="btn btn-info btn-xs"
+                                                (click)="editTransaction(transaction)">
+                                                <i class="pe-7s-note" style="font-size: large;"></i>
+                                                <!-- Edit -->
+                                            </button>
+                                            <button *ngIf="!transaction.isActionButton" class="btn btn-danger btn-xs"
+                                                (click)="confirmDelete(transaction)">
+                                                <i class="pe-7s-trash" style="font-size: large;"></i>
+                                                <!-- Delete -->
+                                            </button>
+                                            <button *ngIf="transaction.isEditing" class="btn btn-success btn-xs"
+                                                (click)="saveTransaction(transaction)">
+                                                <i class="pe-7s-diskette" style="font-size: large;"></i>
+                                                <!-- Save -->
+                                            </button>
+                                            <button *ngIf="transaction.isEditing" class="btn btn-secondary btn-xs"
+                                                (click)="cancelTransaction(transaction)">
+                                                <i class="pe-7s-back" style="font-size: large;"></i>
+                                                <!-- Cancel -->
+                                            </button>
+                                            <button *ngIf="transaction.isConfirming" class="btn btn-danger btn-xs"
+                                                (click)="deleteTransaction(transaction)">
+                                                Yes
+                                            </button>
+                                            <button *ngIf="transaction.isConfirming" class="btn btn-secondary btn-xs"
+                                                (click)="cancelConfirm(transaction)">
+                                                No
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>

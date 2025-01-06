@@ -30,7 +30,7 @@ import { ProducttagsComponent } from 'app/Old_product/producttags/producttags.co
 import { ToggleSwitchComponent } from 'app/component/toggle-switch/toggle-switch.component';
 
 import { OpencloseComponent } from 'app/openclose/openclose.component';
-import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
+import { CashmanagementComponent } from 'app/cashmanagement/cashmanagement.component';
 import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
 import { SalesreportsComponent } from 'app/reporting/salesreports/salesreports.component';
 import { InventoryreportsComponent } from 'app/reporting/inventoryreports/inventoryreports.component';
@@ -112,7 +112,7 @@ import { ConfirmModalComponent } from '../../component/confirm-modal/confirm-mod
     PolicyComponent,
 
     SalesreportsComponent,
-    CarshmanagementComponent,
+    CashmanagementComponent,
     InventoryreportsComponent,
     PaymentreportsComponent,
     RegisterclosuresComponent,

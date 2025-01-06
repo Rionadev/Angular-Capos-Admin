@@ -40,13 +40,13 @@ export const EMPLOYEESROUTES: RouteInfo[] = [
 export const SETTINGROUTES: RouteInfo[] = [
   { path: '/setting/billing', title: 'Billing & Subscriptions', icon: 'pe-7s-credit', class: '' },
   { path: '/setting/outlets', title: 'Outlets & Register', icon: 'pe-7s-albums', class: '' },
-  { path: '/setting/payment', title: 'Payment Types', icon: 'pe-7s-calculator', class: '' },
+  /* { path: '/setting/payment', title: 'Payment Types', icon: 'pe-7s-calculator', class: '' }, */
   { path: '/setting/customer', title: 'Customer Point & Gift', icon: 'pe-7s-note2', class: '' },
   { path: '/setting/sales', title: 'Sales Taxes', icon: 'pe-7s-wallet', class: '' },
-  { path: '/setting/station', title: 'Station', icon: 'pe-7s-shuffle', class: '' },
-  { path: '/setting/store', title: 'Store Management', icon: 'pe-7s-shopbag', class: '' },
+  /* { path: '/setting/station', title: 'Station', icon: 'pe-7s-shuffle', class: '' }, */
+  /* { path: '/setting/store', title: 'Store Management', icon: 'pe-7s-shopbag', class: '' }, */
   { path: '/setting/policy', title: 'Store Policy', icon: 'pe-7s-paperclip', class: '' },
-  { path: '/setting/preferences', title: 'Preferences', icon: 'pe-7s-tools', class: '' },
+  /* { path: '/setting/preferences', title: 'Preferences', icon: 'pe-7s-tools', class: '' }, */
 ];
 
 export const REPOTINGROUTES: RouteInfo[] = [
@@ -88,16 +88,16 @@ export const PRODUCTSROUTES: RouteInfo[] = [
 
 export const MENUSROUTES: RouteInfo[] = [
   { path: '/menus/layout', title: 'Menus Layout', icon: 'pe-7s-cart', class: '' },
-  { path: '/menus/menusmodifiers', title: 'Menus with Forced Modifiers', icon: 'pe-7s-notebook', class: '' },
+  /*  { path: '/menus/menusmodifiers', title: 'Menus with Forced Modifiers', icon: 'pe-7s-notebook', class: '' }, */
   { path: '/menus/mix', title: 'Mix & Match', icon: 'pe-7s-keypad', class: '' },
   { path: '/menus/price', title: 'Price Books', icon: 'pe-7s-albums', class: '' },
   { path: '/menus/categories', title: 'Menu Categories', icon: 'pe-7s-ticket', class: '' },
-  { path: '/menus/attributes', title: 'Menu Attributes', icon: 'pe-7s-way', class: '' },
+  /*  { path: '/menus/attributes', title: 'Menu Attributes', icon: 'pe-7s-way', class: '' },
   { path: '/menus/priority', title: 'Menu Priority', icon: 'pe-7s-cart', class: '' },
   { path: '/menus/forcedmodifier', title: 'Forced Modifier', icon: 'pe-7s-notebook', class: '' },
   { path: '/menus/forcedmodifiergroup', title: 'Forced Modifier Group', icon: 'pe-7s-ticket', class: '' },
   { path: '/menus/modifier', title: 'Modifier', icon: 'pe-7s-keypad', class: '' },
-  { path: '/menus/modifiertypes', title: 'Modifier Types', icon: 'pe-7s-albums', class: '' },
+  { path: '/menus/modifiertypes', title: 'Modifier Types', icon: 'pe-7s-albums', class: '' }, */
 ];
 
 @Component({
