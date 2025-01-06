@@ -67,7 +67,7 @@ export class CashmanagementComponent implements OnInit {
 
   cancelAddCash() {
     this.newTransaction = { reason: '', type: '', transaction: null }; // Reset new transaction
-    this.isContentVisible = true; // Hide the form
+    this.isContentVisible = false; // Hide the form
   }
 
   editTransaction(transaction: any) {
