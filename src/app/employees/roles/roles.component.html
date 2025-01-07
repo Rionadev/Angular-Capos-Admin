@@ -13,11 +13,11 @@
                 <div class="card margin-bottom-0" *ngIf="isAddRoleContentVisible">
                     <div class="content add-content padding-bottom-0">
                         <div class="header">
-                            <h4 class="title">Add Role</h4>
+                            <h4 class="title">{{ isEditableRow ? "Update" : "Add"}} Role</h4>
                         </div>
                         <div>
                             <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddRoleContent()">Cancel</button>
-                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddRoleContent()">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="onSaveRole()">&nbsp;&nbsp;{{ isEditableRow ? "Update" : "Save"}}&nbsp;&nbsp;</button>
                         </div>
                     </div>
                     <div class="content">
@@ -25,7 +25,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Role Name:</label>
-                                    <input type="text" class="form-control" placeholder="Role Name" id="rolename" name="rolename" required />
+                                    <input type="text" class="form-control" placeholder="Role Name" id="rolename" [(ngModel)]="role_name" name="rolename" required />
                                 </div>
                             </div>
                         </div>
@@ -44,8 +44,8 @@
                                 </div>
                                 <div class="col-md-10">
                                     <div class="checkbox">
-                                        <input id="checkbox2" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox2">Show Product Costs&nbsp;&nbsp;<small>(Show product costs, margins and profitability information in the Sell screen, product catalog, reporting and stock control)</small></label>
+                                        <input id="checkbox_show_product_costs" [(ngModel)]="checkbox_show_product_costs" [name]="'checkbox_show_product_costs'" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox_show_product_costs">Show Product Costs&nbsp;&nbsp;<small>(Show product costs, margins and profitability information in the Sell screen, product catalog, reporting and stock control)</small></label>
                                     </div>
                                 </div>
                             </div>
@@ -58,8 +58,8 @@
                                 </div>
                                 <div class="col-md-10">
                                     <div class="checkbox">
-                                        <input id="checkbox2" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox2">Print Labels&nbsp;&nbsp;<small>(Allow Admin to print labels from the product catalogue and on stock control)</small></label>
+                                        <input id="checkbox_print_labels" [(ngModel)]="checkbox_print_labels" [name]="'checkbox_print_labels'" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox_print_labels">Print Labels&nbsp;&nbsp;<small>(Allow Admin to print labels from the product catalogue and on stock control)</small></label>
                                     </div>
                                 </div>
                             </div>
@@ -72,8 +72,8 @@
                                 </div>
                                 <div class="col-md-10">
                                     <div class="checkbox">
-                                        <input id="checkbox2" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox2">Apply Discounts&nbsp;&nbsp;<small>(Allow Admin to provide discounts on a sale, including individual line items. This excludes managing price books.)</small></label>
+                                        <input id="checkbox_apply_discounts" [(ngModel)]="checkbox_apply_discounts" [name]="'checkbox_apply_discounts'" type="checkbox">
+                                        <label class="padding-top-2" for="checkbox_apply_discounts">Apply Discounts&nbsp;&nbsp;<small>(Allow Admin to provide discounts on a sale, including individual line items. This excludes managing price books.)</small></label>
                                     </div>
                                 </div>
                             </div>
@@ -85,30 +85,14 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Create or continue On-Account sales</label>
+                                    <input id="checkbox_create_on_account_sales" [(ngModel)]="checkbox_create_on_account_sales" [name]="'checkbox_create_on_account_sales'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_create_on_account_sales">Create or continue On-Account sales</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">Issue store credit for a return sale</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                            </div>
-                            <div class="col-md-5">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Perform cash movements</label>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">Make sales</label>
+                                    <input id="checkbox_issue_store_credit" [(ngModel)]="checkbox_issue_store_credit" [name]="'checkbox_issue_store_credit'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_issue_store_credit">Issue store credit for a return sale</label>
                                 </div>
                             </div>
                         </div>
@@ -117,14 +101,14 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Perform sale returns and exchanges</label>
+                                    <input id="checkbox_perform_cash" [(ngModel)]="checkbox_perform_cash" [name]="'checkbox_perform_cash'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_perform_cash">Perform cash movements</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">Void sales on Sales Ledger</label>
+                                    <input id="checkbox_make_sales" [(ngModel)]="checkbox_make_sales" [name]="'checkbox_make_sales'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_make_sales">Make sales</label>
                                 </div>
                             </div>
                         </div>
@@ -133,14 +117,30 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Close registers at the end of the day</label>
+                                    <input id="checkbox_perform_sale" [(ngModel)]="checkbox_perform_sale" [name]="'checkbox_perform_sale'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_perform_sale">Perform sale returns and exchanges</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">Refund</label>
+                                    <input id="checkbox_void_sales" [(ngModel)]="checkbox_void_sales" [name]="'checkbox_void_sales'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_void_sales">Void sales on Sales Ledger</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox_close_registers" [(ngModel)]="checkbox_close_registers" [name]="'checkbox_close_registers'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_close_registers">Close registers at the end of the day</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox_refund" [(ngModel)]="checkbox_refund" [name]="'checkbox_refund'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_refund">Refund</label>
                                 </div>
                             </div>
                         </div>
@@ -151,30 +151,14 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Export customer list</label>
+                                    <input id="checkbox_export_customer" [(ngModel)]="checkbox_export_customer" [name]="'checkbox_export_customer'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_export_customer">Export customer list</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">Remove a customer</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                            </div>
-                            <div class="col-md-5">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Add customer groups</label>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">Add customers in bulk with a CSV import</label>
+                                    <input id="checkbox_remove_customer" [(ngModel)]="checkbox_remove_customer" [name]="'checkbox_remove_customer'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_remove_customer">Remove a customer</label>
                                 </div>
                             </div>
                         </div>
@@ -183,8 +167,24 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Add a new customer</label>
+                                    <input id="checkbox_add_customer_groups" [(ngModel)]="checkbox_add_customer_groups" [name]="'checkbox_add_customer_groups'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_add_customer_groups">Add customer groups</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox_add_customers" [(ngModel)]="checkbox_add_customers" [name]="'checkbox_add_customers'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_add_customers">Add customers in bulk with a CSV import</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox_add_customer" [(ngModel)]="checkbox_add_customer" [name]="'checkbox_add_customer'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_add_customer">Add a new customer</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -199,30 +199,14 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Perform supplier stock orders and returns</label>
+                                    <input id="checkbox_perform_supplier" [(ngModel)]="checkbox_perform_supplier" [name]="'checkbox_perform_supplier'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_perform_supplier">Perform supplier stock orders and returns</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">Create and edit products</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                            </div>
-                            <div class="col-md-5">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Perform inventory counts</label>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">Perform a stock transfer</label>
+                                    <input id="checkbox_create_products" [(ngModel)]="checkbox_create_products" [name]="'checkbox_create_products'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_create_products">Create and edit products</label>
                                 </div>
                             </div>
                         </div>
@@ -231,30 +215,14 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Create and edit price books</label>
+                                    <input id="checkbox_perform_inventory" [(ngModel)]="checkbox_perform_inventory" [name]="'checkbox_perform_inventory'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_perform_inventory">Perform inventory counts</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">Create and edit product type</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                            </div>
-                            <div class="col-md-5">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Create and edit supplier</label>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">Create and edit product brand</label>
+                                    <input id="checkbox_perform_stock" [(ngModel)]="checkbox_perform_stock" [name]="'checkbox_perform_stock'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_perform_stock">Perform a stock transfer</label>
                                 </div>
                             </div>
                         </div>
@@ -263,8 +231,40 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Create and edit product attribute</label>
+                                    <input id="checkbox_create_price_books" [(ngModel)]="checkbox_create_price_books" [name]="'checkbox_create_price_books'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_create_price_books">Create and edit price books</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox_create_product_type" [(ngModel)]="checkbox_create_product_type" [name]="'checkbox_create_product_type'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_create_product_type">Create and edit product type</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox_create_supplier" [(ngModel)]="checkbox_create_supplier" [name]="'checkbox_create_supplier'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_create_supplier">Create and edit supplier</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox_create_brand" [(ngModel)]="checkbox_create_brand" [name]="'checkbox_create_brand'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_create_brand">Create and edit product brand</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox_create_product_attribute" [(ngModel)]="checkbox_create_product_attribute" [name]="'checkbox_create_product_attribute'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_create_product_attribute">Create and edit product attribute</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -277,14 +277,14 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">View Sales Report</label>
+                                    <input id="checkbox_view_sales" [(ngModel)]="checkbox_view_sales" [name]="'checkbox_view_sales'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_view_sales">View Sales Report</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">View reporting on payments</label>
+                                    <input id="checkbox_view_reporting" [(ngModel)]="checkbox_view_reporting" [name]="'checkbox_view_reporting'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_view_reporting">View reporting on payments</label>
                                 </div>
                             </div>
                         </div>
@@ -293,14 +293,14 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Only own sales</label>
+                                    <input id="checkbox_only_own_sales" [(ngModel)]="checkbox_only_own_sales" [name]="'checkbox_only_own_sales'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_only_own_sales">Only own sales</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox2" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox2">All sales made at assigned outlets</label>
+                                    <input id="checkbox_all_sales_mode" [(ngModel)]="checkbox_all_sales_mode" [name]="'checkbox_all_sales_mode'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_all_sales_mode">All sales made at assigned outlets</label>
                                 </div>
                             </div>
                         </div>
@@ -311,8 +311,8 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Access Ecommerce</label>
+                                    <input id="checkbox_access_ecommerce" [(ngModel)]="checkbox_access_ecommerce" [name]="'checkbox_access_ecommerce'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_access_ecommerce">Access Ecommerce</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -325,30 +325,14 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Manage User Roles</label>
+                                    <input id="checkbox_manage_role" [(ngModel)]="checkbox_manage_role" [name]="'checkbox_manage_role'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_manage_role">Manage User Roles</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Create and Edit Outlet & Register</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                            </div>
-                            <div class="col-md-5">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Add and edit Cashiers</label>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Add and edit Managers</label>
+                                    <input id="checkbox_manage_outlet" [(ngModel)]="checkbox_manage_outlet" [name]="'checkbox_manage_outlet'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_manage_outlet">Create and Edit Outlet & Register</label>
                                 </div>
                             </div>
                         </div>
@@ -357,30 +341,14 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Enable Add-ons</label>
+                                    <input id="checkbox_add_cashier" [(ngModel)]="checkbox_add_cashier" [name]="'checkbox_add_cashier'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_add_cashier">Add and edit Cashiers</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Manage Payment Types</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                            </div>
-                            <div class="col-md-5">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Manage Taxes</label>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Manage Loyalty</label>
+                                    <input id="checkbox_add_manager" [(ngModel)]="checkbox_add_manager" [name]="'checkbox_add_manager'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_add_manager">Add and edit Managers</label>
                                 </div>
                             </div>
                         </div>
@@ -389,14 +357,46 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Manage hardware on iOS</label>
+                                    <input id="checkbox_enable_add_ons" [(ngModel)]="checkbox_enable_add_ons" [name]="'checkbox_enable_add_ons'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_enable_add_ons">Enable Add-ons</label>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="checkbox">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label class="padding-top-2" for="checkbox1">Manage Quick Keys</label>
+                                    <input id="checkbox_manage_payment_type" [(ngModel)]="checkbox_manage_payment_type" [name]="'checkbox_manage_payment_type'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_manage_payment_type">Manage Payment Types</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox_manage_tax" [(ngModel)]="checkbox_manage_tax" [name]="'checkbox_manage_tax'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_manage_tax">Manage Taxes</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox_manage_loyalty" [(ngModel)]="checkbox_manage_loyalty" [name]="'checkbox_manage_loyalty'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_manage_loyalty">Manage Loyalty</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox_manage_hardware" [(ngModel)]="checkbox_manage_hardware" [name]="'checkbox_manage_hardware'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_manage_hardware">Manage hardware on iOS</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox">
+                                    <input id="checkbox_manage_keys" [(ngModel)]="checkbox_manage_keys" [name]="'checkbox_manage_keys'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_manage_keys">Manage Quick Keys</label>
                                 </div>
                             </div>
                         </div>
@@ -417,14 +417,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let row of rows">
+                                    <tr *ngFor="let row of data">
                                         <td>{{ row.name }}</td>
-                                        <td>{{ row.updated }}</td>
+                                        <td>{{ row.updated_at | date:'yyyy-MM-dd' }}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-info" (click)="editRow(row)">
+                                            <button class="btn btn-sm btn-info" (click)="editRow(row)" data-toggle="tooltip" title="Edit">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                             </button>
-                                            <button class="btn btn-sm btn-danger" (click)="showDeleteModal(row.id)">
+                                            <button class="btn btn-sm btn-danger" (click)="showDeleteModal(row.name)" data-toggle="tooltip" title="Delete">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </button>
                                         </td>
