@@ -6,14 +6,16 @@
                 <div class="card margin-bottom-10">
                     <div class="content add-content" style="display: flex; align-items: center; width: 100%;">
                         <div style="flex-grow: 1; display: flex; justify-content: space-between;align-items: center;">
-                            <div class="col-md-4 flex"
+                            <div class="col-md-6 flex"
                                 style="display: flex;align-items: center; align-content: center;">
                                 <div>Period of Created At:</div>
                                 <div
                                     style="display: flex; flex-direction: row; justify-content:start; align-items:  center;gap: 3px; align-content: center;">
-                                    <input type="date" [(ngModel)]="startDate" class="form-control" name="startDate" />
+                                    <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
+                                        (change)="fetchSearchItems()" name="startDate" />
                                     <span>~</span>
-                                    <input type="date" [(ngModel)]="endDate" class="form-control" name="endDate" />
+                                    <input type="date" [(ngModel)]="selectedDateTo" class="form-control"
+                                        (change)="fetchSearchItems()" name="endDate" />
                                 </div>
                             </div>
                             <div class="col-md-3 d-flex flex align-items-center"

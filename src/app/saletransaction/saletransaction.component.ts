@@ -119,7 +119,7 @@ export class SaletransactionComponent implements OnInit {
           // Map transaction
           return {
             date: new Date(item.created_at).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
-            receipt: item._id, // Receipt number
+            receipt: item.sale_number, // Receipt number
             user: `${item.user_id.first_name} ${item.user_id.last_name}`, // Full name of user
             user_email: item.user_id.email, // Email of user
             register: item.register.name, // Register name
