@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { register } from 'module';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +26,22 @@ export class CashManagement {
 
   createCash(params: any): Observable<any> {
     // Make the API call
+    params = {
+      ...params,
+      register: this.config.register,
+      user_id: this.config.user_id,
+      outlet: this.config.outlet
+    }
     return this.http.post(this.config.apiUrl + "/cash/cashmanagementdata", params);
   }
   updateCash(params: any): Observable<any> {
     // Make the API call
+    params = {
+      ...params,
+      register: this.config.register,
+      user_id: this.config.user_id,
+      outlet: this.config.outlet
+    }
     return this.http.put(this.config.apiUrl + "/cash/cashmanagementdata", params);
   }
   deleteCash(transaction: any): Observable<any> {
