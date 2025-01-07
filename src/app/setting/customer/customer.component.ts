@@ -63,22 +63,22 @@ export interface GroupData {
 export class CustomerComponent implements OnInit {
 
   // Form variable
-  checkbox_point_used :boolean = false;
-  checkbox_complex_point_used :boolean = false;
-  checkbox_special_items_excluded_on_point :boolean = false;
-  checkbox_on_issuing_new_card_customer_information_gathering_form_printed :boolean = false;
-  checkbox_point_amount_displayed_as_number_instead_of_money_amount :boolean = false;
-  checkbox_point_amount_applied_to_subtotal :boolean = false;
-  checkbox_point_information_is_not_printed_on_receipt :boolean = false;
-  checkbox_only_total_point_printed_on_receipt :boolean = false;
-  checkbox_gift_card_usage_history_is_not_printed_on_receipt :boolean = false;
-  checkbox_point_amount_displayed_on_Sale_window :boolean = false;
-  checkbox_gift_bonus_added :boolean = false;
-  checkbox_auto_custid_used :boolean = false;
-  checkbox_dr_used :boolean = false;
-  checkbox_customer_card_9_digits :boolean = false;
-  checkbox_phone_number_can_not_used_as_card_number :boolean = false;
-  checkbox_dealer_point_used :boolean = false;
+  checkbox_point_used: boolean = false;
+  checkbox_complex_point_used: boolean = false;
+  checkbox_special_items_excluded_on_point: boolean = false;
+  checkbox_on_issuing_new_card_customer_information_gathering_form_printed: boolean = false;
+  checkbox_point_amount_displayed_as_number_instead_of_money_amount: boolean = false;
+  checkbox_point_amount_applied_to_subtotal: boolean = false;
+  checkbox_point_information_is_not_printed_on_receipt: boolean = false;
+  checkbox_only_total_point_printed_on_receipt: boolean = false;
+  checkbox_gift_card_usage_history_is_not_printed_on_receipt: boolean = false;
+  checkbox_point_amount_displayed_on_Sale_window: boolean = false;
+  checkbox_gift_bonus_added: boolean = false;
+  checkbox_auto_custid_used: boolean = false;
+  checkbox_dr_used: boolean = false;
+  checkbox_customer_card_9_digits: boolean = false;
+  checkbox_phone_number_can_not_used_as_card_number: boolean = false;
+  checkbox_dealer_point_used: boolean = false;
 
   gift_rate: number = 0;
   dealer_rate: number = 0;
@@ -103,9 +103,8 @@ export class CustomerComponent implements OnInit {
     this.storesService.read({}).subscribe({
       next: (data) => {
         console.log('onGetStores', data);
-        this.storeData  = data;
-        if (data.customer_point_gift.length > 0)
-        {
+        this.storeData = data;
+        if (data.customer_point_gift.length > 0) {
           if (data.customer_point_gift.includes('point_used'))
             this.checkbox_point_used = true;
           if (data.customer_point_gift.includes('complex_point_used'))
@@ -138,8 +137,8 @@ export class CustomerComponent implements OnInit {
             this.checkbox_phone_number_can_not_used_as_card_number = true;
           if (data.customer_point_gift.includes('dealer_point_used'))
             this.checkbox_dealer_point_used = true;
-          
-          this.gift_rate = data.gift_rate; 
+
+          this.gift_rate = data.gift_rate;
           this.dealer_rate = data.dealer_rate;
         }
       },
@@ -153,18 +152,19 @@ export class CustomerComponent implements OnInit {
     this.groupsService.read({}).subscribe({
       next: (data) => {
         console.log('onGetGroups', data[0]);
-        this.groupData  = data[0];
-        if(data[0].point_rates.length > 0)
-        {
-          data.point_rates.forEach(rate => {
-            if(rate.payment == 'cash')
-              this.cash = rate.rate;
-            else if (rate.payment == 'credit')
-              this.credit = rate.rate;
-            else if (rate.payment == 'debit')
-              this.debit = rate.rate;
-            //console.log(`Rate: ${rate.rate}, Payment: ${rate.payment}, ID: ${rate._id}`);
-          });
+        if (typeof data[0] != 'undefined') {
+          this.groupData = data[0];
+          if (data[0].point_rates.length > 0) {
+            data.point_rates.forEach(rate => {
+              if (rate.payment == 'cash')
+                this.cash = rate.rate;
+              else if (rate.payment == 'credit')
+                this.credit = rate.rate;
+              else if (rate.payment == 'debit')
+                this.debit = rate.rate;
+              //console.log(`Rate: ${rate.rate}, Payment: ${rate.payment}, ID: ${rate._id}`);
+            });
+          }
         }
       },
       error: (err) => {
@@ -174,72 +174,82 @@ export class CustomerComponent implements OnInit {
   }
 
   onSave() {
-    this.customer_point_gift = [];
-
-    this.checkAndAddPermission(this.checkbox_point_used, "point_used");
-    this.checkAndAddPermission(this.checkbox_point_used && this.checkbox_complex_point_used, "complex_point_used");
-
-    this.checkAndAddPermission(this.checkbox_special_items_excluded_on_point, "special_items_excluded_on_point");
-    this.checkAndAddPermission(this.checkbox_on_issuing_new_card_customer_information_gathering_form_printed, "on_issuing_new_card_customer_information_gathering_form_printed");
-    this.checkAndAddPermission(this.checkbox_point_amount_displayed_as_number_instead_of_money_amount, "point_amount_displayed_as_number_instead_of_money_amount");
-    this.checkAndAddPermission(this.checkbox_point_amount_applied_to_subtotal, "point_amount_applied_to_subtotal");
-    this.checkAndAddPermission(this.checkbox_point_information_is_not_printed_on_receipt, "point_information_is_not_printed_on_receipt");
-    this.checkAndAddPermission(this.checkbox_only_total_point_printed_on_receipt, "only_total_point_printed_on_receipt");
-    this.checkAndAddPermission(this.checkbox_gift_card_usage_history_is_not_printed_on_receipt, "gift_card_usage_history_is_not_printed_on_receipt");
-    this.checkAndAddPermission(this.checkbox_point_amount_displayed_on_Sale_window, "point_amount_displayed_on_Sale_window");
-    this.checkAndAddPermission(this.checkbox_gift_bonus_added, "gift_bonus_added");
-    this.checkAndAddPermission(this.checkbox_auto_custid_used, "auto_custid_used");
-    this.checkAndAddPermission(this.checkbox_dr_used, "dr_used");
-    this.checkAndAddPermission(this.checkbox_customer_card_9_digits, "customer_card_9_digits");
-    this.checkAndAddPermission(this.checkbox_phone_number_can_not_used_as_card_number, "phone_number_can_not_used_as_card_number");
-    this.checkAndAddPermission(this.checkbox_dealer_point_used, "dealer_point_used");
-
-    this.storeData.customer_point_gift = this.customer_point_gift;
-    this.storeData.gift_rate =  this.checkbox_gift_bonus_added ? this.gift_rate : 0;
-    this.storeData.dealer_rate = this.checkbox_dealer_point_used ? this.dealer_rate : 0;
-
-    this.storeData.default_currency = this.storeData.default_currency._id;
-    this.storeData.physical_address.country = this.storeData.physical_address.country._id
-    this.storeData.postal_address.country = this.storeData.postal_address.country._id
     /* this.storeData.default_currency = this.storeData.default_currency._id; */
-/*     this.storeData.default_currency = this.storeData.default_currency._id;
-    this.storeData.physical_address = this.storeData.physical_address._id;
-    this.storeData.postal_address = this.storeData.postal_address._id; */
-    
-    console.log("storeData", this.storeData);
-    this.storesService.update(this.storeData).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (err) => {
-        console.error('Error fetching stores:', err);
-      },
-    });
+    /*     this.storeData.default_currency = this.storeData.default_currency._id;
+        this.storeData.physical_address = this.storeData.physical_address._id;
+        this.storeData.postal_address = this.storeData.postal_address._id; */
 
-    this.groupData.point_rates = [
-      {
+    if (this.storeData != null) {
+      this.customer_point_gift = [];
+
+      this.checkAndAddPermission(this.checkbox_point_used, "point_used");
+      this.checkAndAddPermission(this.checkbox_point_used && this.checkbox_complex_point_used, "complex_point_used");
+
+      this.checkAndAddPermission(this.checkbox_special_items_excluded_on_point, "special_items_excluded_on_point");
+      this.checkAndAddPermission(this.checkbox_on_issuing_new_card_customer_information_gathering_form_printed, "on_issuing_new_card_customer_information_gathering_form_printed");
+      this.checkAndAddPermission(this.checkbox_point_amount_displayed_as_number_instead_of_money_amount, "point_amount_displayed_as_number_instead_of_money_amount");
+      this.checkAndAddPermission(this.checkbox_point_amount_applied_to_subtotal, "point_amount_applied_to_subtotal");
+      this.checkAndAddPermission(this.checkbox_point_information_is_not_printed_on_receipt, "point_information_is_not_printed_on_receipt");
+      this.checkAndAddPermission(this.checkbox_only_total_point_printed_on_receipt, "only_total_point_printed_on_receipt");
+      this.checkAndAddPermission(this.checkbox_gift_card_usage_history_is_not_printed_on_receipt, "gift_card_usage_history_is_not_printed_on_receipt");
+      this.checkAndAddPermission(this.checkbox_point_amount_displayed_on_Sale_window, "point_amount_displayed_on_Sale_window");
+      this.checkAndAddPermission(this.checkbox_gift_bonus_added, "gift_bonus_added");
+      this.checkAndAddPermission(this.checkbox_auto_custid_used, "auto_custid_used");
+      this.checkAndAddPermission(this.checkbox_dr_used, "dr_used");
+      this.checkAndAddPermission(this.checkbox_customer_card_9_digits, "customer_card_9_digits");
+      this.checkAndAddPermission(this.checkbox_phone_number_can_not_used_as_card_number, "phone_number_can_not_used_as_card_number");
+      this.checkAndAddPermission(this.checkbox_dealer_point_used, "dealer_point_used");
+
+      this.storeData.customer_point_gift = this.customer_point_gift;
+      this.storeData.gift_rate = this.checkbox_gift_bonus_added ? this.gift_rate : 0;
+      this.storeData.dealer_rate = this.checkbox_dealer_point_used ? this.dealer_rate : 0;
+      /* this.storeData.default_currency = this.storeData.default_currency._id;
+      this.storeData.physical_address.country = this.storeData.physical_address.country._id;
+      this.storeData.postal_address.country = this.storeData.postal_address.country._id; */
+      this.storeData.default_currency = this.storeData.default_currency?._id;
+      this.storeData.physical_address.country = this.storeData.physical_address.country?._id;
+      this.storeData.postal_address.country = this.storeData.postal_address.country?._id;
+
+      console.log("storeData", this.storeData);
+      this.storesService.update(this.storeData).subscribe({
+        next: (data) => {
+          console.log(data);
+        },
+        error: (err) => {
+          console.error('Error fetching stores:', err);
+        },
+      });
+    }
+
+
+    if (this.groupData != null) {
+
+      this.groupData.point_rates = [
+        {
           rate: this.cash,
           payment: "cash"
-      },
-      {
+        },
+        {
           rate: this.credit,
           payment: "credit"
-      },
-      {
+        },
+        {
           rate: this.debit,
           payment: "debit"
-      }
-    ];
+        }
+      ];
 
-    console.log("groupData", this.groupData);
-    this.groupsService.update(this.groupData).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (err) => {
-        console.error('Error fetching groups:', err);
-      },
-    });
+      console.log("groupData", this.groupData);
+
+      this.groupsService.update(this.groupData).subscribe({
+        next: (data) => {
+          console.log(data);
+        },
+        error: (err) => {
+          console.error('Error fetching groups:', err);
+        },
+      });
+    }
   }
 
   // Function to check and add permissions based on checkbox states
