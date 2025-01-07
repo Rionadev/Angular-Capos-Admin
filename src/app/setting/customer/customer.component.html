@@ -5,181 +5,160 @@
                 <div class="card margin-bottom-10">
                     <div class="content add-content">
                         <p class="category">Manage the customer point and gift . Need help?</p>
-                        <button class="btn btn-sm btn-info btn-fill">Save</button>
+                        <button class="btn btn-sm btn-info btn-fill" (click)="onSave()">Save</button>
                     </div>
                 </div>
                 <div class="card margin-bottom-10">
                     <div class="content">
-                        <div class="table-full-width">
-                            <table class="table borderless-table">
-                                <tbody>
-                                    <tr>
-                                        <td class="width-25">
-                                            <div class="checkbox">
-                                                <input id="checkbox1" type="checkbox">
-                                                <label for="checkbox1"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Point Used
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox2" type="checkbox">
-                                                <label for="checkbox2"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Special Items excluded on point
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox3" type="checkbox">
-                                                <label for="checkbox3"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            On issuing new card, customer information gathering form printed
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox4" type="checkbox">
-                                                <label for="checkbox4"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Point amount displayed as number instead of money amount
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox5" type="checkbox">
-                                                <label for="checkbox5"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Point amount applied to subtotal
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox6" type="checkbox">
-                                                <label for="checkbox6"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Point Information is not printed on receipt
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox7" type="checkbox">
-                                                <label for="checkbox7"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Only total point printed on receipt (No point history)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox9" type="checkbox">
-                                                <label for="checkbox9"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Gift card usage history is not printed on receipt
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox10" type="checkbox">
-                                                <label for="checkbox10"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Point amount displayed on Sale window
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox11" type="checkbox">
-                                                <label for="checkbox11"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Gift Bonus added
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox12" type="checkbox">
-                                                <label for="checkbox12"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Auto custID used
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox13" type="checkbox">
-                                                <label for="checkbox13"> </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            DR used
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox14" type="checkbox">
-                                                <label for="checkbox14"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Customer Card: 9 digits
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox15" type="checkbox">
-                                                <label for="checkbox15"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Phone number can not used as card number
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <input id="checkbox16" type="checkbox">
-                                                <label for="checkbox16"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            Dealer Point Used
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_point_used" [(ngModel)]="checkbox_point_used" [name]="'checkbox_point_used'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_point_used">Point Used</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="checkbox_point_used">
+                            <div class="col-md-12">
+                                <div class="padding-left-25 checkbox">
+                                    <input id="checkbox_complex_point_used" [(ngModel)]="checkbox_complex_point_used" [name]="'checkbox_complex_point_used'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_complex_point_used">Complex Point Used</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_special_items_excluded_on_point" [(ngModel)]="checkbox_special_items_excluded_on_point" [name]="'checkbox_special_items_excluded_on_point'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_special_items_excluded_on_point">Special Items excluded on point</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_on_issuing_new_card_customer_information_gathering_form_printed" [(ngModel)]="checkbox_on_issuing_new_card_customer_information_gathering_form_printed" [name]="'checkbox_on_issuing_new_card_customer_information_gathering_form_printed'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_on_issuing_new_card_customer_information_gathering_form_printed">On issuing new card, customer information gathering form printed</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_point_amount_displayed_as_number_instead_of_money_amount" [(ngModel)]="checkbox_point_amount_displayed_as_number_instead_of_money_amount" [name]="'checkbox_point_amount_displayed_as_number_instead_of_money_amount'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_point_amount_displayed_as_number_instead_of_money_amount">Point amount displayed as number instead of money amount</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_point_amount_applied_to_subtotal" [(ngModel)]="checkbox_point_amount_applied_to_subtotal" [name]="'checkbox_point_amount_applied_to_subtotal'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_point_amount_applied_to_subtotal">Point amount applied to subtotal</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_point_information_is_not_printed_on_receipt" [(ngModel)]="checkbox_point_information_is_not_printed_on_receipt" [name]="'checkbox_point_information_is_not_printed_on_receipt'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_point_information_is_not_printed_on_receipt">Point Information is not printed on receipt</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_only_total_point_printed_on_receipt" [(ngModel)]="checkbox_only_total_point_printed_on_receipt" [name]="'checkbox_only_total_point_printed_on_receipt'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_only_total_point_printed_on_receipt">Only total point printed on receipt (No point history)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_gift_card_usage_history_is_not_printed_on_receipt" [(ngModel)]="checkbox_gift_card_usage_history_is_not_printed_on_receipt" [name]="'checkbox_gift_card_usage_history_is_not_printed_on_receipt'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_gift_card_usage_history_is_not_printed_on_receipt">Gift card usage history is not printed on receipt</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_point_amount_displayed_on_Sale_window" [(ngModel)]="checkbox_point_amount_displayed_on_Sale_window" [name]="'checkbox_point_amount_displayed_on_Sale_window'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_point_amount_displayed_on_Sale_window">Point amount displayed on Sale window</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_gift_bonus_added" [(ngModel)]="checkbox_gift_bonus_added" [name]="'checkbox_gift_bonus_added'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_gift_bonus_added">Gift Bonus added</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="checkbox_gift_bonus_added">
+                            <div class="col-md-12">
+                                <div class="padding-left-25 items-center margin-bottom-3">
+                                    <label class="padding-top-2">Gift Bonus Rate:&nbsp;&nbsp;&nbsp;</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" [(ngModel)]="gift_rate" placeholder="0" aria-describedby="cash">
+                                        <span class="input-group-addon" id="cash">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_auto_custid_used" [(ngModel)]="checkbox_auto_custid_used" [name]="'checkbox_auto_custid_used'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_auto_custid_used">Auto custID used</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_dr_used" [(ngModel)]="checkbox_dr_used" [name]="'checkbox_dr_used'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_dr_used">DR used</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_customer_card_9_digits" [(ngModel)]="checkbox_customer_card_9_digits" [name]="'checkbox_customer_card_9_digits'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_customer_card_9_digits">Customer Card: 9 digits</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_phone_number_can_not_used_as_card_number" [(ngModel)]="checkbox_phone_number_can_not_used_as_card_number" [name]="'checkbox_phone_number_can_not_used_as_card_number'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_phone_number_can_not_used_as_card_number">Phone number can not used as card number</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <input id="checkbox_dealer_point_used" [(ngModel)]="checkbox_dealer_point_used" [name]="'checkbox_dealer_point_used'" type="checkbox">
+                                    <label class="padding-top-2" for="checkbox_dealer_point_used">Dealer Point Used</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="checkbox_dealer_point_used">
+                            <div class="col-md-12">
+                                <div class="padding-left-25 items-center margin-bottom-3">
+                                    <label class="padding-top-2">Dealer Rate:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" [(ngModel)]="dealer_rate"  placeholder="0" aria-describedby="cash">
+                                        <span class="input-group-addon" id="cash">%</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,7 +183,7 @@
                                         <div class="col-md-4">
                                             <!-- <input type="text" class="form-control" placeholder="0" id="cash" name="cash" required /> -->
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="0" aria-describedby="cash">
+                                                <input type="text" class="form-control" [(ngModel)]="cash" placeholder="0" aria-describedby="cash">
                                                 <span class="input-group-addon" id="cash">%</span>
                                             </div>
                                         </div>
@@ -217,7 +196,7 @@
                                     <td>
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="0" aria-describedby="credit">
+                                                <input type="text" class="form-control" [(ngModel)]="credit" placeholder="0" aria-describedby="credit">
                                                 <span class="input-group-addon" id="credit">%</span>
                                             </div>
                                         </div>
@@ -230,7 +209,7 @@
                                     <td>
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="0" aria-describedby="debit">
+                                                <input type="text" class="form-control" [(ngModel)]="debit" placeholder="0" aria-describedby="debit">
                                                 <span class="input-group-addon" id="debit">%</span>
                                             </div>
                                         </div>
@@ -243,7 +222,7 @@
                 <div class="card margin-bottom-10">
                     <div class="content add-content">
                         <p class="category">Manage the customer point and gift . Need help?</p>
-                        <button class="btn btn-sm btn-info btn-fill">Save</button>
+                        <button class="btn btn-sm btn-info btn-fill" (click)="onSave()">Save</button>
                     </div>
                 </div>
             </div>
