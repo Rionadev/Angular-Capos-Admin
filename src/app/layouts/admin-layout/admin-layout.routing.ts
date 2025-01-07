@@ -131,5 +131,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'menus/modifier', component: ModifierComponent },
     { path: 'menus/modifiertypes', component: ModifierTypesComponent },
     { path: 'menus/forcedmodifier', component: SingleForcedModifierComponent },
-    
+
 ];

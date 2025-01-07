@@ -1,0 +1,39 @@
+import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CashManagement {
+
+  constructor(@Inject('APP_CONFIG') private config: any, private http: HttpClient) { }
+
+  // GET request
+  getCashList(params: any): Observable<any> {
+    // Prepare query parameters
+    let queryParams = new HttpParams();
+    Object.keys(params).forEach((key) => {
+      if (params[key]) {
+        queryParams = queryParams.set(key, params[key]!);
+      }
+    });
+
+    // Make the API call
+    return this.http.get(this.config.apiUrl + "/cash/cashmanagementdata", { params: queryParams });
+  }
+
+  createCash(params: any): Observable<any> {
+    // Make the API call
+    return this.http.post(this.config.apiUrl + "/cash/cashmanagementdata", params);
+  }
+  updateCash(params: any): Observable<any> {
+    // Make the API call
+    return this.http.put(this.config.apiUrl + "/cash/cashmanagementdata", params);
+  }
+  deleteCash(transaction: any): Observable<any> {
+    // Make the API call
+    const params = new HttpParams().set('id', transaction._id);
+    return this.http.delete(this.config.apiUrl + "/cash/cashmanagementdata", { params });
+  }
+}
