@@ -63,14 +63,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ?
-                                'Update' : 'Add' }}</button>
+                            <span>You can upload your price book using a CSV. Download a template file to get
+                                started.</span>
+                            <button type="submit" class="btn btn-sm btn-info btn-fill pull-right"
+                                style="gap: 1rem;">Add</button>
                             <button class="btn btn-sm btn-danger btn-fill pull-right" (click)="cancelEdit(currentRow)"
-                                *ngIf="currentRow.id">Cancel</button>
+                                style="gap: 1rem;">Cancel</button>
                             <div class="clearfix"></div>
                         </form>
                         <div>
-                            You can upload your price book using a CSV. Download a template file to get started.
+
                         </div>
                     </div>
                 </div>
