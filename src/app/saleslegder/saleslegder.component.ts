@@ -37,7 +37,7 @@ export class SaleslegderComponent implements OnInit {
     const sevenDaysAgo = new Date(today);
     const oneDayAfter = new Date(today);
 
-    sevenDaysAgo.setDate(today.getDate() - 100); // Subtract 7 days
+    sevenDaysAgo.setDate(today.getDate() - 30); // Subtract 7 days
     oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
 
 

@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from 'app/api/salesledger/api.service';
 
 @Component({
   selector: 'app-saletransaction',
@@ -6,42 +8,170 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./saletransaction.component.scss']
 })
 export class SaletransactionComponent implements OnInit {
+  selectedCustomer: string = 'all';
+  selectedUser: string = 'all';
+  selectedStatus: string = 'all';
+  selectedDateFrom: string = '';
+  selectedDateTo: string = '';
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  selectedCustomer: string = '';
-  selectedUser: string = '';
-  selectedStatus: string = '';
-  selectedDate: string = '';
-
-  transactions = [
-    // Sample transaction data
-    { date: '2024-01-01', receipt: '001', user: 'A Saboor', register: 'Reg1', customer: 'new@gmail.com', status: 'Completed', total: 100 },
-    { date: '2024-01-02', receipt: '002', user: 'Cashier One', register: 'Reg2', customer: 'test@gmail.com', status: 'On Account', total: 200 },
-    // Add more sample data as needed
+  customers = [
+    { value: 'all', label: 'All Customer' },
+    { value: 'new@gmail.com', label: 'New Customer (new@gmail.com)' },
+    { value: 'test@gmail.com', label: 'Test Customer (test@gmail.com)' },
+    { value: 'saboor@gmail.com', label: 'Abdul Saboor (saboor@gmail.com)' },
   ];
+  users = [];
+  sale_status = [];
+  onCustomerChange() {
+    // Logic to handle the change in selected customer
+    console.log('Selected Customer:', this.selectedCustomer);
+  }
+  transactions = [];
 
   filteredTransactions = [...this.transactions];
+  constructor(private http: HttpClient, private customerService: CustomerService) { }
 
+  setDateFromTo() {
+    const today = new Date();
+    const sevenDaysAgo = new Date(today);
+    const oneDayAfter = new Date(today);
+
+    sevenDaysAgo.setDate(today.getDate() - 30); // Subtract 7 days
+    oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
+
+
+    this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
+    this.selectedDateTo = oneDayAfter.toISOString().split('T')[0]; // Set the end date to today
+  }
+  ngOnInit(): void {
+    this.setDateFromTo();
+    this.fetchSearchItems();
+  }
+  fetchSearchItems() {
+    // this.http.get<any[]>(`${environment.apiUrl}/sale/getSearchItem`).subscribe(data => {
+
+    // });
+    const params = {
+      from: this.selectedDateFrom,
+      to: this.selectedDateTo,
+    };
+
+    // Log the params to check their structure
+    console.log('Sending params:', params);
+
+    this.customerService.fetchSaleHistory(params).subscribe(
+      (res) => {
+        this.customers = [];
+        this.sale_status = [];
+        this.users = [];
+
+        this.transactions = res.map(item => {
+
+          if (item.customer && item.customer.email) {
+            const customerEmail = item.customer?.email;
+            if (customerEmail) {
+              const customerExists = this.customers.some(
+                customer => customer.value === customerEmail
+              );
+
+              if (!customerExists) {
+                this.customers.push({
+                  value: customerEmail,
+                  label: item.customer.name
+                    ? `${item.customer.name} (${customerEmail})`
+                    : `New Customer (${customerEmail})`
+                });
+              }
+            }
+          }
+          if (item.user_id && item.user_id.email) {
+            const userEmail = item.user_id?.email;
+            if (userEmail) {
+              const customerExists = this.users.some(
+                user => user.value === userEmail
+              );
+
+              if (!customerExists) {
+                this.users.push({
+                  value: userEmail,
+                  label: `${item.user_id.first_name} ${item.user_id.last_name}`
+                    ? `${item.user_id.first_name} ${item.user_id.last_name} (${userEmail})`
+                    : `New Customer (${userEmail})`
+                });
+              }
+            }
+          }
+          if (item.sale_status) {
+            const status1 = item.sale_status;
+            if (status1) {
+              const customerExists = this.sale_status.some(
+                status => status.value === status1
+              );
+              if (!customerExists) {
+                this.sale_status.push({
+                  value: status1,
+                  label: status1
+                });
+              }
+            }
+          }
+
+          // Map transaction
+          return {
+            date: new Date(item.created_at).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
+            receipt: item._id, // Receipt number
+            user: `${item.user_id.first_name} ${item.user_id.last_name}`, // Full name of user
+            user_email: item.user_id.email, // Email of user
+            register: item.register.name, // Register name
+            customer: item.customer.name || '', // Customer name
+            customer_email: item.customer.email || '', // Customer email
+            status: item.sale_status, // Sale status
+            total: item.total, // Total amount
+          };
+        });
+
+        this.filteredTransactions = [...this.transactions];
+
+        // Convert set to array and parse JSON
+        this.customers = [
+          { value: 'all', label: 'All Customer' },
+          ...this.customers
+        ];
+        this.users = [
+          { value: 'all', label: 'All Users' },
+          ...this.users
+        ];
+        this.sale_status = [
+          { value: 'all', label: 'All Status' },
+          ...this.sale_status
+        ];
+        console.log('transactions:', this.transactions);
+
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+  }
   searchTransactions() {
     this.filteredTransactions = this.transactions.filter(transaction => {
-      return (
-        (this.selectedCustomer ? transaction.customer === this.selectedCustomer : true) &&
-        (this.selectedUser ? transaction.user === this.selectedUser : true) &&
-        (this.selectedStatus ? transaction.status === this.selectedStatus : true) &&
-        (this.selectedDate ? transaction.date === this.selectedDate : true)
-      );
+      const customerMatches = this.selectedCustomer === 'all' || transaction.customer_email === this.selectedCustomer;
+      const userMatches = this.selectedUser === 'all' || transaction.user_email === this.selectedUser;
+      const statusMatches = this.selectedStatus === 'all' || transaction.status === this.selectedStatus;
+
+      return customerMatches && userMatches && statusMatches;
     });
+
+    console.log('Filtered Transactions:', this.filteredTransactions);
   }
 
   clearFilters() {
-    this.selectedCustomer = '';
-    this.selectedUser = '';
-    this.selectedStatus = '';
-    this.selectedDate = '';
-    this.filteredTransactions = [...this.transactions]; // Reset to original data
+    this.selectedCustomer = 'all';
+    this.selectedUser = 'all';
+    this.selectedStatus = 'all';
+    // this.setDateFromTo();
+
+    this.filteredTransactions = [...this.transactions]; // Reset to original transactions
   }
 }
