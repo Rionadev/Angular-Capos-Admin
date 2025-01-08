@@ -155,7 +155,7 @@ export class CustomerComponent implements OnInit {
         if (typeof data[0] != 'undefined') {
           this.groupData = data[0];
           if (data[0].point_rates.length > 0) {
-            data.point_rates.forEach(rate => {
+            data.point_rates?.forEach(rate => {
               if (rate.payment == 'cash')
                 this.cash = rate.rate;
               else if (rate.payment == 'credit')
