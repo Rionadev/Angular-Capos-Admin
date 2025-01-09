@@ -13,7 +13,6 @@ export class ApiService {
   getUsers(params: {
     role?: string;
     outlet?: string;
-    private_web_address?: string;
     domain_name?: string;
     user_id?: string;
   }): Observable<any> {
@@ -24,11 +23,28 @@ export class ApiService {
         queryParams = queryParams.set(key, params[key]!);
       }
     });
-
+    queryParams = queryParams.set("private_web_address", this.config.private_web_address);
     // Make the API call
     return this.http.get(this.config.apiUrl + "/auth/users", { params: queryParams });
   }
 
+  create(params: any): Observable<any> {
+    // Make the API call
+    const queryParams = {
+      ...params, // Spread existing parameters
+      private_web_address: this.config.private_web_address, // Add the additional property
+    };
+    return this.http.post(`${this.config.apiUrl}/auth/user`, queryParams);
+  }
+
+  update(params: any): Observable<any> {
+    return this.http.put(`${this.config.apiUrl}/auth/user`, params);
+  }
+
+  delete(params: any): Observable<any> {
+    // Make the API call
+    return this.http.delete(`${this.config.apiUrl}/auth/user`, {params: params});
+  }
   /* / POST request
   addUser(user: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/users`, user);
