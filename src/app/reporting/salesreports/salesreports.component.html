@@ -20,8 +20,8 @@
                             </div>
                             <div class="col-md-3 d-flex flex align-items-center"
                                 style="align-content: right; align-items: center;   text-align-last: right;">
-                                <button class="btn btn-sm btn-info btn-fill"
-                                    (click)="searchTransactions()">Search</button>
+                                <!-- <button class="btn btn-sm btn-info btn-fill"
+                                    (click)="searchTransactions()">Search</button> -->
                                 <button style="margin-left: 2rem;" class="btn btn-sm btn-danger btn-fill"
                                     (click)="clearFilters()">Clear Filters</button>
                             </div>
@@ -45,12 +45,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let transaction of filteredTransactions">
+                                <tr style="background-color: rgb(180, 180, 180);">
+                                    <td>Total</td>
+                                    <td>{{ total_reportData.total | currency }}</td>
+                                    <td>{{ total_reportData.revenue | currency }}</td>
+                                    <td>{{ total_reportData.cog | currency }}</td>
+                                    <td>{{ total_reportData.gp | currency }}</td>
+                                    <td>{{ total_reportData.margin | number:'1.0-2' }}%</td>
+                                    <td>{{ total_reportData.tax | currency }}</td>
+                                </tr>
+                                <tr *ngFor="let transaction of reportsData">
                                     <td>{{ transaction.date }}</td>
-                                    <td>{{ transaction.totalInclTax | currency }}</td>
+                                    <td>{{ transaction.total | currency }}</td>
                                     <td>{{ transaction.revenue | currency }}</td>
-                                    <td>{{ transaction.costOfGoods | currency }}</td>
-                                    <td>{{ transaction.grossProfit | currency }}</td>
+                                    <td>{{ transaction.cog | currency }}</td>
+                                    <td>{{ transaction.gp | currency }}</td>
                                     <td>{{ transaction.margin | number:'1.0-2' }}%</td>
                                     <td>{{ transaction.tax | currency }}</td>
                                 </tr>

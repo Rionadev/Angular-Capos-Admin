@@ -8,10 +8,15 @@ import { CustomerService } from 'app/api/salesledger/api.service';
   styleUrls: ['./salesreports.component.scss']
 })
 export class SalesreportsComponent implements OnInit {
+  [x: string]: any;
 
   selectedDateFrom: string = '';
   selectedDateTo: string = '';
   transactionsByDate: any = [];
+  totalByDate: any = [];
+  reportsData: any = [];
+  total_reportData: any = [];
+
   ngOnInit(): void {
     this.setDateFromTo();
     this.fetchSearchItems();
@@ -57,7 +62,7 @@ export class SalesreportsComponent implements OnInit {
   clearFilters() {
     // this.startDate = '';    this.endDate = '';
     this.setDateFromTo();
-    this.filteredTransactions = [...this.transactions]; // Reset to original data
+    this.fetchSearchItems();
   }
 
   fetchSearchItems() {
@@ -72,29 +77,19 @@ export class SalesreportsComponent implements OnInit {
     // Log the params to check their structure
     console.log('Sending params:', params);
 
+    this.total_reportData = [];
+
     this.customerService.fetchSaleHistory(params).subscribe(
       (res) => {
+        let t_total = 0;
+        let t_revenue = 0;
+        let t_cog = 0;
+        let t_gp = 0;
+        let t_margin = 0;
+        let t_tax = 0;
         // Group transactions by date
         const groupedTransactions = res.reduce((acc, item) => {
           const date = new Date(item.created_at).toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
-
-          // Calculate fields
-          // const revenue = item.subtotal;
-          // const tax = item.total - item.subtotal;
-          // const costOfGoods = revenue * 0.6; // Example: 60% of revenue
-          // const grossProfit = revenue - costOfGoods;
-          // const margin = (grossProfit / revenue) * 100;
-
-          // // Construct the transaction data
-          // const transaction = {
-          //   date,
-          //   totalInclTax: item.total,
-          //   revenue,
-          //   costOfGoods,
-          //   grossProfit,
-          //   margin,
-          //   tax,
-          // };
 
           // Group by date
           if (!acc[date]) {
@@ -106,14 +101,64 @@ export class SalesreportsComponent implements OnInit {
         }, {} as Record<string, any[]>);
 
         this.transactionsByDate = groupedTransactions;
-        console.log(this.transactionsByDate); // View the grouped data
+        this.reportsData = [];
+
+
+        const groupedTransactionsArray = Object.keys(groupedTransactions).map(date => {
+          // console.log('------', groupedTransactions[date]);
+
+          const calc_row = groupedTransactions[date];
+          let total = 0;
+          let revenue = 0;
+          let cog = 0;
+          let gp = 0;
+          let margin = 0;
+          let tax = 0;
+
+          calc_row.forEach(transaction => {
+            total += transaction.total; // include tax
+            revenue += transaction.subtotal; //sale products
+            tax += transaction.tax; //Tax
+            cog += transaction.total_paid; //Cost of Products
+            gp += transaction.subtotal - transaction.total_paid; //Gross profit
+            //total whole
+            t_total += total;
+            t_revenue += revenue;
+            t_tax += tax;
+            t_cog += cog;
+            t_gp += gp;
+          });
+
+
+          this.reportsData.push({
+            date: date,
+            total: total.toFixed(2),
+            revenue: revenue.toFixed(2),
+            cog: cog.toFixed(2),
+            gp: gp.toFixed(2),
+            tax: tax.toFixed(2),
+            margin: ((gp / revenue) * 100).toFixed(2),
+          });
+        });
+
+        this.total_reportData = {
+          total: t_total.toFixed(2),
+          revenue: t_revenue.toFixed(2),
+          cog: t_cog.toFixed(2),
+          gp: t_gp.toFixed(2),
+          tax: t_tax.toFixed(2),
+          margin: ((t_gp / t_revenue) * 100).toFixed(2),
+        }
+
+        console.log(this.reportsData); // View the grouped data
+        console.log(this.total_reportData); // View the grouped data
+
       },
       (error) => {
         console.error('Error fetching customer data:', error);
         // Handle the error as needed
       }
     );
-
   }
 }
 

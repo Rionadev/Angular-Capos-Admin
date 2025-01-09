@@ -163,7 +163,6 @@ export class SaleslegderComponent implements OnInit {
 
       return customerMatches && userMatches && statusMatches;
     });
-
     console.log('Filtered Transactions:', this.filteredTransactions);
   }
 
