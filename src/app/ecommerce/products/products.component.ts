@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsService } from '../../api/products/api.service';
 
 // Declare the TableRow interface outside of the component
 export interface TableRow {
@@ -21,27 +22,49 @@ export interface TableRow {
 
 export class EcommerceProductsComponent implements OnInit {
 
-
-  rows: TableRow[] = [
-    { id: 1, name: 'Shielded Heavy', category: 'Category 1', barcode: '123456789', retailprice: '10.00', inventory: '100', active: true, touch: true, created: '2024-01-01' },
-    { id: 2, name: 'Jane Smith', category: 'Category 2', barcode: '987654321', retailprice: '20.00', inventory: '50', active: false, touch: false, created: '2024-01-02' },
-    { id: 3, name: 'Alice Johnson', category: 'Category 3', barcode: '234567890', retailprice: '15.00', inventory: '75', active: true, touch: false, created: '2024-01-03' },
-    { id: 4, name: 'Bob Brown', category: 'Category 4', barcode: '345678901', retailprice: '25.00', inventory: '30', active: true, touch: true, created: '2024-01-04' },
-    { id: 5, name: 'Charlie Davis', category: 'Category 5', barcode: '456789012', retailprice: '30.00', inventory: '20', active: false, touch: true, created: '2024-01-05' },
-  ];
+  data: any[] = [];
 
   isProductContentVisible: boolean = false; // Initially hidden for add or editing.
   isImportContentVisible: boolean = false; // Initially hidden for add or editing.
   currentRow: TableRow = this.resetRow();
   selectedItemId: number | null = null; // Variable to track which row is expanded
 
-  cities: string[] = ['London', 'New York', 'Paris', 'Tokyo'];
-  selectedCity: string = 'London'; // Default selected value
+  cities: string[] = ['Search', 'Search 1', 'Search 2', 'Search 3'];
+  selectedCity: string = 'Search'; // Default selected value
   
-  constructor() {}
+  // Pagination
+  totalItems: number = 100; // Total number of items
+  /* allItems: number[] = Array.from({ length: 100 }, (_, i) => i + 1); // Example data
+  paginatedItems: number[] = []; */
+  countPerPage: number = 10; // Default items per page
+  currentPage: number = 1;
+
+  constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
     // No dataService to subscribe to; rows are managed directly.
+    this.paginateItems(1); // Initialize pagination
+  }
+
+  onGetData() {
+    const page = (this.currentPage - 1).toString();
+    const size = (this.countPerPage).toString();
+    this.productsService.read({range: 'all-factor', page: page, size: size}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        this.data = data?.data;
+        this.totalItems = data?.totalElements;
+        //
+      },
+      error: (err) => {
+        console.error('Error fetching stores:', err);
+      },
+    });
+  }
+
+  getDate(dateTimeString: string): string {
+    // Split the string by 'T' and return the first part (date)
+    return dateTimeString.split("T")[0];
   }
 
   toggleDetails(itemId: number): void {
@@ -60,7 +83,7 @@ export class EcommerceProductsComponent implements OnInit {
   }
 
   saveRow(): void {
-    if (this.currentRow.id) {
+    /* if (this.currentRow.id) {
       // Update existing row
       const index = this.rows.findIndex((row) => row.id === this.currentRow.id);
       if (index !== -1) {
@@ -72,7 +95,7 @@ export class EcommerceProductsComponent implements OnInit {
         ...this.currentRow,
         id: this.generateId(),
       });
-    }
+    } */
     this.currentRow = this.resetRow();
     this.isProductContentVisible = false;
   }
@@ -83,8 +106,8 @@ export class EcommerceProductsComponent implements OnInit {
   }
 
   deleteRow(id: number): void {
-    this.rows = this.rows.filter((row) => row.id !== id); // Remove row by id
-    this.isProductContentVisible = false;
+    /* this.rows = this.rows.filter((row) => row.id !== id); // Remove row by id
+    this.isProductContentVisible = false; */
   }
 
   cancelEdit(): void {
@@ -92,13 +115,27 @@ export class EcommerceProductsComponent implements OnInit {
     this.isProductContentVisible = false;
   }
 
-  private resetRow(): TableRow {
-    return { id: 0, name: '', category: '', barcode: '', retailprice: '', inventory: '', active: false, touch: false, created: '' };
+  private resetRow(): any {
+    return {};
   }
 
-  private generateId(): number {
-    return Math.max(...this.rows.map((r) => r.id), 0) + 1;
+  onPageChanged(page: number) {
+    this.paginateItems(page);
   }
 
+  onCountPerPageChanged(count: number) {
+    if (this.countPerPage != count){
+      this.countPerPage = count; // Update count per page
+      this.paginateItems(1);
+    }
+  }
+
+  paginateItems(page: number) {
+    this.currentPage = page;
+    /* const startIndex = (page - 1) * this.countPerPage; // Default items per page
+    const endIndex = startIndex + this.countPerPage; */
+    //this.paginatedItems = this.allItems.slice(startIndex, endIndex);
+    this.onGetData();
+  }
 
 }

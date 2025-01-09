@@ -7,7 +7,8 @@
                         <p class="category">Add, view and edit your products all in one place. Need help ?</p>
                         <div>
                             <button class="btn btn-sm btn-info btn-fill" (click)="toggleImportContent()">Import</button>
-                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleProductContent()">Add Product</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleProductContent()">Add
+                                Product</button>
                         </div>
                     </div>
                 </div>
@@ -15,10 +16,12 @@
                     <div class="header">
                         <h4 class="title">Import Products</h4>
                     </div>
-                    <div class="content">               
+                    <div class="content">
                         <div class="add-content">
-                            <p class="category">Create a spreadsheet file. We will check your data for common errors before uploading it. Need help ?</p>
-                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleImportContent()">Back to Products</button>
+                            <p class="category">Create a spreadsheet file. We will check your data for common errors
+                                before uploading it. Need help ?</p>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleImportContent()">Back to
+                                Products</button>
                         </div>
                         <div class="text-center margin-top-10 margin-bottom-10">
                             <i class="pe-7s-cloud-upload" style="font-size: 36px;"></i>
@@ -40,13 +43,15 @@
                     <div class="header">
                         <h4 class="title">Add Product</h4>
                     </div>
-                    <div class="content">                        
+                    <div class="content">
                         <form (ngSubmit)="saveRow()">
                             <div class="add-content">
                                 <p class="category">Add, view and edit your products all in one place. Need help ?</p>
                                 <div>
-                                    <button class="btn btn-sm btn-info btn-fill" (click)="toggleProductContent()">Save</button>
-                                    <button class="btn btn-sm btn-info btn-fill" (click)="toggleProductContent()">Cancel</button>
+                                    <button class="btn btn-sm btn-info btn-fill"
+                                        (click)="toggleProductContent()">Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill"
+                                        (click)="toggleProductContent()">Cancel</button>
                                 </div>
                             </div>
                             <hr>
@@ -54,10 +59,12 @@
                             <p class="category">Change general information for this product</p>
                             <div class="row item-center">
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name"
+                                        required />
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" placeholder="Handle" id="handle" name="handle" required />
+                                    <input type="text" class="form-control" placeholder="Handle" id="handle"
+                                        name="handle" required />
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group">
@@ -73,12 +80,14 @@
                                     <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">
                                         Print
                                     </button>
-                                    <p class="category margin-top-0 line-height-1">If you want to print barcode of product, please click this button.</p>
+                                    <p class="category margin-top-0 line-height-1">If you want to print barcode of
+                                        product, please click this button.</p>
                                 </div>
                             </div>
                             <div class="row item-center">
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" placeholder="Port Number" id="portnumber" name="portnumber" required />
+                                    <input type="text" class="form-control" placeholder="Port Number" id="portnumber"
+                                        name="portnumber" required />
                                 </div>
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4"></div>
@@ -87,7 +96,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="text-transform-none">Description:</label>
-                                        <textarea class="form-control" placeholder="Description" id="description" name="description"></textarea>
+                                        <textarea class="form-control" placeholder="Description" id="description"
+                                            name="description"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +113,8 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" placeholder="Tags" id="tags" name="tags" required />
+                                    <input type="text" class="form-control" placeholder="Tags" id="tags" name="tags"
+                                        required />
                                 </div>
                             </div>
                             <div class="row category">
@@ -152,24 +163,31 @@
                             </div>
                             <hr>
                             <p class="category">Supply & Inventory</p>
-                            <p class="category">The type of product we choose determines how we manage inventory and reporting.</p>
+                            <p class="category">The type of product we choose determines how we manage inventory and
+                                reporting.</p>
                             <div>
                                 <div class="flex-item category">
                                     <app-toggle-switch></app-toggle-switch>
                                     Product with Variants
                                 </div>
                             </div>
-                            <p class="category">These are products that have different versions, like size or color. Turn this on to specify up to three attributes (like color), and unlimited values for each attribute (like green, blue, black).</p>
+                            <p class="category">These are products that have different versions, like size or color.
+                                Turn this on to specify up to three attributes (like color), and unlimited values for
+                                each attribute (like green, blue, black).</p>
                             <div>
                                 <div class="flex-item category">
                                     <app-toggle-switch></app-toggle-switch>
                                     Tracking Inventory
                                 </div>
                             </div>
-                            <p class="category">Leave this on if you want to keep track of your inventory quantities. You'll be able to report on cost of goods sold, product performance, and projected weeks cover, as well as manage your store using inventory orders, transfers and rolling inventory counts.</p>
+                            <p class="category">Leave this on if you want to keep track of your inventory quantities.
+                                You'll be able to report on cost of goods sold, product performance, and projected weeks
+                                cover, as well as manage your store using inventory orders, transfers and rolling
+                                inventory counts.</p>
                             <div class="row item-center">
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" placeholder="Stock Keeping Unit(SKU)" id="sku" name="sku" required />
+                                    <input type="text" class="form-control" placeholder="Stock Keeping Unit(SKU)"
+                                        id="sku" name="sku" required />
                                 </div>
                                 <div class="col-md-3">
                                     <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
@@ -370,7 +388,7 @@
                             </div>
                             <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ? 'Update' : 'Add' }}</button>
                             <button class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()" *ngIf="currentRow.id">Cancel</button> -->
-                            
+
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -379,7 +397,8 @@
                     <div class="content add-content">
                         <div class="flex-item">
                             <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Search" id="search" name="search" required />
+                                <input type="text" class="form-control" placeholder="Search" id="search" name="search"
+                                    required />
                             </div>
                             <div class="row padding-left-10">
                                 <div class="col-md-2">
@@ -422,71 +441,89 @@
                 </div>
                 <div class="card">
                     <div class="content table-responsive table-full-width">
-                          <table class="table table-hover table-striped">
-                                <thead>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <!-- <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th> -->
+                                    <th>Detail</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Barcode</th>
+                                    <th>Retail Price</th>
+                                    <th>Inventory</th>
+                                    <th>Active</th>
+                                    <th>Touch</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let row of data">
                                     <tr>
-                                        <!-- <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th> -->
-                                        <th>Detail</th>
-                                        <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Barcode</th>
-                                        <th>Retail Price</th>
-                                        <th>Inventory</th>
-                                        <th>Active</th>
-                                        <th>Touch</th>
-                                        <th>Created</th>
-                                        <th>Actions</th>
+                                        <td>
+                                            <button class="btn btn-sm btn-success" (click)="toggleDetails(row._id)">
+                                                <span *ngIf="selectedItemId  === row._id"
+                                                    class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                                                <span *ngIf="selectedItemId  !== row._id"
+                                                    class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                        <!-- <td *ngFor="let cell of row">{{cell}}</td> -->
+                                        <td>{{ row.name }}</td>
+                                        <td>{{ row.brand?.name }}</td>
+                                        <td>{{ row.barcode }}</td>
+                                        <td>{{ row.retail_price }}</td>
+                                        <td>{{ row.inventory }}</td>
+                                        <td><app-toggle-switch [(checked)]="row.enabled"></app-toggle-switch></td>
+                                        <td><app-toggle-switch [(checked)]="row.touch"></app-toggle-switch></td>
+                                        <td>{{ getDate(row.created_at) }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" (click)="editRow(row)">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger" (click)="deleteRow(row.id)">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <ng-container *ngFor="let row of rows">
-                                        <tr>
-                                            <td>
-                                                <button class="btn btn-sm btn-success" (click)="toggleDetails(row.id)">
-                                                    <span *ngIf="selectedItemId  === row.id" class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                                                    <span *ngIf="selectedItemId  !== row.id" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                </button>
-                                            </td>
-                                            <!-- <td *ngFor="let cell of row">{{cell}}</td> -->
-                                            <td>{{ row.name }}</td>
-                                            <td>{{ row.category }}</td>
-                                            <td>{{ row.barcode }}</td>
-                                            <td>{{ row.retailprice }}</td>
-                                            <td>{{ row.inventory }}</td>
-                                            <td><app-toggle-switch [(checked)]="row.active"></app-toggle-switch></td>
-                                            <td><app-toggle-switch [(checked)]="row.touch"></app-toggle-switch></td>
-                                            <td>{{ row.created }}</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-info" (click)="editRow(row)">
-                                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                                </button>
-                                                <button class="btn btn-sm btn-danger" (click)="deleteRow(row.id)">
-                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <!-- Detail Row -->
-                                        <tr *ngIf="selectedItemId === row.id">
-                                            <td colspan="10">
-                                                <div class="content margin-bottom-3">
-                                                    <p class="description"><strong>Details for {{ row.name }}</strong></p>
-                                                    <p class="description">ID: {{ row.id }}</p>
-                                                    <p class="description">Barcode: {{ row.barcode }}</p>
-                                                    <p class="description">Category: {{ row.category }}</p>
-                                                    <!-- 
+                                    <!-- Detail Row -->
+                                    <tr *ngIf="selectedItemId === row._id">
+                                        <td colspan="10">
+                                            <div class="content margin-bottom-3">
+                                                <p class="description"><strong>Details for {{ row.name }}</strong></p>
+                                                <p class="description">ID: {{ row._id }}</p>
+                                                <p class="description">Barcode: {{ row.barcode }}</p>
+                                                <p class="description">Category: {{ row.category }}</p>
+                                                <!-- 
                                                     <button
                                                         class="btn btn-sm float-right"
                                                         (click)="toggleDetails(null)">
                                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                     </button> -->
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </ng-container>
-                                </tbody>
-                          </table>
-
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                        <!-- <ul class="pagination pagination-sm">
+                            <li><a>1</a></li>
+                            <li><a>2</a></li>
+                            <li><a>3</a></li>
+                            <li><a>4</a></li>
+                            <li><a>5</a></li>
+                        </ul> -->
+                        <!-- <div *ngFor="let item of paginatedItems">
+                            {{ item }}
+                        </div> -->
                     </div>
+                    <app-pagination 
+                        class="float-right"
+                        [totalCount]="totalItems" 
+                        [countsPerPageOptions]="[5, 10, 20, 50]"
+                        (pageChanged)="onPageChanged($event)"
+                        (countPerPageChanged)="onCountPerPageChanged($event)">
+                    </app-pagination>
                 </div>
             </div>
         </div>

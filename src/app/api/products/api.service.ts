@@ -22,4 +22,27 @@ export class ProductsService {
   ): Observable<any> {
     return this.http.get(`${this.config.apiUrl}/customers/getAllSearchCustoms`);
   }
+
+  // 
+  read(params: {
+    range?: string;
+    page?: string;
+    size?: string;
+    sort_field?: string;
+    category_slug?: string;
+    sort_order?: string;
+    keyword?: string;
+  }): Observable<any> {
+    // Prepare query parameters
+    let queryParams = new HttpParams();
+    Object.keys(params).forEach((key) => {
+      if (params[key]) {
+        queryParams = queryParams.set(key, params[key]!);
+      }
+    });
+    queryParams = queryParams.set("private_web_address", this.config.private_web_address);
+
+    return this.http.get(`${this.config.apiUrl}/product/product`, {params: queryParams});
+  }
+
 }
