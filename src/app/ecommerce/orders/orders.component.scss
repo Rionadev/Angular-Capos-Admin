@@ -189,3 +189,27 @@ td div .description {
 .col-md-2 {
     padding-left: 0px;
 }
+
+.bg-red {
+    background-color: red;
+    color: white;
+}
+
+.bg-blue {
+    background-color: blue;
+    color: white;
+}
+
+.bg-green {
+    background-color: green;
+    color: white;
+}
+
+.compact-spacing {
+    line-height: 1.2; /* Adjust as needed, smaller values reduce spacing */
+}
+
+.compact-spacing small {
+    margin-top: 0;
+    display: block; /* Ensures proper spacing control */
+}

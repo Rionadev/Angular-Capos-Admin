@@ -389,24 +389,25 @@
                                         <th>Payment</th>
                                         <th>Status</th>
                                         <th>Payment Status</th>
-                                        <th>Actions</th>
+                                        <th>Created</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let row of rows">
+                                    <tr *ngFor="let row of data">
                                         <td>{{ row.reference }}</td>
-                                        <td>{{ row.customer }}</td>
+                                        <td class="compact-spacing">{{ row.customer?.company }}<br><small>{{ row.customer?.email }}</small></td>
                                         <td>{{ row.total }}</td>
-                                        <td>{{ row.payment }}</td>
-                                        <td>{{ row.status }}</td>
-                                        <td>{{ row.paymentstatus }}</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-info" (click)="editRow(row)">
+                                        <td>{{ onToUpperCase(row.payments[0]?.type) }}</td>
+                                        <td><span [ngClass]="getClass(row.status)">&nbsp;&nbsp;{{ onToUpperCase(row.status) }}&nbsp;&nbsp;</span></td>
+                                        <td><span [ngClass]="getClass(row.payment_status)">&nbsp;&nbsp;{{ onToUpperCase(row.payment_status) }}&nbsp;&nbsp;</span></td>
+                                        <td class="compact-spacing">
+                                            <!-- <button class="btn btn-sm btn-info" (click)="editRow(row)">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                             </button>
                                             <button class="btn btn-sm btn-danger" (click)="deleteRow(row.id)">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            </button>
+                                            </button> -->
+                                            {{ getDate(row.created_at) }}<br><small>{{ getTime(row.created_at) }}</small>
                                         </td>
                                     </tr>
                                 </tbody>
