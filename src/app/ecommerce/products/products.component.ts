@@ -22,7 +22,6 @@ export interface TableRow {
 
 export class EcommerceProductsComponent implements OnInit {
 
-
   data: any[] = [];
 
   isProductContentVisible: boolean = false; // Initially hidden for add or editing.
@@ -35,23 +34,27 @@ export class EcommerceProductsComponent implements OnInit {
   
   // Pagination
   totalItems: number = 100; // Total number of items
-  allItems: number[] = Array.from({ length: 100 }, (_, i) => i + 1); // Example data
-  paginatedItems: number[] = [];
+  /* allItems: number[] = Array.from({ length: 100 }, (_, i) => i + 1); // Example data
+  paginatedItems: number[] = []; */
   countPerPage: number = 10; // Default items per page
+  currentPage: number = 1;
 
   constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
     // No dataService to subscribe to; rows are managed directly.
-    this.onGetData();
     this.paginateItems(1); // Initialize pagination
   }
 
   onGetData() {
-    this.productsService.read({range: 'all-factor'}).subscribe({
+    const page = (this.currentPage - 1).toString();
+    const size = (this.countPerPage).toString();
+    this.productsService.read({range: 'all-factor', page: page, size: size}).subscribe({
       next: (data) => {
         console.log('onGetData', data);
-        this.data = data;
+        this.data = data?.data;
+        this.totalItems = data?.totalElements;
+        //
       },
       error: (err) => {
         console.error('Error fetching stores:', err);
@@ -121,14 +124,18 @@ export class EcommerceProductsComponent implements OnInit {
   }
 
   onCountPerPageChanged(count: number) {
-    this.countPerPage = count; // Update count per page
-    this.paginateItems(1);
+    if (this.countPerPage != count){
+      this.countPerPage = count; // Update count per page
+      this.paginateItems(1);
+    }
   }
 
   paginateItems(page: number) {
-    const startIndex = (page - 1) * this.countPerPage; // Default items per page
-    const endIndex = startIndex + this.countPerPage;
-    this.paginatedItems = this.allItems.slice(startIndex, endIndex);
+    this.currentPage = page;
+    /* const startIndex = (page - 1) * this.countPerPage; // Default items per page
+    const endIndex = startIndex + this.countPerPage; */
+    //this.paginatedItems = this.allItems.slice(startIndex, endIndex);
+    this.onGetData();
   }
 
 }

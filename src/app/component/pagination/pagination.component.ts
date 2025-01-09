@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -17,6 +17,12 @@ export class PaginationComponent implements OnInit {
 
   ngOnInit() {
     this.updatePagination();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['totalCount']) {
+      this.updatePagination(); // Call updatePagination() whenever totalCount changes
+    }
   }
 
   // Update total pages when countPerPage changes
