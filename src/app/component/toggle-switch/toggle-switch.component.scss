@@ -14,6 +14,11 @@
     background-color: #4caf50;
   }
   
+  .toggle-switch.read-only {
+    cursor: not-allowed;
+    opacity: 0.95; // Dim the toggle to indicate it's disabled
+  }
+
   .toggle-switch .switch {
     width: 11px;
     height: 11px;
