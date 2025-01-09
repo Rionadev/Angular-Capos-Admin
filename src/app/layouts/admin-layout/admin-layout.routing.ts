@@ -28,7 +28,7 @@ import { SupplliersComponent } from 'app/Old_product/supplliers/supplliers.compo
 import { ProducttagsComponent } from 'app/Old_product/producttags/producttags.component';
 import { ProductattributesComponent } from 'app/Old_product/productattributes/productattributes.component';
 import { OpencloseComponent } from 'app/openclose/openclose.component';
-import { CarshmanagementComponent } from 'app/carshmanagement/carshmanagement.component';
+import { CashmanagementComponent } from 'app/cashmanagement/cashmanagement.component';
 import { SaleslegderComponent } from 'app/saleslegder/saleslegder.component';
 import { SalesreportsComponent } from 'app/reporting/salesreports/salesreports.component';
 import { InventoryreportsComponent } from 'app/reporting/inventoryreports/inventoryreports.component';
@@ -66,7 +66,7 @@ import { SingleForcedModifierComponent } from '../../menus/single-forced-modifie
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
     { path: 'openclose', component: OpencloseComponent },
-    { path: 'cashmanagement', component: CarshmanagementComponent },
+    { path: 'cashmanagement', component: CashmanagementComponent },
     { path: 'saleslegder', component: SaleslegderComponent },
     { path: 'salestransaction', component: SaletransactionComponent },
 
@@ -131,5 +131,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'menus/modifier', component: ModifierComponent },
     { path: 'menus/modifiertypes', component: ModifierTypesComponent },
     { path: 'menus/forcedmodifier', component: SingleForcedModifierComponent },
-    
+
 ];

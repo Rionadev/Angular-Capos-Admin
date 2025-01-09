@@ -6,22 +6,19 @@
                 <div class="card margin-bottom-10">
                     <div class="content add-content"
                         style="display: flex; justify-content: space-between; align-items: center;">
-                        <!-- Search Bar -->
-
                         <div style="flex-grow: 1; display: flex; justify-content: space-between;">
                             <div class="col-md-2">
                                 <label>Customer:</label>
                                 <select [(ngModel)]="selectedCustomer" class="form-control" name="customer">
-                                    <option value="" disabled selected>Select Customer</option>
-                                    <option value="new@gmail.com">New Customer (new@gmail.com)</option>
-                                    <option value="test@gmail.com">Test Customer (test@gmail.com)</option>
-                                    <option value="saboor@gmail.com">Abdul Saboor (saboor@gmail.com)</option>
+                                    <option *ngFor="let customer of customers" [value]="customer.value">
+                                        {{ customer.label }}
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <label>User:</label>
                                 <select [(ngModel)]="selectedUser" class="form-control" name="user">
-                                    <option value="" disabled selected>Select User</option>
+                                    <option value="all" selected>All Users</option>
                                     <option value="A saboor">A Saboor</option>
                                     <option value="Cashier one">Cashier One</option>
                                     <option value="Manager admin">Manager Admin</option>
@@ -30,7 +27,7 @@
                             <div class="col-md-2">
                                 <label>Status:</label>
                                 <select [(ngModel)]="selectedStatus" class="form-control" name="status">
-                                    <option value="" disabled selected>Select Status</option>
+                                    <option value="all" selected>All Status</option>
                                     <option value="On Account">On Account</option>
                                     <option value="Completed">Completed</option>
                                     <option value="LayBy.completed">LayBy Completed</option>
@@ -40,9 +37,14 @@
                                     <option value="Return.completed">Return Completed</option>
                                 </select>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <label>Period of Created At:</label>
-                                <input type="date" [(ngModel)]="selectedDate" class="form-control" name="createdAt" />
+                                <span style="display: flex;">
+                                    <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
+                                        name="createdFrom" />
+                                    <input type="date" [(ngModel)]="selectedDateTo" class="form-control"
+                                        name="createdTo" />
+                                </span>
                             </div>
                             <div class="col-md-2 d-flex align-items-center">
                                 <button class="btn btn-sm btn-info btn-fill"
@@ -51,9 +53,6 @@
                                     Filters</button>
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
 

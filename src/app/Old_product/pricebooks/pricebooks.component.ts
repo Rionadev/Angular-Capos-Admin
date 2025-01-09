@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
+import { ProductsService } from 'app/api/products/api.service';
 
 interface Product {
   id: number;
@@ -28,6 +29,7 @@ export class PricebooksComponent implements OnInit {
   pointRates = []; // Your existing pointRates array
   ngOnInit() {
     // Load initial data
+    this.fetchSearchItems();
     this.rows = [
       { id: 1, name: 'Product 1', customerGroup: 'Group A', outlet: 'Outlet 1', validFrom: new Date(), validTo: new Date(), priceBookFile_url: 'http://example.com/file1' },
       { id: 2, name: 'Product 2', customerGroup: 'Group B', outlet: 'Outlet 2', validFrom: new Date(), validTo: new Date(), priceBookFile_url: 'http://example.com/file2' },
@@ -39,7 +41,31 @@ export class PricebooksComponent implements OnInit {
     ];
     this.filterRows(); // Initialize pagination
   }
+  constructor(private productsService: ProductsService) { }
 
+  fetchSearchItems() {
+    
+    this.productsService.getAllCustomers().subscribe(
+      (res) => {
+        console.log('Customer Data:', res);
+        // Handle the response data as needed
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+    this.productsService.getAllOutlets().subscribe(
+      (res) => {
+        console.log('Customer Data:', res);
+        // Handle the response data as needed
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+  }
   toggleContent() {
     this.isContentVisible = !this.isContentVisible;
     if (!this.isContentVisible) {

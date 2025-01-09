@@ -11,7 +11,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/dashboard', title: 'Dashboard', icon: 'pe-7s-graph', class: '' },
   { path: '/openclose', title: 'Open / Close', icon: 'pe-7s-map', class: '' },
   { path: '/cashmanagement', title: 'Cash Management', icon: 'pe-7s-cash', class: '' },
-  { path: '/saleslegder', title: 'Sales Legder', icon: 'pe-7s-shopbag', class: '' },
+  { path: '/saleslegder', title: 'Sales Ledger', icon: 'pe-7s-shopbag', class: '' },
   { path: '/salestransaction', title: 'Sales Transaction', icon: 'pe-7s-news-paper', class: '' },
 
   // { path: '/user', title: 'User Profile', icon: 'pe-7s-user', class: '' },
@@ -78,7 +78,7 @@ export const STOCKCONTROLROUTES: RouteInfo[] = [
 ];
 
 export const PRODUCTSROUTES: RouteInfo[] = [
-  { path: '/products/product', title: 'Products', icon: 'pe-7s-cart', class: '' },
+  // { path: '/products/product', title: 'Products', icon: 'pe-7s-cart', class: '' },
   { path: '/products/pricebooks', title: 'Price Books', icon: 'pe-7s-notebook', class: '' },
   { path: '/products/producttypes', title: 'Product Types', icon: 'pe-7s-keypad', class: '' },
   { path: '/products/supplliers', title: 'Suppliers', icon: 'pe-7s-albums', class: '' },
