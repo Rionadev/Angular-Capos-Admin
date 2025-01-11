@@ -79,6 +79,7 @@ import { SingleForcedModifierComponent } from '../../menus/single-forced-modifie
 import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/toggle-icon-button.component';
 import { ConfirmModalComponent } from '../../component/confirm-modal/confirm-modal.component';
 import { PaginationComponent } from '../../component/pagination/pagination.component';
+import { TagInputComponent } from '../../component/tag-input/tag-input.component';
 
 @NgModule({
   imports: [
@@ -125,6 +126,7 @@ import { PaginationComponent } from '../../component/pagination/pagination.compo
     ToggleIconButtonComponent,
     ConfirmModalComponent,
     PaginationComponent,
+    TagInputComponent,
     ProductEditModalComponent,
 
     SaletransactionComponent,

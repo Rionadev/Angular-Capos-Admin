@@ -1,18 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../api/products/api.service';
-
+import { ProducttypesService } from '../../api/producttypes/producttypes.service';
+import { BrandsService } from '../../api/brands/brands.service';
 // Declare the TableRow interface outside of the component
-export interface TableRow {
-  id: number;
-  name: string;
-  category: string;
-  barcode: string;
-  retailprice: string;
-  inventory: string;
-  active: boolean;
-  touch: boolean;
-  created: string;
-}
 
 @Component({
   selector: 'app-ecommerce-products',
@@ -24,9 +14,13 @@ export class EcommerceProductsComponent implements OnInit {
 
   data: any[] = [];
 
+  // For Select component
+  types: any[] = [];
+  brands: any[] = [];
+
   isProductContentVisible: boolean = false; // Initially hidden for add or editing.
   isImportContentVisible: boolean = false; // Initially hidden for add or editing.
-  currentRow: TableRow = this.resetRow();
+  currentRow: any[] = this.resetRow();
   selectedItemId: number | null = null; // Variable to track which row is expanded
 
   cities: string[] = ['Search', 'Search 1', 'Search 2', 'Search 3'];
@@ -39,11 +33,41 @@ export class EcommerceProductsComponent implements OnInit {
   countPerPage: number = 10; // Default items per page
   currentPage: number = 1;
 
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService, private productTypesService: ProducttypesService, private brandsService: BrandsService) {}
 
   ngOnInit(): void {
     // No dataService to subscribe to; rows are managed directly.
     this.paginateItems(1); // Initialize pagination
+    this.onGetTypes();
+    this.onGetBrands();
+  }
+
+  onGetTypes() {
+    this.productTypesService.read({}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        data.forEach(item => {
+          this.types.push({ name: item.name, value: item._id });
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching types:', err);
+      },
+    });
+  }
+
+  onGetBrands() {
+    this.brandsService.read({}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        data.forEach(item => {
+          this.brands.push({ name: item.name, value: item._id });
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching brands:', err);
+      },
+    });
   }
 
   onGetData() {
@@ -100,7 +124,7 @@ export class EcommerceProductsComponent implements OnInit {
     this.isProductContentVisible = false;
   }
 
-  editRow(row: TableRow): void {
+  editRow(row: any): void {
     this.currentRow = { ...row }; // Clone the row to avoid direct edits
     this.isProductContentVisible = true;
   }
@@ -116,7 +140,7 @@ export class EcommerceProductsComponent implements OnInit {
   }
 
   private resetRow(): any {
-    return {};
+    return {tag: [], brand: '', type: ''};
   }
 
   onPageChanged(page: number) {
