@@ -45,4 +45,33 @@ export class ProductsService {
     return this.http.get(`${this.config.apiUrl}/product/product`, {params: queryParams});
   }
 
+  create(params: {
+    mode?: string,
+    data?: string,
+  }): Observable<any> {
+    const queryParams = {
+      ...params, // Spread existing parameters
+      private_web_address: this.config.private_web_address, // Add the additional property
+    };
+    return this.http.post(`${this.config.apiUrl}/product/product`, queryParams);
+  }
+
+  update(params): Observable<any> {
+    return this.http.put(`${this.config.apiUrl}/product/product`, params);
+  }
+
+  delete(params: any): Observable<any> {
+    // Make the API call
+    return this.http.delete(`${this.config.apiUrl}/product/product`, {params: params});
+  }
+
+  getNewBarCode(params: {
+  }): Observable<any> {
+    const queryParams = {
+      ...params, // Spread existing parameters
+      private_web_address: this.config.private_web_address, // Add the additional property
+    };
+    return this.http.get(`${this.config.apiUrl}/product/new_barcode`, {params: queryParams});
+  }
+
 }
