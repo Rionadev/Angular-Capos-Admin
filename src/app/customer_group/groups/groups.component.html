@@ -73,11 +73,11 @@
 
                     <h4>Point Rates</h4>
                     <div class="rates-grid">
-                        <div *ngFor="let key of (selPointRates.point_rates | keyvalue)" class="rate-item">
-                            <label>{{ key.key }}</label>
-                            <div style="display: flex;align-items: center;">
-                                <input [(ngModel)]="selPointRates.point_rates[key.key]" type="number"
-                                    class="form-control" placeholder="Enter rate" /> <span> %</span>
+                        <div *ngFor="let rate of selPointRates.point_rates" class="rate-item">
+                            <label>{{ rate.payment }}</label>
+                            <div style="display: flex; align-items: center;">
+                                <input [(ngModel)]="rate.rate" type="number" class="form-control"
+                                    placeholder="Enter rate" /> <span> %</span>
                             </div>
                         </div>
                     </div>

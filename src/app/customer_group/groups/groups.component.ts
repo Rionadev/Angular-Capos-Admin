@@ -1,31 +1,6 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { CustomerService } from 'app/api/salesledger/api.service';
-interface PointRates {
-  'Cash': number;
-  'Credit Card': number;
-  'Visa': number;
-  'Master': number;
-  'Amex': number;
-  'Discover': number;
-  'Diners': number;
-  'Jcb': number;
-  'Debit': number;
-  'Gift': number;
-  'Rewards': number;
-  'Others': number;
-  'Other2': number;
-  'FoodStamp': number;
-  'Check': number;
-  'EBT Cash': number;
-  'ChargeAccount': number;
-};
 
-interface PointRate {
-  name: string;
-  limit: number;
-  point_rates: PointRates;
-  isEditing?: boolean; // Optional property to track editing state
-}
 
 @Component({
   selector: 'app-groups',
@@ -44,50 +19,138 @@ export class GroupsComponent implements OnInit {
   newPointRates: any = {
     name: '',
     limit: 0,
-    point_rates: {
-      'Cash': 0,
-      'Credit Card': 0,
-      'Visa': 0,
-      'Master': 0,
-      'Amex': 0,
-      'Discover': 0,
-      'Diners': 0,
-      'Jcb': 0,
-      'Debit': 0,
-      'Gift': 0,
-      'Rewards': 0,
-      'Others': 0,
-      'Other2': 0,
-      'FoodStamp': 0,
-      'Check': 0,
-      'EBT Cash': 0,
-      'ChargeAccount': 0,
-    }
+    point_rates: [{
+      payment: 'Cash',
+      rate: 0
+    },
+    {
+      payment: 'Credit Card',
+      rate: 0
+    },
+    {
+      payment: 'Visa',
+      rate: 0
+    },
+    {
+      payment: 'Master',
+      rate: 0
+    },
+    {
+      payment: 'Amex',
+      rate: 0
+    },
+    {
+      payment: 'Discover',
+      rate: 0
+    },
+    {
+      payment: 'Diners',
+      rate: 0
+    },
+    {
+      payment: 'Jcb',
+      rate: 0
+    },
+    {
+      payment: 'Debit',
+      rate: 0
+    }, {
+      payment: 'Gift',
+      rate: 0
+    }, {
+      payment: 'Debit',
+      rate: 0
+    }, {
+      payment: 'Rewards',
+      rate: 0
+    }, {
+      payment: 'Others',
+      rate: 0
+    }, {
+      payment: 'Other2',
+      rate: 0
+    }, {
+      payment: 'FoodStamp',
+      rate: 0
+    }, {
+      payment: 'Check',
+      rate: 0
+    }, {
+      payment: 'EBT Cash',
+      rate: 0
+    }, {
+      payment: 'ChargeAccount',
+      rate: 0
+    },]
   };
   selPointRates: any =
     {
       id: '',
       name: '',
       limit: 0,
-      point_rates: {
-        'Cash': 0,
-        'Credit Card': 0,
-        'Visa': 0,
-        'Master': 0,
-        'Amex': 0,
-        'Discover': 0,
-        'Diners': 0,
-        'Jcb': 0,
-        'Debit': 0,
-        'Gift': 0,
-        'Rewards': 0,
-        'Others': 0,
-        'Other2': 0,
-        'FoodStamp': 0,
-        'Check': 0,
-        'EBT Cash': 0,
-        'ChargeAccount': 0,
-      }
+      point_rates: [{
+        payment: 'Cash',
+        rate: 0
+      },
+      {
+        payment: 'Credit Card',
+        rate: 0
+      },
+      {
+        payment: 'Visa',
+        rate: 0
+      },
+      {
+        payment: 'Master',
+        rate: 0
+      },
+      {
+        payment: 'Amex',
+        rate: 0
+      },
+      {
+        payment: 'Discover',
+        rate: 0
+      },
+      {
+        payment: 'Diners',
+        rate: 0
+      },
+      {
+        payment: 'Jcb',
+        rate: 0
+      },
+      {
+        payment: 'Debit',
+        rate: 0
+      }, {
+        payment: 'Gift',
+        rate: 0
+      }, {
+        payment: 'Debit',
+        rate: 0
+      }, {
+        payment: 'Rewards',
+        rate: 0
+      }, {
+        payment: 'Others',
+        rate: 0
+      }, {
+        payment: 'Other2',
+        rate: 0
+      }, {
+        payment: 'FoodStamp',
+        rate: 0
+      }, {
+        payment: 'Check',
+        rate: 0
+      }, {
+        payment: 'EBT Cash',
+        rate: 0
+      }, {
+        payment: 'ChargeAccount',
+        rate: 0
+      },]
     };
 
   isEditing = false; // Controls the visibility of the edit modal
@@ -113,16 +176,20 @@ export class GroupsComponent implements OnInit {
     this.customerService.fetchPaymentType().subscribe(
       (res) => {
         // console.log(this.selPointRates);
+        // console.log(res.payments)
         if (res?.payments) {
-          let paymentsratelist = {};
-          res.payments.forEach(element => {
-            paymentsratelist[element] = 0;
-          });
-          // console.log(paymentsratelist);
-          if (Object.keys(paymentsratelist).length > 0) {
+          if (Object.keys(res.payments).length > 0) {
+            console.log(res.payments);
+            let paymentlist = [];
             // Your logic here for when paymentsratelist has keys
-            this.selPointRates['point_rates'] = paymentsratelist;
-            this.newPointRates['point_rates'] = paymentsratelist;
+            res.payments.forEach(element => {
+              paymentlist.push({
+                payment: element,
+                rate: 0
+              });
+            });
+            this.selPointRates['point_rates'] = paymentlist;
+            this.newPointRates['point_rates'] = paymentlist;
           }
         }
       },
@@ -133,14 +200,13 @@ export class GroupsComponent implements OnInit {
     );
     this.customerService.fetchGroup().subscribe(
       (res) => {
-
         res.forEach(element => {
           this.group_data.push(
             {
               limit: element.limit,
               name: element.name,
               id: element._id,
-              point_rates: this.stringToObject(element.point_rates),
+              point_rates: element.point_rates,
             }
           )
         });
@@ -175,69 +241,64 @@ export class GroupsComponent implements OnInit {
     const flag = this.checkPointItems(pointRate);
     // Use flag if needed for additional logic
     if (flag) return;
-    // Convert point rates to an array of objects
+
+    // Initialize variables for average rate and payment type
     let averageRate = 0;
-    let paymenttype = '';
-    if (pointRate.point_rates == null) {
+    let paymentType = '';
 
-    } else {
-      const pointRatesArray = Object.entries(pointRate?.point_rates).map(([payment, rate]) => ({ payment, rate }));
-
-      // Check if pointRatesArray is empty to avoid division by zero
-      if (pointRatesArray === null) {
-        console.error('No point rates available to calculate average.');
-        return; // Exit if no rates
-      }
-
-      // Calculate the average rate
-      const totalRate = pointRatesArray.reduce((sum, { rate }) => sum + Number(rate), 0);
-      averageRate = totalRate / pointRatesArray.length;
-      paymenttype = JSON.stringify(pointRate.point_rates);
-
+    // Check if point rates exist
+    if (!pointRate.point_rates || pointRate.point_rates.length === 0) {
+      console.error('No point rates available to calculate average.');
+      return; // Exit if no rates
     }
 
-    // Prepare parameters for the service call
+    // Convert point rates to an array of objects
+    const pointRatesArray = pointRate.point_rates.map(rate => ({
+      payment: rate.payment,
+      rate: Number(rate.rate) || 0 // Ensure rate is a number
+    }));
 
+    // Calculate the average rate
+    const totalRate = pointRatesArray.reduce((sum, { rate }) => sum + rate, 0);
+    averageRate = totalRate / pointRatesArray.length;
+
+    // Prepare parameters for the service call
     const params = {
       name: pointRate.name,
-      point_rates: [{
-        payment: paymenttype, // Use stringified version if needed
-        rate: averageRate
-      }],
+      point_rates: pointRatesArray, // Use the array directly
       limit: pointRate.limit,
     };
 
-    console.log('Average Rate:', params);
+    console.log('Average Rate:', averageRate);
+    console.log('Parameters:', params);
 
     // Call the service to save the data
     if (pointRate.id) {
-      const params1 = { ...params, _id: pointRate.id };
-      this.customerService.updateGroup(params1).subscribe(
+      const paramsWithId = { ...params, _id: pointRate.id };
+      this.customerService.updateGroup(paramsWithId).subscribe(
         (res) => {
-          // Fetch updated items and reset edit state
-          this.fetchSearchItems();
-          this.isEdit = false;
+          this.fetchSearchItems(); // Fetch updated items
+          this.isEdit = false; // Reset edit state
         },
         (error) => {
-          console.error('Error fetching customer data:', error);
+          console.error('Error updating customer data:', error);
           // Handle the error as needed
         }
       );
     } else {
       this.customerService.createGroup(params).subscribe(
         (res) => {
-          // Fetch updated items and reset edit state
-          this.fetchSearchItems();
-          this.isEdit = false;
+          this.fetchSearchItems(); // Fetch updated items
+          this.isEdit = false; // Reset edit state
         },
         (error) => {
-          console.error('Error fetching customer data:', error);
+          console.error('Error creating customer data:', error);
           // Handle the error as needed
         }
       );
     }
-
   }
+
 
 
   cancelEdit(pointRate: any): void {
@@ -263,21 +324,19 @@ export class GroupsComponent implements OnInit {
     );
   }
 
-  calculateAverage(rates: any) {
-    if (rates == null) return '';
-    let tsum = 0;
-    // const totalRate = Object.values(rates).reduce((sum: number, rate: number) => sum + rate, 0);
-    // Convert object values to an array and calculate total
-    const totalRate = Object.values(rates).reduce((sum: number, item: number) => {
-      tsum += item * 1;
-      return sum * 1 + item * 1; // Accumulate the sum
-    }, 0);
+  calculateAverage(rates: any[]): string {
+    if (!rates || rates.length === 0) return '';
 
-    // // // Calculate the number of entries
-    const numberOfEntries: number = Object.keys(rates).length;
+    // Calculate the total rate
+    const totalRate = rates.reduce((sum, item) => sum + item.rate, 0);
 
-    // // // Calculate the average
-    const averageRate: number = tsum / numberOfEntries;
+    // Calculate the number of entries
+    const numberOfEntries = rates.length;
+
+    // Calculate the average
+    const averageRate = totalRate / numberOfEntries;
+
+    // Return the average rate formatted to two decimal places
     return averageRate.toFixed(2);
   }
 

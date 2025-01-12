@@ -61,6 +61,9 @@ export class CustomerService {
     // Make the API call
     return this.http.get(`${this.config.apiUrl}/sale/fetchtodysale`,);
   }
+  fetchCoutries() {
+    return this.http.get(`${this.config.apiUrl}/util/countries`);
+  }
   fetchGroup(): Observable<any> {
     // Make the API call
     return this.http.get(`${this.config.apiUrl}/customers/group`,
@@ -96,11 +99,36 @@ export class CustomerService {
   }
   fetchPaymentType(): Observable<any> {
     // Make the API call
-    const param = {
+    let params = new HttpParams()
+      .set('private_web_address', this.config.private_web_address)
+    return this.http.get(`${this.config.apiUrl}/customers/paymenttype`,
+      { params }
+    );
+  }
+
+  //customer page
+  fetchCumtomerData() {
+    let params = new HttpParams()
+      .set('range', 'all-factor')
+      .set('private_web_address', this.config.private_web_address)
+    return this.http.get(`${this.config.apiUrl}/customers/customer`,
+      { params }
+    );
+  }
+  
+  saveCumtomerData(params: any) {
+    params = {
+      ...params,
       private_web_address: this.config.private_web_address
     }
-    return this.http.get(`${this.config.apiUrl}/customers/paymenttype`,
-      { params: param }
-    );
+    if (params._id) {
+      return this.http.put(`${this.config.apiUrl}/customers/customer`,
+        params
+      );
+    } else {
+      return this.http.post(`${this.config.apiUrl}/customers/customer`,
+        params
+      );
+    }
   }
 }
