@@ -1,18 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../api/products/api.service';
-
+import { ProducttypesService } from '../../api/producttypes/producttypes.service';
+import { BrandsService } from '../../api/brands/brands.service';
+import { SuppliersService } from '../../api/suppliers/suppliers.service';
+import { OutletsService } from '../../api/outlets/outlets.service';
+import { TaxesService } from '../../api/taxes/taxes.service';
+import { AttributesService } from '../../api/attributes/attributes.service';
+import { TagsService } from '../../api/tags/tags.service';
 // Declare the TableRow interface outside of the component
-export interface TableRow {
-  id: number;
-  name: string;
-  category: string;
-  barcode: string;
-  retailprice: string;
-  inventory: string;
-  active: boolean;
-  touch: boolean;
-  created: string;
-}
 
 @Component({
   selector: 'app-ecommerce-products',
@@ -24,14 +19,21 @@ export class EcommerceProductsComponent implements OnInit {
 
   data: any[] = [];
 
+  // For Select component
+  types: { name: string; value: string }[] = [];
+  brands: { name: string; value: string }[] = [];
+  suppliers: { name: string; value: string }[] = [];
+  outlets: { name: string; value: string }[] = [];
+  taxes: { name: string; value: string }[] = [];
+
   isProductContentVisible: boolean = false; // Initially hidden for add or editing.
   isImportContentVisible: boolean = false; // Initially hidden for add or editing.
-  currentRow: TableRow = this.resetRow();
+  currentRow: any = this.resetRow();
   selectedItemId: number | null = null; // Variable to track which row is expanded
 
   cities: string[] = ['Search', 'Search 1', 'Search 2', 'Search 3'];
   selectedCity: string = 'Search'; // Default selected value
-  
+
   // Pagination
   totalItems: number = 100; // Total number of items
   /* allItems: number[] = Array.from({ length: 100 }, (_, i) => i + 1); // Example data
@@ -39,17 +41,168 @@ export class EcommerceProductsComponent implements OnInit {
   countPerPage: number = 10; // Default items per page
   currentPage: number = 1;
 
-  constructor(private productsService: ProductsService) {}
+  // Delete
+  currentDeleteID: string = '';
+  isDeleteModal: boolean = false;
+
+  // Search
+  keyword: string = '';
+  searchTypes: { name: string; value: string }[] = [{name: "All Types", value:''}];
+  searchBrands: {name: string; value: string}[] = [{name: "All Brands", value:''}];
+  searchSuppliers: {name: string; value: string}[] = [{name: "All Suppliers", value:''}];
+  searchAttributes: {name: string; value: string}[] = [{name: "All Attributes", value:''}];
+  searchTags: {name: string; value: string}[] = [{name: "All Tags", value:''}];
+  searchStatus: {name: string; value: boolean}[] = [{name: "All Status", value: null}, {name: "Active", value: true}, {name: "Inactive", value: false }];
+
+  type: string = '';
+  brand: string = '';
+  supplier: string = '';
+  attribute: string = '';
+  tag: string = '';
+  status: boolean = null;
+
+  constructor(
+    private productsService: ProductsService,
+    private productTypesService: ProducttypesService,
+    private brandsService: BrandsService,
+    private suppliersService: SuppliersService,
+    private outletsService: OutletsService,
+    private taxesService: TaxesService,
+    private attributesService:AttributesService,
+    private tagsService: TagsService,
+  ) { }
 
   ngOnInit(): void {
     // No dataService to subscribe to; rows are managed directly.
     this.paginateItems(1); // Initialize pagination
+    this.onGetTypes();
+    this.onGetBrands();
+    this.onGetSuppliers();
+    this.onGetOutlets();
+    this.onGetTaxes();
+    this.onGetAttribues();
+    this.onGetTags();
+  }
+
+  onGetAttribues() {
+    this.attributesService.read({}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        data.forEach(item => {
+          this.searchAttributes.push({ name: item.name, value: item._id });
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching attributes:', err);
+      },
+    });
+  }
+
+  onGetTags() {
+    this.tagsService.read({}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        data.forEach(item => {
+          this.searchTags.push({ name: item.name, value: item._id });
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching tags:', err);
+      },
+    });
+  }
+
+  onGetOutlets() {
+    this.outletsService.read({}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        data.forEach(item => {
+          this.outlets.push({ name: item.name, value: item._id });
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching outlets:', err);
+      },
+    });
+  }
+
+  onGetTaxes() {
+    this.taxesService.read({}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        data.forEach(item => {
+          this.taxes.push({ name: item.name, value: item._id });
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching taxes:', err);
+      },
+    });
+  }
+
+  onCreateNewSupplier(newOption: { name: string; value: string }) {
+    console.log('New option added:', newOption);
+    this.suppliersService.create(newOption).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        this.suppliers.push({ name: data.result.name, value: data.result._id });
+        this.currentRow.supplier = data.result._id;
+      },
+      error: (err) => {
+        console.error('Error fetching suppliers:', err);
+      },
+    });
+  }
+
+  onGetSuppliers() {
+    this.suppliersService.read({}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        data.forEach(item => {
+          this.suppliers.push({ name: item.name, value: item._id });
+          this.searchSuppliers.push({ name: item.name, value: item._id });
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching suppliers:', err);
+      },
+    });
+  }
+
+  onGetTypes() {
+    this.productTypesService.read({}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        data.forEach(item => {
+          this.types.push({ name: item.name, value: item._id });
+          this.searchTypes.push({ name: item.name, value: item._id });
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching types:', err);
+      },
+    });
+  }
+
+  onGetBrands() {
+    this.brandsService.read({}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        data.forEach(item => {
+          this.brands.push({ name: item.name, value: item._id });
+          this.searchBrands.push({ name: item.name, value: item._id });
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching brands:', err);
+      },
+    });
   }
 
   onGetData() {
     const page = (this.currentPage - 1).toString();
     const size = (this.countPerPage).toString();
-    this.productsService.read({range: 'all-factor', page: page, size: size}).subscribe({
+    this.productsService.read({ range: 'all-factor', page: page, size: size }).subscribe({
       next: (data) => {
         console.log('onGetData', data);
         this.data = data?.data;
@@ -67,6 +220,52 @@ export class EcommerceProductsComponent implements OnInit {
     return dateTimeString.split("T")[0];
   }
 
+  // Change events for supply price, markup, retail price
+
+  onSupplyPriceChange(event: KeyboardEvent) {
+    if (['Enter', 'Tab'].includes(event.key)) {
+      event.preventDefault(); // Prevent only for specific keys
+      console.log(`${event.key} key action prevented`);
+    }
+    if (this.currentRow.supply_price == '') this.currentRow.supply_price = 0;
+    if (this.currentRow.markup == '') this.currentRow.markup = 0;
+    this.currentRow.retail_price = this.currentRow.supply_price * (this.currentRow.markup / 100 + 1);
+  }
+
+  onMarkUpChange(event: KeyboardEvent) {
+    if (['Enter', 'Tab'].includes(event.key)) {
+      event.preventDefault(); // Prevent only for specific keys
+      console.log(`${event.key} key action prevented`);
+    }
+    if (this.currentRow.supply_price == '') this.currentRow.supply_price = 0;
+    if (this.currentRow.markup == '') this.currentRow.markup = 0;
+    this.currentRow.retail_price = this.currentRow.supply_price * (this.currentRow.markup / 100 + 1);
+  }
+
+  onRetailPriceChange(event: KeyboardEvent) {
+    if (['Enter', 'Tab'].includes(event.key)) {
+      event.preventDefault(); // Prevent only for specific keys
+      console.log(`${event.key} key action prevented`);
+    }
+    if (this.currentRow.supply_price == '') this.currentRow.supply_price = 0;
+    if (this.currentRow.markup == '') this.currentRow.markup = 0;
+    if (this.currentRow.retail_price == '') this.currentRow.markup = 0;
+    this.currentRow.markup = (this.currentRow.retail_price / this.currentRow.supply_price * 100 - 100).toFixed(2);
+  }
+
+  onGetNewBarCode() {
+    this.productsService.getNewBarCode({}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        this.currentRow.barcode = data?.barcode;
+        //
+      },
+      error: (err) => {
+        console.error('Error fetching barcode:', err);
+      },
+    });
+  }
+
   toggleDetails(itemId: number): void {
     console.log(itemId);
     this.selectedItemId = this.selectedItemId === itemId ? null : itemId; // Toggle selection //this.selectedItemId === itemId ? null : 
@@ -77,37 +276,80 @@ export class EcommerceProductsComponent implements OnInit {
     this.isImportContentVisible = false;
   }
 
+  onHideAddProductContent(): void {
+    this.isProductContentVisible = false;
+    this.currentRow = this.resetRow();
+  }
+
+
   toggleImportContent(): void {
     this.isImportContentVisible = !this.isImportContentVisible; // Toggle the visibility
     this.isProductContentVisible = false;
   }
 
   saveRow(): void {
-    /* if (this.currentRow.id) {
-      // Update existing row
-      const index = this.rows.findIndex((row) => row.id === this.currentRow.id);
-      if (index !== -1) {
-        this.rows[index] = { ...this.currentRow }; // Update row
-      }
-    } else {
-      // Add new row
-      this.rows.push({
-        ...this.currentRow,
-        id: this.generateId(),
+    if (this.currentRow._id) {
+      this.productsService.update(this.currentRow).subscribe({
+        next: (data) => {
+          console.log('saveRow', data);
+        },
+        error: (err) => {
+          console.error('Error fetching product:', err);
+        },
       });
-    } */
+    } else {
+      this.productsService.create(this.currentRow).subscribe({
+        next: (data) => {
+          console.log('saveRow', data);
+        },
+        error: (err) => {
+          console.error('Error fetching product:', err);
+        },
+      });
+    }
+    
     this.currentRow = this.resetRow();
     this.isProductContentVisible = false;
   }
 
-  editRow(row: TableRow): void {
+  editRow(row: any): void {
     this.currentRow = { ...row }; // Clone the row to avoid direct edits
+
+    this.currentRow.brand = row.brand?._id;
+    this.currentRow.type = row.type?._id;
+    this.currentRow.supplier = row.supplier?._id;
+    this.currentRow.tax = row.tax?._id;
+    //this.currentRow.outlet = row.outlet?._id;
+    console.log("edit", this.currentRow);
     this.isProductContentVisible = true;
   }
 
-  deleteRow(id: number): void {
-    /* this.rows = this.rows.filter((row) => row.id !== id); // Remove row by id
-    this.isProductContentVisible = false; */
+  showDeleteModal(id: string) {
+    this.currentDeleteID = id;
+    this.isDeleteModal = true;
+  }
+
+  closeDeleteModal(){
+    this.isDeleteModal = false;
+  }
+
+  deleteRow() {
+    /* this.rows = this.rows.filter((row) => row.id !== id); // Remove row by id */
+    //this.isContentVisible = false;
+    this.productsService.delete({_id: this.currentDeleteID}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        this.currentPage = 1;
+        this.onGetData();
+        //
+      },
+      error: (err) => {
+        console.error('Error fetching products:', err);
+      },
+    });
+    /* this.rows = this.rows.filter((row) => row.id !== this.currentDeleteID); // Remove row by id
+    this.isDeleteModal = false; */
+    this.isDeleteModal = false;
   }
 
   cancelEdit(): void {
@@ -116,7 +358,14 @@ export class EcommerceProductsComponent implements OnInit {
   }
 
   private resetRow(): any {
-    return {};
+    return {
+      tag: [],
+      barcode: '',
+      feature: { featured: false, new_product: false, on_sale: false, hot_offer: false },
+      supply_price: 0,
+      markup: 0,
+      retail_price: 0,
+    };
   }
 
   onPageChanged(page: number) {
@@ -124,7 +373,7 @@ export class EcommerceProductsComponent implements OnInit {
   }
 
   onCountPerPageChanged(count: number) {
-    if (this.countPerPage != count){
+    if (this.countPerPage != count) {
       this.countPerPage = count; // Update count per page
       this.paginateItems(1);
     }
