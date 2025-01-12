@@ -13,7 +13,6 @@ export class PaymentreportsComponent implements OnInit {
 
     constructor(private customerService: CustomerService) { }
 
-
     setDateFromTo() {
         const today = new Date();
         const sevenDaysAgo = new Date(today);

@@ -3,17 +3,16 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card margin-bottom-10">
+                    <!-- <div class="card margin-bottom-10">
                         <div class="content add-content cr-bg"
                             style="display: flex;justify-content: space-between;align-items: center;">
                             <p class="category">Help about Sell-close
                             </p>
                             <button class="btn btn-sm btn-success btn-fill" (click)="toggleContent()">
-                                <!-- <i class="pe-7s-next-2" style="font-size: 2rem;"></i> -->
                                 Close Register</button>
                         </div>
                     </div>
-
+ -->
                     <!-- <div class="card margin-bottom-10" *ngIf="isContentVisible">
                     <div class="header">
                         <h4 class="title">Add a Product</h4>
@@ -48,44 +47,56 @@
                     </div>
                 </div> -->
 
-                    <div class="card1 mb-3">
+                    <div class="card1 mb-3" style="align-items: center;justify-content: space-between;">
                         <div class="col-md-3 reg-item">
                             <h3><b>Register Details</b></h3>
                         </div>
-                        <div class="col-md-9 ">
-                            <div class="row reg-item">
-                                <div class="col-md-4">
-                                    <b>Outlet</b>
+                        <div class="col-md-8">
+                            <div class="col-md-6">
+                                <div class="row reg-item">
+                                    <div class="col-md-5">
+                                        <b>Outlet</b>
+                                    </div>
+                                    <div class="col-md-7">
+                                        {{reg_outlet}}
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
-                                    {{reg_outlet}}
-                                </div>
-                            </div>
-                            <div class="row reg-item">
-                                <div class="col-md-4">
-                                    <b>Register</b>
-                                </div>
-                                <div class="col-md-8">
-                                    {{reg_register}}
-                                </div>
-                            </div>
-                            <div class="row reg-item">
-                                <div class="col-md-4">
-                                    <b>ID #</b>
-                                </div>
-                                <div class="col-md-8">
-                                    {{reg_id}}
-                                </div>
-                            </div>
-                            <div class="row reg-item">
-                                <div class="col-md-4">
-                                    <b>Opening Time</b>
-                                </div>
-                                <div class="col-md-8">
-                                    {{reg_openingTime}}
-                                </div>
-                            </div>
+                                <div class="row reg-item">
+                                    <div class="col-md-5">
+                                        <b>Register</b>
+                                    </div>
+                                    <div class="col-md-7">
+                                        {{reg_register}}
+                                    </div>
 
+                                </div>
+                                <div class="row reg-item">
+                                    <div class="col-md-5">
+                                        <b>ID #</b>
+                                    </div>
+                                    <div class="col-md-7">
+                                        {{reg_id}}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row reg-item">
+                                    <div class="col-md-5">
+                                        <b>Opening Time</b>
+                                    </div>
+                                    <div class="col-md-7">
+                                        {{reg_openingTime}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div>
+                            <button class="btn btn-sm btn-success btn-fill" (click)="toggleContent()">
+                                <!-- <i class="pe-7s-next-2" style="font-size: 2rem;"></i> -->
+                                Close Register</button>
                         </div>
                     </div>
 
@@ -112,20 +123,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let payment of payments">
+                                            <tr *ngFor="let payment of paymentSummary">
                                                 <td>{{ payment.type }}</td>
-                                                <td>{{ payment.expected }}</td>
-                                                <td>
-                                                    <input type="number" [(ngModel)]="payment.counted"
-                                                        (input)="calculateDifferences()" />
-                                                </td>
-                                                <td>{{ payment.difference }}</td>
+                                                <td>{{ payment.expected | currency }}</td>
+                                                <td>{{ payment.counted | currency }}</td>
+                                                <td>{{ payment.differences | currency }}</td>
+                                                <!-- Display differences -->
                                             </tr>
                                             <tr class="total-border">
                                                 <td><strong>Total</strong></td>
-                                                <td><strong>{{ totalExpected() }}</strong></td>
-                                                <td><strong>{{ totalCounted() }}</strong></td>
-                                                <td><strong>{{ totalDifference() }}</strong></td>
+                                                <td><strong>{{ totalExpected() | currency }}</strong></td>
+                                                <td><strong>{{ totalCounted() | currency }}</strong></td>
+                                                <td><strong>{{ totalDifference() | currency }}</strong></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -145,10 +154,21 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let item of salesData">
-                                                <td>{{ item.category }}</td>
-                                                <td>{{ item.saleQty }}</td>
-                                                <td>{{ item.saleSum }}</td>
+                                            <tr *ngFor="let item of categorySummary | keyvalue">
+                                                <td>{{ item.value.product_name}}</td>
+                                                <td>{{ item.value.qty
+                                                    }}({{item.value.price|currency}})</td>
+                                                <td>{{ (item.value.qty * item.value.price) |
+                                                    currency
+                                                    }}</td>
+                                            </tr>
+                                            <tr class="total-border">
+                                                <td colspan="2" style="text-align:center">
+                                                    <strong>Total</strong>
+                                                </td>
+                                                <td>
+                                                    <strong>{{categoryTotal | currency}}</strong>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -210,190 +230,239 @@
 
 <!-- Z Report Section -->
 <!-- <div  class="z-report  print-roll"> -->
-    <div *ngIf="isContentVisible" class="print-roll-bg" (click)="toggleContent()">
-        <div class="z-report  print-roll">
-            <div class="print-table">
-                <div class="border just-row mb-1">
-                    <b>Z Report</b>
-                    <b>{{today}}</b>
+<div *ngIf="isContentVisible" class="print-roll-bg" (click)="toggleContent()">
+    <div class="z-report  print-roll" style="overflow-y: auto;max-height: 95vh;">
+        <div class="print-table">
+            <div class="border just-row mb-1">
+                <b>Z Report</b>
+                <b>{{today}}</b>
+            </div>
+            <div class="mb-1">
+                <div class="border" style="text-align: center;">
+                    <b>SALES AND TAXES SUMMARY</b>
                 </div>
-                <div class="mb-1">
-                    <div class="border" style="text-align: center;">
-                        <b>SALES AND TAXES SUMMARY</b>
-                    </div>
-                    <div class="border">
-                        <div class="just-row">
-                            <span>Total Net Sales</span>
-                            <span>{{formatCurrency(print_totalnetsales)}}</span>
-                        </div>
-                        <div class="just-row">
-                            <span>Tax</span>
-                            <span>{{formatCurrency(print_tax)}}</span>
-                        </div>
+                <div class="border">
+                    <div class="just-row">
+                        <span>Total Net Sales</span>
+                        <span>{{formatCurrency(print_totalnetsales)}}</span>
                     </div>
                     <div class="just-row">
-                        <span><b>Total Sales</b></span>
-                        <span><b>{{formatCurrency(print_totalnetsales+print_tax)}}</b></span>
+                        <span>Tax</span>
+                        <span>{{formatCurrency(print_tax)}}</span>
                     </div>
                 </div>
-
-                <div class="mb-1">
-                    <div><b>SALES CATEGORIES</b></div>
-                    <table style="border: none;" class="print-table">
-                        <thead class="border">
-                            <tr>
-                                <td class="print-table" style="float: left;">Category</td>
-                                <td class="print-table">Quantity</td>
-                                <td class="print-table" style="float: right;">Net Sales</td>
-                            </tr>
-                        </thead>
-                        <tbody class="border">
-                            <tr *ngFor="let product of product_list">
-                                <td class="print-table" style="float: left;">{{ product.category }}</td>
-                                <td class="print-table">({{ product.quantity }})</td>
-                                <td class="print-table" style="float: right;">{{ product.netSales | currency }}</td>
-                            </tr>
-
-                        </tbody>
-                        <tr>
-                            <td class="print-table" style="float: left;"><b>Total Net Sales</b></td>
-                            <td class="print-table"></td>
-                            <td class="print-table" style="float: right;">
-                                <b>{{ formatCurrency(calculateTotalNetSales()) }}</b>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="mb-1">
-                    <div class="border"><b>PAYMENT DETAILS</b></div>
-                    <table style="border: none;" class="print-table">
-                        <!-- <thead class="border">
-                    <tr>
-                        <td class="print-table" style="float: left;">Type</td>
-                        <td class="print-table" style="float: right;">Counted</td>
-                    </tr>
-                </thead> -->
-                        <tbody class="border">
-                            <tr *ngFor="let payment of payments">
-                                <td class="print-table" style="float: left;">{{ payment.type }}</td>
-                                <td class="print-table" style="float: right;">{{formatCurrency(payment.counted) }}</td>
-                            </tr>
-                        </tbody>
-                        <tr>
-                            <td class="print-table" style="float: left;"><b>Total Payments</b></td>
-                            <td class="print-table" style="float: right;">
-                                <b>{{ formatCurrency(calculateTotalCounted()) }}</b>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="mb-1">
-                    <div class="just-row">
-                        <b>Total Payments - Total Sales =</b>
-                        <b>{{formatCurrency(calculateTotalCounted()-print_totalnetsales+print_tax) }}</b>
-                    </div>
-                </div>
-                <div class="mb-1">
-                    <div class="border"><b>SERVER TIPOUTS</b></div>
-                    <table style="border: none;" class="print-table">
-                        <!-- <thead class="border">
-                    <tr>
-                        <td class="print-table" style="float: left;">Type</td>
-                        <td class="print-table" style="float: right;">Counted</td>
-                    </tr>
-                </thead> -->
-                        <tbody class="border">
-                            <tr *ngFor="let payment of serverTipOut">
-                                <td class="print-table" style="float: left;">{{ payment.type }}</td>
-                                <td class="print-table" style="float: right;">{{ formatCurrency(payment.value)
-                                    }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="print-table" style="float: left;font-style: italic;">
-                                    Total Non-Cash Tips and Total Gratuity:
-                                    {{formatCurrency(totalnonecashtipsandGratuity)}}
-                                </td>
-                                <td class="print-table" style="float: right;"></td>
-                            </tr>
-                        </tbody>
-                        <tr>
-                            <td class="print-table" style="float: left;"><b>Total Cash</b></td>
-                            <td class="print-table" style="float: right;">
-                                <b>{{ formatCurrency(calculateTotalCash()+totalnonecashtipsandGratuity) }}</b>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="mb-1">
-                    <div><b>TOTAL DISCOUNTS</b></div>
-                    <table style="border: none;" class="print-table">
-                        <thead class="border">
-                            <tr>
-                                <td class="print-table" style="float: left;">Discount Name</td>
-                                <td class="print-table">Count</td>
-                                <td class="print-table" style="float: right;">Amount</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="print-table" style="float: left;">Rewards Card</td>
-                                <td class="print-table">1</td>
-                                <td class="print-table" style="float: right;">{{ formatCurrency(21.65)
-                                    }}
-                                </td>
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-                </div>
-                <div class="mb-1">
-                    <div><b>CREDIT CARD BREAKDOWN</b></div>
-                    <table style="border: none;" class="print-table">
-                        <thead class="border">
-                            <tr>
-                                <td class="print-table" style="float: left;">Discount Name</td>
-                                <td class="print-table">Count</td>
-                                <td class="print-table" style="float: right;">Amount</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="print-table" style="float: left;">Rewards Card</td>
-                                <td class="print-table">1</td>
-                                <td class="print-table" style="float: right;">{{ formatCurrency(21.65)
-                                    }}
-                                </td>
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-                </div>
-                <div class="mb-1">
-                    <div><b>CREDIT CARD BREAKDOWN</b></div>
-                    <table style="border: none;" class="print-table">
-                        <tbody class="border">
-                            <tr *ngFor="let payment of creditCardBreakdown">
-                                <td class="print-table" style="float: left;">{{payment.type}}</td>
-                                <td class="print-table" style="float: right;">{{ formatCurrency(payment.amount)
-                                    }}
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tr>
-                            <td class="print-table" style="float: left;"><b>Total</b></td>
-                            <td class="print-table" style="float: right;">
-                                <b>{{ formatCurrency(calcTotalCreditCard()) }}</b>
-                            </td>
-                        </tr>
-
-                    </table>
+                <div class="just-row">
+                    <span><b>Total Sales</b></span>
+                    <span><b>{{formatCurrency(print_totalnetsales+print_tax)}}</b></span>
                 </div>
             </div>
 
+
+
+            <div class="mb-1">
+                <div class="border"><b>PAYMENT DETAILS</b></div>
+                <table style="border: none;" class="print-table">
+                    <!-- <thead class="border">
+                    <tr>
+                        <td class="print-table" style="float: left;">Type</td>
+                        <td class="print-table" style="float: right;">Counted</td>
+                    </tr>
+                </thead> -->
+                    <tbody class="border">
+                        <tr *ngFor="let payment of paymentSummary">
+                            <td class="print-table" style="float: left;">{{ payment.type }}</td>
+                            <td class="print-table" style="float: right;">{{formatCurrency(payment.counted) }}</td>
+                        </tr>
+                    </tbody>
+                    <tr>
+                        <td class="print-table" style="float: left;"><b>Total Payments</b></td>
+                        <td class="print-table" style="float: right;">
+                            <b>{{ formatCurrency(totalCounted()) }}</b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="mb-1">
+                <div class="just-row">
+                    <b>Total Payments - Total Sales =</b>
+                    <b>{{formatCurrency(totalCounted()-print_totalnetsales-print_tax) }}</b>
+                </div>
+            </div>
+            <div class="mb-1">
+                <div class="border"><b>SERVER TIPOUTS</b></div>
+                <table style="border: none;" class="print-table">
+                    <tbody>
+                        <!-- <tr *ngFor="let payment of server_tipouts | keyvalue">
+                            <td class="print-table" style="float: left;">{{ payment.type }}</td>
+                            <td class="print-table" style="float: right;">{{ formatCurrency(server_tipouts.value)
+                                }}
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <td class="print-table" style="float: left;">
+                                {{server_tipouts['total_cash_payments'].type}}
+                            </td>
+                            <td class="print-table" style="float: right;">
+                                {{formatCurrency(server_tipouts['total_cash_payments'].amount)}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="print-table" style="float: left;">
+                                {{server_tipouts['cash_adjustments'].type}}
+                            </td>
+                            <td class="print-table" style="float: right;">
+                                {{formatCurrency(server_tipouts['cash_adjustments'].amount)}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="print-table" style="float: left;font-style: italic;">
+                                {{server_tipouts['cash_before_tipouts'].type}}
+                            </td>
+                            <td class="print-table" style="float: right;">
+                                {{formatCurrency(server_tipouts['cash_before_tipouts'].amount)}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="print-table" style="float: left;">
+                                {{server_tipouts['cash_gratuity'].type}}
+                            </td>
+                            <td class="print-table" style="float: right;">
+                                {{formatCurrency(server_tipouts['cash_gratuity'].amount)}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="print-table" style="float: left;">
+                                {{server_tipouts['non_cash_gratuity'].type}}
+                            </td>
+                            <td class="print-table" style="float: right;">
+                                {{formatCurrency(server_tipouts['non_cash_gratuity'].amount)}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="print-table" style="float: left;">
+                                {{server_tipouts['non_cash_tips'].type}}
+                            </td>
+                            <td class="print-table" style="float: right;">
+                                {{formatCurrency(server_tipouts['non_cash_tips'].amount)}}
+                            </td>
+                        </tr>
+                        <tr class="border">
+                            <td class="print-table" style="float: left;font-style: italic;">
+                                {{server_tipouts['total_none_cash_tips_gratuity'].type}}
+                            </td>
+                            <td class="print-table" style="float: right;">
+                                {{formatCurrency(server_tipouts['total_none_cash_tips_gratuity'].amount)}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="print-table" style="float: left;">
+                                <b>{{server_tipouts['total_cash'].type}}</b>
+                            </td>
+                            <td class="print-table" style="float: right;">
+                                <b>{{formatCurrency(server_tipouts['total_cash'].amount)}}</b>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mb-1">
+                <div><b>TOTAL DISCOUNTS</b></div>
+                <table style="border: none;" class="print-table">
+                    <thead class="border">
+                        <tr>
+                            <td class="print-table" style="float: left;">Discount Name</td>
+                            <td class="print-table">Count</td>
+                            <td class="print-table" style="float: right;">Amount</td>
+                        </tr>
+                    </thead>
+                    <tbody class="border">
+                        <tr *ngfor="let discount of total_discount | keyvalue">
+                            <td class="print-table" style="float: left;">{{discount.key.name}}</td>
+                            <td class="print-table">{{discount.key.qty}}</td>
+                            <td class="print-table" style="float: right;">{{formatCurrency(discount.key.value)
+                                }}
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                    <tr>
+                        <td class="print-table colspan-2" style="">
+                            <b>Total</b>
+                        </td>
+                        <td class="print-table"><b>{{total_discount_qty}}</b></td>
+                        <td class="print-table" style="float: right;"><b>{{ formatCurrency(total_discount_value)
+                                }}</b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- <div class="mb-1">
+                <div><b>CREDIT CARD BREAKDOWN</b></div>
+                <table style="border: none;" class="print-table">
+                    <tbody>
+                        <tr>
+                            <td class="print-table" style="float: left;">Rewards Card</td>
+                            <td class="print-table">1</td>
+                            <td class="print-table" style="float: right;">{{ formatCurrency(21.65)
+                                }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> -->
+            <div class="mb-1">
+                <div class="border"><b>CREDIT CARD BREAKDOWN</b></div>
+                <table style="border: none;" class="print-table">
+                    <tbody class="border">
+                        <tr *ngFor="let payment of total_credit | keyvalue">
+                            <ng-container *ngIf="payment.key !== 'cash'">
+                                <td class="print-table" style="float: left;">{{payment.key}}</td>
+                                <td class="print-table" style="float: right;">{{ formatCurrency(payment.value)
+                                    }}
+                                </td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                    <tr>
+                        <td class="print-table" style="float: left;"><b>Total</b></td>
+                        <td class="print-table" style="float: right;">
+                            <b>{{ formatCurrency(total_creditcard_amount) }}</b>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="mb-1">
+                <div><b>SALES CATEGORIES</b></div>
+                <table style="border: none;" class="print-table">
+                    <thead class="border">
+                        <tr>
+                            <td class="print-table" style="float: left;">Category</td>
+                            <td class="print-table">Quantity</td>
+                            <td class="print-table" style="float: right;">Net Sales</td>
+                        </tr>
+                    </thead>
+                    <tbody class="border">
+                        <tr *ngFor="let product of categorySummary | keyvalue">
+                            <td class="print-table" style="float: left;">{{ product.value.product_name }}</td>
+                            <td class="print-table">({{ product.value.category_amount }})</td>
+                            <td class="print-table" style="float: right;">{{
+                                formatCurrency(product.value.price*product.value.category_amount ) }}</td>
+                        </tr>
+
+                    </tbody>
+                    <tr>
+                        <td class="print-table" style="float: left;"><b>Total Net Sales</b></td>
+                        <td class="print-table"></td>
+                        <td class="print-table" style="float: right;">
+                            <b>{{ formatCurrency(categoryTotal) }}</b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
+
     </div>
+</div>
 <!-- </div> -->

@@ -57,4 +57,50 @@ export class CustomerService {
     // Make the API call
     return this.http.get(`${this.config.apiUrl}/sale/fetchpaymenthistory`, { params: httpParams });
   }
+  fetchTodaySale(): Observable<any> {
+    // Make the API call
+    return this.http.get(`${this.config.apiUrl}/sale/fetchtodysale`,);
+  }
+  fetchGroup(): Observable<any> {
+    // Make the API call
+    return this.http.get(`${this.config.apiUrl}/customers/group`,
+      this.config.private_web_address
+    );
+  }
+  //deleteGroup
+  deleteGroup(params: any): Observable<any> {
+    // Make the API call
+    return this.http.delete(`${this.config.apiUrl}/customers/group?_id=${params._id}`);
+  }
+  createGroup(params: any): Observable<any> {
+    // Make the API call
+    const param = {
+      ...params,
+      private_web_address: this.config.private_web_address
+    }
+    console.log('--------------', param);
+    return this.http.post(`${this.config.apiUrl}/customers/group`,
+      param
+    );
+  }
+  updateGroup(params: any): Observable<any> {
+    // Make the API call
+    const param = {
+      ...params,
+      private_web_address: this.config.private_web_address
+    }
+    console.log('--------------', param);
+    return this.http.put(`${this.config.apiUrl}/customers/group`,
+      param
+    );
+  }
+  fetchPaymentType(): Observable<any> {
+    // Make the API call
+    const param = {
+      private_web_address: this.config.private_web_address
+    }
+    return this.http.get(`${this.config.apiUrl}/customers/paymenttype`,
+      { params: param }
+    );
+  }
 }

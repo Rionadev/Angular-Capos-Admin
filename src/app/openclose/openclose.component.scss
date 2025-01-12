@@ -5,7 +5,7 @@
 .card1 {
     background-color: #e5eaed;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    padding: 2rem;
     border-radius: 8px;
     width: 100%;
     display: flex;
@@ -27,7 +27,6 @@
     border: none;
     /* Remove borders from body cells */
 }
-
 
 .table {
     border: none;
@@ -51,7 +50,8 @@ textarea {
     justify-content: space-between;
     display: flex;
 }
-.print-roll-bg{
+
+.print-roll-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -59,6 +59,7 @@ textarea {
     height: 100vh;
     z-index: 1000;
 }
+
 .print-roll {
     // z-index: 100;
     width: 300px;
@@ -68,7 +69,7 @@ textarea {
 }
 
 .z-report {
-    padding: 20px;
+    // padding: 20px;
     /* Add padding for better spacing */
     border: 1px solid #ccc;
     /* Light border for definition */
@@ -112,7 +113,7 @@ textarea {
 .z-report td {
     border: 1px solid #ddd;
     /* Light border for table cells */
-    padding: 8px;
+    // padding: 8px;
     /* Padding inside table cells */
     text-align: left;
     /* Left-align text */
@@ -143,6 +144,6 @@ textarea {
     // margin:0;
 }
 
-.mb-1{
+.mb-1 {
     margin-bottom: 1rem;
 }
