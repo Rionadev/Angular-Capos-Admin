@@ -30,7 +30,7 @@ export class CashmanagementComponent implements OnInit {
     const today = new Date();
     const sevenDaysAgo = new Date(today);
     const OneDayAfer = new Date(today);
-    sevenDaysAgo.setDate(today.getDate() - 1000); // Subtract 7 days
+    sevenDaysAgo.setDate(today.getDate() - 30); // Subtract 7 days
     OneDayAfer.setDate(today.getDate() + 1); // Subtract 7 days
 
     this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago

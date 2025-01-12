@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from 'app/api/salesledger/api.service';
 
 @Component({
   selector: 'app-inventoryreports',
@@ -7,27 +8,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InventoryreportsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private customerService: CustomerService) { }
 
   ngOnInit(): void {
+    this.fetchSearchItems();
   }
+
   searchTerm: string = '';
-    
+
   products = [
-      // Sample product data
-      { product: 'Product A', outlet: 'Outlet 1', currentStock: 50, itemValue: 20, stockValue: 1000, reorderPoint: 10, reorderAmount: 20 },
-      { product: 'Product B', outlet: 'Outlet 2', currentStock: 30, itemValue: 15, stockValue: 450, reorderPoint: 5, reorderAmount: 15 },
-      { product: 'Product C', outlet: 'Outlet 1', currentStock: 20, itemValue: 25, stockValue: 500, reorderPoint: 8, reorderAmount: 10 },
-      // Add more sample data as needed
+    // Sample product data
+    { product: 'Product A', outlet: 'Outlet 1', currentStock: 50, itemValue: 20, stockValue: 1000, reorderPoint: 10, reorderAmount: 20 },
+    { product: 'Product B', outlet: 'Outlet 2', currentStock: 30, itemValue: 15, stockValue: 450, reorderPoint: 5, reorderAmount: 15 },
+    { product: 'Product C', outlet: 'Outlet 1', currentStock: 20, itemValue: 25, stockValue: 500, reorderPoint: 8, reorderAmount: 10 },
+    // Add more sample data as needed
   ];
 
   filteredProducts = [...this.products];
 
   searchProducts() {
-      this.filteredProducts = this.products.filter(item => {
-          const productMatch = item.product.toLowerCase().includes(this.searchTerm.toLowerCase());
-          const outletMatch = item.outlet.toLowerCase().includes(this.searchTerm.toLowerCase());
-          return productMatch || outletMatch;
-      });
+    this.filteredProducts = this.products.filter(item => {
+      const productMatch = item.product.toLowerCase().includes(this.searchTerm.toLowerCase());
+      const outletMatch = item.outlet.toLowerCase().includes(this.searchTerm.toLowerCase());
+      return productMatch || outletMatch;
+    });
+  }
+  fetchSearchItems() {
+    this.customerService.fetchProducts().subscribe(
+      (res) => {
+        this.products = res;
+        this.filteredProducts = [...this.products];
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
   }
 }

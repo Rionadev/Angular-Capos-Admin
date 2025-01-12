@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from 'app/api/salesledger/api.service';
 
 @Component({
   selector: 'app-storecreditreports',
@@ -7,35 +8,50 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StorecreditreportsComponent implements OnInit {
 
-  customers = [
-    { name: 'John Doe', email: 'john@example.com', totalIssued: 500, totalRedeemed: 300, balance: 200 },
-    { name: 'Jane Smith', email: 'jane@example.com', totalIssued: 700, totalRedeemed: 400, balance: 300 },
-    { name: 'Alice Johnson', email: 'alice@example.com', totalIssued: 600, totalRedeemed: 600, balance: 0 },
-    // Add more customer data as needed
-  ];
-
-  constructor() { }
+  customers: any = [];
+  searchTerm: string = '';
+  filteredCustomers: any = [];
+  constructor(private customerService: CustomerService) { }
 
   ngOnInit(): void {
+    this.fetchSearchItems();
+
+  }
+  fetchSearchItems() {
+
+    this.customerService.fetchCumtomerData().subscribe(
+      (res) => {
+        this.customers = res;
+        this.filteredCustomers = res;
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
   }
 
-
-  searchTerm: string = '';
-  filteredCustomers = [...this.customers];
 
   // Method to search customers based on the search term
   searchCustomers(): void {
     if (this.searchTerm) {
       this.filteredCustomers = this.customers.filter(customer =>
-        customer.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+        customer.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        customer.email.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     } else {
-      this.filteredCustomers = [...this.customers];
+      this.filteredCustomers = this.customers; // Reset to original customers
     }
   }
 
   // Method to calculate totals for the specified field
-  getTotal(field: string): number {
-    return this.filteredCustomers.reduce((sum, customer) => sum + customer[field], 0);
+  getTotal(field: any): number {
+    if (this.filteredCustomers.length == 0) return;
+
+    return this.filteredCustomers.reduce((sum, customer) => {
+      return sum + (customer[field] || 0); // Ensure to handle undefined fields
+    }, 0);
   }
+
+
 }

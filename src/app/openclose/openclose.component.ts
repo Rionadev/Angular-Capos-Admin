@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { CustomerService } from 'app/api/salesledger/api.service';
 import { quantity } from 'chartist';
 interface Product {
   id: number;
@@ -13,58 +14,41 @@ interface Product {
   styleUrls: ['./openclose.component.scss']
 })
 export class OpencloseComponent implements OnInit {
-  print_totalnetsales = 2434.24;
-  print_tax = 147.85;
+  print_totalnetsales = 0;
+  print_tax = 0;
   today: string;
   summary_subtotal = 0;
   summary_hst = 0;
   summary_total = 0;
-  product_list = [
-    { category: 'Bottled Beer Sales', quantity: 22, netSales: 243.23 },
-    { category: 'Craft Beer Sales', quantity: 15, netSales: 180.50 },
-    { category: 'Cider Sales', quantity: 10, netSales: 120.75 },
-    { category: 'Wine Sales', quantity: 18, netSales: 300.00 },
-    { category: 'Spirits Sales', quantity: 25, netSales: 450.00 },
-  ];
-  payments = [
-    { type: 'Cash', expected: 178, counted: 45.6, difference: 0 },
-    { type: 'Credit Card', expected: 178, counted: 25.43, difference: 0 },
-    { type: 'Debit Card', expected: 178, counted: 345.86, difference: 0 },
-    { type: 'Store Credit', expected: 178, counted: 1124.7, difference: 0 },
-    { type: 'Refunds', expected: 178, counted: 156.45, difference: 0 },
-    { type: 'Voided', expected: 345, counted: 453.3, difference: 0 },
-    { type: 'Penny', expected: 252, counted: 324.6, difference: 0 },
-  ];
-  serverTipOut = [
-    { type: 'Total Cash Payments', value: 45.6 },
-    { type: 'Cash Adjustments', value: 37.52 },
-    { type: 'Cash before Tipouts', value: 569.58 },
-    { type: 'Cash Gratuity', value: 0 },
-    { type: 'Credit/Non-Cash Gratuity', value: 0 },
-    { type: 'Credit/Non-Cash tips', value: -366.79 },
-  ];
+  categorySummary = [];
+  categoryTotal = 0;
+  total_discount = [];
+  total_discount_value = 0;
+  total_discount_qty = 0;
+  total_credit = [];
+  total_creditcard_amount = 0;
+
+  server_tipouts = {
+    'total_cash_payments': { type: 'Total Cash Payments', amount: 0 },
+    'cash_adjustments': { type: 'Cash Adjustments', amount: 0 },
+    'cash_before_tipouts': { type: 'Cash before Tipouts', amount: 0 },
+    'cash_gratuity': { type: 'Cash Gratuity', amount: 0 },
+    'non_cash_gratuity': { type: 'Credit/Non-Cash gratuity', amount: 0 },
+    'non_cash_tips': { type: 'Credit/Non-Cash tips', amount: 0 },
+    'total_none_cash_tips_gratuity': { type: 'Total Non-Cash Tips and Total Gratuity', amount: 0 },
+    'total_cash': { type: 'Total Cash', amount: 0 }
+  };
+  paymentSummary = [];
+
   totalnonecashtipsandGratuity = -366.79;
-  salesData = [
-    { category: 'Test Product', saleQty: 0, saleSum: 0 },
-    { category: 'Accessories', saleQty: 0, saleSum: 0 },
-    { category: 'Bulk Wire', saleQty: 0, saleSum: 0 },
-    { category: 'Racks & Cabinets', saleQty: 0, saleSum: 0 },
-    { category: 'Cables', saleQty: 6, saleSum: 464.10 },
-    { category: 'Belmont', saleQty: 0, saleSum: 0 },
-    { category: 'Test W', saleQty: 0, saleSum: 0 }
-  ];
-  creditCardBreakdown = [
-    {type:'Amex', amount:263.01},
-    {type:'Mastercard', amount:624.24},
-    {type:'Visa', amount:1527.51},
-  ];
+
   date_s = new Date();
   formtted_date = this.date_s.toISOString().slice(0, 19).replace('T', '');
 
-  reg_outlet: string = 'Main Outlet';
-  reg_register: string = 'Main Register';
-  reg_id: number = 1662059421489;
-  reg_openingTime = this.formtted_date;
+  reg_outlet: string = this.config.outlet_name;
+  reg_register: string = this.config.register_name;
+  reg_id = this.config.register;
+  reg_openingTime = '';
   showZReport = false; // To control visibility of the Z Report
 
   rows: Product[] = [];
@@ -75,11 +59,13 @@ export class OpencloseComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
-  constructor() {
+  constructor(@Inject('APP_CONFIG') private config: any, private customerService: CustomerService) {
     const currentDate = new Date();
     this.today = currentDate.toLocaleDateString(); // Default format (MM/DD/YYYY)
   }
   ngOnInit() {
+    this.fetchSearchItems();
+
     // Load initial data
     this.rows = [
       { id: 1, name: 'Product 1', description: 'Description 1', product: 'Product A' },
@@ -91,21 +77,147 @@ export class OpencloseComponent implements OnInit {
       // Add more products as needed
     ];
   }
+  roundToTwo(num) {
+    return Math.round(num * 100) / 100;
+  }
+  fetchSearchItems() {
+    this.categorySummary = [];
+    this.categoryTotal = 0;
+    this.print_totalnetsales = 0;
+    this.print_tax = 0;
+    this.paymentSummary = []; // Initialize as an array
+    let index = 0;
+    this.total_creditcard_amount = 0;
+    this.total_discount_value = 0;
+    this.total_discount_qty = 0;
+
+    this.customerService.fetchTodaySale().subscribe(
+      (res) => {
+        //set time///////////////////
+        const startDate = new Date(res.start);
+        const endDate = new Date(res.end);
+
+        this.reg_openingTime = `${startDate.toLocaleString('en-US')} ~ ${endDate.toLocaleString('en-US')}`;
+        // this.reg_openingTime = `${startDate}~${endDate}`;
+        ////////////////////////////////////
+        const groupedSales = res.data.reduce((acc, item) => {
+
+          this.print_tax += item.tax * 1;
+          this.print_totalnetsales += item.subtotal * 1;
+
+          //Server Tipsouts
+          if (item.payments && item.payments.length > 0) {
+            item.payments.forEach(element => {
+              //credit card breakdown
+
+              //server tipouts
+              if (element.type === 'cash') {
+                // Update total cash payments
+                this.server_tipouts['total_cash_payments'].amount = this.roundToTwo(
+                  this.server_tipouts['total_cash_payments'].amount + element.amount
+                );
+              } else {
+                this.total_creditcard_amount = this.roundToTwo(this.total_creditcard_amount + element.amount);
+              }
+              // else {
+              // Handle non-cash payments
+              if (!this.total_credit[element.type]) {
+                this.total_credit[element.type] = 0;
+              }
+              // console.log(`index:${index++}=${element.type}:${element.amount}`);
+              this.total_credit[element.type] = this.roundToTwo(
+                this.total_credit[element.type] + element.amount
+              );
+
+              // }
+            });
+          }
+          if (item.products && item.products.length > 0) {
+            item.products.forEach(el => {
+              // console.log('--------------', el.discount.mode, el.discount.value);
+              if (el.discount.value != 0 && el.discount.mode == 'percent') {
+                this.server_tipouts['cash_adjustments'].amount += el.price * el.qty * el.discount.value / 100;
+                if (!this.total_discount[el._id]) {
+                  this.total_discount[el._id] = {
+                    name: el.product_name,
+                    value: 0, //el.price,
+                    qty: 0, //el.qty,
+                    // discount: el.discount.value,
+                  };
+                }
+                this.total_discount[el._id].qty += el.qty;
+                this.total_discount[el._id].value += el.price * el.qty * el.discount.value / 100;
+                this.total_discount_value += el.price * el.qty * el.discount.value / 100;
+                this.total_discount_qty += el.qty;
+              }
+              //category
+              if (!this.categorySummary[el._id]) {
+                this.categorySummary[el._id] = {
+                  ...el,
+                  category_amount: 0
+                };
+              }
+              this.categorySummary[el._id].category_amount += el.qty;
+              this.categoryTotal += el.price;
+            });
+          }
+          this.server_tipouts['cash_gratuity'].amount += item.cash_tip;
+          this.server_tipouts['non_cash_gratuity'].amount += item.tip;
+          // if (item.payment_status == 'cash') {
+          //   if (item.voided == true || item.returned == true) {
+          //     this.server_tipouts['cash_adjustments'].amount += item.total_paid;
+          //   }
+          // }
+
+          //payments
+          let paymentType = acc[item.payment_status];
+
+          if (!paymentType) {
+            paymentType = {
+              type: item.payment_status,
+              expected: 0,
+              counted: 0,
+              differences: 0
+            };
+            acc[item.payment_status] = paymentType;
+            this.paymentSummary.push(paymentType); // Push to paymentSummary
+          }
+
+          // Update expected and counted amounts
+          paymentType.expected = this.roundToTwo(paymentType.expected + item.total);
+          paymentType.counted = this.roundToTwo(paymentType.counted + item.total_paid);
+          paymentType.differences = paymentType.expected - paymentType.counted;
+
+
+          this.calc_server_tipsouts();
+
+          return acc;
+        }, {});
+
+        console.log(this.total_discount);
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+  }
+  calc_server_tipsouts() {
+    this.server_tipouts['cash_before_tipouts'].amount = this.server_tipouts['total_cash_payments'].amount - this.server_tipouts['cash_adjustments'].amount;
+
+    this.server_tipouts['total_none_cash_tips_gratuity'].amount = this.server_tipouts['non_cash_gratuity'].amount + this.server_tipouts['non_cash_tips'].amount;
+
+    this.server_tipouts['total_cash'].amount = this.server_tipouts['total_cash_payments'].amount + this.server_tipouts['cash_adjustments'].amount + this.server_tipouts['cash_gratuity'].amount + this.server_tipouts['non_cash_gratuity'].amount + this.server_tipouts['non_cash_tips'].amount;
+
+  }
   formatCurrency(total: number): string {
     return `$${total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
   }
-  calculateTotalCounted(): any {
-    return this.payments.reduce((total, payment) => total + payment.counted, 0);
-  }
-  calculateTotalCash(): any {
-    return this.serverTipOut.reduce((total, payment) => total + payment.value, 0);
-  }
-  calcTotalCreditCard():number{
-    return this.creditCardBreakdown.reduce((total, payment) => total + payment.amount, 0);
-  }
+
+
   toggleContent() {
     this.isContentVisible = !this.isContentVisible;
-    if(this.isContentVisible){    this.closeRegister();}
+    if (this.isContentVisible) { this.closeRegister(); }
   }
 
   openEditModal(row: Product) {
@@ -113,52 +225,22 @@ export class OpencloseComponent implements OnInit {
     // $('#editModal').show();
   }
 
-  editRow(row: any) {
-    // Set the row to editing mode
-    row.isEditing = true;
-  }
 
-  saveRow(row: any) {
-    // Save changes (you can add your save logic here)
-    row.isEditing = false; // Exit editing mode
-  }
-
-  cancelEdit(row: any) {
-    // Reset the row to its original state
-    // Here we would typically reload the original data from a service or store
-    row.isEditing = false; // Exit editing mode
-  }
-
-  deleteRow(id: number) {
-    // Logic to delete the row
-    this.paginatedRows = this.paginatedRows.filter(row => row.id !== id);
-  }
-
-  calculateDifferences() {
-    this.payments.forEach(payment => {
-      payment.difference = payment.expected - payment.counted;
-    });
-  }
-
-  totalExpected(): number {
-    return this.payments.reduce((total, payment) => total + payment.expected, 0);
-  }
-
-  totalCounted(): number {
-    return this.payments.reduce((total, payment) => total + payment.counted, 0);
-  }
-  calculateTotalNetSales(): any {
-    return (this.product_list.reduce((total, product) => total + product.netSales, 0));
-  }
-  totalDifference(): number {
-    return this.payments.reduce((total, payment) => total + payment.difference, 0);
-  }
   closeRegister() {
     this.showZReport = true; // Show Z Report
-    this.calculateDifferences(); // Ensure differences are calculated
     this.printZReport(); // Optionally, print immediately
   }
+  totalExpected() {
+    return this.paymentSummary.reduce((sum, payment) => sum + payment.expected, 0);
+  }
 
+  totalCounted() {
+    return this.paymentSummary.reduce((sum, payment) => sum + payment.counted, 0);
+  }
+
+  totalDifference() {
+    return this.paymentSummary.reduce((sum, payment) => sum + payment.differences, 0);
+  }
   printZReport() {
     setTimeout(() => {
       window.print(); // Print the current window

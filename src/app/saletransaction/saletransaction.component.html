@@ -6,54 +6,50 @@
                 <div class="card margin-bottom-10">
                     <div class="content add-content"
                         style="display: flex; justify-content: space-between; align-items: center;">
-                        <!-- Search Bar -->
-
                         <div style="flex-grow: 1; display: flex; justify-content: space-between;">
                             <div class="col-md-2">
                                 <label>Customer:</label>
-                                <select [(ngModel)]="selectedCustomer" class="form-control" name="customer">
-                                    <option value="" disabled selected>Select Customer</option>
-                                    <option value="new@gmail.com">New Customer (new@gmail.com)</option>
-                                    <option value="test@gmail.com">Test Customer (test@gmail.com)</option>
-                                    <option value="saboor@gmail.com">Abdul Saboor (saboor@gmail.com)</option>
+                                <select [(ngModel)]="selectedCustomer" class="form-control" name="customer"
+                                    (change)="searchTransactions()">
+                                    <option *ngFor="let customer of customers" [value]="customer.value">
+                                        {{ customer.label }}
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <label>User:</label>
-                                <select [(ngModel)]="selectedUser" class="form-control" name="user">
-                                    <option value="" disabled selected>Select User</option>
-                                    <option value="A saboor">A Saboor</option>
-                                    <option value="Cashier one">Cashier One</option>
-                                    <option value="Manager admin">Manager Admin</option>
+                                <select [(ngModel)]="selectedUser" class="form-control" name="user"
+                                    (change)="searchTransactions()">
+                                    <option *ngFor="let el of users" [value]="el.value">
+                                        {{ el.label }}
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <label>Status:</label>
-                                <select [(ngModel)]="selectedStatus" class="form-control" name="status">
-                                    <option value="" disabled selected>Select Status</option>
-                                    <option value="On Account">On Account</option>
-                                    <option value="Completed">Completed</option>
-                                    <option value="LayBy.completed">LayBy Completed</option>
-                                    <option value="On Account.completed">On Account Completed</option>
-                                    <option value="Delivery.completed">Delivery Completed</option>
-                                    <option value="Pickup.completed">Pickup Completed</option>
-                                    <option value="Return.completed">Return Completed</option>
+                                <select [(ngModel)]="selectedStatus" class="form-control" name="status"
+                                    (change)="searchTransactions()">
+                                    <option *ngFor="let el of sale_status" [value]="el.value">
+                                        {{ el.label }}
+                                    </option>
                                 </select>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <label>Period of Created At:</label>
-                                <input type="date" [(ngModel)]="selectedDate" class="form-control" name="createdAt" />
+                                <span style="display: flex;">
+                                    <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
+                                        (change)="fetchSearchItems()" name="createdFrom" />
+                                    <input type="date" [(ngModel)]="selectedDateTo" class="form-control"
+                                        (change)="fetchSearchItems()" name="createdTo" />
+                                </span>
                             </div>
-                            <div class="col-md-2 d-flex align-items-center">
-                                <button class="btn btn-sm btn-info btn-fill"
-                                    (click)="searchTransactions()">Search</button>
-                                <button class="btn btn-sm btn-danger btn-fill ml-2" (click)="clearFilters()">Clear
+                            <div class=" d-flex align-items-center" style="display: flex;">
+                                <!-- <button class="btn btn-sm btn-info btn-fill"
+                                    (click)="searchTransactions()">Search</button> -->
+                                <button class="btn btn-sm btn-danger btn-fill " (click)="clearFilters()">Clear
                                     Filters</button>
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
 
@@ -76,9 +72,25 @@
                                 <tr *ngFor="let transaction of filteredTransactions">
                                     <td>{{ transaction.date }}</td>
                                     <td>{{ transaction.receipt }}</td>
-                                    <td>{{ transaction.user }}</td>
+                                    <td>
+                                        <span style="display: grid;text-align: center;">
+                                            <span>
+                                                {{ transaction.user_name }}
+                                            </span>
+                                            <span style="font-size: small;color: rgb(117, 117, 117);">
+                                                {{ transaction.user_email }}
+                                            </span>
+                                        </span>
+                                    </td>
                                     <td>{{ transaction.register }}</td>
-                                    <td>{{ transaction.customer }}</td>
+                                    <td> <span style="display: grid;text-align: center;">
+                                            <span>
+                                                {{ transaction.customer_name }}
+                                            </span>
+                                            <span style="font-size: small;color: rgb(117, 117, 117);">
+                                                {{ transaction.customer_email }}
+                                            </span>
+                                        </span></td>
                                     <td>{{ transaction.status }}</td>
                                     <td>{{ transaction.total | currency }}</td>
                                 </tr>

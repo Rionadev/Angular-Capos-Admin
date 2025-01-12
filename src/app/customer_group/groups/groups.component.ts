@@ -1,201 +1,357 @@
-import { Component, OnInit } from '@angular/core';
-interface PointRates {
-  cash: number;
-  creditCard: number;
-  Visa: number;
-  Master: number;
-  Amex: number;
-  Discover: number;
-  Diners: number;
-  Jcb: number;
-  Dbit: number;
-  Gift: number;
-  Rewards: number;
-  Others: number;
-  Other2: number;
-  FoodStamp: number;
-  Check: number;
-  EBT_Cash: number;
-  ChargeAccount: number;
-}
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { CustomerService } from 'app/api/salesledger/api.service';
 
-interface PointRate {
-  name: string;
-  limit: number;
-  rates: PointRates;
-  isEditing?: boolean; // Optional property to track editing state
-}
+
 @Component({
   selector: 'app-groups',
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.scss']
 })
 export class GroupsComponent implements OnInit {
-
-  constructor() { }
-
+  @ViewChild('editDialog') editDialog!: ElementRef;
+  constructor(@Inject('APP_CONFIG') private config: any, private customerService: CustomerService) { }
+  isEdit = false;
+  isDel = false;
+  group_data: any;
   ngOnInit(): void {
+    this.fetchSearchItems();
   }
-  pointRates: PointRate[] = [
-    {
-      name: 'Example Rate 1',
-      limit: 100,
-      rates: {
-        cash: 10,
-        creditCard: 20,
-        Visa: 15,
-        Master: 25,
-        Amex: 5,
-        Discover: 10,
-        Diners: 0,
-        Jcb: 0,
-        Dbit: 0,
-        Gift: 0,
-        Rewards: 0,
-        Others: 0,
-        Other2: 0,
-        FoodStamp: 0,
-        Check: 0,
-        EBT_Cash: 0,
-        ChargeAccount: 0,
-      },
-      isEditing: false
+  newPointRates: any = {
+    name: '',
+    limit: 0,
+    point_rates: [{
+      payment: 'Cash',
+      rate: 0
     },
     {
-      name: 'Example Rate 2',
-      limit: 200,
-      rates: {
-        cash: 15,
-        creditCard: 25,
-        Visa: 20,
-        Master: 30,
-        Amex: 10,
-        Discover: 5,
-        Diners: 1,
-        Jcb: 2,
-        Dbit: 3,
-        Gift: 4,
-        Rewards: 3,
-        Others: 1,
-        Other2: 0,
-        FoodStamp: 0,
-        Check: 0,
-        EBT_Cash: 0,
-        ChargeAccount: 0,
-      },
-      isEditing: false
+      payment: 'Credit Card',
+      rate: 0
     },
     {
-      name: 'Example Rate 3',
-      limit: 150,
-      rates: {
-        cash: 5,
-        creditCard: 15,
-        Visa: 25,
-        Master: 10,
-        Amex: 5,
-        Discover: 10,
-        Diners: 0,
-        Jcb: 0,
-        Dbit: 0,
-        Gift: 0,
-        Rewards: 0,
-        Others: 0,
-        Other2: 0,
-        FoodStamp: 0,
-        Check: 0,
-        EBT_Cash: 0,
-        ChargeAccount: 0,
-      },
-      isEditing: false
+      payment: 'Visa',
+      rate: 0
     },
     {
-      name: 'Example Rate 4',
-      limit: 300,
-      rates: {
-        cash: 30,
-        creditCard: 40,
-        Visa: 35,
-        Master: 20,
-        Amex: 15,
-        Discover: 10,
-        Diners: 5,
-        Jcb: 0,
-        Dbit: 0,
-        Gift: 0,
-        Rewards: 0,
-        Others: 0,
-        Other2: 0,
-        FoodStamp: 0,
-        Check: 0,
-        EBT_Cash: 0,
-        ChargeAccount: 0,
-      },
-      isEditing: false
+      payment: 'Master',
+      rate: 0
     },
     {
-      name: 'Example Rate 5',
-      limit: 250,
-      rates: {
-        cash: 20,
-        creditCard: 30,
-        Visa: 25,
-        Master: 35,
-        Amex: 10,
-        Discover: 15,
-        Diners: 0,
-        Jcb: 0,
-        Dbit: 0,
-        Gift: 0,
-        Rewards: 0,
-        Others: 0,
-        Other2: 0,
-        FoodStamp: 0,
-        Check: 0,
-        EBT_Cash: 0,
-        ChargeAccount: 0,
+      payment: 'Amex',
+      rate: 0
+    },
+    {
+      payment: 'Discover',
+      rate: 0
+    },
+    {
+      payment: 'Diners',
+      rate: 0
+    },
+    {
+      payment: 'Jcb',
+      rate: 0
+    },
+    {
+      payment: 'Debit',
+      rate: 0
+    }, {
+      payment: 'Gift',
+      rate: 0
+    }, {
+      payment: 'Debit',
+      rate: 0
+    }, {
+      payment: 'Rewards',
+      rate: 0
+    }, {
+      payment: 'Others',
+      rate: 0
+    }, {
+      payment: 'Other2',
+      rate: 0
+    }, {
+      payment: 'FoodStamp',
+      rate: 0
+    }, {
+      payment: 'Check',
+      rate: 0
+    }, {
+      payment: 'EBT Cash',
+      rate: 0
+    }, {
+      payment: 'ChargeAccount',
+      rate: 0
+    },]
+  };
+  selPointRates: any =
+    {
+      id: '',
+      name: '',
+      limit: 0,
+      point_rates: [{
+        payment: 'Cash',
+        rate: 0
       },
-      isEditing: false
-    }
-    // You can add more PointRates as needed
-  ];
+      {
+        payment: 'Credit Card',
+        rate: 0
+      },
+      {
+        payment: 'Visa',
+        rate: 0
+      },
+      {
+        payment: 'Master',
+        rate: 0
+      },
+      {
+        payment: 'Amex',
+        rate: 0
+      },
+      {
+        payment: 'Discover',
+        rate: 0
+      },
+      {
+        payment: 'Diners',
+        rate: 0
+      },
+      {
+        payment: 'Jcb',
+        rate: 0
+      },
+      {
+        payment: 'Debit',
+        rate: 0
+      }, {
+        payment: 'Gift',
+        rate: 0
+      }, {
+        payment: 'Debit',
+        rate: 0
+      }, {
+        payment: 'Rewards',
+        rate: 0
+      }, {
+        payment: 'Others',
+        rate: 0
+      }, {
+        payment: 'Other2',
+        rate: 0
+      }, {
+        payment: 'FoodStamp',
+        rate: 0
+      }, {
+        payment: 'Check',
+        rate: 0
+      }, {
+        payment: 'EBT Cash',
+        rate: 0
+      }, {
+        payment: 'ChargeAccount',
+        rate: 0
+      },]
+    };
 
   isEditing = false; // Controls the visibility of the edit modal
+  isNoneViewing = true;
   editingPointRate: any; // Holds the point rate being edited
+  stringToObject(rate_obj: any) {
+    console.log(rate_obj);
+    if (rate_obj.length > 0 || rate_obj == null) {
+      // console.log(JSON.parse(rate_obj[0].payment));
+      if (rate_obj[0].payment == '') {
+        return null;
+      } else {
+        return JSON.parse(rate_obj[0].payment);
+      }
 
-  editPointRate(pointRate: PointRate): void {
-    pointRate.isEditing = true;
+    } else {
+      return null;
+    }
   }
 
-  savePointRate(pointRate: PointRate): void {
-    pointRate.isEditing = false;
+  fetchSearchItems() {
+    this.group_data = [];
+    this.customerService.fetchPaymentType().subscribe(
+      (res) => {
+        // console.log(this.selPointRates);
+        // console.log(res.payments)
+        if (res?.payments) {
+          if (Object.keys(res.payments).length > 0) {
+            console.log(res.payments);
+            let paymentlist = [];
+            // Your logic here for when paymentsratelist has keys
+            res.payments.forEach(element => {
+              paymentlist.push({
+                payment: element,
+                rate: 0
+              });
+            });
+            this.selPointRates['point_rates'] = paymentlist;
+            this.newPointRates['point_rates'] = paymentlist;
+          }
+        }
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+    this.customerService.fetchGroup().subscribe(
+      (res) => {
+        res.forEach(element => {
+          this.group_data.push(
+            {
+              limit: element.limit,
+              name: element.name,
+              id: element._id,
+              point_rates: element.point_rates,
+            }
+          )
+        });
+        console.log(this.group_data);
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+  }
+  createPointRate(): void {
+    this.selPointRates = this.newPointRates;
+    this.isEdit = true;
+
+  }
+  checkPointItems(pointRate: any): boolean {
+    let emptyflag = true;
+    if (pointRate.name == '' && pointRate.limit == 0) {
+
+    } else {
+      emptyflag = false;
+    }
+    return emptyflag;
+  }
+  editPointRate(pointRate: any): void {
+    this.selPointRates = pointRate;
+    this.isEdit = true;
   }
 
-  cancelEdit(pointRate: PointRate): void {
-    pointRate.isEditing = false;
+  savePointRate(pointRate: any): void {
+    const flag = this.checkPointItems(pointRate);
+    // Use flag if needed for additional logic
+    if (flag) return;
+
+    // Initialize variables for average rate and payment type
+    let averageRate = 0;
+    let paymentType = '';
+
+    // Check if point rates exist
+    if (!pointRate.point_rates || pointRate.point_rates.length === 0) {
+      console.error('No point rates available to calculate average.');
+      return; // Exit if no rates
+    }
+
+    // Convert point rates to an array of objects
+    const pointRatesArray = pointRate.point_rates.map(rate => ({
+      payment: rate.payment,
+      rate: Number(rate.rate) || 0 // Ensure rate is a number
+    }));
+
+    // Calculate the average rate
+    const totalRate = pointRatesArray.reduce((sum, { rate }) => sum + rate, 0);
+    averageRate = totalRate / pointRatesArray.length;
+
+    // Prepare parameters for the service call
+    const params = {
+      name: pointRate.name,
+      point_rates: pointRatesArray, // Use the array directly
+      limit: pointRate.limit,
+    };
+
+    console.log('Average Rate:', averageRate);
+    console.log('Parameters:', params);
+
+    // Call the service to save the data
+    if (pointRate.id) {
+      const paramsWithId = { ...params, _id: pointRate.id };
+      this.customerService.updateGroup(paramsWithId).subscribe(
+        (res) => {
+          this.fetchSearchItems(); // Fetch updated items
+          this.isEdit = false; // Reset edit state
+        },
+        (error) => {
+          console.error('Error updating customer data:', error);
+          // Handle the error as needed
+        }
+      );
+    } else {
+      this.customerService.createGroup(params).subscribe(
+        (res) => {
+          this.fetchSearchItems(); // Fetch updated items
+          this.isEdit = false; // Reset edit state
+        },
+        (error) => {
+          console.error('Error creating customer data:', error);
+          // Handle the error as needed
+        }
+      );
+    }
   }
+
+
+
+  cancelEdit(pointRate: any): void {
+    this.isEdit = false;
+  }
+
   deletePointRate(pointRate: any) {
-    this.pointRates = this.pointRates.filter(pr => pr !== pointRate); // Remove the point rate from the array
-  }
-  calculateAverage(rates: PointRates): number {
-    const total = Object.values(rates).reduce((acc, rate) => acc + rate, 0);
-    const count = Object.keys(rates).length;
-    return total / count;
+    console.log(pointRate.id)
+    this.customerService.deleteGroup({
+      _id: pointRate.id
+    }).subscribe(
+      (res) => {
+        // Fetch updated items and reset edit state
+        this.fetchSearchItems();
+        this.isEdit = false;
+        this.isDel = false;
+
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
   }
 
-  isAnyEditing(): boolean {
-    return this.pointRates.some(rate => rate.isEditing);
-  }
-  isDialogOpen: boolean = false;
+  calculateAverage(rates: any[]): string {
+    if (!rates || rates.length === 0) return '';
 
-  // Method to open the dialog
-  openReceiveDialog() {
-    this.isDialogOpen = true;
+    // Calculate the total rate
+    const totalRate = rates.reduce((sum, item) => sum + item.rate, 0);
+
+    // Calculate the number of entries
+    const numberOfEntries = rates.length;
+
+    // Calculate the average
+    const averageRate = totalRate / numberOfEntries;
+
+    // Return the average rate formatted to two decimal places
+    return averageRate.toFixed(2);
   }
 
-  // Method to close the dialog
-  closeReceiveDialog() {
-    this.isDialogOpen = false;
+  closeDialog() {
+    // Logic to close the dialog
+    this.isEdit = false;
+
+  }
+  delconfirm(pointdata: any) {
+    this.selPointRates = pointdata;
+    this.isDel = true;
+  }
+
+  cancelDel() {
+    this.isDel = false;
   }
 
 }

@@ -41,4 +41,98 @@ export class CustomerService {
     // Make the API call
     return this.http.get(`${this.config.apiUrl}/sale/sales_ledger`, { params: httpParams });
   }
+  fetchProducts(): Observable<any> {
+    // Make the API call
+    return this.http.get(`${this.config.apiUrl}/product/fetchproduct`,);
+  }
+  fetchPaymentHistory(params: any): Observable<any> {
+    let httpParams = new HttpParams();
+
+    // Build HttpParams from the provided params object
+    Object.keys(params).forEach(key => {
+      if (params[key] !== undefined && params[key] !== null) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    });
+    // Make the API call
+    return this.http.get(`${this.config.apiUrl}/sale/fetchpaymenthistory`, { params: httpParams });
+  }
+  fetchTodaySale(): Observable<any> {
+    // Make the API call
+    return this.http.get(`${this.config.apiUrl}/sale/fetchtodysale`,);
+  }
+  fetchCoutries() {
+    return this.http.get(`${this.config.apiUrl}/util/countries`);
+  }
+  fetchGroup(): Observable<any> {
+    // Make the API call
+    return this.http.get(`${this.config.apiUrl}/customers/group`,
+      this.config.private_web_address
+    );
+  }
+  //deleteGroup
+  deleteGroup(params: any): Observable<any> {
+    // Make the API call
+    return this.http.delete(`${this.config.apiUrl}/customers/group?_id=${params._id}`);
+  }
+  createGroup(params: any): Observable<any> {
+    // Make the API call
+    const param = {
+      ...params,
+      private_web_address: this.config.private_web_address
+    }
+    console.log('--------------', param);
+    return this.http.post(`${this.config.apiUrl}/customers/group`,
+      param
+    );
+  }
+  updateGroup(params: any): Observable<any> {
+    // Make the API call
+    const param = {
+      ...params,
+      private_web_address: this.config.private_web_address
+    }
+    console.log('--------------', param);
+    return this.http.put(`${this.config.apiUrl}/customers/group`,
+      param
+    );
+  }
+  fetchPaymentType(): Observable<any> {
+    // Make the API call
+    let params = new HttpParams()
+      .set('private_web_address', this.config.private_web_address)
+    return this.http.get(`${this.config.apiUrl}/customers/paymenttype`,
+      { params }
+    );
+  }
+
+  //customer page
+  fetchCumtomerData() {
+    let params = new HttpParams()
+      .set('range', 'all-factor')
+      .set('private_web_address', this.config.private_web_address)
+    return this.http.get(`${this.config.apiUrl}/customers/customer`,
+      { params }
+    );
+  }
+  delCumtomerData(id: any) {
+    console.log(id);
+    return this.http.delete(`${this.config.apiUrl}/customers/customer/?_id=${id}`);
+  }
+
+  saveCumtomerData(params: any) {
+    params = {
+      ...params,
+      private_web_address: this.config.private_web_address
+    }
+    if (params._id) {
+      return this.http.put(`${this.config.apiUrl}/customers/customer`,
+        params
+      );
+    } else {
+      return this.http.post(`${this.config.apiUrl}/customers/customer`,
+        params
+      );
+    }
+  }
 }

@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from 'app/api/salesledger/api.service';
 
 @Component({
   selector: 'app-salesreports',
@@ -6,25 +8,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./salesreports.component.scss']
 })
 export class SalesreportsComponent implements OnInit {
+  [x: string]: any;
 
-  startDate: string = '';
-  endDate: string = '';
+  selectedDateFrom: string = '';
+  selectedDateTo: string = '';
+  transactionsByDate: any = [];
+  totalByDate: any = [];
+  reportsData: any = [];
+  total_reportData: any = [];
 
   ngOnInit(): void {
+    this.setDateFromTo();
+    this.fetchSearchItems();
+
   }
 
-  init_date(){
+  setDateFromTo() {
     const today = new Date();
-    const twentyDaysAgo = new Date();
-    twentyDaysAgo.setDate(today.getDate() - 20);
+    const sevenDaysAgo = new Date(today);
+    const oneDayAfter = new Date(today);
 
-    this.startDate = twentyDaysAgo.toISOString().split('T')[0]; // Format to YYYY-MM-DD
-    this.endDate = today.toISOString().split('T')[0]; // Format to YYYY-MM-DD    
-  }
+    sevenDaysAgo.setDate(today.getDate() - 100); // Subtract 7 days
+    oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
 
-  constructor() {
-    this.init_date();
+
+    this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
+    this.selectedDateTo = oneDayAfter.toISOString().split('T')[0]; // Set the end date to today
   }
+  constructor(private http: HttpClient, private customerService: CustomerService) { }
+
   transactions = [
     // Sample transaction data
     { date: '2024-01-01', totalInclTax: 100, revenue: 150, costOfGoods: 80, grossProfit: 70, margin: 46.67, tax: 10 },
@@ -37,20 +49,116 @@ export class SalesreportsComponent implements OnInit {
   searchTransactions() {
     this.filteredTransactions = this.transactions.filter(transaction => {
       const transactionDate = new Date(transaction.date);
-      const start = new Date(this.startDate);
-      const end = new Date(this.endDate);
+      const start = new Date(this.selectedDateFrom);
+      const end = new Date(this.selectedDateTo);
 
       return (
-        (this.startDate ? transactionDate >= start : true) &&
-        (this.endDate ? transactionDate <= end : true)
+        (this.selectedDateFrom ? transactionDate >= start : true) &&
+        (this.selectedDateTo ? transactionDate <= end : true)
       );
     });
   }
 
   clearFilters() {
     // this.startDate = '';    this.endDate = '';
-    this.init_date();
-    this.filteredTransactions = [...this.transactions]; // Reset to original data
+    this.setDateFromTo();
+    this.fetchSearchItems();
+  }
+
+  fetchSearchItems() {
+    // this.http.get<any[]>(`${environment.apiUrl}/sale/getSearchItem`).subscribe(data => {
+
+    // });
+    const params = {
+      from: this.selectedDateFrom,
+      to: this.selectedDateTo,
+    };
+
+    // Log the params to check their structure
+    console.log('Sending params:', params);
+
+    this.total_reportData = [];
+
+    this.customerService.fetchSaleHistory(params).subscribe(
+      (res) => {
+        let t_total = 0;
+        let t_revenue = 0;
+        let t_cog = 0;
+        let t_gp = 0;
+        let t_margin = 0;
+        let t_tax = 0;
+        // Group transactions by date
+        const groupedTransactions = res.reduce((acc, item) => {
+          const date = new Date(item.created_at).toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
+
+          // Group by date
+          if (!acc[date]) {
+            acc[date] = [];
+          }
+          acc[date].push(item);
+
+          return acc;
+        }, {} as Record<string, any[]>);
+
+        this.transactionsByDate = groupedTransactions;
+        this.reportsData = [];
+
+
+        const groupedTransactionsArray = Object.keys(groupedTransactions).map(date => {
+          // console.log('------', groupedTransactions[date]);
+
+          const calc_row = groupedTransactions[date];
+          let total = 0;
+          let revenue = 0;
+          let cog = 0;
+          let gp = 0;
+          let margin = 0;
+          let tax = 0;
+
+          calc_row.forEach(transaction => {
+            total += transaction.total; // include tax
+            revenue += transaction.subtotal; //sale products
+            tax += transaction.tax; //Tax
+            cog += transaction.total_paid; //Cost of Products
+            gp += transaction.subtotal - transaction.total_paid; //Gross profit
+            //total whole
+            t_total += total;
+            t_revenue += revenue;
+            t_tax += tax;
+            t_cog += cog;
+            t_gp += gp;
+          });
+
+
+          this.reportsData.push({
+            date: date,
+            total: total.toFixed(2),
+            revenue: revenue.toFixed(2),
+            cog: cog.toFixed(2),
+            gp: gp.toFixed(2),
+            tax: tax.toFixed(2),
+            margin: ((gp / revenue) * 100).toFixed(2),
+          });
+        });
+
+        this.total_reportData = {
+          total: t_total.toFixed(2),
+          revenue: t_revenue.toFixed(2),
+          cog: t_cog.toFixed(2),
+          gp: t_gp.toFixed(2),
+          tax: t_tax.toFixed(2),
+          margin: ((t_gp / t_revenue) * 100).toFixed(2),
+        }
+
+        console.log(this.reportsData); // View the grouped data
+        console.log(this.total_reportData); // View the grouped data
+
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
   }
 }
 

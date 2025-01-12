@@ -6,26 +6,27 @@
                 <div class="card margin-bottom-10">
                     <div class="content add-content" style="display: flex; align-items: center; width: 100%;">
                         <div style="flex-grow: 1; display: flex; justify-content: space-between;align-items: center;">
-                            <div class="col-md-8 flex">
+                            <div class="col-md-4 flex">
                                 <!-- <div>
                                     <label>Period:</label>
 
                                 </div> -->
                                 <div style="display: flex; justify-content: space-between;align-items: center;">
-                                    Period: 
-                                    <input style="margin-right: 2rem;" type="date" [(ngModel)]="startDate"
-                                        class="form-control" name="startDate" />
-                                    ~
-                                    <input style="margin-left: 2rem;" type="date" [(ngModel)]="endDate"
-                                        class="form-control" name="endDate" />
+                                    Period:
+                                    <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
+                                        name="startDate" />
+
+                                    <input type="date" [(ngModel)]="selectedDateTo" class="form-control"
+                                        name="endDate" />
                                 </div>
                             </div>
-                            <div class="col-md-3 d-flex align-items-center">
-                                <div style="float: right; ">
-                                    <button class="btn btn-sm btn-danger btn-fill flex-grow-1 " style="margin: 1rem" (click)="initToday()">Clear Filters</button>
-                                    <button class="btn btn-sm btn-info btn-fill mx-2" style="margin: 1rem" (click)="searchTransactions()">Search</button>
-                                    <button class="btn btn-sm btn-success btn-fill flex-grow-1" style="margin: 1rem">Excel</button>
-                                </div>
+
+                            <div class=" d-flex align-items-center;" style="display:flex; gap:1rem;">
+                                <button class="btn btn-sm btn-danger btn-fill flex-grow-1 " (click)="initToday()">Clear
+                                    Filters</button>
+                                <!-- <button class="btn btn-sm btn-info btn-fill mx-2" style="margin: 1rem" (click)="searchTransactions()">Search</button> -->
+                                <button class="btn btn-sm btn-success btn-fill flex-grow-1">Excel</button>
+
                             </div>
                         </div>
                     </div>
