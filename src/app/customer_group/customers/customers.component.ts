@@ -12,6 +12,8 @@ import { CustomerService } from 'app/api/salesledger/api.service';
 export class CustomersComponent implements OnInit {
   isVisibledel = false;
   selectedTransaction: any;
+  currentDeleteID: string = '';
+  isDeleteModal: boolean = false;
   groups: any;
   // List of countries
   countries: any;
@@ -219,11 +221,31 @@ export class CustomersComponent implements OnInit {
     // this.filteredTransactions = this.filteredTransactions.filter(t => t !== transaction);
     this.selectedTransaction = transaction;
     this.isVisibledel = true;
+    this.currentDeleteID = this.selectedTransaction._id;
+    this.isDeleteModal = true;
   }
-  confirmDelete() {
 
+  closeDeleteModal() {
+    this.isDeleteModal = false;
   }
-  confirmCancel() {
-    this.isVisibledel = false;
+
+  deleteRow() {
+    /* this.rows = this.rows.filter((row) => row.id !== id); // Remove row by id */
+    //this.isContentVisible = false;
+    this.customerService.delCumtomerData(this.currentDeleteID).subscribe(
+      (res) => {
+        // this.transactions.push({ ...res });
+        // this.filteredTransactions = [...this.transactions]; // Update filtered transactions
+        this.fetchSearchItems();
+        this.closecustomer();
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+    /* this.rows = this.rows.filter((row) => row.id !== this.currentDeleteID); // Remove row by id
+    this.isDeleteModal = false; */
+    this.isDeleteModal = false;
   }
 }

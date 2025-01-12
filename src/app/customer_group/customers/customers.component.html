@@ -530,13 +530,7 @@
             </div>
         </div>
     </div>
-    <div class="modal-overlay" *ngIf="isVisibledel">
-        <div class="modal-content">
-            <h5>Confirm Delete</h5>
-            <p>Are you sure you want to delete this transaction?</p>
-            <div class="modal-footer">
-                <button (click)="confirmCancel()">Cancel</button>
-                <button (click)="confirmDelete()">Delete</button>
-            </div>
-        </div>
-    </div>
+    <app-confirm-modal *ngIf="isDeleteModal" [title]="'Remove Customer'"
+        [description]="'Do you really want to remove this Customer ?'" [confirmButtonCaption]="'Delete'"
+        [cancelButtonCaption]="'Cancel'" (confirmed)="deleteRow()" (cancelled)="closeDeleteModal()">
+    </app-confirm-modal>

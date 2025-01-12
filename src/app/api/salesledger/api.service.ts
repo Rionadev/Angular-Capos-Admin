@@ -115,7 +115,11 @@ export class CustomerService {
       { params }
     );
   }
-  
+  delCumtomerData(id: any) {
+    console.log(id);
+    return this.http.delete(`${this.config.apiUrl}/customers/customer/?_id=${id}`);
+  }
+
   saveCumtomerData(params: any) {
     params = {
       ...params,
