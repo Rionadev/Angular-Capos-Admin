@@ -7,7 +7,7 @@
                 <!-- Date Picker Selection -->
                 <div class="card"
                     style="display: flex; align-items: center; justify-content: space-between;padding: 2rem;">
-                    <div class="col-md-6" style="display: flex;align-items: center;">
+                    <div class="col-md-7" style="display: flex;align-items: center;">
                         <select class="form-control" [(ngModel)]="selectedPeriod" (change)="updateDateRange()">
                             <option value="today">Today</option>
                             <option value="thisWeek">This Week</option>
@@ -17,9 +17,9 @@
 
                         <!-- <div class="row" style="display: flex;align-items: center;flex-direction: row;gap: 2rem;"> -->
                         <label style="margin-left: 2rem; margin-right: 10px;">From:</label>
-                        <input class="form-control" type="date" [(ngModel)]="startDate" (change)="filterData()" />
+                        <input class="form-control" type="date" [(ngModel)]="selectedDateFrom" />
                         <label style="margin: 0 10px;">To:</label>
-                        <input class="form-control" type="date" [(ngModel)]="endDate" (change)="filterData()" />
+                        <input class="form-control" type="date" [(ngModel)]="selectedDateTo" />
                         <!-- </div> -->
                     </div>
                     <div class="col-md-2"
@@ -47,15 +47,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let record of filteredRecords">
-                                    <td>{{ record.category }}</td>
-                                    <td>{{ record.sale }}</td>
-                                    <td>{{ record.tax }}</td>
-                                </tr>
                                 <tr style="font-weight: bold; background-color: #f0f0f0;">
                                     <td>Total</td>
-                                    <td>{{ getTotal('sale') }}</td>
-                                    <td>{{ getTotal('tax') }}</td>
+                                    <td>{{ getTotal('total_paid')|currency }}</td>
+                                    <td>{{ getTotal('tax') |currency}}</td>
+                                </tr>
+                                <tr *ngFor="let record of records">
+                                    <td>{{ record.register.name }}</td>
+                                    <td>{{ record.total_paid |currency}}</td>
+                                    <td>{{ record.tax |currency}}</td>
                                 </tr>
                             </tbody>
                         </table>

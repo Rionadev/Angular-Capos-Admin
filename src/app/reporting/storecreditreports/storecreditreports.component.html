@@ -5,7 +5,8 @@
                 <!-- Search Bar -->
                 <div class="card margin-bottom-10">
                     <div class="content add-content" style="display: flex; align-items: center; width: 30%;">
-                        <input type="text" class="form-control" placeholder="Search by Customer Name" [(ngModel)]="searchTerm" (keyup.enter)="searchCustomers()" style="flex-grow: 1;">
+                        <input type="text" class="form-control" placeholder="Search by Customer Name"
+                            [(ngModel)]="searchTerm" (keyup.enter)="searchCustomers()" style="flex-grow: 1;">
                     </div>
                 </div>
 
@@ -26,16 +27,16 @@
                                 <tr *ngFor="let customer of filteredCustomers">
                                     <td>{{ customer.name }}</td>
                                     <td>{{ customer.email }}</td>
-                                    <td>{{ customer.totalIssued }}</td>
-                                    <td>{{ customer.totalRedeemed }}</td>
-                                    <td>{{ customer.balance }}</td>
+                                    <td>{{ customer.total_issued |currency }}</td>
+                                    <td>{{ customer.total_redeemed| currency}}</td>
+                                    <td>{{ customer.credit| currency}}</td>
                                 </tr>
                                 <tr style="font-weight: bold; background-color: #f0f0f0;">
                                     <td>Total</td>
                                     <td></td>
-                                    <td>{{ getTotal('totalIssued') }}</td>
-                                    <td>{{ getTotal('totalRedeemed') }}</td>
-                                    <td>{{ getTotal('balance') }}</td>
+                                    <td>{{ getTotal('total_issued') | currency }}</td>
+                                    <td>{{ getTotal('total_redeemed') | currency }}</td>
+                                    <td>{{ getTotal('credit') | currency }}</td> <!-- Changed 'balance' to 'credit' -->
                                 </tr>
                             </tbody>
                         </table>
