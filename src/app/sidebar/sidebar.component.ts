@@ -39,7 +39,7 @@ export const EMPLOYEESROUTES: RouteInfo[] = [
 
 export const SETTINGROUTES: RouteInfo[] = [
   { path: '/setting/billing', title: 'Billing & Subscriptions', icon: 'pe-7s-credit', class: '' },
-  { path: '/setting/outlets', title: 'Outlets & Register', icon: 'pe-7s-albums', class: '' },
+  /* { path: '/setting/outlets', title: 'Outlets & Register', icon: 'pe-7s-albums', class: '' }, */
   /* { path: '/setting/payment', title: 'Payment Types', icon: 'pe-7s-calculator', class: '' }, */
   { path: '/setting/customer', title: 'Customer Point & Gift', icon: 'pe-7s-note2', class: '' },
   { path: '/setting/sales', title: 'Sales Taxes', icon: 'pe-7s-wallet', class: '' },

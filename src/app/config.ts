@@ -20,7 +20,7 @@ export interface AppConfig {
 export const APP_CONFIG: AppConfig = {
   apiUrl: 'http://localhost:3000/api',
   featureFlag: true,
-  private_web_address: 'newonestore',
+  private_web_address: 'onestore',
   outlet: '6093edcf5435e55c2c563f65',
   
   outlet_name: 'Main Outlet',

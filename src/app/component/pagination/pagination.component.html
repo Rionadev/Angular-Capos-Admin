@@ -1,0 +1,38 @@
+<div class="pagination-container">
+    <!-- Counts Info -->
+    <div class="counts-info">
+        Showing {{ getStartIndex() + 1 }} to {{ getEndIndex() }} of {{ totalCount }}
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination pagination-controls">
+        <button (click)="goToFirstPage()" [disabled]="currentPage === 1">
+            <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+        </button>
+        <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        </button>
+
+        <!-- Dynamic Page Numbers -->
+        <button *ngFor="let page of getVisiblePages()" [class.active]="page === currentPage" (click)="goToPage(page)">
+            {{ page }}
+        </button>
+
+        <button (click)="goToNextPage()" [disabled]="currentPage === totalPages">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </button>
+        <button (click)="goToLastPage()" [disabled]="currentPage === totalPages">
+            <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <!-- Page Count Selector -->
+    <div class="page-count-selector">
+        <label for="category">Items per page:</label>
+        <select id="countPerPage" [(ngModel)]="countPerPage" (change)="updatePagination()">
+            <option *ngFor="let count of countsPerPageOptions" [ngValue]="count">
+                {{ count }}
+            </option>
+        </select>
+    </div>
+</div>

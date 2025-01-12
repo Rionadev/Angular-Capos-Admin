@@ -13,159 +13,163 @@
                 </div>
                 <div class="card margin-bottom-0" *ngIf="isContentVisible">
                     <div class="header">
-                        <h4 class="title">Add a user</h4>
+                        <h4 class="title">{{ currentRow._id ? 'Update' : 'Add' }} a user</h4>
                     </div>
-                    <div class="content">                        
-                        <form (ngSubmit)="saveRow()">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>First Name:</label>
-                                        <input type="text" class="form-control" placeholder="First Name" id="firstname" [(ngModel)]="currentRow.firstname" name="firstname" required />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Last Name:</label>
-                                        <input type="text" class="form-control" placeholder="Last Name" id="lastname" [(ngModel)]="currentRow.lastname" name="lastname" required />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Email:</label>
-                                        <input type="email" class="form-control" placeholder="Email" id="email" [(ngModel)]="currentRow.email" name="email" required />
-                                    </div>
+                    <div class="content">
+                        <div class="row margin-bottom-3">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>First Name:</label>
+                                    <input type="text" class="form-control" placeholder="First Name" id="firstname"
+                                        [(ngModel)]="currentRow.first_name" name="firstname" required />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Password:</label>
-                                        <input type="password" class="form-control" placeholder="Password" id="password" [(ngModel)]="currentRow.password" name="password" required />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Phone:</label>
-                                        <input type="text" class="form-control" placeholder="Phone" id="phone" [(ngModel)]="currentRow.phone" name="phone" required />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Mobile:</label>
-                                        <input type="email" class="form-control" placeholder="Mobile" id="mobile" [(ngModel)]="currentRow.mobile" name="mobile" required />
-                                    </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Last Name:</label>
+                                    <input type="text" class="form-control" placeholder="Last Name" id="lastname"
+                                        [(ngModel)]="currentRow.last_name" name="lastname" required />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Birthday:</label>
-                                        <input type="date" class="form-control" id="birthday" [(ngModel)]="currentRow.birthday" name="birthday" required />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Joined Date:</label>
-                                        <input type="date" class="form-control" id="joineddate" [(ngModel)]="currentRow.joineddate" name="joineddate" required />
-                                    </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Email:</label>
+                                    <input type="email" class="form-control" placeholder="Email" id="email"
+                                        [(ngModel)]="currentRow.email" name="email" required />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Role:</label>
-                                        <select 
-                                            class="form-control" 
-                                            id="role-select" 
-                                            [(ngModel)]="selectedRole"
-                                        >
-                                            <option *ngFor="let role of roles" [value]="currentRow.role">{{ role }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Outlet:</label>
-                                        <select 
-                                            class="form-control" 
-                                            id="outlet-select" 
-                                            [(ngModel)]="selectedOutlet"
-                                        >
-                                            <option *ngFor="let outlet of outlets" [value]="currentRow.outlet">{{ outlet }}</option>
-                                        </select>
-                                    </div>
+                        </div>
+                        <div class="row margin-bottom-3">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Password:</label>
+                                    <input type="password" class="form-control" placeholder="Password" id="password"
+                                        [(ngModel)]="currentRow.password" name="password" required />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Address:</label>
-                                        <input type="text" class="form-control" id="address" [(ngModel)]="currentRow.address" name="address" required />
-                                    </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Phone:</label>
+                                    <input type="text" class="form-control" placeholder="Phone" id="phone"
+                                        [(ngModel)]="currentRow.phone" name="phone" required />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>City:</label>
-                                        <input type="text" class="form-control" placeholder="City" id="city" [(ngModel)]="currentRow.city" name="city" required />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>State:</label>
-                                        <input type="text" class="form-control" placeholder="State" id="state" [(ngModel)]="currentRow.state" name="state" required />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Post Code:</label>
-                                        <input type="text" class="form-control" placeholder="Post Code" id="postcode" [(ngModel)]="currentRow.postcode" name="postcode" required />
-                                    </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Mobile:</label>
+                                    <input type="email" class="form-control" placeholder="Mobile" id="mobile"
+                                        [(ngModel)]="currentRow.mobile" name="mobile" required />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Country:</label>
-                                        <select 
-                                            class="form-control" 
-                                            id="outlet-select" 
-                                            [(ngModel)]="selectedOutlet"
-                                        >
-                                            <option *ngFor="let outlet of outlets" [value]="currentRow.outlet">{{ outlet }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Commissions(%):</label>
-                                        <input type="text" class="form-control" placeholder="Commissions" id="commissions" [(ngModel)]="currentRow.commissions" name="commissions" required />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Hour Salary:</label>
-                                        <input type="text" class="form-control" placeholder="Hour Salary" id="hoursalary" [(ngModel)]="currentRow.hoursalary" name="hoursalary" required />
-                                    </div>
+                        </div>
+                        <div class="row margin-bottom-3">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Birthday:</label>
+                                    <input type="date" class="form-control" id="birthday" [(ngModel)]="birthday"
+                                        name="birthday" required />
                                 </div>
                             </div>
-                            <div class="margin-top-10">
-                                <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ? 'Update' : 'Add' }}</button>
-                                <button class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()">Cancel</button>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Joined Date:</label>
+                                    <input type="date" class="form-control" id="joineddate" [(ngModel)]="joined_date"
+                                        name="joineddate" required />
+                                </div>
                             </div>
-                            <div class="clearfix"></div>
-                        </form>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Role:</label>
+                                    <select class="form-control" id="edit-role-select" [(ngModel)]="roleForm">
+                                        <option *ngFor="let role of roles" [value]="role.value">{{ role.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Outlet:</label>
+                                    <select class="form-control" id="edit-outlet-select" [(ngModel)]="outletForm">
+                                        <option *ngFor="let outlet of outlets" [value]="outlet">{{ outlet }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-bottom-3">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Address:</label>
+                                    <input type="text" class="form-control" id="address"
+                                        [(ngModel)]="currentRow.physical_address.street" name="address" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-bottom-3">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>City:</label>
+                                    <input type="text" class="form-control" placeholder="City" id="city"
+                                        [(ngModel)]="currentRow.physical_address.city" name="city" required />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>State:</label>
+                                    <input type="text" class="form-control" placeholder="State" id="state"
+                                        [(ngModel)]="currentRow.physical_address.state" name="state" required />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Post Code:</label>
+                                    <input type="text" class="form-control" placeholder="Post Code" id="postcode"
+                                        [(ngModel)]="currentRow.physical_address.postcode" name="postcode" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-bottom-3">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Country:</label>
+                                    <select class="form-control" id="country-select"
+                                        [(ngModel)]="currentRow.physical_address.country">
+                                        <option *ngFor="let row of countries" [value]="row._id">{{ row.country_name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Commissions(%):</label>
+                                    <input type="text" class="form-control" placeholder="Commissions" id="commissions"
+                                        [(ngModel)]="currentRow.commission" name="commissions" required />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Hour Salary:</label>
+                                    <input type="text" class="form-control" placeholder="Hour Salary" id="hoursalary"
+                                        [(ngModel)]="currentRow.hour_salary" name="hoursalary" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="margin-top-10">
+                            <button type="submit" class="btn btn-sm btn-info btn-fill pull-right" (click)="saveRow()">{{
+                                currentRow._id ?
+                                'Update' : 'Add' }}</button>
+                            <button class="btn btn-sm btn-info btn-fill pull-right"
+                                (click)="cancelEdit()">Cancel</button>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
                 <div class="card margin-bottom-0" *ngIf="isImportContentVisible">
                     <div class="header">
                         <h4 class="title">Import</h4>
                     </div>
-                    <div class="content">               
+                    <div class="content">
                         <div class="add-content">
-                            <p class="category">Create a spreadsheet file. We will check your data for common errors before uploading it. Need help ?</p>
+                            <p class="category">Create a spreadsheet file. We will check your data for common errors
+                                before uploading it. Need help ?</p>
                             <button class="btn btn-sm btn-info btn-fill" (click)="toggleImportContent()">Back</button>
                         </div>
                         <div class="text-center margin-top-10 margin-bottom-10">
@@ -188,70 +192,70 @@
                     <div class="content add-content row-responsive">
                         <div class="row">
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" placeholder="Search" id="search" name="search" [(ngModel)]="search" required />
+                                <input type="text" class="form-control" placeholder="Search" id="search" name="search"
+                                    [(ngModel)]="search" required />
                             </div>
                             <div class="col-sm-4">
-                                <select
-                                    class="form-control" 
-                                    id="role-select" 
-                                    [(ngModel)]="selectedRole"
-                                >
-                                    <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+                                <select class="form-control" id="role-select" [(ngModel)]="selectedRole">
+                                    <option *ngFor="let role of roles" [value]="role.value">{{ role.name }}</option>
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <select 
-                                    class="form-control" 
-                                    id="outlet-select" 
-                                    [(ngModel)]="selectedOutlet"
-                                >
+                                <select class="form-control" id="outlet-select" [(ngModel)]="selectedOutlet">
                                     <option *ngFor="let outlet of outlets" [value]="outlet">{{ outlet }}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="">
-                            <button class="btn btn-sm btn-info btn-fill" (click)="onClearFilters()">Clear Filters</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="onClearFilters()">Clear
+                                Filters</button>
                             <button class="btn btn-sm btn-info btn-fill" (click)="onSearch()">Search</button>
                         </div>
                     </div>
                 </div>
                 <div class="card" *ngIf="!isContentVisible && !isImportContentVisible">
                     <div class="content table-responsive table-full-width">
-                          <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <!-- <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th> -->                                        
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Outlet</th>
-                                        <th>Daily Target</th>
-                                        <th>Weekly Target</th>
-                                        <th>Monthly Target</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let row of rows">
-                                        <!-- <td *ngFor="let cell of row">{{cell}}</td> -->
-                                        <td>{{ row.name }}</td>
-                                        <td>{{ row.email }}</td>
-                                        <td>{{ row.role }}</td>
-                                        <td>{{ row.outlet }}</td>
-                                        <td>${{ row.dailytarget }}</td>
-                                        <td>${{ row.weeklytarget }}</td>
-                                        <td>${{ row.monthlytarget }}</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-info" (click)="editRow(row)" data-toggle="tooltip" title="Edit">
-                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </button>
-                                            <button class="btn btn-sm btn-danger" (click)="showDeleteModal(row.id)" data-toggle="tooltip" title="Delete">
-                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                          </table>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <!-- <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th> -->
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Outlet</th>
+                                    <th>Daily Target</th>
+                                    <th>Weekly Target</th>
+                                    <th>Monthly Target</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of users">
+                                    <!-- Concatenate first and last name -->
+                                    <td>{{ row.first_name + ' ' + row.last_name }}</td>
+                                    <!-- Display email -->
+                                    <td>{{ row.email }}</td>
+                                    <!-- Display role name -->
+                                    <td>{{ row.role?.name }}</td>
+                                    <!-- Check if outlet is null -->
+                                    <td>{{ row.outlet ? row.outlet?.name : 'All Outlets' }}</td>
+                                    <!-- Daily, weekly, and monthly target values -->
+                                    <td>${{ row.daily_target || 0 }}</td>
+                                    <td>${{ row.weekly_target || 0 }}</td>
+                                    <td>${{ row.monthly_target || 0 }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" (click)="editRow(row)" data-toggle="tooltip"
+                                            title="Edit">
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" (click)="showDeleteModal(row._id)"
+                                            data-toggle="tooltip" title="Delete">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>
@@ -270,11 +274,7 @@
         </div>
     </div>
 </div>
-<app-confirm-modal *ngIf="isDeleteModal" 
-    [title]="'Remove User'"
-    [description]="'Do you really want to remove this User ?'"
-    [confirmButtonCaption]="'Delete'"
-    [cancelButtonCaption]="'Cancel'"
-    (confirmed)="deleteRow()" 
-    (cancelled)="closeDeleteModal()">
+<app-confirm-modal *ngIf="isDeleteModal" [title]="'Remove User'"
+    [description]="'Do you really want to remove this User ?'" [confirmButtonCaption]="'Delete'"
+    [cancelButtonCaption]="'Cancel'" (confirmed)="deleteRow()" (cancelled)="closeDeleteModal()">
 </app-confirm-modal>

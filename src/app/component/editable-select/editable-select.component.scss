@@ -1,0 +1,20 @@
+.custom-select-component {
+    width: 100%;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    //border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 4px 6px 4px 6px;
+    height: 32px;
+}
+
+input:focus,
+select:focus {
+    //border-color: #007bff;
+    outline: none;
+}

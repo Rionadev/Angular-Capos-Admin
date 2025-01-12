@@ -97,124 +97,124 @@ export class RolesComponent implements OnInit {
     this.role_name = row.name;
     this.onDeselectAll();
 
-    if (row.permissions[0].includes('show_product_costs'))
+    if (row.permissions.includes('show_product_costs'))
       this.checkbox_show_product_costs = true;
 
-    if (row.permissions[0].includes('print_labels'))
+    if (row.permissions.includes('print_labels'))
       this.checkbox_print_labels = true;
 
-    if (row.permissions[0].includes('apply_discounts'))
+    if (row.permissions.includes('apply_discounts'))
       this.checkbox_apply_discounts = true;
 
-    if (row.permissions[0].includes('create_on_account_sales'))
+    if (row.permissions.includes('create_on_account_sales'))
       this.checkbox_create_on_account_sales = true;
 
-    if (row.permissions[0].includes('issue_store_credit'))
+    if (row.permissions.includes('issue_store_credit'))
       this.checkbox_issue_store_credit = true;
 
-    if (row.permissions[0].includes('perform_cash'))
+    if (row.permissions.includes('perform_cash'))
       this.checkbox_perform_cash = true;
 
-    if (row.permissions[0].includes('make_sales'))
+    if (row.permissions.includes('make_sales'))
       this.checkbox_make_sales = true;
 
-    if (row.permissions[0].includes('perform_sale'))
+    if (row.permissions.includes('perform_sale'))
       this.checkbox_perform_sale = true;
 
-    if (row.permissions[0].includes('void_sales'))
+    if (row.permissions.includes('void_sales'))
       this.checkbox_void_sales = true;
 
-    if (row.permissions[0].includes('close_registers'))
+    if (row.permissions.includes('close_registers'))
       this.checkbox_close_registers = true;
 
-    if (row.permissions[0].includes('export_customer'))
+    if (row.permissions.includes('export_customer'))
       this.checkbox_export_customer = true;
 
-    if (row.permissions[0].includes('remove_customer'))
+    if (row.permissions.includes('remove_customer'))
       this.checkbox_remove_customer = true;
 
-    if (row.permissions[0].includes('add_customer_groups'))
+    if (row.permissions.includes('add_customer_groups'))
       this.checkbox_add_customer_groups = true;
 
-    if (row.permissions[0].includes('add_customers'))
+    if (row.permissions.includes('add_customers'))
       this.checkbox_add_customers = true;
 
-    if (row.permissions[0].includes('add_customer'))
+    if (row.permissions.includes('add_customer'))
       this.checkbox_add_customer = true;
 
-    if (row.permissions[0].includes('perform_supplier'))
+    if (row.permissions.includes('perform_supplier'))
       this.checkbox_perform_supplier = true;
 
-    if (row.permissions[0].includes('create_products'))
+    if (row.permissions.includes('create_products'))
       this.checkbox_create_products = true;
 
-    if (row.permissions[0].includes('perform_inventory'))
+    if (row.permissions.includes('perform_inventory'))
       this.checkbox_perform_inventory = true;
 
-    if (row.permissions[0].includes('perform_stock'))
+    if (row.permissions.includes('perform_stock'))
       this.checkbox_perform_stock = true;
 
-    if (row.permissions[0].includes('create_price_books'))
+    if (row.permissions.includes('create_price_books'))
       this.checkbox_create_price_books = true;
 
-    if (row.permissions[0].includes('create_product_type'))
+    if (row.permissions.includes('create_product_type'))
       this.checkbox_create_product_type = true;
 
-    if (row.permissions[0].includes('create_supplier'))
+    if (row.permissions.includes('create_supplier'))
       this.checkbox_create_supplier = true;
 
-    if (row.permissions[0].includes('create_brand'))
+    if (row.permissions.includes('create_brand'))
       this.checkbox_create_brand = true;
 
-    if (row.permissions[0].includes('create_product_attribute'))
+    if (row.permissions.includes('create_product_attribute'))
       this.checkbox_create_product_attribute = true;
 
-    if (row.permissions[0].includes('view_sales'))
+    if (row.permissions.includes('view_sales'))
       this.checkbox_view_sales = true;
 
-    if (row.permissions[0].includes('view_reporting'))
+    if (row.permissions.includes('view_reporting'))
       this.checkbox_view_reporting = true;
 
-    if (row.permissions[0].includes('only_own_sales'))
+    if (row.permissions.includes('only_own_sales'))
       this.checkbox_only_own_sales = true;
 
-    if (row.permissions[0].includes('all_sales_mode'))
+    if (row.permissions.includes('all_sales_mode'))
       this.checkbox_all_sales_mode = true;
 
-    if (row.permissions[0].includes('access_ecommerce'))
+    if (row.permissions.includes('access_ecommerce'))
       this.checkbox_access_ecommerce = true;
 
-    if (row.permissions[0].includes('manage_role'))
+    if (row.permissions.includes('manage_role'))
       this.checkbox_manage_role = true;
 
-    if (row.permissions[0].includes('manage_outlet'))
+    if (row.permissions.includes('manage_outlet'))
       this.checkbox_manage_outlet = true;
 
-    if (row.permissions[0].includes('add_cashier'))
+    if (row.permissions.includes('add_cashier'))
       this.checkbox_add_cashier = true;
 
-    if (row.permissions[0].includes('add_manager'))
+    if (row.permissions.includes('add_manager'))
       this.checkbox_add_manager = true;
 
-    if (row.permissions[0].includes('enable_add_ons'))
+    if (row.permissions.includes('enable_add_ons'))
       this.checkbox_enable_add_ons = true;
 
-    if (row.permissions[0].includes('manage_payment_type'))
+    if (row.permissions.includes('manage_payment_type'))
       this.checkbox_manage_payment_type = true;
 
-    if (row.permissions[0].includes('manage_tax'))
+    if (row.permissions.includes('manage_tax'))
       this.checkbox_manage_tax = true;
 
-    if (row.permissions[0].includes('manage_loyalty'))
+    if (row.permissions.includes('manage_loyalty'))
       this.checkbox_manage_loyalty = true;
 
-    if (row.permissions[0].includes('manage_hardware'))
+    if (row.permissions.includes('manage_hardware'))
       this.checkbox_manage_hardware = true;
 
-    if (row.permissions[0].includes('manage_keys'))
+    if (row.permissions.includes('manage_keys'))
       this.checkbox_manage_keys = true;
 
-    if (row.permissions[0].includes('refund'))
+    if (row.permissions.includes('refund'))
       this.checkbox_refund = true;
 
   }

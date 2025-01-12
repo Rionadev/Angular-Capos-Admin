@@ -1,0 +1,13 @@
+<div class="custom-select-component">
+    <!-- Select Component -->
+    <select *ngIf="!isAddingNew" class="form-control" id="add-options-select" [(ngModel)]="currentValue"
+        (change)="onSelectionChange($event.target.value)">
+        <option *ngFor="let row of options" [value]="row.value">{{ row.name }}</option>
+    </select>
+
+    <!-- Input Component for Adding New -->
+    <input *ngIf="isAddingNew" #newOptionInput type="text" class="form-control" id="add-new-option-input"
+        [(ngModel)]="newOptionName" (blur)="onNewOptionEntered()" (keyup.enter)="onNewOptionEntered($event)"
+        (keyup.esc)="onCancelNewOption($event)"
+        placeholder="Enter new item..." />
+</div>

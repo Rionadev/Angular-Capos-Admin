@@ -16,13 +16,17 @@ export class RolesService {
     permissions?: string[];
   }): Observable<any> {
     // Prepare query parameters
-    let queryParams = new HttpParams();
+    /* let queryParams = new HttpParams();
     Object.keys(params).forEach((key) => {
       if (params[key]) {
         queryParams = queryParams.set(key, params[key]!);
       }
     });
-    queryParams = queryParams.set("private_web_address", this.config.private_web_address);
+    queryParams = queryParams.set("private_web_address", this.config.private_web_address); */
+    const queryParams = {
+      ...params, // Spread existing parameters
+      private_web_address: this.config.private_web_address, // Add the additional property
+    };
     // Make the API call
     return this.http.post(`${this.config.apiUrl}/auth/role`, queryParams);
   }
@@ -52,14 +56,14 @@ export class RolesService {
     _v?: number;
   }): Observable<any> {
     // Prepare query parameters
-    let queryParams = new HttpParams();
+    /* let queryParams = new HttpParams();
     Object.keys(params).forEach((key) => {
       if (params[key]) {
         queryParams = queryParams.set(key, params[key]!);
       }
-    });
+    }); */
     // Make the API call
-    return this.http.put(`${this.config.apiUrl}/auth/role`, queryParams);
+    return this.http.put(`${this.config.apiUrl}/auth/role`, params);
   }
 
   delete(params: {

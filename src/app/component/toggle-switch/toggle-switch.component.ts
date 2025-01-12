@@ -7,11 +7,19 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ToggleSwitchComponent {
   @Input() checked = false; // Input for toggle state
+  @Input() readOnly = false; // Input to enable/disable toggle
   @Output() checkedChange = new EventEmitter<boolean>(); // Output for two-way binding
 
   toggle(): void {
-    this.checked = !this.checked;
-    this.checkedChange.emit(this.checked); // Emit the updated value
+    if (!this.readOnly) { // Prevent toggling if readOnly is true
+      this.checked = !this.checked;
+      this.checkedChange.emit(this.checked); // Emit the updated value
+    }
   }
 }
 
+/* <!-- Editable toggle -->
+<app-toggle-switch [(checked)]="row.enabled"></app-toggle-switch>
+
+<!-- Read-only toggle -->
+<app-toggle-switch [(checked)]="row.enabled" [readOnly]="true" (tagsChange)="row.enabled = $event"></app-toggle-switch> */

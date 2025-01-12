@@ -16,173 +16,64 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox1" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox1">Box Barcode Sale Used</label>
+                                        <input id="checkbox_box_barcode" [(ngModel)]="checkbox_box_barcode" [name]="'checkbox_box_barcode'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_box_barcode">Box Barcode Sale Used</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox2" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox2">Buying Barcode Sale Used</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox3" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox3">Same Code used for different Products</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox4" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox4">PDCode and PDBarcode is the same for scale product</label>
+                                        <input id="checkbox_buying_barcode" [(ngModel)]="checkbox_buying_barcode" [name]="'checkbox_buying_barcode'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_buying_barcode">Buying Barcode Sale Used</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox5" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox5">The size of UPC E code is 8 rather than 6</label>
+                                        <input id="checkbox_same_code" [(ngModel)]="checkbox_same_code" [name]="'checkbox_same_code'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_same_code">Same Code used for different Products</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox6" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox6">10 digit barcode used for UPC A</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox7" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox7">Price included barcode is $123.45 style</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox8" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox8">First 5 digit used instead of 6 digit for price included barcode</label>
+                                        <input id="checkbox_pdcode_pdbarcode" [(ngModel)]="checkbox_pdcode_pdbarcode" [name]="'checkbox_pdcode_pdbarcode'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_pdcode_pdbarcode">PDCode and PDBarcode is the same for scale product</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox9" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox9">Sale Price Used</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox11" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox11">Automatic customer ID used</label>
+                                        <input id="checkbox_size_of_upc" [(ngModel)]="checkbox_size_of_upc" [name]="'checkbox_size_of_upc'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_size_of_upc">The size of UPC E code is 8 rather than 6</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox12" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox12">Customer information required</label>
+                                        <input id="checkbox_10_digit_barcode" [(ngModel)]="checkbox_10_digit_barcode" [name]="'checkbox_10_digit_barcode'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_10_digit_barcode">10 digit barcode used for UPC A</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox13" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox13">OpenDrawer on Credit payment</label>
+                                        <input id="checkbox_price_included" [(ngModel)]="checkbox_price_included" [name]="'checkbox_price_included'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_price_included">Price included barcode is $123.45 style</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox14" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox14">Cash Drawer Open status checked</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox15" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox15">Quick open cashdrawer needs password</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox16" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox16">Debit over payment allowed (Cashback)</label>
+                                        <input id="checkbox_first_5_digit" [(ngModel)]="checkbox_first_5_digit" [name]="'checkbox_first_5_digit'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_first_5_digit">First 5 digit used instead of 6 digit for price included barcode</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox17" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox17">Cashier password prompted for sale screen access</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox18" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox18">Cashier password always prompted for each transaction</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox19" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox19">Discount password prompted for add discount sale or item</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox20" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox20">Sales helper always prompted</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox19" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox19">Kg instead of lb</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox20" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox20">Weight handled as quantity</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox19" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox19">24 Hour Service</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox20" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox20">Last item first line displayed</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox19" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox19">Alt tab is not allowed</label>
+                                        <input id="checkbox_sale_price_used" [(ngModel)]="checkbox_sale_price_used" [name]="'checkbox_sale_price_used'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_sale_price_used">Sale Price Used</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -192,63 +83,172 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox19" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox19">Barcode generated automatically</label>
+                                        <input id="checkbox_automatic_customer_id" [(ngModel)]="checkbox_automatic_customer_id" [name]="'checkbox_automatic_customer_id'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_automatic_customer_id">Automatic customer ID used</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox20" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox20">AR account is different form customers</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox19" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox19">Tran summary table used</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox20" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox20">PD code manual</label>
+                                        <input id="checkbox_customer_info" [(ngModel)]="checkbox_customer_info" [name]="'checkbox_customer_info'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_customer_info">Customer information required</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox19" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox19">Can not update product information</label>
+                                        <input id="checkbox_open_drawer" [(ngModel)]="checkbox_open_drawer" [name]="'checkbox_open_drawer'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_open_drawer">OpenDrawer on Credit payment</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox20" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox20">Canada Penny round used</label>
+                                        <input id="checkbox_cash_drawer" [(ngModel)]="checkbox_cash_drawer" [name]="'checkbox_cash_drawer'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_cash_drawer">Cash Drawer Open status checked</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox19" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox19">Event marketing used</label>
+                                        <input id="checkbox_quick_open" [(ngModel)]="checkbox_quick_open" [name]="'checkbox_quick_open'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_quick_open">Quick open cashdrawer needs password</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox20" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox20">Price included barcode not used</label>
+                                        <input id="checkbox_debit_over" [(ngModel)]="checkbox_debit_over" [name]="'checkbox_debit_over'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_debit_over">Debit over payment allowed (Cashback)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_cashier_pwd_prompt" [(ngModel)]="checkbox_cashier_pwd_prompt" [name]="'checkbox_cashier_pwd_prompt'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_cashier_pwd_prompt">Cashier password prompted for sale screen access</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_cashier_pwd_always" [(ngModel)]="checkbox_cashier_pwd_always" [name]="'checkbox_cashier_pwd_always'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_cashier_pwd_always">Cashier password always prompted for each transaction</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_discount_pwd_prompt" [(ngModel)]="checkbox_discount_pwd_prompt" [name]="'checkbox_discount_pwd_prompt'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_discount_pwd_prompt">Discount password prompted for add discount sale or item</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_sales_helper" [(ngModel)]="checkbox_sales_helper" [name]="'checkbox_sales_helper'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_sales_helper">Sales helper always prompted</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_kg_instead" [(ngModel)]="checkbox_kg_instead" [name]="'checkbox_kg_instead'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_kg_instead">Kg instead of lb</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_weight_handled" [(ngModel)]="checkbox_weight_handled" [name]="'checkbox_weight_handled'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_weight_handled">Weight handled as quantity</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_24_hour_service" [(ngModel)]="checkbox_24_hour_service" [name]="'checkbox_24_hour_service'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_24_hour_service">24 Hour Service</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_last_item" [(ngModel)]="checkbox_last_item" [name]="'checkbox_last_item'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_last_item">Last item first line displayed</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_alt_tab" [(ngModel)]="checkbox_alt_tab" [name]="'checkbox_alt_tab'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_alt_tab">Alt tab is not allowed</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_barcode_auto" [(ngModel)]="checkbox_barcode_auto" [name]="'checkbox_barcode_auto'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_barcode_auto">Barcode generated automatically</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_ar_account" [(ngModel)]="checkbox_ar_account" [name]="'checkbox_ar_account'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_ar_account">AR account is different form customers</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_tran_summary" [(ngModel)]="checkbox_tran_summary" [name]="'checkbox_tran_summary'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_tran_summary">Tran summary table used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_pdcode_manual" [(ngModel)]="checkbox_pdcode_manual" [name]="'checkbox_pdcode_manual'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_pdcode_manual">PD code manual</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_product_info" [(ngModel)]="checkbox_product_info" [name]="'checkbox_product_info'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_product_info">Can not update product information</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_canada_penny" [(ngModel)]="checkbox_canada_penny" [name]="'checkbox_canada_penny'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_canada_penny">Canada Penny round used</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_event_marketing" [(ngModel)]="checkbox_event_marketing" [name]="'checkbox_event_marketing'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_event_marketing">Event marketing used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_barcode_not_used" [(ngModel)]="checkbox_barcode_not_used" [name]="'checkbox_barcode_not_used'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_barcode_not_used">Price included barcode not used</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="content add-content">
                                     <p class="category"></p>
-                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onSave()">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -260,133 +260,133 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox1" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox1">Receipt Printed</label>
+                                        <input id="checkbox_receipt_printed" [(ngModel)]="checkbox_receipt_printed" [name]="'checkbox_receipt_printed'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_receipt_printed">Receipt Printed</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox2" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox2">Store Copy Used</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox3" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox3">Print Barcode on Receipt</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox4" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox4">Techtrex Receipt used</label>
+                                        <input id="checkbox_store_copy" [(ngModel)]="checkbox_store_copy" [name]="'checkbox_store_copy'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_store_copy">Store Copy Used</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox5" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox5">Description printed</label>
+                                        <input id="checkbox_print_barcode" [(ngModel)]="checkbox_print_barcode" [name]="'checkbox_print_barcode'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_print_barcode">Print Barcode on Receipt</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox6" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox6">Store logo image used on receipt</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox7" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox7">Do not print customer information on receipt</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox8" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox8">Small size printer font used</label>
+                                        <input id="checkbox_techtrex" [(ngModel)]="checkbox_techtrex" [name]="'checkbox_techtrex'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_techtrex">Techtrex Receipt used</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox11" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox11">Invoice printing prompted</label>
+                                        <input id="checkbox_description" [(ngModel)]="checkbox_description" [name]="'checkbox_description'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_description">Description printed</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox12" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox12">Do not print second product name on receipt</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox13" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox13">Do not display / print sales information on receipt</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox14" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox14">Print product barcode number on receipt</label>
+                                        <input id="checkbox_store_logo" [(ngModel)]="checkbox_store_logo" [name]="'checkbox_store_logo'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_store_logo">Store logo image used on receipt</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox15" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox15">Email receipt</label>
+                                        <input id="checkbox_dont_print_customer" [(ngModel)]="checkbox_dont_print_customer" [name]="'checkbox_dont_print_customer'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_dont_print_customer">Do not print customer information on receipt</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox16" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox16">Print bill on Hold</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox17" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox17">Print cost on inventory change report</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox18" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox18">Price is not printed on barcode label</label>
+                                        <input id="checkbox_small_size_printer" [(ngModel)]="checkbox_small_size_printer" [name]="'checkbox_small_size_printer'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_small_size_printer">Small size printer font used</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox19" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox19">Name2 printed on barcode label instead of description</label>
+                                        <input id="checkbox_invoice_printing" [(ngModel)]="checkbox_invoice_printing" [name]="'checkbox_invoice_printing'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_invoice_printing">Invoice printing prompted</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox20" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox20">Vendor and vendor code printed on shelf sticker</label>
+                                        <input id="checkbox_dont_print_second" [(ngModel)]="checkbox_dont_print_second" [name]="'checkbox_dont_print_second'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_dont_print_second">Do not print second product name on receipt</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_dont_display" [(ngModel)]="checkbox_dont_display" [name]="'checkbox_dont_display'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_dont_display">Do not display / print sales information on receipt</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_print_product" [(ngModel)]="checkbox_print_product" [name]="'checkbox_print_product'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_print_product">Print product barcode number on receipt</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_email_receipt" [(ngModel)]="checkbox_email_receipt" [name]="'checkbox_email_receipt'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_email_receipt">Email receipt</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_print_bill" [(ngModel)]="checkbox_print_bill" [name]="'checkbox_print_bill'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_print_bill">Print bill on Hold</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_print_cost" [(ngModel)]="checkbox_print_cost" [name]="'checkbox_print_cost'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_print_cost">Print cost on inventory change report</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_price_not_print" [(ngModel)]="checkbox_price_not_print" [name]="'checkbox_price_not_print'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_price_not_print">Price is not printed on barcode label</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_name2_printed" [(ngModel)]="checkbox_name2_printed" [name]="'checkbox_name2_printed'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_name2_printed">Name2 printed on barcode label instead of description</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_vendor_code" [(ngModel)]="checkbox_vendor_code" [name]="'checkbox_vendor_code'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_vendor_code">Vendor and vendor code printed on shelf sticker</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="content add-content">
                                     <p class="category"></p>
-                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onSave()">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -398,14 +398,14 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox1" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox1">Automatically batch close at 4:00 AM</label>
+                                        <input id="checkbox_auto_batch_close" [(ngModel)]="checkbox_auto_batch_close" [name]="'checkbox_auto_batch_close'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_auto_batch_close">Automatically batch close at 4:00 AM</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox2" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox2">Email inventory report on End of day</label>
+                                        <input id="checkbox_email_inventory" [(ngModel)]="checkbox_email_inventory" [name]="'checkbox_email_inventory'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_email_inventory">Email inventory report on End of day</label>
                                     </div>
                                 </div>
                             </div>
@@ -413,75 +413,64 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox3" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox3">Batch report is not printed</label>
+                                        <input id="checkbox_batch_report" [(ngModel)]="checkbox_batch_report" [name]="'checkbox_batch_report'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_batch_report">Batch report is not printed</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox4" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox4">Batch: All category printed</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox5" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox5">Batch: Category not included</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox6" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox6">Products under basic stock count are listed on batch report</label>
+                                        <input id="checkbox_batch_all_category" [(ngModel)]="checkbox_batch_all_category" [name]="'checkbox_batch_all_category'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_batch_all_category">Batch: All category printed</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox7" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox7">Summary for payment machine included in batch report</label>
+                                        <input id="checkbox_batch_category" [(ngModel)]="checkbox_batch_category" [name]="'checkbox_batch_category'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_batch_category">Batch: Category not included</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox8" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox8">Payment summary is not included in Batch / Account summary report</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox11" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox11">Cigarette summary is not included in Batch / Account summary report</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox12" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox12">Not revenue category is not included in Account summary report</label>
+                                        <input id="checkbox_products_under" [(ngModel)]="checkbox_products_under" [name]="'checkbox_products_under'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_products_under">Products under basic stock count are listed on batch report</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox13" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox13">Sales person report included in Batch report</label>
+                                        <input id="checkbox_summary_for_payment" [(ngModel)]="checkbox_summary_for_payment" [name]="'checkbox_summary_for_payment'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_summary_for_payment">Summary for payment machine included in batch report</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_payment_summary" [(ngModel)]="checkbox_payment_summary" [name]="'checkbox_payment_summary'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_payment_summary">Payment summary is not included in Batch / Account summary report</label>
+                                    </div>
                                 </div>
                             </div>
-                            <hr>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox15" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox15">KPOS support required</label>
+                                        <input id="checkbox_cigarette_summary" [(ngModel)]="checkbox_cigarette_summary" [name]="'checkbox_cigarette_summary'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_cigarette_summary">Cigarette summary is not included in Batch / Account summary report</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_not_revenue" [(ngModel)]="checkbox_not_revenue" [name]="'checkbox_not_revenue'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_not_revenue">Not revenue category is not included in Account summary report</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_sales_person" [(ngModel)]="checkbox_sales_person" [name]="'checkbox_sales_person'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_sales_person">Sales person report included in Batch report</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -491,35 +480,46 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox17" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox17">Cashier report is not printed</label>
+                                        <input id="checkbox_kpos" [(ngModel)]="checkbox_kpos" [name]="'checkbox_kpos'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_kpos">KPOS support required</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_cashier_report" [(ngModel)]="checkbox_cashier_report" [name]="'checkbox_cashier_report'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_cashier_report">Cashier report is not printed</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox18" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox18">Cashier closing final money managed</label>
+                                        <input id="checkbox_cashier_closing" [(ngModel)]="checkbox_cashier_closing" [name]="'checkbox_cashier_closing'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_cashier_closing">Cashier closing final money managed</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox19" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox19">Canceled products are printed on cashier report</label>
+                                        <input id="checkbox_canceled_products" [(ngModel)]="checkbox_canceled_products" [name]="'checkbox_canceled_products'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_canceled_products">Canceled products are printed on cashier report</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox20" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox20">Can not close cashier with holding tran(s)</label>
+                                        <input id="checkbox_cannot_close_cashier" [(ngModel)]="checkbox_cannot_close_cashier" [name]="'checkbox_cannot_close_cashier'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_cannot_close_cashier">Can not close cashier with holding tran(s)</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="content add-content">
                                     <p class="category"></p>
-                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onSave()">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -531,8 +531,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox1" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox1">Foreign Currency Used</label>
+                                        <input id="checkbox_foreign_currency_used" [(ngModel)]="checkbox_foreign_currency_used" [name]="'checkbox_foreign_currency_used'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_foreign_currency_used">Foreign Currency Used</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -543,7 +543,7 @@
                                     <p class="category font-size-12">MARGIN RATE(%):</p>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                    <input type="number" class="form-control" [(ngModel)]="margin_rate" placeholder="0" id="margin_rate" name="margin_rate" required />
                                 </div>
                                 <div class="col-md-6">
                                 </div>
@@ -551,8 +551,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox1" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox1">Vendor margin rate used</label>
+                                        <input id="checkbox_vendor_margin_rate_used" [(ngModel)]="checkbox_vendor_margin_rate_used" [name]="'checkbox_vendor_margin_rate_used'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_vendor_margin_rate_used">Vendor margin rate used</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -563,7 +563,7 @@
                                     <p class="category font-size-12">CHARGE ACCOUNT BALANCE LIMIT($):</p>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                    <input type="number" class="form-control" [(ngModel)]="charge_limit" placeholder="0" id="charge_limit" name="charge_limit" required />
                                 </div>
                                 <div class="col-md-6">
                                 </div>
@@ -571,91 +571,97 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox5" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox5">No tax on whole sale</label>
+                                        <input id="checkbox_no_tax_on_whole_sale" [(ngModel)]="checkbox_no_tax_on_whole_sale" [name]="'checkbox_no_tax_on_whole_sale'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_no_tax_on_whole_sale">No tax on whole sale</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox6" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox6">PD Age check used</label>
+                                        <input id="checkbox_pd_age" [(ngModel)]="checkbox_pd_age" [name]="'checkbox_pd_age'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_pd_age">PD Age check used</label>
                                     </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox7" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox7">Keyboard I/F used</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox8" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox8">Zero item sale not allowed</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox11" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox11">PD button image used</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox12" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox12">Same line for the same product</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox13" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox13">Pickup DueDate required</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox13" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox13">Product image displayed on second monitor</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox13" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox13">No tax information on second monitor</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox13" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox13">Display in red when inventory is under basic stock count in sale scanning</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox13" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox13">Display other terminal’s HOLD Transactions</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
                                 </div>
                             </div>
                             <hr>
                             <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_keyboard" [(ngModel)]="checkbox_keyboard" [name]="'checkbox_keyboard'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_keyboard">Keyboard I/F used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_zero_item" [(ngModel)]="checkbox_zero_item" [name]="'checkbox_zero_item'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_zero_item">Zero item sale not allowed</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_pd_button" [(ngModel)]="checkbox_pd_button" [name]="'checkbox_pd_button'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_pd_button">PD button image used</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_same_line" [(ngModel)]="checkbox_same_line" [name]="'checkbox_same_line'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_same_line">Same line for the same product</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_pickup" [(ngModel)]="checkbox_pickup" [name]="'checkbox_pickup'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_pickup">Pickup DueDate required</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_product_image" [(ngModel)]="checkbox_product_image" [name]="'checkbox_product_image'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_product_image">Product image displayed on second monitor</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_no_tax_infor" [(ngModel)]="checkbox_no_tax_infor" [name]="'checkbox_no_tax_infor'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_no_tax_infor">No tax information on second monitor</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_display_in_red" [(ngModel)]="checkbox_display_in_red" [name]="'checkbox_display_in_red'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_display_in_red">Display in red when inventory is under basic stock count in sale scanning</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_display_other" [(ngModel)]="checkbox_display_other" [name]="'checkbox_display_other'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_display_other">Display other terminal&apos;s HOLD Transactions</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row align-center">
                                 <div class="col-md-3">
                                     <p class="category font-size-12">SCALE WEIGHT UNIT:</p>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                    <select
+                                        class="form-control" 
+                                        id="role-select" 
+                                        [(ngModel)]="scale_weight_unit"
+                                    >
+                                        <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6">
                                 </div>
@@ -663,7 +669,7 @@
                             <div class="row">
                                 <div class="content add-content">
                                     <p class="category"></p>
-                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onSave()">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -675,138 +681,114 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox1" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox1">Ecommerce Used</label>
+                                        <input id="checkbox_ecommerce" [(ngModel)]="checkbox_ecommerce" [name]="'checkbox_ecommerce'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_ecommerce">Ecommerce Used</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox2" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox2">Cancel / void saved on DB</label>
+                                        <input id="checkbox_cancel_void" [(ngModel)]="checkbox_cancel_void" [name]="'checkbox_cancel_void'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_cancel_void">Cancel / void saved on DB</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox3" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox3">Cashier Side AD used</label>
+                                        <input id="checkbox_cashier_side" [(ngModel)]="checkbox_cashier_side" [name]="'checkbox_cashier_side'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_cashier_side">Cashier Side AD used</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox4" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox4">Franchise mode based on VPN</label>
+                                        <input id="checkbox_franchise" [(ngModel)]="checkbox_franchise" [name]="'checkbox_franchise'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_franchise">Franchise mode based on VPN</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox5" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox5">Multiple store support</label>
+                                        <input id="checkbox_multiple" [(ngModel)]="checkbox_multiple" [name]="'checkbox_multiple'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_multiple">Multiple store support</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox6" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox6">HQ</label>
+                                        <input id="checkbox_hq" [(ngModel)]="checkbox_hq" [name]="'checkbox_hq'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_hq">HQ</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 items-flex">
+                                    <div class="checkbox">
+                                        <input id="checkbox_data_collection" [(ngModel)]="checkbox_data_collection" [name]="'checkbox_data_collection'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_data_collection">Data collection used</label>
+                                    </div>
+                                    <div class="checkbox" *ngIf="checkbox_data_collection">
+                                        &nbsp;&nbsp;&nbsp;
+                                        <input id="checkbox_data_collection_email" [(ngModel)]="checkbox_data_collection_email" [name]="'checkbox_data_collection_email'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_data_collection_email">Data collection through email</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_each_store" [(ngModel)]="checkbox_each_store" [name]="'checkbox_each_store'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_each_store">Each store has different price</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox7" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox7">Data collection used</label>
+                                        <input id="checkbox_only_hq" [(ngModel)]="checkbox_only_hq" [name]="'checkbox_only_hq'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_only_hq">Only HQ change product information</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox8" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox8">Each store has different price</label>
+                                        <input id="checkbox_direct_sql" [(ngModel)]="checkbox_direct_sql" [name]="'checkbox_direct_sql'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_direct_sql">Direct SQL access used instead of FTP</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox11" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox11">Only HQ change product information</label>
+                                        <input id="checkbox_customer_db" [(ngModel)]="checkbox_customer_db" [name]="'checkbox_customer_db'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_customer_db">Customer DB located on HQ</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox12" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox12">Direct SQL access used instead of FTP</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox13" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox13">Customer DB located on HQ</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox15" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox15">Daily inventory used</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox15" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox15">Inventory used</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox15" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox15">PI based inventory</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <input id="checkbox15" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox15">Different price applied on weekend</label>
-                                    </div>
                                 </div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox15" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox15">Restaurant style biz model</label>
+                                        <input id="checkbox_daily_inventory" [(ngModel)]="checkbox_daily_inventory" [name]="'checkbox_daily_inventory'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_daily_inventory">Daily inventory used</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox15" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox15">Fast batch closing used</label>
+                                        <input id="checkbox_inventory_used" [(ngModel)]="checkbox_inventory_used" [name]="'checkbox_inventory_used'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_inventory_used">Inventory used</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox15" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox15">Email point / gift card information on end of day</label>
+                                        <input id="checkbox_pi_based" [(ngModel)]="checkbox_pi_based" [name]="'checkbox_pi_based'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_pi_based">PI based inventory</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox15" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox15">Grocery style sale screen used</label>
+                                        <input id="checkbox_different_price" [(ngModel)]="checkbox_different_price" [name]="'checkbox_different_price'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_different_price">Different price applied on weekend</label>
                                     </div>
                                 </div>
                             </div>
@@ -814,9 +796,68 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox15" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox15">Send Email on End of Day</label>
+                                        <input id="checkbox_restaurant_style" [(ngModel)]="checkbox_restaurant_style" [name]="'checkbox_restaurant_style'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_restaurant_style">Restaurant style biz model</label>
                                     </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_fast_batch" [(ngModel)]="checkbox_fast_batch" [name]="'checkbox_fast_batch'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_fast_batch">Fast batch closing used</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_email_point" [(ngModel)]="checkbox_email_point" [name]="'checkbox_email_point'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_email_point">Email point / gift card information on end of day</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_grocery_style" [(ngModel)]="checkbox_grocery_style" [name]="'checkbox_grocery_style'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_grocery_style">Grocery style sale screen used</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <input id="checkbox_send_email" [(ngModel)]="checkbox_send_email" [name]="'checkbox_send_email'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_send_email">Send Email on End of Day</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <div class="padding-left-25 row margin-bottom-3 align-center" *ngIf="checkbox_send_email">
+                                <div class="col-md-3">
+                                    <p class="category font-size-12">SMTP SERVER(SSL, 465):</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" [(ngModel)]="smtp_server" placeholder="" id="smtp_server" name="smtp_server" required />
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <div class="padding-left-25 row margin-bottom-3 align-center" *ngIf="checkbox_send_email">
+                                <div class="col-md-3">
+                                    <p class="category font-size-12">SENDER GOOGLE EMAIL:</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" [(ngModel)]="sender_google_email" placeholder="" id="sender_google_email" name="sender_google_email" required />
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+                            <div class="padding-left-25 row margin-bottom-3 align-center" *ngIf="checkbox_send_email">
+                                <div class="col-md-3">
+                                    <p class="category font-size-12">SENDER PASSWORD:</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" [(ngModel)]="sender_pwd" placeholder="" id="sender_pwd" name="sender_pwd" required />
                                 </div>
                                 <div class="col-md-6">
                                 </div>
@@ -826,22 +867,22 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox17" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox17">Paid SMS used</label>
+                                        <input id="checkbox_paid_sms" [(ngModel)]="checkbox_paid_sms" [name]="'checkbox_paid_sms'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_paid_sms">Paid SMS used</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox18" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox18">Email SMS used</label>
+                                        <input id="checkbox_email_sms" [(ngModel)]="checkbox_email_sms" [name]="'checkbox_email_sms'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_email_sms">Email SMS used</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox19" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox19">Smart Phone SMS used</label>
+                                        <input id="checkbox_smart_phone" [(ngModel)]="checkbox_smart_phone" [name]="'checkbox_smart_phone'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_smart_phone">Smart Phone SMS used</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -850,7 +891,7 @@
                             <div class="row">
                                 <div class="content add-content">
                                     <p class="category"></p>
-                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onSave()">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -862,44 +903,62 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox1" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox1">Pay Start Day automatically set</label>
+                                        <input id="checkbox_auto_start_day" [(ngModel)]="checkbox_auto_start_day" [name]="'checkbox_auto_start_day'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_auto_start_day">Pay Start Day automatically set</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                 </div>
                             </div>
                             <hr>
-                            <p class="category font-size-12">Pay Start Day</p>
+                            <p class="category font-size-12">PAY START DAY</p>
                             <div class="row align-center">
                                 <div class="col-md-2 flex-item">
-                                    <input type="radio" id="left" name="day" />
+                                    <input type="radio" id="left" [(ngModel)]="selectedStart" value="weekly" name="day" />
                                     <p class="category font-size-12 padding-top-2">Weekly</p>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                    <select
+                                        class="form-control" 
+                                        id="role-select" 
+                                        [(ngModel)]="selectedWeekly"
+                                    >
+                                        <option *ngFor="let row of week" [value]="row.value">{{ row.name }}</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-7">
                                 </div>
                             </div>
                             <div class="row align-center">
                                 <div class="col-md-2 flex-item">
-                                    <input type="radio" id="left" name="day" />
+                                    <input type="radio" id="left" [(ngModel)]="selectedStart" value="biweekly" name="day" />
                                     <p class="category font-size-12 padding-top-2">Bi Weekly</p>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                    <select
+                                        class="form-control" 
+                                        id="role-select" 
+                                        [(ngModel)]="selectedBiWeekly"
+                                    >
+                                        <option *ngFor="let row of week" [value]="row.value">{{ row.name }}</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-7">
                                 </div>
                             </div>
                             <div class="row align-center">
                                 <div class="col-md-2 flex-item">
-                                    <input type="radio" id="left" name="day" />
+                                    <input type="radio" id="left" [(ngModel)]="selectedStart" value="monthly" name="day" />
                                     <p class="category font-size-12 padding-top-2">Monthly</p>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required />
+                                    <select
+                                        class="form-control" 
+                                        id="role-select" 
+                                        [(ngModel)]="selectedMonthly"
+                                    >
+                                    <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-7">
                                 </div>
@@ -907,21 +966,21 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox7" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox7">Round up Timesheet in / out time by quater</label>
+                                        <input id="checkbox_round_up" [(ngModel)]="checkbox_round_up" [name]="'checkbox_round_up'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_round_up">Round up Timesheet in / out time by quater</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="checkbox">
-                                        <input id="checkbox8" type="checkbox">
-                                        <label class="padding-top-2" for="checkbox8">Timesheet is not printed</label>
+                                        <input id="checkbox_not_print" [(ngModel)]="checkbox_not_print" [name]="'checkbox_not_print'" type="checkbox" >
+                                        <label class="padding-top-2" for="checkbox_not_print">Timesheet is not printed</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="content add-content">
                                     <p class="category"></p>
-                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onSave()">Save</button>
                                 </div>
                             </div>
                         </div>
