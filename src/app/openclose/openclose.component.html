@@ -1,6 +1,6 @@
 <div style="height: 100vh;">
-    <div class="main-content" *ngIf="false">
-        <!-- <div class="main-content" *ngIf="!isContentVisible"> -->
+    <!-- <div class="main-content" *ngIf="false"> -->
+        <div class="main-content" *ngIf="!isContentVisible">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -231,8 +231,8 @@
 
 <!-- Z Report Section -->
 <!-- <div  class="z-report  print-roll"> -->
-<!-- <div *ngIf="isContentVisible" class="print-roll-bg" (click)="toggleContent()"> -->
-<div class="print-roll-bg" (click)="toggleContent()">
+<div *ngIf="isContentVisible" class="print-roll-bg" (click)="toggleContent()">
+<!-- <div class="print-roll-bg" (click)="toggleContent()"> -->
 
     <div class="z-report  print-roll" >
         <div class="print-table">
