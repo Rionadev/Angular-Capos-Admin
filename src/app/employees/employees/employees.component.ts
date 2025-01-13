@@ -2,6 +2,8 @@ import { Component, OnInit, Inject  } from '@angular/core';
 import { ApiService } from '../../api/employees/api.service';
 import { RolesService } from '../../api/roles/roles.service';
 import { CountriesService } from '../../api/countries/countries.service';
+import { ToastService } from '../../component/toast/toast.service';
+import { OutletsService } from '../../api/outlets/outlets.service';
 
 export interface User {
   _id: string;
@@ -53,18 +55,25 @@ export class EmployeesComponent implements OnInit {
   roleForm: string = '';
   outletForm: string = '';
 
-  selectedRole: string = '';
+  role: string = '';
   roles: { name: string; value: string }[] = [{ name: 'All Roles', value: '' }];
-  selectedOutlet: string = 'All Outlets';
-  outlets: string[] = ['All Outlets', 'Free', 'Cashier', 'Admin'];
-  search: string = '';
+  outlet: string = '';
+  outlets: { name: string; value: string }[] =  [{ name: 'All Outlets', value: '' }];
+  keyword: string = '';
 
   isDeleteModal: boolean = false;
   currentDeleteID: string = '';
   users: any[] = [];
   countries: any[] = [];
 
-  constructor(@Inject('APP_CONFIG') private config: any, private apiService: ApiService, private rolesService: RolesService, private countriesService: CountriesService) { 
+  constructor(
+    @Inject('APP_CONFIG') private config: any, 
+    private apiService: ApiService, 
+    private rolesService: RolesService, 
+    private countriesService: CountriesService,
+    private toastService: ToastService,
+    private outletsService: OutletsService,
+  ) { 
     console.log(this.config.apiUrl);
   }
 
@@ -72,6 +81,21 @@ export class EmployeesComponent implements OnInit {
     this.onGetRoles();
     this.onGetUsers();
     this.onGetCountries();
+    this.onGetOutlets();
+  }
+  
+  onGetOutlets() {
+    this.outletsService.read({}).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        data.forEach(item => {
+          this.outlets.push({ name: item.name, value: item._id });
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching outlets:', err);
+      },
+    });
   }
   
   toggleContent(): void {
@@ -80,8 +104,9 @@ export class EmployeesComponent implements OnInit {
 
   onGetUsers(): void {
     const params = {
-      role: '', // Example role
-      outlet: '', // Example outlet
+      name: this.keyword,
+      role: this.role, // Example role
+      outlet: this.outlet, // Example outlet
     };
 
     this.apiService.getUsers(params).subscribe({
@@ -136,6 +161,8 @@ export class EmployeesComponent implements OnInit {
       this.apiService.update(this.currentRow).subscribe({
         next: (data) => {
           console.log(data);
+          this.toastService.showToast('Saved Sucessfully!', 'success', 3000);
+          this.onGetUsers();
         },
         error: (err) => {
           console.error('Error fetching roles:', err);
@@ -176,6 +203,8 @@ export class EmployeesComponent implements OnInit {
       this.apiService.create(params).subscribe({
         next: (data) => {
           console.log(data);
+          this.toastService.showToast('Saved Sucessfully!', 'success', 3000);
+          this.onGetUsers();
         },
         error: (err) => {
           console.error('Error fetching roles:', err);
@@ -183,7 +212,6 @@ export class EmployeesComponent implements OnInit {
       });
     }
     this.currentRow = this.resetRow();
-    this.onGetUsers();
     this.isContentVisible = false;
   }
 
@@ -273,13 +301,18 @@ export class EmployeesComponent implements OnInit {
   }
 
   onClearFilters() {
-    this.search = '';
-    this.selectedRole = 'All Roles';
-    this.selectedOutlet = 'All Outlets';
+    this.keyword = '';
+    this.role = '';
+    this.outlet = '';
   }
 
   onSearch() {
-
+    this.onGetUsers();
+    this.toastService.showToast('Filtered Successfully!', 'success', 3000);
+    /* this.toastService.showToast('This is a success message!', 'success', 3000);
+    this.toastService.showToast('This is a info message!', 'info', 3000);
+    this.toastService.showToast('This is a warning message!', 'warning', 3000);
+    this.toastService.showToast('This is a error message!', 'error', 3000); */
   }
 }
 

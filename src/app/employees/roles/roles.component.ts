@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesService } from '../../api/roles/roles.service';
+import { ToastService } from '../../component/toast/toast.service';
 
 export interface TableRow {
   _id: string;
@@ -71,7 +72,10 @@ export class RolesComponent implements OnInit {
   role_name: string = '';
   permissions: string[] = [];
 
-  constructor(private rolesService: RolesService) { }
+  constructor(
+    private rolesService: RolesService, 
+    private toastService: ToastService
+  ) { }
 
   toggleAddRoleContent(): void {
     this.role_name = '';
@@ -361,6 +365,7 @@ export class RolesComponent implements OnInit {
         next: (data) => {
           console.log(data);
           this.isAddRoleContentVisible = false;
+          this.toastService.showToast('Saved Sucessfully!', 'success', 3000);
           this.onGetRoles();
         },
         error: (err) => {
@@ -375,6 +380,7 @@ export class RolesComponent implements OnInit {
         next: (data) => {
           console.log(data);
           this.isAddRoleContentVisible = false;
+          this.toastService.showToast('Saved Sucessfully!', 'success', 3000);
           this.onGetRoles();
         },
         error: (err) => {

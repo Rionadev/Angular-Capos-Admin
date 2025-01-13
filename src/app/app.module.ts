@@ -24,14 +24,13 @@ import { APP_CONFIG, AppConfig } from './config';
     FooterModule,
     SidebarModule,
     AppRoutingModule,
-
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
   ],
-  providers: [{ 
-    provide: 'APP_CONFIG', useValue: APP_CONFIG },
+  providers: [
+    { provide: 'APP_CONFIG', useValue: APP_CONFIG },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

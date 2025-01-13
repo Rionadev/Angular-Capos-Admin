@@ -1,0 +1,61 @@
+.toast {
+    /* transform: translateX(-50%); */
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeIn 0.3s ease-out forwards, fadeInTrans 0.2s ease-in forwards;
+    display: flex;
+    flex-direction: row;
+    line-height: 1;
+    align-items: center;
+    gap: 10px;
+}
+
+.glyphicon{
+    font-size: 24px;
+}
+
+.toast-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}
+
+.toast.success {
+    background-color: green;
+}
+
+.toast.error {
+    background-color: red;
+}
+
+.toast.info {
+    background-color: blue;
+}
+
+.toast.warning {
+    background-color: orange;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInTrans {
+    0% {
+      transform: translateX(50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
