@@ -429,6 +429,13 @@
                                             </button>
                                         </td>
                                     </tr>
+                                    <tr *ngIf="data.length == 0">
+                                        <td colspan="3">
+                                            <div class="content margin-top-10">
+                                                <p class="text-center description">No Data</p>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </tbody>
                           </table>
 
@@ -457,3 +464,4 @@
     (confirmed)="deleteRow()" 
     (cancelled)="closeDeleteModal()">
 </app-confirm-modal>
+<app-toast></app-toast>

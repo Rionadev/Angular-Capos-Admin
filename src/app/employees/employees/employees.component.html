@@ -193,22 +193,21 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" placeholder="Search" id="search" name="search"
-                                    [(ngModel)]="search" required />
+                                    [(ngModel)]="keyword" required />
                             </div>
                             <div class="col-sm-4">
-                                <select class="form-control" id="role-select" [(ngModel)]="selectedRole">
+                                <select class="form-control" id="role-select" [(ngModel)]="role">
                                     <option *ngFor="let role of roles" [value]="role.value">{{ role.name }}</option>
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <select class="form-control" id="outlet-select" [(ngModel)]="selectedOutlet">
-                                    <option *ngFor="let outlet of outlets" [value]="outlet">{{ outlet }}</option>
+                                <select class="form-control" id="outlet-select" [(ngModel)]="outlet">
+                                    <option *ngFor="let outlet of outlets" [value]="outlet.value">{{ outlet.name }}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="">
-                            <button class="btn btn-sm btn-info btn-fill" (click)="onClearFilters()">Clear
-                                Filters</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="onClearFilters()">Clear Filters</button>
                             <button class="btn btn-sm btn-info btn-fill" (click)="onSearch()">Search</button>
                         </div>
                     </div>
@@ -254,6 +253,14 @@
                                         </button>
                                     </td>
                                 </tr>
+                                <!-- Detail Row -->
+                                <tr *ngIf="users.length == 0">
+                                    <td colspan="8">
+                                        <div class="content margin-top-10">
+                                            <p class="text-center description">No Data</p>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
 
@@ -278,3 +285,4 @@
     [description]="'Do you really want to remove this User ?'" [confirmButtonCaption]="'Delete'"
     [cancelButtonCaption]="'Cancel'" (confirmed)="deleteRow()" (cancelled)="closeDeleteModal()">
 </app-confirm-modal>
+<app-toast></app-toast>

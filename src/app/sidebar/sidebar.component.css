@@ -1,9 +1,10 @@
 .sidebar-wrapper{
-    background-color: darkslategray;
+    background-color: white;
+    border-right: 1px solid rgba(0, 0, 0, .1) !important;
 }
 
 .logo{
-    background-color: #1e88e5;
+    background-color: white;
 }
 
 .logo-img{
@@ -18,4 +19,22 @@
 
 .padding-left-10{
     padding-left: 10px;
+}
+
+.sidebar-wrapper .nav p {
+    color: #777 !important;
+}
+
+.sidebar-wrapper .nav i{
+    color: #777 !important;
+}
+
+.sidebar-wrapper .nav li.active>a, .bootstrap-navbar .nav li.active>a {
+    opacity: 1;
+    background: rgba(100, 100, 100, 0.2) !important;
+}
+
+.sidebar-wrapper .nav li:hover>a, .bootstrap-navbar .nav li:hover>a {
+    background: rgba(100, 100, 100, 0.2) !important;
+    opacity: 1;
 }
