@@ -12,7 +12,7 @@
                                     <option *ngFor="let register of sel_reg" [value]="register">{{ register }}</option>
                                 </select>
                             </div>
-                            <div class="col-md-2" style="float: right;">
+                            <div style="display: flex;">
                                 <button class="btn btn-sm btn-danger btn-fill" style="margin-right: 1rem;"
                                     (click)="initFilters()">Clear Filters</button>
                                 <button class="btn btn-sm btn-info btn-fill" (click)="searchRecords()">Search</button>
@@ -92,5 +92,5 @@
         <!-- <button (click)="selectedRecord = null">Close</button> -->
         <button (click)="onBackdropClick(selectedRecord)">Close</button>
 
-    </div> 
+    </div>
 </div>

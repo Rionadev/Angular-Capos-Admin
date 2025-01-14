@@ -28,9 +28,10 @@ export class CashManagement {
     // Make the API call
     params = {
       ...params,
-      register: this.config.register,
+      register: this.config.register_id,
       user_id: this.config.user_id,
-      outlet: this.config.outlet
+      outlet: this.config.outlet_id,
+      private_web_address: this.config.private_web_address,
     }
     return this.http.post(this.config.apiUrl + "/cash/cashmanagementdata", params);
   }
@@ -38,15 +39,16 @@ export class CashManagement {
     // Make the API call
     params = {
       ...params,
-      register: this.config.register,
+      register: this.config.register_id,
       user_id: this.config.user_id,
-      outlet: this.config.outlet
+      outlet: this.config.outlet_id,
+      private_web_address: this.config.private_web_address,
     }
     return this.http.put(this.config.apiUrl + "/cash/cashmanagementdata", params);
   }
-  deleteCash(transaction: any): Observable<any> {
+  deleteCash(id: string): Observable<any> {
     // Make the API call
-    const params = new HttpParams().set('id', transaction._id);
+    const params = new HttpParams().set('id', id);
     return this.http.delete(this.config.apiUrl + "/cash/cashmanagementdata", { params });
   }
 }

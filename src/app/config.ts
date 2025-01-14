@@ -2,6 +2,7 @@ export interface AppConfig {
   apiUrl: string;
   featureFlag: boolean;
   private_web_address: string;
+  user_id: string;
   sort_order: number;
   page: number;
   size: number;
@@ -12,6 +13,7 @@ export interface AppConfig {
 }
 export const APP_CONFIG: AppConfig = {
   apiUrl: 'http://localhost:3000/api',
+  user_id: localStorage.getItem('user_id') || '',
   userinfo: localStorage.getItem('user_info') || '',
   featureFlag: true,
   private_web_address: localStorage.getItem('private_web_address') || 'newonestore',

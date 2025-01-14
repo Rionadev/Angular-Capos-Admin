@@ -165,7 +165,9 @@ export class SaleslegderComponent implements OnInit {
     });
     console.log('Filtered Transactions:', this.filteredTransactions);
   }
-
+  calculateTotal() {
+    return this.filteredTransactions.reduce((acc, transaction) => acc + transaction.total, 0);
+  }
   clearFilters() {
     this.selectedCustomer = 'all';
     this.selectedUser = 'all';
