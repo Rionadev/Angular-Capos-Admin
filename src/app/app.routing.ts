@@ -19,7 +19,7 @@ const routes: Routes = [
     canActivate: [AuthRedirectGuard], // Protect the login route
   },
   {
-    path: 'dashboard',
+    path: '',
     component: AdminLayoutComponent,
     canActivate: [AuthGuard], // Protect this route
     children: [
