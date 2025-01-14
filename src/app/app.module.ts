@@ -13,9 +13,7 @@ import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { APP_CONFIG, AppConfig } from './config';
-import { FirstpageComponent } from './auth/firstpage/firstpage.component';
 import { LoginComponent } from './auth/login/login.component';
-import { LogoutComponent } from './auth/logout/logout.component';
 
 @NgModule({
   imports: [
@@ -32,12 +30,11 @@ import { LogoutComponent } from './auth/logout/logout.component';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    FirstpageComponent,
     LoginComponent,
-    LogoutComponent,
   ],
-  providers: [{ 
-    provide: 'APP_CONFIG', useValue: APP_CONFIG },
+  providers: [{
+    provide: 'APP_CONFIG', useValue: APP_CONFIG
+  },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

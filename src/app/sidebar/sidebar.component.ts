@@ -8,18 +8,18 @@ declare interface RouteInfo {
   class: string;
 }
 export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', icon: 'pe-7s-graph', class: '' },
-  { path: '/openclose', title: 'Open / Close', icon: 'pe-7s-map', class: '' },
-  { path: '/cashmanagement', title: 'Cash Management', icon: 'pe-7s-cash', class: '' },
-  { path: '/saleslegder', title: 'Sales Ledger', icon: 'pe-7s-shopbag', class: '' },
-  { path: '/salestransaction', title: 'Sales Transaction', icon: 'pe-7s-news-paper', class: '' },
+  { path: '/dashboard/dashboard', title: 'Dashboard', icon: 'pe-7s-graph', class: '' },
+  { path: '/dashboard/openclose', title: 'Open / Close', icon: 'pe-7s-map', class: '' },
+  { path: '/dashboard/cashmanagement', title: 'Cash Management', icon: 'pe-7s-cash', class: '' },
+  { path: '/dashboard/saleslegder', title: 'Sales Ledger', icon: 'pe-7s-shopbag', class: '' },
+  { path: '/dashboard/salestransaction', title: 'Sales Transaction', icon: 'pe-7s-news-paper', class: '' },
 
-  { path: '/user', title: 'User Profile', icon: 'pe-7s-user', class: '' },
-  { path: '/table', title: 'Table List', icon: 'pe-7s-note2', class: '' },
-  { path: '/typography', title: 'Typography', icon: 'pe-7s-news-paper', class: '' },
-  { path: '/icons', title: 'Icons', icon: 'pe-7s-science', class: '' },
+  { path: '/dashboard/user', title: 'User Profile', icon: 'pe-7s-user', class: '' },
+  { path: '/dashboard/table', title: 'Table List', icon: 'pe-7s-note2', class: '' },
+  { path: '/dashboard/typography', title: 'Typography', icon: 'pe-7s-news-paper', class: '' },
+  { path: '/dashboard/icons', title: 'Icons', icon: 'pe-7s-science', class: '' },
   // { path: '/maps', title: 'Maps', icon: 'pe-7s-map-marker', class: '' },
-  { path: '/notifications', title: 'Notifications', icon: 'pe-7s-bell', class: '' },
+  { path: '/dashboard/notifications', title: 'Notifications', icon: 'pe-7s-bell', class: '' },
   // { path: '/employees', title: 'Employees', icon: 'pe-7s-users', class: '' },
   /* { path: '/user', title: 'User Profile', icon: 'pe-7s-user', class: '' },
   { path: '/table', title: 'Table List', icon: 'pe-7s-note2', class: '' },
@@ -33,65 +33,65 @@ export const ROUTES: RouteInfo[] = [
 ];
 
 export const EMPLOYEESROUTES: RouteInfo[] = [
-  { path: '/employees/employees', title: 'User/Employee', icon: 'pe-7s-credit', class: '' },
-  { path: '/employees/roles', title: 'User Roles', icon: 'pe-7s-albums', class: '' },
+  { path: '/dashboard/employees/employees', title: 'User/Employee', icon: 'pe-7s-credit', class: '' },
+  { path: '/dashboard/employees/roles', title: 'User Roles', icon: 'pe-7s-albums', class: '' },
 ];
 
 export const SETTINGROUTES: RouteInfo[] = [
-  { path: '/setting/billing', title: 'Billing & Subscriptions', icon: 'pe-7s-credit', class: '' },
+  { path: '/dashboard/setting/billing', title: 'Billing & Subscriptions', icon: 'pe-7s-credit', class: '' },
   /* { path: '/setting/outlets', title: 'Outlets & Register', icon: 'pe-7s-albums', class: '' }, */
   /* { path: '/setting/payment', title: 'Payment Types', icon: 'pe-7s-calculator', class: '' }, */
-  { path: '/setting/customer', title: 'Customer Point & Gift', icon: 'pe-7s-note2', class: '' },
-  { path: '/setting/sales', title: 'Sales Taxes', icon: 'pe-7s-wallet', class: '' },
+  { path: '/dashboard/setting/customer', title: 'Customer Point & Gift', icon: 'pe-7s-note2', class: '' },
+  { path: '/dashboard/setting/sales', title: 'Sales Taxes', icon: 'pe-7s-wallet', class: '' },
   /* { path: '/setting/station', title: 'Station', icon: 'pe-7s-shuffle', class: '' }, */
   /* { path: '/setting/store', title: 'Store Management', icon: 'pe-7s-shopbag', class: '' }, */
-  { path: '/setting/policy', title: 'Store Policy', icon: 'pe-7s-paperclip', class: '' },
+  { path: '/dashboard/setting/policy', title: 'Store Policy', icon: 'pe-7s-paperclip', class: '' },
   /* { path: '/setting/preferences', title: 'Preferences', icon: 'pe-7s-tools', class: '' }, */
 ];
 
 export const REPOTINGROUTES: RouteInfo[] = [
-  { path: '/reporting/salesreport', title: 'Sales Reports', icon: '', class: '' },
-  { path: '/reporting/inventoryreports', title: 'Inventory Reports', icon: '', class: '' },
-  { path: '/reporting/paymentreports', title: 'Payment Reports', icon: '', class: '' },
-  { path: '/reporting/registerclosures', title: 'Register Cloures', icon: '', class: '' },
-  { path: '/reporting/storecreditreports', title: 'Store Credit Reports', icon: '', class: '' },
-  { path: '/reporting/taxesreports', title: 'Taxes Reports', icon: '', class: '' },
+  { path: '/dashboard/reporting/salesreport', title: 'Sales Reports', icon: '', class: '' },
+  { path: '/dashboard/reporting/inventoryreports', title: 'Inventory Reports', icon: '', class: '' },
+  { path: '/dashboard/reporting/paymentreports', title: 'Payment Reports', icon: '', class: '' },
+  { path: '/dashboard/reporting/registerclosures', title: 'Register Cloures', icon: '', class: '' },
+  { path: '/dashboard/reporting/storecreditreports', title: 'Store Credit Reports', icon: '', class: '' },
+  { path: '/dashboard/reporting/taxesreports', title: 'Taxes Reports', icon: '', class: '' },
 ];
 
 export const ECOMMERCEROUTES: RouteInfo[] = [
-  { path: '/ecommerce/dashboard', title: 'Dashboard', icon: 'pe-7s-credit', class: '' },
-  { path: '/ecommerce/collections', title: 'Collections', icon: 'pe-7s-albums', class: '' },
-  { path: '/ecommerce/products', title: 'Products', icon: 'pe-7s-calculator', class: '' },
-  { path: '/ecommerce/orders', title: 'Orders', icon: 'pe-7s-note2', class: '' },
-  { path: '/ecommerce/settings', title: 'Ecommerce Settings', icon: 'pe-7s-wallet', class: '' },
-  { path: '/ecommerce/pages', title: 'Ecommerce Pages', icon: 'pe-7s-shuffle', class: '' },
-  { path: '/', title: 'Visit Online Store', icon: 'pe-7s-shopbag', class: '' },
+  { path: '/dashboard/ecommerce/dashboard', title: 'Dashboard', icon: 'pe-7s-credit', class: '' },
+  { path: '/dashboard/ecommerce/collections', title: 'Collections', icon: 'pe-7s-albums', class: '' },
+  { path: '/dashboard/ecommerce/products', title: 'Products', icon: 'pe-7s-calculator', class: '' },
+  { path: '/dashboard/ecommerce/orders', title: 'Orders', icon: 'pe-7s-note2', class: '' },
+  { path: '/dashboard/ecommerce/settings', title: 'Ecommerce Settings', icon: 'pe-7s-wallet', class: '' },
+  { path: '/dashboard/ecommerce/pages', title: 'Ecommerce Pages', icon: 'pe-7s-shuffle', class: '' },
+  { path: '/dashboard/', title: 'Visit Online Store', icon: 'pe-7s-shopbag', class: '' },
 ];
 export const CUSTOMERROUTES: RouteInfo[] = [
-  { path: '/customers/customers', title: 'Customers', icon: '', class: '' },
-  { path: '/customers/groups', title: 'Groups', icon: '', class: '' },
+  { path: '/dashboard/customers/customers', title: 'Customers', icon: '', class: '' },
+  { path: '/dashboard/customers/groups', title: 'Groups', icon: '', class: '' },
 ];
 export const STOCKCONTROLROUTES: RouteInfo[] = [
-  { path: '/stockcontrol/manageorders', title: 'Manage Orders', icon: '', class: '' },
-  { path: '/stockcontrol/receivestock', title: 'Recievie Stock', icon: '', class: '' },
-  { path: '/stockcontrol/returnstock', title: 'Return Stock', icon: '', class: '' },
+  { path: '/dashboard/stockcontrol/manageorders', title: 'Manage Orders', icon: '', class: '' },
+  { path: '/dashboard/stockcontrol/receivestock', title: 'Recievie Stock', icon: '', class: '' },
+  { path: '/dashboard/stockcontrol/returnstock', title: 'Return Stock', icon: '', class: '' },
 ];
 
-export const PRODUCTSROUTES: RouteInfo[] = [
-  // { path: '/products/product', title: 'Products', icon: 'pe-7s-cart', class: '' },
-  { path: '/products/pricebooks', title: 'Price Books', icon: 'pe-7s-notebook', class: '' },
-  { path: '/products/producttypes', title: 'Product Types', icon: 'pe-7s-keypad', class: '' },
-  { path: '/products/supplliers', title: 'Suppliers', icon: 'pe-7s-albums', class: '' },
-  { path: '/products/producttags', title: 'Product Tags', icon: 'pe-7s-ticket', class: '' },
-  { path: '/products/productattributes', title: 'Product Attributes', icon: 'pe-7s-way', class: '' },
-];
+// export const PRODUCTSROUTES: RouteInfo[] = [
+//   // { path: '/products/product', title: 'Products', icon: 'pe-7s-cart', class: '' },
+//   { path: '/dashboard/products/pricebooks', title: 'Price Books', icon: 'pe-7s-notebook', class: '' },
+//   { path: '/dashboard/products/producttypes', title: 'Product Types', icon: 'pe-7s-keypad', class: '' },
+//   { path: '/dashboard/products/supplliers', title: 'Suppliers', icon: 'pe-7s-albums', class: '' },
+//   { path: '/dashboard/products/producttags', title: 'Product Tags', icon: 'pe-7s-ticket', class: '' },
+//   { path: '/dashboard/products/productattributes', title: 'Product Attributes', icon: 'pe-7s-way', class: '' },
+// ];
 
 export const MENUSROUTES: RouteInfo[] = [
-  { path: '/menus/layout', title: 'Menus Layout', icon: 'pe-7s-cart', class: '' },
+  { path: '/dashboard/menus/layout', title: 'Menus Layout', icon: 'pe-7s-cart', class: '' },
   /*  { path: '/menus/menusmodifiers', title: 'Menus with Forced Modifiers', icon: 'pe-7s-notebook', class: '' }, */
-  { path: '/menus/mix', title: 'Mix & Match', icon: 'pe-7s-keypad', class: '' },
-  { path: '/menus/price', title: 'Price Books', icon: 'pe-7s-albums', class: '' },
-  { path: '/menus/categories', title: 'Menu Categories', icon: 'pe-7s-ticket', class: '' },
+  { path: '/dashboard/menus/mix', title: 'Mix & Match', icon: 'pe-7s-keypad', class: '' },
+  { path: '/dashboard/menus/price', title: 'Price Books', icon: 'pe-7s-albums', class: '' },
+  { path: '/dashboard/menus/categories', title: 'Menu Categories', icon: 'pe-7s-ticket', class: '' },
   /*  { path: '/menus/attributes', title: 'Menu Attributes', icon: 'pe-7s-way', class: '' },
   { path: '/menus/priority', title: 'Menu Priority', icon: 'pe-7s-cart', class: '' },
   { path: '/menus/forcedmodifier', title: 'Forced Modifier', icon: 'pe-7s-notebook', class: '' },
@@ -129,7 +129,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.settingMenuItems = SETTINGROUTES.filter(menuItem => menuItem);
-    this.productsgMenuItems = PRODUCTSROUTES.filter(menuItem => menuItem);
+    // this.productsgMenuItems = PRODUCTSROUTES.filter(menuItem => menuItem);
     this.ecommerceMenuItems = ECOMMERCEROUTES.filter(menuItem => menuItem);
     this.reportingContentItems = REPOTINGROUTES.filter(menuItems => menuItems);
     this.stockContentItems = STOCKCONTROLROUTES.filter(menuItems => menuItems);
