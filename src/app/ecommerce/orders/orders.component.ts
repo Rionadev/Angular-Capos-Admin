@@ -9,7 +9,7 @@ export interface TableRow {
   total: string;
   payment: string;
   status: string;
-  paymentstatus	: string;
+  paymentstatus: string;
 }
 
 @Component({
@@ -19,7 +19,7 @@ export interface TableRow {
 })
 
 export class OrdersComponent implements OnInit {
-  
+
   data: any[] = [];
 
   isProductContentVisible: boolean = false; // Initially hidden for add or editing.
@@ -27,14 +27,25 @@ export class OrdersComponent implements OnInit {
   currentRow: TableRow = this.resetRow();
   selectedItemId: number | null = null; // Variable to track which row is expanded
 
-  cities: string[] = ['Search', 'Search 1', 'Search 2', 'Search 3'];
-  selectedCity: string = 'Search'; // Default selected value
-  
-  constructor(private ordersService: OrdersService) {}
+  // Search Items
+  orders: { name: string, value: string }[] = [{ name: "All Order Status", value: '' }, { name: "Awaiting Payment", value: 'awaiting_payment' }, { name: "Allocated", value: 'allocated' }, { name: "Shipped", value: 'shipped' }, { name: "Quote", value: 'quote' }];
+  status: string = ''; // Default selected value
+
+  payments: { name: string, value: string }[] = [{ name: "All Payment Status", value: '' }, { name: "Partically Paid", value: 'part_paid' }, { name: "Fully Paid", value: 'full_paid' }, { name: "Not Paid", value: 'not_paid' }];
+  payment: string = ''; // Default selected value
+
+  order: string = '';
+  customer: string = '';
+
+  start: string = '';
+  end: string = '';
+
+  constructor(private ordersService: OrdersService) { }
 
   ngOnInit(): void {
     // No dataService to subscribe to; rows are managed directly.
     this.onGetData();
+    this.onClearFilters();
   }
 
   onGetData() {
@@ -98,19 +109,19 @@ export class OrdersComponent implements OnInit {
   }
 
   saveRow(): void {
-   /*  if (this.currentRow.id) {
-      // Update existing row
-      const index = this.rows.findIndex((row) => row.id === this.currentRow.id);
-      if (index !== -1) {
-        this.rows[index] = { ...this.currentRow }; // Update row
-      }
-    } else {
-      // Add new row
-      this.rows.push({
-        ...this.currentRow,
-        id: this.generateId(),
-      });
-    } */
+    /*  if (this.currentRow.id) {
+       // Update existing row
+       const index = this.rows.findIndex((row) => row.id === this.currentRow.id);
+       if (index !== -1) {
+         this.rows[index] = { ...this.currentRow }; // Update row
+       }
+     } else {
+       // Add new row
+       this.rows.push({
+         ...this.currentRow,
+         id: this.generateId(),
+       });
+     } */
     this.currentRow = this.resetRow();
     this.isProductContentVisible = false;
   }
@@ -138,4 +149,30 @@ export class OrdersComponent implements OnInit {
     return Math.max(...this.rows.map((r) => r.id), 0) + 1;
   } */
 
+  onSearch() {
+    //type, outlet, supplier, date_from, date_to, due_from, due_to, keyword, 
+    this.ordersService.read({
+      date_from: this.start,
+      date_to: this.end,
+      keyword: this.order,
+    }).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        this.data = data;
+      },
+      error: (err) => {
+        console.error('Error fetching stores:', err);
+      },
+    });
+  }
+
+  onClearFilters() {
+    const today = new Date();
+    this.start = today.toISOString().split('T')[0];
+    this.status = '';
+    this.payment = '';
+    this.order = '';
+    this.customer = '';
+    this.end = today.toISOString().split('T')[0];
+  }
 }
