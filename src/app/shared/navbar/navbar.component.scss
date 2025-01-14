@@ -5,3 +5,17 @@
 .color-white{
     color: white;
 }
+
+.flex-items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    line-height: 1;
+    gap: 5px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.nav i {
+    font-size: 28px;
+}

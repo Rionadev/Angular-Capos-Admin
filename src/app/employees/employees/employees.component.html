@@ -89,7 +89,7 @@
                                 <div class="form-group">
                                     <label>Outlet:</label>
                                     <select class="form-control" id="edit-outlet-select" [(ngModel)]="outletForm">
-                                        <option *ngFor="let outlet of outlets" [value]="outlet">{{ outlet }}</option>
+                                        <option *ngFor="let outlet of outlets" [value]="outlet.value">{{ outlet.name }}</option>
                                     </select>
                                 </div>
                             </div>
