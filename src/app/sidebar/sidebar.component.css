@@ -40,3 +40,7 @@
     background: rgba(100, 100, 100, 0.2) !important;
     opacity: 1;
 }
+
+li a{
+    cursor: pointer;
+}

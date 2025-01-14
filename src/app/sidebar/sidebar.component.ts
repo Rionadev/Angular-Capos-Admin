@@ -89,8 +89,8 @@ export const STOCKCONTROLROUTES: RouteInfo[] = [
 export const MENUSROUTES: RouteInfo[] = [
   { path: '/menus/layout', title: 'Menus Layout', icon: 'pe-7s-cart', class: '' },
   /*  { path: '/menus/menusmodifiers', title: 'Menus with Forced Modifiers', icon: 'pe-7s-notebook', class: '' }, */
-  { path: '/menus/mix', title: 'Mix & Match', icon: 'pe-7s-keypad', class: '' },
-  { path: '/menus/price', title: 'Price Books', icon: 'pe-7s-albums', class: '' },
+  //{ path: '/menus/mix', title: 'Mix & Match', icon: 'pe-7s-keypad', class: '' }, // Current skip
+  //{ path: '/menus/price', title: 'Price Books', icon: 'pe-7s-albums', class: '' }, // No needed.
   { path: '/menus/categories', title: 'Menu Categories', icon: 'pe-7s-ticket', class: '' },
   { path: '/menus/attributes', title: 'Menu Attributes', icon: 'pe-7s-way', class: '' },
   { path: '/menus/priority', title: 'Menu Priority', icon: 'pe-7s-cart', class: '' },

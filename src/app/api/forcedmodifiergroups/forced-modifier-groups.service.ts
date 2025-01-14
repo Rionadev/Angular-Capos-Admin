@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-
-export class AttributesService {
+export class ForcedModifierGroupsService {
 
   constructor(@Inject('APP_CONFIG') private config: any, private http: HttpClient) { }
 
@@ -22,7 +21,7 @@ export class AttributesService {
     });
     queryParams = queryParams.set("private_web_address", this.config.private_web_address);
     // Make the API call
-    return this.http.get(`${this.config.apiUrl}/product/attribute`, { params: queryParams });    
+    return this.http.get(`${this.config.apiUrl}/product/forced_modifier_group`, { params: queryParams });    
   }
 
   // GET request
@@ -32,16 +31,15 @@ export class AttributesService {
       private_web_address: this.config.private_web_address, // Add the additional property
     };
     // Make the API call
-    return this.http.post(`${this.config.apiUrl}/product/attribute`, queryParams);
+    return this.http.post(`${this.config.apiUrl}/product/forced_modifier_group`, queryParams);
   }
 
   update(params): Observable<any> {
-    return this.http.put(`${this.config.apiUrl}/product/attribute`, params);
+    return this.http.put(`${this.config.apiUrl}/product/forced_modifier_group`, params);
   }
 
   delete(params): Observable<any> {
     // Make the API call
-    return this.http.delete(`${this.config.apiUrl}/product/attribute`, { params: params });
+    return this.http.delete(`${this.config.apiUrl}/product/forced_modifier_group`, { params: params });
   }
-
 }

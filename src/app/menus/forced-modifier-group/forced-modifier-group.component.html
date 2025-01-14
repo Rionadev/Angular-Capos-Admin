@@ -2,12 +2,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card margin-bottom-10">
+                <div class="card margin-bottom-10" *ngIf="!isContentVisible">
                     <div class="content add-content">
                         <div class="">
+                            <!-- <button class="btn btn-sm btn-info btn-fill">Search</button>
                             <button class="btn btn-sm btn-info btn-fill">Search</button>
-                            <button class="btn btn-sm btn-info btn-fill">Search</button>
-                            <button class="btn btn-sm btn-info btn-fill">Search</button>
+                            <button class="btn btn-sm btn-info btn-fill">Search</button> -->
                         </div>
                         <div class="">
                             <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Add New</button>
@@ -16,76 +16,124 @@
                 </div>
                 <div class="card margin-bottom-10" *ngIf="isContentVisible">
                     <div class="header">
-                        <h4 class="title">Add a user</h4>
-                        <p class="category">Here is a form for adding </p>
+                        <h4 class="title">{{ currentRow._id ? 'Update' : 'Add' }} a forced modifier group</h4>
+                        <p class="category"></p>
                     </div>
                     <div class="content">                        
                         <form (ngSubmit)="saveRow()">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Name:</label>
+                                        <label for="name">Name:</label>
                                         <input type="text" class="form-control" placeholder="Name" id="name" [(ngModel)]="currentRow.name" name="name" required />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Email:</label>
-                                        <input type="text" class="form-control" placeholder="Email" id="email" [(ngModel)]="currentRow.email" name="email" required />
-                                    </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Phone:</label>
-                                        <input type="email" class="form-control" placeholder="Phone" id="phone" [(ngModel)]="currentRow.phone" name="phone" required />
-                                    </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ? 'Update' : 'Add' }}</button>
-                            <button class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()" *ngIf="currentRow.id">Cancel</button>
+                            <div class="row category">
+                                <div class="col-md-12 padding-right-15">
+                                    <div class="item-justify">
+                                        <div class="flex-item">
+                                            <!-- [(checked)]="currentRow.enabled" (tagsChange)="currentRow.enabled = $event" -->
+                                            <app-toggle-switch [(checked)]="currentRow.touch"
+                                                (tagsChange)="currentRow.touch = $event"></app-toggle-switch>
+                                                Touch
+                                        </div>
+                                        <div class="flex-item">
+                                            <app-toggle-switch [(checked)]="currentRow.multiple_choice"
+                                                (tagsChange)="currentRow.multiple_choice = $event"></app-toggle-switch>
+                                                Multiple Choice
+                                        </div>
+                                        <div class="flex-item">
+                                            <app-toggle-switch [(checked)]="currentRow.pizza_size_style"
+                                                (tagsChange)="currentRow.pizza_size_style = $event"></app-toggle-switch>
+                                            Pizza Size Style
+                                        </div>
+                                        <div class="flex-item">
+                                            <!-- [(checked)]="currentRow.enabled" (tagsChange)="currentRow.enabled = $event" -->
+                                            <app-toggle-switch [(checked)]="currentRow.pizza_topping"
+                                                (tagsChange)="currentRow.pizza_topping = $event"></app-toggle-switch>
+                                                Pizza Topping
+                                        </div>
+                                        <div class="flex-item">
+                                            <app-toggle-switch [(checked)]="currentRow.pizza_full_half"
+                                                (tagsChange)="currentRow.pizza_full_half = $event"></app-toggle-switch>
+                                                Pizza Full Half
+                                        </div>
+                                        <div class="flex-item">
+                                            <app-toggle-switch [(checked)]="currentRow.not_display_kitchen_monitor"
+                                                (tagsChange)="currentRow.not_display_kitchen_monitor = $event"></app-toggle-switch>
+                                            Not Display Kitchen Monitor
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6"></div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow._id ? 'Update' : '&nbsp;&nbsp;Add&nbsp;&nbsp;' }}</button>
+                            <button type="button" class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()">Cancel</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card" *ngIf="!isContentVisible">
                     <div class="content table-responsive table-full-width">
                           <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Group Name</th>
+                                        <th>Name</th>
                                         <th>Touch</th>
+                                        <th>Multiple Choice</th>
                                         <th>Pizza Size Style</th>
                                         <th>Pizza Topping</th>
-                                        <th>Pizza Full Or Half</th>
-                                        <th>Actions</th>
+                                        <th>Pizza Full Half</th>
+                                        <th>Not Display Kitchen Monitor</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let row of rows">
-                                        <td>{{ row.groupname }}</td>
+                                    <tr *ngFor="let row of data">
+                                        <td>{{ row.name }}</td>
                                         <td>
                                             <app-toggle-icon-button [checked]="row.touch" title="">
                                             </app-toggle-icon-button>
                                         </td>
                                         <td>
-                                            <app-toggle-icon-button [checked]="row.pizzasizestyle" title="">
+                                            <app-toggle-icon-button [checked]="row.multiple_choice" title="">
                                             </app-toggle-icon-button>
                                         </td>
                                         <td>
-                                            <app-toggle-icon-button [checked]="row.pizzatopping" title="">
+                                            <app-toggle-icon-button [checked]="row.pizza_size_style" title="">
                                             </app-toggle-icon-button>
                                         </td>
                                         <td>
-                                            <app-toggle-icon-button [checked]="row.pizzafullorhalf" title="">
+                                            <app-toggle-icon-button [checked]="row.pizza_topping" title="">
                                             </app-toggle-icon-button>
                                         </td>
                                         <td>
-                                            <button class="btn btn-sm btn-info" (click)="editRow(row)">
+                                            <app-toggle-icon-button [checked]="row.pizza_full_half" title="">
+                                            </app-toggle-icon-button>
+                                        </td>
+                                        <td>
+                                            <app-toggle-icon-button [checked]="row.not_display_kitchen_monitor" title="">
+                                            </app-toggle-icon-button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" (click)="editRow(row)" data-toggle="tooltip" title="Edit">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                             </button>
-                                            <button class="btn btn-sm btn-danger" (click)="deleteRow(row.id)">
+                                            <button class="btn btn-sm btn-danger" (click)="showDeleteModal(row._id)" data-toggle="tooltip" title="Delete">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </button>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="data.length == 0">
+                                        <td colspan="7">
+                                            <div class="content margin-top-10 margin-bottom-10">
+                                                <p class="text-center description">No Data</p>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -97,3 +145,9 @@
         </div>
     </div>
 </div>
+<app-confirm-modal *ngIf="isDeleteModal" [title]="'Remove Category'"
+    [description]="'Do you really want to remove this category ?'" [confirmButtonCaption]="'Delete'"
+    [cancelButtonCaption]="'Cancel'" (confirmed)="deleteRow()" (cancelled)="closeDeleteModal()">
+</app-confirm-modal>
+<app-toast></app-toast>
+
