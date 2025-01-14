@@ -225,6 +225,9 @@ export class OpencloseComponent implements OnInit {
     // $('#editModal').show();
   }
 
+  updateDifference(payment: any) {
+    payment.differences = payment.expected - payment.counted;
+  }
 
   closeRegister() {
     this.showZReport = true; // Show Z Report
@@ -246,5 +249,6 @@ export class OpencloseComponent implements OnInit {
       window.print(); // Print the current window
     }, 1000); // Delay to allow the Z Report to render
   }
+
 
 }

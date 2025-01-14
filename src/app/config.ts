@@ -22,7 +22,7 @@ export const APP_CONFIG: AppConfig = {
   featureFlag: true,
   private_web_address: 'newonestore',
   outlet: '6093edcf5435e55c2c563f65',
-  
+
   outlet_name: 'Main Outlet',
   outlet_email: 'a@example.com',
   register: '60b10fc17921eb75a685629a',

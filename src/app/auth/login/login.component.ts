@@ -23,8 +23,8 @@ export class LoginComponent {
   }
 
   check() {
-
-    console.log(this.private_web_address, this.email, this.password);
+    this.toastService.showToast('asdf', 'error', 3000);
+    // console.log(this.private_web_address, this.email, this.password);
     if (this.private_web_address == '' || this.email == '' || this.password == '') {
       return;
     }
@@ -35,32 +35,41 @@ export class LoginComponent {
         switch (response.error) {
           case 0:
             localStorage.setItem('user', JSON.stringify(response.token));
-            localStorage.setItem('username', this.private_web_address);
+            localStorage.setItem('private_web_address', this.private_web_address);
+            localStorage.setItem('email', this.email);
 
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/dashboard/dashboard']);
             break;
           case 'email_verify':
+            // this.error_msg = 'Email unverified';
             break;
           case 'password':
+            // this.error_msg = 'Wrong password';
             break;
           case 'private_web_address':
+            // this.error_msg = 'Wrong private web address';
             break;
           case 'permission':
+            // this.error_msg = 'Not allowed to access';
             break;
           default:
+            // this.error_msg = 'Incorrect information';
             break;
         }
-        this.error_msg = response.error;
         console.log('error:', response.error);
 
       },
       error: (err) => {
+        // this.error_msg = 'Incorrect information';
+
         console.error('Login failed', err);
+        // this.error_msg = err;
+
         // this.toastService.showToast('Filtered Successfully!', 'success', 3000);
         // this.toastService.showToast('This is a success message!', 'success', 3000);
         // this.toastService.showToast('This is a info message!', 'info', 3000);
         // this.toastService.showToast('This is a warning message!', 'warning', 3000);
-        this.toastService.showToast(err, 'error', 3000);
+        // this.toastService.showToast(err, 'error', 3000);
         // alert('Invalid email or password');
       },
     });
