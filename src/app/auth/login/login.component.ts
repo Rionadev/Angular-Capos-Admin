@@ -23,7 +23,7 @@ export class LoginComponent {
   }
 
   check() {
-
+    this.toastService.showToast('This is a error message!', 'error', 3000);
     console.log(this.private_web_address, this.email, this.password);
     if (this.private_web_address == '' || this.email == '' || this.password == '') {
       return;
