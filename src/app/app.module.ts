@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { APP_CONFIG, AppConfig } from './config';
 import { LoginComponent } from './auth/login/login.component';
+import { ToastComponent } from './component/toast1/toast.component';
 
 @NgModule({
   imports: [
@@ -25,9 +26,12 @@ import { LoginComponent } from './auth/login/login.component';
     FooterModule,
     SidebarModule,
     AppRoutingModule,
+
   ],
   declarations: [
     AppComponent,
+    ToastComponent,
+
     AdminLayoutComponent,
     LoginComponent,
   ],

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ToastService } from 'app/component/toast/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +13,21 @@ export class LoginComponent {
   private_web_address: string = '';
   email: string = '';
   password: string = '';
-  constructor(private router: Router, private http: HttpClient, @Inject('APP_CONFIG') private config: any) { }
+  error_msg: string = '';
+  constructor(
+    private router: Router,
+    private toastService: ToastService,
+    private http: HttpClient,
+    @Inject('APP_CONFIG') private config: any
+  ) {
+  }
 
   check() {
 
     console.log(this.private_web_address, this.email, this.password);
+    if (this.private_web_address == '' || this.email == '' || this.password == '') {
+      return;
+    }
     this.login(this.private_web_address, this.email, this.password).subscribe({
       next: (response) => {
         console.log('Login successful', response);
@@ -39,10 +50,17 @@ export class LoginComponent {
           default:
             break;
         }
+        this.error_msg = response.error;
+        console.log('error:', response.error);
 
       },
       error: (err) => {
         console.error('Login failed', err);
+        // this.toastService.showToast('Filtered Successfully!', 'success', 3000);
+        // this.toastService.showToast('This is a success message!', 'success', 3000);
+        // this.toastService.showToast('This is a info message!', 'info', 3000);
+        // this.toastService.showToast('This is a warning message!', 'warning', 3000);
+        this.toastService.showToast(err, 'error', 3000);
         // alert('Invalid email or password');
       },
     });
