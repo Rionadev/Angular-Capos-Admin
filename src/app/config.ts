@@ -20,7 +20,7 @@ export interface AppConfig {
 export const APP_CONFIG: AppConfig = {
   apiUrl: 'http://localhost:3000/api',
   featureFlag: true,
-  private_web_address: 'newonestore',
+  private_web_address: localStorage.getItem('private_web_address') || 'newonestore',
   outlet: '6093edcf5435e55c2c563f65',
 
   outlet_name: 'Main Outlet',
@@ -29,7 +29,7 @@ export const APP_CONFIG: AppConfig = {
   register_name: 'Main Register',
   user_id: '5fd01f4e962dd57cee567bae',
   user_name: 'A saboor',
-  user_email: 'saboortanha@gmail.com',
+  user_email: localStorage.getItem('user_email') || 'saboortanha@gmail.com',
   user_ip: `173.33.88.200`,
   user_phone: `6476242501`,
   sort_field: 'created_at',

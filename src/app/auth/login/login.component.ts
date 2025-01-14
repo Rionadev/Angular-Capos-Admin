@@ -36,8 +36,9 @@ export class LoginComponent {
           case 0:
             localStorage.setItem('user', JSON.stringify(response.token));
             localStorage.setItem('private_web_address', this.private_web_address);
-            localStorage.setItem('email', this.email);
-
+            localStorage.setItem('user_email', this.email);
+            this.config.private_web_address = this.private_web_address;
+            this.config.user_email = this.email;
             this.router.navigate(['/dashboard/dashboard']);
             break;
           case 'email_verify':
