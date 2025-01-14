@@ -13,9 +13,12 @@
     line-height: 1;
     gap: 5px;
     height: 40px;
-    cursor: pointer;
 }
 
-.nav i {
+.nav i, .nav span {
     font-size: 28px;
+}
+
+li a{
+    cursor: pointer;
 }

@@ -23,7 +23,26 @@ export class ProducttypesService {
     });
     queryParams = queryParams.set("private_web_address", this.config.private_web_address);
     // Make the API call
-    return this.http.get(`${this.config.apiUrl}/product/type`, {params: queryParams});
+    return this.http.get(`${this.config.apiUrl}/product/type`, { params: queryParams });
+  }
+
+  // GET request
+  create(params): Observable<any> {
+    const queryParams = {
+      ...params, // Spread existing parameters
+      private_web_address: this.config.private_web_address, // Add the additional property
+    };
+    // Make the API call
+    return this.http.post(`${this.config.apiUrl}/product/type`, queryParams);
+  }
+
+  update(params): Observable<any> {
+    return this.http.put(`${this.config.apiUrl}/product/type`, params);
+  }
+
+  delete(params): Observable<any> {
+    // Make the API call
+    return this.http.delete(`${this.config.apiUrl}/product/type`, { params: params });
   }
 
 }
