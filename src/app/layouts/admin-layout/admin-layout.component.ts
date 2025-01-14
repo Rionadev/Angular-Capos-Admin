@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { Location, PopStateEvent } from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
@@ -13,6 +13,9 @@ export class AdminLayoutComponent implements OnInit {
     private _router: Subscription;
     private lastPoppedUrl: string;
     private yScrollStack: number[] = [];
+
+    //@ViewChild('scrollContainer') scrollContainer!: ElementRef;
+    //private scrollPosition: number = 0;
 
     constructor(public location: Location, private router: Router) { }
 
@@ -37,17 +40,19 @@ export class AdminLayoutComponent implements OnInit {
             if (event instanceof NavigationStart) {
                 if (event.url != this.lastPoppedUrl)
                     this.yScrollStack.push(window.scrollY);
+                //this.scrollPosition = this.scrollContainer.nativeElement.scrollTop;
             } else if (event instanceof NavigationEnd) {
                 if (event.url == this.lastPoppedUrl) {
                     this.lastPoppedUrl = undefined;
                     window.scrollTo(0, this.yScrollStack.pop());
                 } else
                     window.scrollTo(0, 0);
+                //this.scrollContainer.nativeElement.scrollTop = this.scrollPosition;
             }
         });
         this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
             elemMainPanel.scrollTop = 0;
-            elemSidebar.scrollTop = 0;
+            //elemSidebar.scrollTop = 0;
         });
         if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
             let ps = new PerfectScrollbar(elemMainPanel);
