@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { CashManagement } from 'app/api/cashmanagement/api.service';
+import { userInfo } from 'os';
 @Component({
   selector: 'app-cashmanagement',
   templateUrl: './cashmanagement.component.html',
@@ -20,10 +21,26 @@ export class CashmanagementComponent implements OnInit {
   itemsPerPage: number = 5;
   transactions: any[] = []; // Initialize as an empty array
 
-  constructor(private http: HttpClient, private cashmanagement: CashManagement) { }
+  constructor(
+    private http: HttpClient,
+    private cashmanagement: CashManagement,
+    @Inject('APP_CONFIG') private config: any) { }
   ngOnInit() {
     this.setDateFromTo();
     this.fetchTransactions();
+    console.log('------------------', this.config.userinfo);
+
+    // Log the object directly
+    console.log(this.config.userinfo);
+
+    // Log as a string
+    console.log(JSON.stringify(this.config.userinfo, null, 2));
+
+    // Log entries
+    console.log(Object.entries(this.config.userinfo));
+
+    // Log keys
+    console.log(Object.keys(this.config.userinfo));
   }
 
   setDateFromTo() {
