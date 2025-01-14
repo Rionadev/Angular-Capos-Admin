@@ -60,7 +60,7 @@ export const REPOTINGROUTES: RouteInfo[] = [
 
 export const ECOMMERCEROUTES: RouteInfo[] = [
   { path: '/ecommerce/dashboard', title: 'Dashboard', icon: 'pe-7s-credit', class: '' },
-  { path: '/ecommerce/collections', title: 'Collections', icon: 'pe-7s-albums', class: '' },
+  /* { path: '/ecommerce/collections', title: 'Collections', icon: 'pe-7s-albums', class: '' }, */
   { path: '/ecommerce/products', title: 'Products', icon: 'pe-7s-calculator', class: '' },
   { path: '/ecommerce/orders', title: 'Orders', icon: 'pe-7s-note2', class: '' },
   { path: '/ecommerce/settings', title: 'Ecommerce Settings', icon: 'pe-7s-wallet', class: '' },
@@ -88,16 +88,16 @@ export const PRODUCTSROUTES: RouteInfo[] = [
 
 export const MENUSROUTES: RouteInfo[] = [
   { path: '/menus/layout', title: 'Menus Layout', icon: 'pe-7s-cart', class: '' },
-  /*  { path: '/menus/menusmodifiers', title: 'Menus with Forced Modifiers', icon: 'pe-7s-notebook', class: '' }, */
+  { path: '/menus/menusmodifiers', title: 'Menus with Forced Modifiers', icon: 'pe-7s-notebook', class: '' },
   { path: '/menus/mix', title: 'Mix & Match', icon: 'pe-7s-keypad', class: '' },
   { path: '/menus/price', title: 'Price Books', icon: 'pe-7s-albums', class: '' },
   { path: '/menus/categories', title: 'Menu Categories', icon: 'pe-7s-ticket', class: '' },
-  /*  { path: '/menus/attributes', title: 'Menu Attributes', icon: 'pe-7s-way', class: '' },
+  { path: '/menus/attributes', title: 'Menu Attributes', icon: 'pe-7s-way', class: '' },
   { path: '/menus/priority', title: 'Menu Priority', icon: 'pe-7s-cart', class: '' },
   { path: '/menus/forcedmodifier', title: 'Forced Modifier', icon: 'pe-7s-notebook', class: '' },
   { path: '/menus/forcedmodifiergroup', title: 'Forced Modifier Group', icon: 'pe-7s-ticket', class: '' },
   { path: '/menus/modifier', title: 'Modifier', icon: 'pe-7s-keypad', class: '' },
-  { path: '/menus/modifiertypes', title: 'Modifier Types', icon: 'pe-7s-albums', class: '' }, */
+  { path: '/menus/modifiertypes', title: 'Modifier Types', icon: 'pe-7s-albums', class: '' },
 ];
 
 @Component({

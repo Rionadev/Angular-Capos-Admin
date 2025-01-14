@@ -345,35 +345,29 @@
                     <div class="content add-content">
                         <div class="row padding-left-15">
                             <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Search" id="search" name="search" required />
+                                <input type="text" class="form-control" placeholder="Order" id="order" name="order" [(ngModel)]="order"/>
                             </div>
                             <div class="col-md-2">
-                                <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
-                                    <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                                <select class="form-control" id="city-select" [(ngModel)]="status">
+                                    <option *ngFor="let row of orders" [value]="row.value">{{ row.name }}</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
-                                    <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                                <select class="form-control" id="city-select" [(ngModel)]="payment">
+                                    <option *ngFor="let row of payments" [value]="row.value">{{ row.name }}</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="Search" id="search" name="search" required />
+                                <input type="text" class="form-control" placeholder="Customer" id="customer" name="customer" [(ngModel)]="customer"/>
                             </div>
                             <div class="col-md-2">
-                                <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
-                                    <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
-                                </select>
+                                <input type="date" class="form-control" id="startdate" name="startdate" [(ngModel)]="start">
                             </div>
-                            <div class="col-md-2">
-                                <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
-                                    <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
-                                </select>
-                            </div>
+                            <div class="col-md-2"><input type="date" class="form-control" id="enddate" name="enddate" [(ngModel)]="end"></div>
                         </div>
                         <div class="">
-                            <button class="btn btn-sm btn-info btn-fill">Clear Filters</button>
-                            <button class="btn btn-sm btn-info btn-fill">Search</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="onClearFilters()">Clear Filters</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="onSearch()">Search</button>
                         </div>
                     </div>
                 </div>
