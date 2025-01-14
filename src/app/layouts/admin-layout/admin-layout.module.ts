@@ -29,7 +29,8 @@ import { ProductattributesComponent } from 'app/Old_product/productattributes/pr
 import { ProducttagsComponent } from 'app/Old_product/producttags/producttags.component';
 import { ToggleSwitchComponent } from 'app/component/toggle-switch/toggle-switch.component';
 import { EditableSelectComponent } from '../../component/editable-select/editable-select.component';
-import { ToastComponent } from '../../component/toast/toast.component';
+/* import { ToastComponent } from '../../component/toast/toast.component'; */
+import { SharedModule } from '../../shared/shared.module';
 
 import { OpencloseComponent } from 'app/openclose/openclose.component';
 import { CashmanagementComponent } from 'app/cashmanagement/cashmanagement.component';
@@ -89,6 +90,7 @@ import { TagInputComponent } from '../../component/tag-input/tag-input.component
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     LbdModule,
+    SharedModule,
     // NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyC-NyZbxHv2o8wQMF5lzNqH7pevCakZbuo' })
   ],
   declarations: [
@@ -131,7 +133,6 @@ import { TagInputComponent } from '../../component/tag-input/tag-input.component
     TagInputComponent,
     ProductEditModalComponent,
     EditableSelectComponent,
-    ToastComponent, 
     
     SaletransactionComponent,
     GroupsComponent,

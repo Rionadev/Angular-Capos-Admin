@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { APP_CONFIG, AppConfig } from './config';
 import { LoginComponent } from './auth/login/login.component';
-import { ToastComponent } from './component/toast1/toast.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   imports: [
@@ -26,12 +26,10 @@ import { ToastComponent } from './component/toast1/toast.component';
     FooterModule,
     SidebarModule,
     AppRoutingModule,
-
+    SharedModule,
   ],
   declarations: [
     AppComponent,
-    ToastComponent,
-
     AdminLayoutComponent,
     LoginComponent,
   ],
