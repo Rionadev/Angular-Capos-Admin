@@ -13,6 +13,9 @@ export class OrdersService {
     domain_name?: string;
     range?: string;
     _id?: string;
+    date_to?: string;
+    date_from?: string;
+    keyword?: string;
   }): Observable<any> {
     // Prepare query parameters
     let queryParams = new HttpParams();
