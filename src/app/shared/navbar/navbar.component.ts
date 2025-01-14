@@ -1,6 +1,11 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { CUSTOMERROUTES, PRODUCTSROUTES, REPOTINGROUTES, ROUTES, SETTINGROUTES, ECOMMERCEROUTES, STOCKCONTROLROUTES, MENUSROUTES, EMPLOYEESROUTES } from '../../sidebar/sidebar.component';
+import {
+    CUSTOMERROUTES,
+    // PRODUCTSROUTES, 
+    REPOTINGROUTES, ROUTES, SETTINGROUTES, ECOMMERCEROUTES, STOCKCONTROLROUTES, MENUSROUTES, EMPLOYEESROUTES
+} from '../../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
     // moduleId: module.id,
@@ -12,15 +17,17 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 export class NavbarComponent implements OnInit {
     private listTitles: any[];
     location: Location;
+    account_username = '';
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(location: Location, private element: ElementRef) {
+    constructor(location: Location, private element: ElementRef, private router: Router) {
         this.location = location;
         this.sidebarVisible = false;
     }
 
     ngOnInit() {
+        this.account_username = localStorage.getItem('username');;
 
         this.listTitles = [
             ...ROUTES.filter(listTitle => listTitle),
@@ -30,8 +37,8 @@ export class NavbarComponent implements OnInit {
             ...REPOTINGROUTES.filter(listTitles => listTitles),
             ...ECOMMERCEROUTES.filter(listTitles => listTitles),
             ...MENUSROUTES.filter(listTitles => listTitles),
-            ...PRODUCTSROUTES.filter(listTitles => listTitles),
-            ...EMPLOYEESROUTES.filter(listTitles=>listTitles)];
+            // ...PRODUCTSROUTES.filter(listTitles => listTitles),
+            ...EMPLOYEESROUTES.filter(listTitles => listTitles)];
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
     }
@@ -78,5 +85,9 @@ export class NavbarComponent implements OnInit {
             }
         }
         return 'Dashboard';
+    }
+    logout() {
+        localStorage.removeItem('user');
+        this.router.navigate(['/login']);
     }
 }

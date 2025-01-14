@@ -13,9 +13,8 @@ import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { APP_CONFIG, AppConfig } from './config';
-import { FirstpageComponent } from './auth/firstpage/firstpage.component';
 import { LoginComponent } from './auth/login/login.component';
-import { LogoutComponent } from './auth/logout/logout.component';
+import { ToastComponent } from './component/toast1/toast.component';
 
 @NgModule({
   imports: [
@@ -27,16 +26,18 @@ import { LogoutComponent } from './auth/logout/logout.component';
     FooterModule,
     SidebarModule,
     AppRoutingModule,
+
   ],
   declarations: [
     AppComponent,
+    ToastComponent,
+
     AdminLayoutComponent,
-    FirstpageComponent,
     LoginComponent,
-    LogoutComponent,
   ],
-  providers: [
-    { provide: 'APP_CONFIG', useValue: APP_CONFIG },
+  providers: [{
+    provide: 'APP_CONFIG', useValue: APP_CONFIG
+  },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

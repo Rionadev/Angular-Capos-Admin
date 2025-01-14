@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LogoutComponent } from './logout.component';
+import { ToastComponent } from './toast.component';
 
-describe('LogoutComponent', () => {
-  let component: LogoutComponent;
-  let fixture: ComponentFixture<LogoutComponent>;
+describe('ToastComponent', () => {
+  let component: ToastComponent;
+  let fixture: ComponentFixture<ToastComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LogoutComponent ]
+      declarations: [ ToastComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LogoutComponent);
+    fixture = TestBed.createComponent(ToastComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

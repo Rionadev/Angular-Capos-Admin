@@ -1,0 +1,94 @@
+/* styles.css or login.component.css */
+
+body {
+    background-color: #f4f4f4;
+    /* Light background color */
+    font-family: 'Arial', sans-serif;
+    /* Clean font */
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Full viewport height */
+}
+
+.login-form {
+    background-color: #ffffff;
+    /* White background for the form */
+    padding: 30px;
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    width: 300px;
+    /* Fixed width for the form */
+}
+
+h2 {
+    text-align: center;
+    /* Centered title */
+    color: #333;
+    /* Darker text color */
+}
+
+.form-group {
+    margin-bottom: 15px;
+    /* Space between form elements */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    /* Space between label and input */
+    color: #666;
+    /* Lighter color for labels */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    /* Full width inputs */
+    padding: 10px;
+    /* Padding for inputs */
+    border: 1px solid #ddd;
+    /* Light border */
+    border-radius: 4px;
+    /* Rounded corners for inputs */
+    transition: border-color 0.3s;
+    /* Smooth transition for border color */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #007BFF;
+    /* Change border color on focus */
+    outline: none;
+    /* Remove default outline */
+}
+
+button {
+    width: 100%;
+    /* Full width button */
+    padding: 10px;
+    background-color: #5fcef9; //#007BFF; /* Button color */
+    color: white;
+    /* Text color */
+    border: none;
+    /* No border */
+    border-radius: 4px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: background-color 0.3s;
+    /* Smooth transition for background color */
+}
+
+button:hover {
+    background-color: #0056b3;
+    /* Darker shade on hover */
+}

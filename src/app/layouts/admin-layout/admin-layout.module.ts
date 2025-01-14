@@ -89,7 +89,7 @@ import { TagInputComponent } from '../../component/tag-input/tag-input.component
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     LbdModule,
-    NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyC-NyZbxHv2o8wQMF5lzNqH7pevCakZbuo' })
+    // NguiMapModule.forRoot({ apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyC-NyZbxHv2o8wQMF5lzNqH7pevCakZbuo' })
   ],
   declarations: [
     HomeComponent,
