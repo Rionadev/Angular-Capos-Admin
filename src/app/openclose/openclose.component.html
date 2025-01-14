@@ -1,6 +1,6 @@
 <div style="height: 100vh;">
     <!-- <div class="main-content" *ngIf="false"> -->
-        <div class="main-content" *ngIf="!isContentVisible">
+    <div class="main-content" *ngIf="!isContentVisible">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -127,7 +127,11 @@
                                             <tr *ngFor="let payment of paymentSummary">
                                                 <td>{{ payment.type }}</td>
                                                 <td>{{ payment.expected | currency }}</td>
-                                                <td>{{ payment.counted | currency }}</td>
+                                                <!-- <td>{{ payment.counted | currency }}</td> -->
+                                                <td>
+                                                    <input type="number" [(ngModel)]="payment.counted"
+                                                        (ngModelChange)="updateDifference(payment)" />
+                                                </td>
                                                 <td>{{ payment.differences | currency }}</td>
                                                 <!-- Display differences -->
                                             </tr>
@@ -232,9 +236,9 @@
 <!-- Z Report Section -->
 <!-- <div  class="z-report  print-roll"> -->
 <div *ngIf="isContentVisible" class="print-roll-bg" (click)="toggleContent()">
-<!-- <div class="print-roll-bg" (click)="toggleContent()"> -->
+    <!-- <div class="print-roll-bg" (click)="toggleContent()"> -->
 
-    <div class="z-report  print-roll" >
+    <div class="z-report  print-roll">
         <div class="print-table">
             <div class="border just-row mb-1">
                 <b>Z Report</b>

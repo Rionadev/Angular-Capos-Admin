@@ -23,7 +23,6 @@ export class LoginComponent {
   }
 
   check() {
-    //this.toastService.showToast('This is a error message!', 'error', 3000);
     console.log(this.private_web_address, this.email, this.password);
     if (this.private_web_address == '' || this.email == '' || this.password == '') {
       return;
@@ -35,32 +34,61 @@ export class LoginComponent {
         switch (response.error) {
           case 0:
             localStorage.setItem('user', JSON.stringify(response.token));
-            localStorage.setItem('username', this.private_web_address);
+            localStorage.setItem('private_web_address', this.private_web_address);
+            localStorage.setItem('user_email', this.email);
+            localStorage.setItem('user_outlet', response.user?.outlet?._id);
+            localStorage.setItem('user_register', response.user?.register);
 
+            // localStorage.setItem('user_outletemail', response.user?.outlet?._id);
+            localStorage.setItem('user_info', response.user);
+
+            this.config.private_web_address = this.private_web_address;
+            this.config.user_email = this.email;
+            this.config.userinfo = response.user;
+            console.log(`-------------`, response.user);
             this.router.navigate(['/dashboard']);
             break;
           case 'email_verify':
+            this.toastService.showToast('Email unverified!', 'error', 3000);
+
+            // this.error_msg = 'Email unverified';
             break;
           case 'password':
+            this.toastService.showToast('Wrong password!', 'error', 3000);
+
+            // this.error_msg = 'Wrong password';
             break;
           case 'private_web_address':
+            this.toastService.showToast('Incorrect private web address!', 'error', 3000);
+
+            // this.error_msg = 'Wrong private web address';
             break;
           case 'permission':
+            this.toastService.showToast('Not allowed to access!', 'error', 3000);
+
+            // this.error_msg = 'Not allowed to access';
             break;
           default:
+            this.toastService.showToast('Incorrect Information!', 'error', 3000);
+
+            // this.error_msg = 'Incorrect information';
             break;
         }
-        this.error_msg = response.error;
         console.log('error:', response.error);
 
       },
       error: (err) => {
+        // this.error_msg = 'Incorrect information';
+        this.toastService.showToast('Incorrect information!', 'error', 3000);
+
         console.error('Login failed', err);
+        // this.error_msg = err;
+
         // this.toastService.showToast('Filtered Successfully!', 'success', 3000);
         // this.toastService.showToast('This is a success message!', 'success', 3000);
         // this.toastService.showToast('This is a info message!', 'info', 3000);
         // this.toastService.showToast('This is a warning message!', 'warning', 3000);
-        this.toastService.showToast(err, 'error', 3000);
+        // this.toastService.showToast(err, 'error', 3000);
         // alert('Invalid email or password');
       },
     });
