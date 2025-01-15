@@ -22,4 +22,4 @@ export class ToggleSwitchComponent {
 <app-toggle-switch [(checked)]="row.enabled"></app-toggle-switch>
 
 <!-- Read-only toggle -->
-<app-toggle-switch [(checked)]="row.enabled" [readOnly]="true" (tagsChange)="row.enabled = $event"></app-toggle-switch> */
+<app-toggle-switch [(checked)]="row.enabled" [readOnly]="true" (checkedChange)="row.enabled = $event"></app-toggle-switch> */
