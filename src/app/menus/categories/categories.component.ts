@@ -87,7 +87,7 @@ export class CategoriesComponent implements OnInit {
           //
         },
         error: (err) => {
-          console.error('Error fetching collections:', err);
+          console.error('Error fetching categories:', err);
           this.toastService.showToast('Faild!', 'error', 3000);
         },
       });
@@ -101,7 +101,7 @@ export class CategoriesComponent implements OnInit {
           //
         },
         error: (err) => {
-          console.error('Error fetching collections:', err);
+          console.error('Error fetching categories:', err);
           this.toastService.showToast('Faild!', 'error', 3000);
         },
       });
@@ -147,7 +147,7 @@ export class CategoriesComponent implements OnInit {
         //
       },
       error: (err) => {
-        console.error('Error fetching collections:', err);
+        console.error('Error fetching categories:', err);
         this.toastService.showToast('Faild!', 'error', 3000);
       },
     });

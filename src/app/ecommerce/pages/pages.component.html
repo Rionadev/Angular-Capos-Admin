@@ -4,13 +4,13 @@
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
                     <li role="presentation" [class.active]="activeTab === 'blog'" (click)="setActive('blog')">
-                      <a>Blog</a>
+                        <a>Blog</a>
                     </li>
                     <li role="presentation" [class.active]="activeTab === 'faq'" (click)="setActive('faq')">
-                      <a>FAQ</a>
+                        <a>FAQ</a>
                     </li>
                     <li role="presentation" [class.active]="activeTab === 'about'" (click)="setActive('about')">
-                      <a>About Us</a>
+                        <a>About Us</a>
                     </li>
                 </ul>
                 <ng-container *ngIf="activeTab === 'blog'">
@@ -19,56 +19,114 @@
                             <div class="add-content">
                                 <div class="item-center">
                                     <div class="flex-item">
-                                        <app-toggle-switch></app-toggle-switch>
+                                        <app-toggle-switch [(checked)]="storesData.active_widget.blog"
+                                            (checkedChange)="storesData.active_widget.blog = $event"></app-toggle-switch>
                                         Active
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
-                                    <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddBlogContent()">Add Blog</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onSave()">Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onShowAddBlogContent()">Add
+                                        Blog</button>
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="card margin-bottom-10" *ngIf="isAddBlogContentVisible">
-                        <div class="content">                        
-                            <form (ngSubmit)="saveRow()">
-                                <div class="add-content">
-                                    <h4 class="title">Add Blog</h4>
-                                    <div>
-                                        <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddBlogContent()">Save</button>
-                                        <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddBlogContent()">Cancel</button>
+                        <div class="content">
+                            <div class="add-content">
+                                <p class="category">{{ currentBlogRow._id ? 'Update' : 'Add' }} Blog</p>
+                                <div>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onBlogSave()">Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill"
+                                        (click)="onHideAddBlogContent()">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Title:</label>
+                                        <input type="text" class="form-control" placeholder="Title" id="title"
+                                            name="title" [(ngModel)]="currentBlogRow.title" required />
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control" placeholder="Title" id="title" name="title" required />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Content:</label>
+                                        <textarea class="form-control" placeholder="Content" id="description"
+                                            name="description" [(ngModel)]="currentBlogRow.content"></textarea>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="text-transform-none">Description:</label>
-                                            <textarea class="form-control" placeholder="Description" id="description" name="description"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="flex-item category">
+                                        <div class="file-upload-container">
+                                            <label for="fileInput" class="custom-file-upload">
+                                                Upload Image
+                                            </label>
+                                            <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
+                                            <input type="file" id="fileInput" class="hidden" />
                                         </div>
+                                        Please upload images of product.
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="flex-item category">
-                                            <div class="file-upload-container">
-                                                <label for="fileInput" class="custom-file-upload">
-                                                    Upload Image
-                                                </label>
-                                                <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
-                                                <input type="file" id="fileInput" class="hidden" />
-                                            </div>
-                                            Please upload images of product.
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="card margin-bottom-10" *ngFor="let item of blogsData">
+                        <div class="content">
+                            <div class="add-content">
+                                <p class="category"></p>
+                                <div>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onEditBlogRow(item)"
+                                        data-toggle="tooltip" title="Edit">
+                                        <!-- <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> -->
+                                        &nbsp;&nbsp;Edit&nbsp;&nbsp;
+                                    </button>
+                                    <button class="btn btn-sm btn-danger btn-fill" (click)="showDeleteModal(item._id)"
+                                        data-toggle="tooltip" title="Delete">
+                                        Delete
+                                        <!-- span class="glyphicon glyphicon-trash" aria-hidden="true"></span> -->
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row padding-top-5">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Title:</label>
+                                        <input type="text" class="form-control" placeholder="Title" id="title"
+                                            name="title" [(ngModel)]="item.title" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row padding-top-5">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Content:</label>
+                                        <textarea class="form-control" placeholder="Content" id="description"
+                                            name="description" [(ngModel)]="item.content" readonly></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row padding-top-5">
+                                <div class="col-md-12">
+                                    <div class="flex-item category">
+                                        <div class="file-upload-container">
+                                            <label for="fileInput" class="custom-file-upload">
+                                                Upload Image
+                                            </label>
+                                            <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
+                                            <input type="file" id="fileInput" class="hidden" />
                                         </div>
+                                        Please upload images of product.
                                     </div>
                                 </div>
-                                <div class="clearfix"></div>
-                            </form>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </ng-container>
@@ -78,42 +136,87 @@
                             <div class="add-content">
                                 <div class="item-center">
                                     <div class="flex-item">
-                                        <app-toggle-switch></app-toggle-switch>
+                                        <app-toggle-switch [(checked)]="storesData.active_widget.faq"
+                                            (checkedChange)="storesData.active_widget.faq = $event"></app-toggle-switch>
                                         Active
                                     </div>
                                 </div>
                                 <div>
                                     <button class="btn btn-sm btn-info btn-fill">Save</button>
-                                    <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddFAQContent()">Add FAQ</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onShowAddFaqContent()">Add
+                                        FAQ</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card margin-bottom-10" *ngIf="isAddFAQContentVisible">
-                        <div class="content">                        
-                            <form (ngSubmit)="saveRow()">
-                                <div class="add-content">
-                                    <h4 class="title">Add FAQ</h4>
-                                    <div>
-                                        <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddFAQContent()">Save</button>
-                                        <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddFAQContent()">Cancel</button>
+                    <div class="card margin-bottom-10" *ngIf="isAddFaqContentVisible">
+                        <div class="content">
+                            <div class="add-content">
+                                <p class="category">{{ currentFaqRow._id ? 'Update' : 'Add' }} FAQ</p>
+                                <div>
+                                    <button class="btn btn-sm btn-info btn-fill"
+                                        (click)="onFaqSave()">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+                                    <button class="btn btn-sm btn-info btn-fill"
+                                        (click)="onHideAddFaqContent()">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Question:</label>
+                                        <input type="text" class="form-control" placeholder="Question" id="question"
+                                            name="question" [(ngModel)]="currentFaqRow.question" />
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control" placeholder="Question" id="question" name="question" required />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Answer:</label>
+                                        <textarea class="form-control" placeholder="Answer" id="answer" name="answer"
+                                            [(ngModel)]="currentFaqRow.answer"></textarea>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="text-transform-none">Answer:</label>
-                                            <textarea class="form-control" placeholder="Answer" id="answer" name="answer"></textarea>
-                                        </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="card margin-bottom-10" *ngFor="let item of faqsData">
+                        <div class="content">
+                            <div class="add-content">
+                                <p class="category"></p>
+                                <div>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onEditFaqRow(item)"
+                                        data-toggle="tooltip" title="Edit">
+                                        <!-- <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> -->
+                                        &nbsp;&nbsp;Edit&nbsp;&nbsp;
+                                    </button>
+                                    <button class="btn btn-sm btn-danger btn-fill" (click)="showDeleteModal(item._id)"
+                                        data-toggle="tooltip" title="Delete">
+                                        Delete
+                                        <!-- span class="glyphicon glyphicon-trash" aria-hidden="true"></span> -->
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row padding-top-5">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Question:</label>
+                                        <input type="text" class="form-control" placeholder="Question" id="question"
+                                            name="question" [(ngModel)]="item.question" readonly />
                                     </div>
                                 </div>
-                                <div class="clearfix"></div>
-                            </form>
+                            </div>
+                            <div class="row padding-top-5">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Answer:</label>
+                                        <textarea class="form-control" placeholder="Answer" id="answer" name="answer"
+                                            [(ngModel)]="item.answer" readonly></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </ng-container>
@@ -123,109 +226,171 @@
                             <div class="add-content">
                                 <div class="item-center">
                                     <div class="flex-item">
-                                        <app-toggle-switch></app-toggle-switch>
+                                        <app-toggle-switch [(checked)]="storesData.active_widget.about_us"
+                                            (checkedChange)="storesData.active_widget.about_us = $event"></app-toggle-switch>
                                         Active
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onSave()">Save</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="content">                        
-                            <form (ngSubmit)="saveRow()">
-                                <p class="category">General</p>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control" placeholder="Title" id="title" name="title" required />
+                        <div class="content">
+                            <p class="category">General</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Title:</label>
+                                        <input type="text" class="form-control" placeholder="Title" id="title"
+                                            name="title" [(ngModel)]="aboutsData.title" />
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <textarea class="form-control" placeholder="Description" id="description" name="description"></textarea>
-                                        </div>
+                            </div>
+                            <div class="row padding-top-5">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Description:</label>
+                                        <textarea class="form-control" placeholder="Description" id="description"
+                                            name="description" [(ngModel)]="aboutsData.description"></textarea>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="flex-item category">
-                                            <div class="file-upload-container">
-                                                <label for="fileInput" class="custom-file-upload">
-                                                    Upload Image
-                                                </label>
-                                                <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
-                                                <input type="file" id="fileInput" class="hidden" />
-                                            </div>
-                                            Recommended size: 500 x 600px
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="flex-item category">
+                                        <div class="file-upload-container">
+                                            <label for="fileInput" class="custom-file-upload">
+                                                Upload Image
+                                            </label>
+                                            <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
+                                            <input type="file" id="fileInput" class="hidden" />
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="flex-item category">
-                                            Image Position:
-                                            <input type="radio" id="left" name="position" />
-                                            Left
-                                            <input type="radio" id="right" name="position" />
-                                            Right
-                                        </div>
+                                        Recommended size: 500 x 600px
                                     </div>
                                 </div>
-                            </form>
-                            <hr>                      
-                            <form (ngSubmit)="saveRow()">
+                                <div class="col-md-6">
+                                    <div class="flex-item category text-transform-upper">
+                                        Image Position:
+                                        <input type="radio" id="left" name="position" value="left"
+                                            [(ngModel)]="aboutsData.image_position" />
+                                        Left
+                                        <input type="radio" id="right" name="position" value="right"
+                                            [(ngModel)]="aboutsData.image_position" />
+                                        Right
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
                                 <p class="category">Team Member</p>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" placeholder="Title" id="title" name="title" required />
+                                        <div class="form-group">
+                                            <label>Team Title:</label>
+                                            <input type="text" class="form-control" placeholder="Title" id="title"
+                                                name="title" [(ngModel)]="aboutsData.team_title" />
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <textarea class="form-control" placeholder="Description" id="description" name="description"></textarea>
+                                            <label>Team Description:</label>
+                                            <textarea class="form-control" placeholder="Description" id="description"
+                                                name="description" [(ngModel)]="aboutsData.team_description"></textarea>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                            <div class="add-content">
+                            </div>
+                            <div class="add-content padding-top-5">
                                 <div class="">
                                 </div>
                                 <div>
-                                    <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddMemberContent()">Add Member</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onAboutsSave()">About Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onShowAddMemberContent()">Add Member</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card" *ngIf="isAddMemberContentVisible">
+                    <div class="card margin-bottom-10" *ngIf="isAddMemberContentVisible">
                         <div class="content">
                             <div class="add-content">
-                                <p class="category">Memeber 1</p>
+                                <p class="category">Memeber</p>
                                 <div>
-                                    <button class="btn btn-sm btn-info btn-fill" (click)="toggleAddBlogContent()">Delete</button>
+                                    <button class="btn btn-sm btn-info btn-fill"
+                                        (click)="onMemberSave()">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+                                    <button class="btn btn-sm btn-info btn-fill"
+                                        (click)="onHideAddMemberContent()">Cancel</button>
                                 </div>
-                            </div>                        
-                            <form (ngSubmit)="saveRow()">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control margin-bottom-3" placeholder="Name" id="name" name="name" />
-                                        <input type="text" class="form-control margin-bottom-3" placeholder="Job" id="job" name="job" />
-                                        <input type="text" class="form-control margin-bottom-3" placeholder="Facebook" id="facebook" name="facebook" />
-                                        <input type="text" class="form-control margin-bottom-3" placeholder="Twitter" id="twitter" name="twitter" />
-                                        <input type="text" class="form-control margin-bottom-3" placeholder="Linkedin" id="linkedin" name="linkedin" />
-                                        <input type="text" class="form-control margin-bottom-3" placeholder="Instagram" id="instagram" name="instagram" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="flex-item category margin-top-0">
-                                            <div class="file-upload-container">
-                                                <label for="fileInput" class="custom-file-upload">
-                                                    Upload Photo
-                                                </label>
-                                                <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
-                                                <input type="file" id="fileInput" class="hidden" />
-                                            </div>
-                                            Recommended size: 300 x 370px
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control margin-bottom-3" placeholder="Name" id="name"
+                                        name="name" [(ngModel)]="currentMemberRow.name"/>
+                                    <input type="text" class="form-control margin-bottom-3" placeholder="Job" id="job"
+                                        name="job" [(ngModel)]="currentMemberRow.job"/>
+                                    <input type="text" class="form-control margin-bottom-3" placeholder="Facebook"
+                                        id="facebook" name="facebook" [(ngModel)]="currentMemberRow.facebook"/>
+                                    <input type="text" class="form-control margin-bottom-3" placeholder="Twitter"
+                                        id="twitter" name="twitter" [(ngModel)]="currentMemberRow.twitter"/>
+                                    <input type="text" class="form-control margin-bottom-3" placeholder="Linkedin"
+                                        id="linkedin" name="linkedin" [(ngModel)]="currentMemberRow.linkedin" />
+                                    <input type="text" class="form-control margin-bottom-3" placeholder="Instagram"
+                                        id="instagram" name="instagram" [(ngModel)]="currentMemberRow.instagram"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="flex-item category margin-top-0">
+                                        <div class="file-upload-container">
+                                            <label for="fileInput" class="custom-file-upload">
+                                                Upload Photo
+                                            </label>
+                                            <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
+                                            <input type="file" id="fileInput" class="hidden" />
                                         </div>
+                                        Recommended size: 300 x 370px
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card margin-bottom-10" *ngFor="let item of members">
+                        <div class="content">
+                            <div class="add-content">
+                                <p class="category">Memeber</p>
+                                <div>
+                                    <button class="btn btn-sm btn-info btn-fill"
+                                        (click)="onEditMemberRow(item)">Update</button>
+                                    <button class="btn btn-sm btn-info btn-fill"
+                                        (click)="showDeleteModal(item.id)">Delete</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control margin-bottom-3" placeholder="Name" id="name"
+                                        name="name" [(ngModel)]="item.instagram" readonly/>
+                                    <input type="text" class="form-control margin-bottom-3" placeholder="Job" id="job"
+                                        name="job" [(ngModel)]="item.instagram" readonly/>
+                                    <input type="text" class="form-control margin-bottom-3" placeholder="Facebook"
+                                        id="facebook" [(ngModel)]="item.instagram" name="facebook" readonly/>
+                                    <input type="text" class="form-control margin-bottom-3" placeholder="Twitter"
+                                        id="twitter" [(ngModel)]="item.instagram" name="twitter" readonly/>
+                                    <input type="text" class="form-control margin-bottom-3" placeholder="Linkedin"
+                                        id="linkedin" [(ngModel)]="item.instagram" name="linkedin" readonly/>
+                                    <input type="text" class="form-control margin-bottom-3" placeholder="Instagram"
+                                        id="instagram" [(ngModel)]="item.instagram" name="instagram" readonly/>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="flex-item category margin-top-0">
+                                        <div class="file-upload-container">
+                                            <label for="fileInput" class="custom-file-upload">
+                                                Upload Photo
+                                            </label>
+                                            <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
+                                            <input type="file" id="fileInput" class="hidden" />
+                                        </div>
+                                        Recommended size: 300 x 370px
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </ng-container>
@@ -233,3 +398,9 @@
         </div>
     </div>
 </div>
+
+<app-confirm-modal *ngIf="isDeleteModal" [title]="'Remove Item'"
+    [description]="'Do you really want to remove this Item ?'" [confirmButtonCaption]="'Delete'"
+    [cancelButtonCaption]="'Cancel'" (confirmed)="deleteRow()" (cancelled)="closeDeleteModal()">
+</app-confirm-modal>
+<app-toast></app-toast>

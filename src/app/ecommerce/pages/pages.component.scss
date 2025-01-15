@@ -187,6 +187,11 @@ td div .description {
     text-transform: none !important;
 }
 
+.text-transform-upper{
+    text-transform: uppercase !important;
+    font-size: 12px;
+}
+
 .item-justify {
     display: flex; 
     flex-direction: row; 

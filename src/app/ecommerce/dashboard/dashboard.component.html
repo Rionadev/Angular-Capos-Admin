@@ -11,9 +11,11 @@
                         </div>
                         
                         <div class="align-center">
-                            <input type="date" class="form-control" id="from" name="from" />
+                            <input type="date" class="form-control" id="from" name="from" [(ngModel)]="start" (change)="onDateChange()"/>
                             <p class="category">&nbsp;&nbsp;~&nbsp;&nbsp;</p>
-                            <input type="date" class="form-control" id="to" name="to" />
+                            <input type="date" class="form-control" id="to" name="to" [(ngModel)]="end" (change)="onDateChange()"/>
+                            <p class="category">&nbsp;&nbsp;</p>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="onSearch()">Search</button>
                         </div>
                     </div>
                 </div>
@@ -23,11 +25,11 @@
                             <div class="col-md-2 text-center">
                                 <div class="show">
                                     <p class="category">Sales</p>
-                                    <p class="category">$0.00 Tax excl.</p>
+                                    <p class="category">${{ this.maxSales }} Tax excl.</p>
                                 </div>
                                 <div class="show margin-top-5">
                                     <p class="category">Orders</p>
-                                    <p class="category">0</p>
+                                    <p class="category">${{ this.maxOrders }}</p>
                                 </div>
                             </div>
                             <div class="col-md-10">

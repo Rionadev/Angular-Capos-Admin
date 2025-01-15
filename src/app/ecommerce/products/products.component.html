@@ -552,7 +552,8 @@
                                                 <p class="description"><strong>Details for {{ row.name }}</strong></p>
                                                 <p class="description">ID: {{ row._id }}</p>
                                                 <p class="description">Barcode: {{ row.barcode }}</p>
-                                                <p class="description">Category: {{ row.category }}</p>
+                                                <p class="description">Retail Price: {{ row.retail_price || 0 }}</p>
+                                                <p class="description">Inventory: {{ row.inventory || 0 }}</p>
                                                 <!-- 
                                                     <button
                                                         class="btn btn-sm float-right"

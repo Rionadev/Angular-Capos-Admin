@@ -2,6 +2,139 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
+                <div class="card margin-bottom-10" *ngIf="!isContentVisible">
+                    <div class="content add-content">
+                        <div class="">
+                            <!-- <button class="btn btn-sm btn-info btn-fill">Search</button>
+                            <button class="btn btn-sm btn-info btn-fill">Search</button>
+                            <button class="btn btn-sm btn-info btn-fill">Search</button> -->
+                        </div>
+                        <div class="">
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">Add New</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card margin-bottom-10" *ngIf="isContentVisible">
+                    <div class="header">
+                        <h4 class="title">{{ currentRow._id ? 'Update' : 'Add' }} a forced modifier</h4>
+                        <p class="category"></p>
+                    </div>
+                    <div class="content">                        
+                        <form (ngSubmit)="saveRow()">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="name">Name:</label>
+                                        <input type="text" class="form-control" placeholder="Name" id="name" [(ngModel)]="currentRow.name" name="name" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Group:</label>
+                                        <select class="form-control" id="group-select" [(ngModel)]="currentRow.group">
+                                            <option *ngFor="let row of groupData" [value]="row._id">{{ row.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="additional_price">Additional Price:</label>
+                                        <input type="number" class="form-control" placeholder="Additional Price" id="additional_price" [(ngModel)]="currentRow.additional_price" name="additional_price" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="topping_price">Topping Price:</label>
+                                        <input type="number" class="form-control" placeholder="Topping Price" id="topping_price" [(ngModel)]="currentRow.topping_price" name="topping_price" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row category">
+                                <div class="col-md-3">
+                                    <div class="item-justify">
+                                        <div class="flex-item">
+                                            <!-- [(checked)]="currentRow.enabled" (tagsChange)="currentRow.enabled = $event" -->
+                                            <app-toggle-switch [(checked)]="currentRow.touch"
+                                                (tagsChange)="currentRow.touch = $event"></app-toggle-switch>
+                                                Touch
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6"></div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow._id ? 'Update' : '&nbsp;&nbsp;Add&nbsp;&nbsp;' }}</button>
+                            <button type="button" class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()">Cancel</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card" *ngIf="!isContentVisible">
+                    <div class="content table-responsive table-full-width">
+                          <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Group</th>
+                                        <th>Touch</th>
+                                        <th>Additional Price</th>
+                                        <th>Topping Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of data">
+                                        <td>{{ row.name }}</td>
+                                        <td>{{ row.group?.name }}</td>
+                                        <td>
+                                            <app-toggle-icon-button [checked]="row.touch" title="">
+                                            </app-toggle-icon-button>
+                                        </td>
+                                        <td>
+                                            {{ row.additional_price }}
+                                        </td>
+                                        <td>
+                                            {{ row.topping_price }}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" (click)="editRow(row)" data-toggle="tooltip" title="Edit">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger" (click)="showDeleteModal(row._id)" data-toggle="tooltip" title="Delete">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="data.length == 0">
+                                        <td colspan="6">
+                                            <div class="content margin-top-10 margin-bottom-10">
+                                                <p class="text-center description">No Data</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                          </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-confirm-modal *ngIf="isDeleteModal" [title]="'Remove Category'"
+    [description]="'Do you really want to remove this category ?'" [confirmButtonCaption]="'Delete'"
+    [cancelButtonCaption]="'Cancel'" (confirmed)="deleteRow()" (cancelled)="closeDeleteModal()">
+</app-confirm-modal>
+<app-toast></app-toast>
+
+
+
+
+
+
+<!-- <div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="card margin-bottom-10">
                     <div class="content add-content">
                         <div>
@@ -43,26 +176,26 @@
                                     <select class="form-control" id="city-select" [(ngModel)]="selectedCity">
                                         <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
                                     </select>
-                                    <!-- <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="toggleContent()">
                                         Print
                                     </button>
-                                    <p class="category margin-top-0 line-height-1">If you want to print barcode of product, please click this button.</p> -->
+                                    <p class="category margin-top-0 line-height-1">If you want to print barcode of product, please click this button.</p>
                                 </div>
                             </div>
-                            <!-- <div class="row item-center">
+                            <div class="row item-center">
                                 <div class="col-md-4">
                                     <input type="text" class="form-control" placeholder="Port Number" id="portnumber" name="portnumber" required />
                                 </div>
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4"></div>
-                            </div> -->
+                            </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <textarea class="form-control" placeholder="Description" id="description" name="description"></textarea>
-                                    <!-- <div class="form-group">
+                                    <div class="form-group">
                                         <label class="text-transform-none">Description:</label>
                                         <textarea class="form-control" placeholder="Description" id="description" name="description"></textarea>
-                                    </div> -->
+                                    </div>
                                 </div>
                             </div>
                             <div class="row align-center">
@@ -83,7 +216,7 @@
                                         <label for="fileInput" class="custom-file-upload">
                                             Upload Image
                                         </label>
-                                        <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
+                                        <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button>
                                         <input type="file" id="fileInput" class="hidden" />
                                     </div>
                                 </div>
@@ -291,7 +424,7 @@
                                 <div class="col-md-2">
                                 </div>
                             </div>
-                        <!-- <div class="row">
+                        <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Name:</label>
@@ -312,7 +445,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-sm btn-info btn-fill pull-right">{{ currentRow.id ? 'Update' : 'Add' }}</button>
-                            <button class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()" *ngIf="currentRow.id">Cancel</button> -->
+                            <button class="btn btn-sm btn-info btn-fill pull-right" (click)="cancelEdit()" *ngIf="currentRow.id">Cancel</button>
 
                         <div class="clearfix"></div>
                     </form>
@@ -491,4 +624,4 @@
         </div>
     </div>
 </div>
-</div>
+</div> -->
