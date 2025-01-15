@@ -303,6 +303,7 @@ export class PagesComponent implements OnInit {
       this.aboutsService.update(this.aboutsData).subscribe({
         next: (data) => {
           console.log('aboutsData', data);
+          this.toastService.showToast('Saved Sucessfully!', 'success', 3000);
           this.onGetAboutsData();
         },
         error: (err) => {
@@ -313,6 +314,7 @@ export class PagesComponent implements OnInit {
       this.aboutsService.create(this.aboutsData).subscribe({
         next: (data) => {
           console.log('aboutsData', data);
+          this.toastService.showToast('Saved Sucessfully!', 'success', 3000);
           this.onGetAboutsData();
         },
         error: (err) => {
