@@ -25,7 +25,7 @@ export class AttributesService {
     return this.http.get(`${this.config.apiUrl}/product/attribute`, { params: queryParams });    
   }
 
-  // GET request
+  // GET request 
   create(params): Observable<any> {
     const queryParams = {
       ...params, // Spread existing parameters
