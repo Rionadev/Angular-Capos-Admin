@@ -66,33 +66,45 @@
                                     <th>Customer</th>
                                     <th>Status</th>
                                     <th>Total</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let transaction of filteredTransactions">
-                                    <td>{{ transaction.date }}</td>
-                                    <td>{{ transaction.receipt }}</td>
+                                    <td>{{ formatDate(transaction.created_at) }}</td>
+                                    <td>{{ transaction.sale_number }}</td>
                                     <td>
                                         <span style="display: grid;text-align: center;">
                                             <span>
-                                                {{ transaction.user_name }}
+                                                {{ transaction.user_id.first_name}} {{transaction.user_id.last_name}}
                                             </span>
                                             <span style="font-size: small;color: rgb(117, 117, 117);">
-                                                {{ transaction.user_email }}
+                                                {{ transaction.user_id.email }}
                                             </span>
                                         </span>
                                     </td>
-                                    <td>{{ transaction.register }}</td>
+                                    <td>{{ transaction.register.name }}</td>
                                     <td> <span style="display: grid;text-align: center;">
                                             <span>
-                                                {{ transaction.customer_name }}
+                                                {{ transaction.customer.name || '' }}
                                             </span>
                                             <span style="font-size: small;color: rgb(117, 117, 117);">
-                                                {{ transaction.customer_email }}
+                                                {{ transaction.customer.email || '' }}
                                             </span>
                                         </span></td>
-                                    <td>{{ transaction.status }}</td>
+                                    <td>{{ transaction.sale_status }}</td>
                                     <td>{{ transaction.total | currency }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" (click)="editRow(transaction)"
+                                            data-toggle="tooltip" title="Edit">
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" (click)="showDeleteModal(transaction._id)"
+                                            data-toggle="tooltip" title="Delete">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -100,5 +112,69 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<app-confirm-modal *ngIf="isDeleteModal" [title]="'Remove User'"
+    [description]="'Do you really want to remove this User ?'" [confirmButtonCaption]="'Delete'"
+    [cancelButtonCaption]="'Cancel'" (confirmed)="deleteRow()" (cancelled)="closeDeleteModal()">
+</app-confirm-modal>
+<!-- <app-toast></app-toast> -->
+<div *ngIf="isshowedit" class="modal-backdrop" (click)="onClose()"></div>
+<div *ngIf="isshowedit" class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+        <h3 class="modal-title">Edit SALE Transaction</h3>
+        <button type="button" class="close" (click)="onClose()" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center;">
+                <div class="form-group">
+                    <label><b>Date:</b></label>
+                    <p>{{formatDate(selTransactions.created_at)}}</p>
+                </div>
+                <div class="form-group">
+                    <label><b>Receipt:</b></label>
+                    <p>{{selTransactions.sale_number}}</p>
+                </div>
+                <div class="form-group">
+                    <label><b>Total:</b></label>
+                    <p>{{ selTransactions.total | currency }}</p>
+                </div>
+                <div class="form-group">
+                    <label><b>User:</b></label>
+                    <p style="display:grid ;">
+                        <span>
+                            {{ selTransactions.user_id.first_name }} {{ selTransactions.user_id.last_name }}
+                        </span>
+                        <span style="font-size: small; color: rgb(117, 117, 117);">
+                            {{ selTransactions.user_id.email }}
+                        </span>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label><b>Register:</b></label>
+                    <p>{{ selTransactions.register.name }}</p>
+                </div>
+                <div class="form-group">
+                    <label><b>Customer:</b></label>
+                    <p style="display:grid ;">
+                        <span>{{ selTransactions.customer.name || '' }}</span>
+                        <span style="font-size: small; color: rgb(117, 117, 117);">
+                            {{ selTransactions.customer.email || '' }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="sale_status1">Status:</label>
+                <input [(ngModel)]="selTransactions.sale_status" name="sale_status1" class="form-control" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="onClose()">Cancel</button>
+        <button class="btn btn-primary" (click)="onSave()">Save</button>
     </div>
 </div>

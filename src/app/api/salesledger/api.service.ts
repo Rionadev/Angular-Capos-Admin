@@ -41,6 +41,24 @@ export class CustomerService {
     // Make the API call
     return this.http.get(`${this.config.apiUrl}/sale/sales_ledger`, { params: httpParams });
   }
+  deletesaletransaction(params: any): Observable<any> {
+    let httpParams = new HttpParams();
+
+    // Build HttpParams from the provided params object
+    return this.http.delete(`${this.config.apiUrl}/sale/sale?_id=${params._id}`);
+  }
+  //updatesaletransaction
+  updatesaletransaction(params: any): Observable<any> {
+    // Make the API call
+    const param = {
+      ...params,
+      private_web_address: this.config.private_web_address
+    }
+    return this.http.put(`${this.config.apiUrl}/sale/sale`,
+      param
+    );
+  }
+
   fetchProducts(): Observable<any> {
     // Make the API call
     return this.http.get(`${this.config.apiUrl}/product/fetchproduct`,);

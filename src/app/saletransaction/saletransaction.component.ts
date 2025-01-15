@@ -8,6 +8,10 @@ import { CustomerService } from 'app/api/salesledger/api.service';
   styleUrls: ['./saletransaction.component.scss']
 })
 export class SaletransactionComponent implements OnInit {
+  selTransactions: any;
+  isshowedit = false;
+  currentDeleteID = '';
+  isDeleteModal = false;
   selectedCustomer: string = 'all';
   selectedUser: string = 'all';
   selectedStatus: string = 'all';
@@ -47,6 +51,13 @@ export class SaletransactionComponent implements OnInit {
     this.setDateFromTo();
     this.fetchSearchItems();
   }
+  formatDate(temp: Date): string {
+    const date = new Date(temp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`; // 'yyyy-MM-dd'
+  }
   fetchSearchItems() {
     // this.http.get<any[]>(`${environment.apiUrl}/sale/getSearchItem`).subscribe(data => {
 
@@ -57,14 +68,12 @@ export class SaletransactionComponent implements OnInit {
     };
 
     // Log the params to check their structure
-    console.log('Sending params:', params);
 
     this.customerService.fetchSaleHistory(params).subscribe(
       (res) => {
         this.customers = [];
         this.sale_status = [];
         this.users = [];
-
         this.transactions = res.map(item => {
 
           if (item.customer && item.customer.email) {
@@ -117,18 +126,19 @@ export class SaletransactionComponent implements OnInit {
           }
 
           // Map transaction
-          return {
-            date: new Date(item.created_at).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
-            receipt: item.sale_number, // Receipt number
-            user: `${item.user_id.first_name} ${item.user_id.last_name}`, // Full name of user
-            user_email: item.user_id.email, // Email of user
-            register: item.register.name, // Register name
-            customer: item.customer.name || '', // Customer name
-            customer_email: item.customer.email || '', // Customer email
-            status: item.sale_status, // Sale status
-            total: item.total, // Total amount
-          };
+          // return {
+          //   date: new Date(item.created_at).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
+          //   receipt: item.sale_number, // Receipt number
+          //   user: `${item.user_id.first_name} ${item.user_id.last_name}`, // Full name of user
+          //   user_email: item.user_id.email, // Email of user
+          //   register: item.register.name, // Register name
+          //   customer: item.customer.name || '', // Customer name
+          //   customer_email: item.customer.email || '', // Customer email
+          //   status: item.sale_status, // Sale status
+          //   total: item.total, // Total amount
+          // };
         });
+        this.transactions = res;
 
         this.filteredTransactions = [...this.transactions];
 
@@ -141,6 +151,7 @@ export class SaletransactionComponent implements OnInit {
           { value: 'all', label: 'All Users' },
           ...this.users
         ];
+
         this.sale_status = [
           { value: 'all', label: 'All Status' },
           ...this.sale_status
@@ -154,6 +165,11 @@ export class SaletransactionComponent implements OnInit {
       }
     );
   }
+
+  editRow(row: any): void {
+    this.selTransactions = row;
+    this.isshowedit = true;
+  }
   searchTransactions() {
     this.filteredTransactions = this.transactions.filter(transaction => {
       const customerMatches = this.selectedCustomer === 'all' || transaction.customer_email === this.selectedCustomer;
@@ -163,7 +179,6 @@ export class SaletransactionComponent implements OnInit {
       return customerMatches && userMatches && statusMatches;
     });
 
-    console.log('Filtered Transactions:', this.filteredTransactions);
   }
 
   clearFilters() {
@@ -174,4 +189,53 @@ export class SaletransactionComponent implements OnInit {
 
     this.filteredTransactions = [...this.transactions]; // Reset to original transactions
   }
+
+  showDeleteModal(id: string) {
+    this.currentDeleteID = id;
+    this.isDeleteModal = true;
+  }
+
+  closeDeleteModal() {
+    this.isDeleteModal = false;
+  }
+
+  deleteRow() {
+    this.customerService.deletesaletransaction({ _id: this.currentDeleteID }).subscribe({
+      next: (data) => {
+        this.fetchSearchItems()
+
+        this.isDeleteModal = false;
+      },
+      error: (err) => {
+        console.error('Error fetching users:', err);
+      },
+    });
+    this.isDeleteModal = false;
+    /* this.rows = this.rows.filter((row) => row.id !== this.currentDeleteID); // Remove row by id
+    this.isDeleteModal = false; */
+  }
+
+  onClose() {
+    this.isshowedit = false;
+  }
+
+  onSave() {
+    console.log(this.selTransactions);
+    this.customerService.updatesaletransaction({
+      _id: this.selTransactions._id,
+      sale_status: this.selTransactions.sale_status
+    }).subscribe({
+      next: (data) => {
+        this.fetchSearchItems()
+
+        this.isDeleteModal = false;
+      },
+      error: (err) => {
+        console.error('Error fetching users:', err);
+      },
+    });
+    this.isshowedit = false;
+    this.onClose();
+  }
+
 }
