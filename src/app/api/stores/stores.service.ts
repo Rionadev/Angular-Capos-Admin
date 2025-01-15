@@ -78,4 +78,9 @@ export class StoresService {
     // return this.http.put(`${this.config.apiUrl}/auth/store`, queryParams);
     return this.http.put(`${this.config.apiUrl}/auth/store`, params);
   }
+
+  /* update(params): Observable<any> {
+    return this.http.put(`${this.config.apiUrl}/auth/store`, params);
+  }
+ */
 }

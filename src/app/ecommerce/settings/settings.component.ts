@@ -49,6 +49,7 @@ export class SettingsComponent implements OnInit {
       href: {type: String, default: ''}
     } */],
     click_collect: false,
+    default_currency: null,
   };
 
   sliders: any[] = [];
@@ -96,15 +97,24 @@ export class SettingsComponent implements OnInit {
     this.currentServiceRow = this.resetServiceRow();
   }
 
-  toggleAddSliderContent(): void {
-    this.isAddSliderContentVisible = !this.isAddSliderContentVisible; // Toggle the visibility
-  }
-
   onSave() {
+
     this.data.sliders = this.onRemoveIdItem(this.sliders);
     this.data.banners = this.onRemoveIdItem(this.banners);
     this.data.services = this.onRemoveIdItem(this.services);
+    this.data.default_currency = this.data.default_currency?._id;
+    this.data.physical_address.country = this.data.physical_address?.country?._id;
+    this.data.postal_address.country = this.data.postal_address?.country?._id;
     console.log(this.data);
+    this.storesService.update(this.data).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.toastService.showToast('Saved Sucessfully!', 'success', 3000);
+      },
+      error: (err) => {
+        console.error('Error fetching roles:', err);
+      },
+    });
   }
 
   onEnableCollect() {
@@ -129,7 +139,7 @@ export class SettingsComponent implements OnInit {
         id: this.generateId(this.sliders),
       });
     }
-    this.toastService.showToast('Saved Successfully!', 'success', 3000);
+    //this.toastService.showToast('Saved Successfully!', 'success', 3000);
     this.currentSliderRow = this.resetSliderRow();
     this.isAddSliderContentVisible = false; 
   }
@@ -167,7 +177,7 @@ export class SettingsComponent implements OnInit {
         id: this.generateId(this.banners),
       });
     }
-    this.toastService.showToast('Saved Successfully!', 'success', 3000);
+    //this.toastService.showToast('Saved Successfully!', 'success', 3000);
     this.currentBannerRow = this.resetSliderRow();
     this.isAddBannerContentVisible = false; 
   }
@@ -205,7 +215,7 @@ export class SettingsComponent implements OnInit {
         id: this.generateId(this.services),
       });
     }
-    this.toastService.showToast('Saved Successfully!', 'success', 3000);
+    //this.toastService.showToast('Saved Successfully!', 'success', 3000);
     this.currentServiceRow = this.resetSliderRow();
     this.isAddServiceContentVisible = false; 
   }

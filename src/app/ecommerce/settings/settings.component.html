@@ -227,8 +227,16 @@
                             <div class="add-content">
                                 <p class="category">Slider</p>
                                 <div>
-                                    <button class="btn btn-sm btn-info btn-fill" (click)="onDeleteSliderRow(item.id)">Delete</button>
-                                    <button class="btn btn-sm btn-info btn-fill" (click)="onEditSliderRow(item)">Edit</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onEditSliderRow(item)"
+                                        data-toggle="tooltip" title="Edit">
+                                        <!-- <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> -->
+                                        &nbsp;&nbsp;Edit&nbsp;&nbsp;
+                                    </button>
+                                    <button class="btn btn-sm btn-danger btn-fill" (click)="showDeleteModal(item.id)"
+                                        data-toggle="tooltip" title="Delete">
+                                        Delete
+                                       <!--  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> -->
+                                    </button>
                                 </div>
                             </div>
                             <div class="row padding-top-5">
@@ -287,7 +295,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="btn btn-sm btn-info btn-fill">Save</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onSave()">Save</button>
                                 </div>
                             </div>
                             <div class="add-content padding-top-5">
@@ -358,8 +366,16 @@
                             <div class="add-content">
                                 <p class="category">Banner</p>
                                 <div>
-                                    <button class="btn btn-sm btn-info btn-fill" (click)="onDeleteBannerRow(item.id)">Delete</button>
-                                    <button class="btn btn-sm btn-info btn-fill" (click)="onEditBannerRow(item)">Edit</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onEditBannerRow(item)"
+                                        data-toggle="tooltip" title="Edit">
+                                        &nbsp;&nbsp;Edit&nbsp;&nbsp;
+                                        <!-- <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> -->
+                                    </button>
+                                    <button class="btn btn-sm btn-danger btn-fill" (click)="showDeleteModal(item.id)"
+                                        data-toggle="tooltip" title="Delete">
+                                        Delete
+                                       <!--  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> -->
+                                    </button>
                                 </div>
                             </div>
                             <div class="row padding-top-5">
@@ -471,8 +487,16 @@
                             <div class="add-content">
                                 <p class="category">Service</p>
                                 <div>
-                                    <button class="btn btn-sm btn-info btn-fill" (click)="onDeleteServiceRow(item.id)">Delete</button>
-                                    <button class="btn btn-sm btn-info btn-fill" (click)="onEditServiceRow(item)">Edit</button>
+                                    <button class="btn btn-sm btn-info btn-fill" (click)="onEditServiceRow(item)"
+                                        data-toggle="tooltip" title="Edit">
+                                        &nbsp;&nbsp;Edit&nbsp;&nbsp;
+                                        <!-- <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> -->
+                                    </button>
+                                    <button class="btn btn-sm btn-danger btn-fill" (click)="showDeleteModal(item.id)"
+                                        data-toggle="tooltip" title="Delete">
+                                        Delete
+                                       <!--  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> -->
+                                    </button>
                                 </div>
                             </div>
                             <div class="row padding-top-5">
