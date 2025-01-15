@@ -25,7 +25,7 @@ export class ApiService {
     });
     queryParams = queryParams.set("private_web_address", this.config.private_web_address);
     // Make the API call
-    return this.http.get(this.config.apiUrl + "/auth/users", { params: queryParams });
+    return this.http.get(`${this.config.apiUrl}/auth/user`, { params: queryParams });
   }
 
   create(params: any): Observable<any> {

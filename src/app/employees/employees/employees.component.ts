@@ -158,6 +158,7 @@ export class EmployeesComponent implements OnInit {
       this.currentRow.joined_date = this.joined_date;
       this.currentRow.birthday = this.birthday;
       this.currentRow.role = this.roleForm;
+      this.currentRow.outlet = this.currentRow?.outlet?._id;
       this.apiService.update(this.currentRow).subscribe({
         next: (data) => {
           console.log(data);
