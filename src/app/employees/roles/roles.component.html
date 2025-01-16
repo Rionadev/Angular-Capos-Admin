@@ -429,7 +429,7 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr *ngIf="data.length == 0">
+                                    <tr *ngIf="data == null || data?.length == 0">
                                         <td colspan="3">
                                             <div class="content margin-top-10">
                                                 <p class="text-center description">No Data</p>
