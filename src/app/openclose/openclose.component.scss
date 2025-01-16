@@ -149,3 +149,80 @@ textarea {
 .mb-1 {
     margin-bottom: 1rem;
 }
+
+table {
+    width: 100%;
+    /* Full width */
+    border-collapse: collapse;
+    /* Merge borders */
+    margin: 20px 0;
+    /* Space around the table */
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    /* Border for table cells */
+    padding: 12px;
+    /* Padding inside cells */
+    text-align: center;
+    align-items: center;
+    /* Align text to the left */
+}
+
+th {
+    background-color: #f2f2f2;
+    /* Light gray background for headers */
+    font-weight: bold;
+    /* Bold text for headers */
+}
+
+td {
+    vertical-align: top;
+    /* Aligns text to the top */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+        /* Stack elements vertically */
+    }
+
+    th {
+        display: none;
+        /* Hide headers on small screens */
+    }
+
+    td {
+        text-align: right;
+        /* Align text to the right */
+        position: relative;
+        /* Positioning for pseudo-elements */
+        padding-left: 50%;
+        /* Space for pseudo-elements */
+    }
+
+    td::before {
+        content: attr(data-label);
+        /* Show label for each cell */
+        position: absolute;
+        /* Positioning */
+        left: 10px;
+        /* Space from left */
+        width: calc(50% - 20px);
+        /* Width of label */
+        padding-right: 10px;
+        /* Space on right */
+        white-space: nowrap;
+        /* Prevent text wrapping */
+        font-weight: bold;
+        /* Bold label */
+    }
+}

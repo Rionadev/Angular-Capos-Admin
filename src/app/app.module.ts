@@ -32,6 +32,7 @@ import { SharedModule } from './shared/shared.module';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
+   
   ],
   providers: [{
     provide: 'APP_CONFIG', useValue: APP_CONFIG

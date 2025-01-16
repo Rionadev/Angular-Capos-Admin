@@ -1,0 +1,62 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Search Bar -->
+
+                <!-- Date Picker Selection -->
+                <div class="card"
+                    style="display: flex; align-items: center; justify-content: space-between;padding: 1rem;">
+                    <div class="col-md-4" style="display: flex;align-items: center;">
+                        <!-- <select class="form-control" [(ngModel)]="selectedPeriod" (change)="updateDateRange()">
+                            <option value="today">Today</option>
+                            <option value="thisWeek">This Week</option>
+                            <option value="thisMonth">This Month</option>
+                            <option value="thisYear">This Year</option>
+                        </select> -->
+
+                        <label style="margin: 0 10px;">From:</label>
+                        <input class="form-control" type="date" [(ngModel)]="selectedDateFrom"
+                            (change)="fetchSearchItems()" />
+                        <label style="margin: 0 10px;">To:</label>
+                        <input class="form-control" type="date" [(ngModel)]="selectedDateTo"
+                            (change)="fetchSearchItems()" />
+                    </div>
+                    <div class="col-md-2"
+                        style=" display: flex;flex-direction: row;gap: 1rem;   justify-content: right;">
+                        <!-- <button class="btn btn-sm btn-info btn-fill" (click)="filterData()">
+                            Search
+                        </button> -->
+                        <button class="btn btn-sm btn-info btn-fill" (click)="fetchAuto()">
+                            Open Register
+                        </button>
+
+                        <button class="btn btn-sm btn-success btn-fill" (click)="clearFilters()">
+                            Close Register
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Sales Table -->
+                <div class="card">
+                    <div class="content table-responsive table-full-width" style="max-height: 70vh;overflow-y: auto;">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Sale</th>
+                                    <th>Tax</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
