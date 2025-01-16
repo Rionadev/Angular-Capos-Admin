@@ -254,7 +254,7 @@
                                     </td>
                                 </tr>
                                 <!-- Detail Row -->
-                                <tr *ngIf="users.length == 0">
+                                <tr *ngIf="users == null || users?.length == 0">
                                     <td colspan="8">
                                         <div class="content margin-top-10">
                                             <p class="text-center description">No Data</p>

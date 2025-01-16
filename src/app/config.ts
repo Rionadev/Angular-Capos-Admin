@@ -19,9 +19,7 @@ export const APP_CONFIG: AppConfig = {
   private_web_address: localStorage.getItem('private_web_address') || 'newonestore',
   outlet_id: localStorage.getItem('user_outlet') || '',
   register_id: localStorage.getItem('user_register') || '',
-
   user_email: localStorage.getItem('user_email') || 'saboortanha@gmail.com',
-
   sort_order: -1,
   page: 0,
   size: 300,
