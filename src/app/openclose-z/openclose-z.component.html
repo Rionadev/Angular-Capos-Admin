@@ -6,31 +6,33 @@
 
                 <!-- Date Picker Selection -->
                 <div class="card"
-                    style="display: flex; align-items: center; justify-content: space-between;padding: 2rem;">
-                    <div class="col-md-7" style="display: flex;align-items: center;">
-                        <select class="form-control" [(ngModel)]="selectedPeriod" (change)="updateDateRange()">
+                    style="display: flex; align-items: center; justify-content: space-between;padding: 1rem;">
+                    <div class="col-md-4" style="display: flex;align-items: center;">
+                        <!-- <select class="form-control" [(ngModel)]="selectedPeriod" (change)="updateDateRange()">
                             <option value="today">Today</option>
                             <option value="thisWeek">This Week</option>
                             <option value="thisMonth">This Month</option>
                             <option value="thisYear">This Year</option>
-                        </select>
+                        </select> -->
 
-                        <!-- <div class="row" style="display: flex;align-items: center;flex-direction: row;gap: 2rem;"> -->
-                        <label style="margin-left: 2rem; margin-right: 10px;">From:</label>
+                        <label style="margin: 0 10px;">From:</label>
                         <input class="form-control" type="date" [(ngModel)]="selectedDateFrom"
                             (change)="fetchSearchItems()" />
                         <label style="margin: 0 10px;">To:</label>
                         <input class="form-control" type="date" [(ngModel)]="selectedDateTo"
                             (change)="fetchSearchItems()" />
-                        <!-- </div> -->
                     </div>
                     <div class="col-md-2"
                         style=" display: flex;flex-direction: row;gap: 1rem;   justify-content: right;">
                         <!-- <button class="btn btn-sm btn-info btn-fill" (click)="filterData()">
                             Search
                         </button> -->
-                        <button class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">
-                            Clear Filter
+                        <button class="btn btn-sm btn-info btn-fill" (click)="fetchAuto()">
+                            Open Register
+                        </button>
+
+                        <button class="btn btn-sm btn-success btn-fill" (click)="clearFilters()">
+                            Close Register
                         </button>
 
                     </div>
@@ -49,16 +51,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style="font-weight: bold; background-color: #f0f0f0;">
-                                    <td>Total</td>
-                                    <td>{{ getTotal('sale')|currency }}</td>
-                                    <td>{{ getTotal('tax') |currency}}</td>
-                                </tr>
-                                <tr *ngFor="let record of records" (click)="selrow(record)">
-                                    <td>{{ record.category }}</td>
-                                    <td>{{ (record.sale||'') |currency}}</td>
-                                    <td>{{ (record.tax||'') |currency}}</td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>

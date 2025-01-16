@@ -8,14 +8,16 @@
                         <div class="d-flex align-items-center"
                             style="width: 100%;display: flex; justify-content: space-between;gap: 3rem;">
                             <div class="col-md-2">
-                                <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;">
-                                    <option *ngFor="let register of sel_reg" [value]="register">{{ register }}</option>
+                                <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;"
+                                    (change)="searchRecords()">
+                                    <option *ngFor="let register of sel_reg" [value]="register.id">{{ register.label }}
+                                    </option>
                                 </select>
                             </div>
-                            <div class="col-md-2" style="float: right;">
-                                <button class="btn btn-sm btn-danger btn-fill" style="margin-right: 1rem;"
-                                    (click)="initFilters()">Clear Filters</button>
-                                <button class="btn btn-sm btn-info btn-fill" (click)="searchRecords()">Search</button>
+                            <div style="display: flex;">
+                                <button class="btn btn-sm btn-danger btn-fill" style="margin-right: 1rem;">Clear
+                                    Filters</button>
+                                <!-- <button class="btn btn-sm btn-info btn-fill" (click)="searchRecords()">Search</button> -->
                             </div>
                         </div>
                     </div>
@@ -23,7 +25,7 @@
 
                 <!-- Transactions Table -->
                 <div class="card">
-                    <div class="content table-responsive table-full-width">
+                    <div class="content table-responsive table-full-width" style="height: 80vh;overflow-y: auto;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -31,7 +33,7 @@
                                     <th>Time Opened</th>
                                     <th>Time Closed</th>
                                     <th>Store Credit</th>
-                                    <th>Cash (Concealed Total)</th>
+                                    <th>Cash <br>(Concealed Total)</th>
                                     <th>Cash</th>
                                     <th>Credit</th>
                                     <th>Debit</th>
@@ -41,32 +43,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let record of filteredRecords" (click)="showDetails(record)">
-                                    <td>{{ record.register }}</td>
-                                    <td>{{ record.timeOpened }}</td>
-                                    <td>{{ record.timeClosed }}</td>
-                                    <td>{{ record.storeCredit | currency }}</td>
-                                    <td>{{ record.cashConcealedTotal | currency }}</td>
-                                    <td>{{ record.cash | currency }}</td>
-                                    <td>{{ record.credit | currency }}</td>
-                                    <td>{{ record.debit | currency }}</td>
-                                    <td>{{ record.refunds | currency }}</td>
-                                    <td>{{ record.voided | currency }}</td>
-                                    <td>{{ record.total | currency }}</td>
+                                <tr
+                                    style="font-size: medium; font-weight: bold; background-color: #bbbbbb;font-weight:bolder;">
+                                    <td colspan="3"><b>Total</b></td>
+                                    <td><b>{{ (total_sum.store_credit || '') | currency }}</b></td>
+                                    <td><b>{{ (total_sum.cash_concealed || '') | currency }}</b></td>
+                                    <td><b>{{ (total_sum.cash || '') | currency }}</b></td>
+                                    <td><b>{{ (total_sum.credit || '') | currency }}</b></td>
+                                    <td><b>{{ (total_sum.debit || '') | currency }}</b></td>
+                                    <td><b>{{ (total_sum.refunds || '') | currency }}</b></td>
+                                    <td><b>{{ (total_sum.voided || '') | currency }}</b></td>
+                                    <td><b>{{ (total_sum.total || '') | currency }}</b></td>
                                 </tr>
-                                <tr style="font-weight: bold; background-color: #bbbbbb;font-weight:bolder;">
-                                    <td colspan="3">Total</td>
-                                    <!-- <td></td>
-                                    <td></td> -->
-                                    <td>{{ getTotal('storeCredit') | currency }}</td>
-                                    <td>{{ getTotal('cashConcealedTotal') | currency }}</td>
-                                    <td>{{ getTotal('cash') | currency }}</td>
-                                    <td>{{ getTotal('credit') | currency }}</td>
-                                    <td>{{ getTotal('debit') | currency }}</td>
-                                    <td>{{ getTotal('refunds') | currency }}</td>
-                                    <td>{{ getTotal('voided') | currency }}</td>
-                                    <td>{{ getTotal('total') | currency }}</td>
-                                </tr>
+                                <ng-container *ngFor="let item of filteredRecords">
+                                    <tr>
+                                        <td>{{ item?.register?.name }}</td>
+                                        <td>{{ item?.formattedOpeningTime }}</td>
+                                        <td>{{ item?.formattedClosingTime }}</td>
+                                        <td>{{ (item?.open_value||'') | currency }}</td>
+                                        <td>{{ item?.cash_concealed || '' | currency }}</td>
+                                        <td>{{ (item?.cash || '') | currency }}</td>
+                                        <td>{{ (item?.credit||'') | currency }}</td>
+                                        <td>{{ (item?.debit||'') | currency }}</td>
+                                        <td>{{ (item?.refunds||'') | currency }}</td>
+                                        <td>{{ (item?.voided||'') | currency }}</td>
+                                        <td>{{ (item?.total||'') | currency }}</td>
+                                        <!-- <td>{{ ((item.open_value+
+                                            item.cash_concealed+
+                                            item.cash+
+                                            item.credit+
+                                            item.debit+
+                                            item.voided
+                                            )||'') | currency }}</td> -->
+                                    </tr>
+                                </ng-container>
+
                             </tbody>
                         </table>
                     </div>
@@ -92,5 +103,5 @@
         <!-- <button (click)="selectedRecord = null">Close</button> -->
         <button (click)="onBackdropClick(selectedRecord)">Close</button>
 
-    </div> 
+    </div>
 </div>

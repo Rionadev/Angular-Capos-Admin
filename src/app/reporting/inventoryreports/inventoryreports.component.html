@@ -18,7 +18,7 @@
                         <input type="text" [(ngModel)]="searchTerm" class="form-control"
                             placeholder="Search for products or outlets" (keydown.enter)="searchProducts()" />
                     </div>
-                    <div class="content table-responsive table-full-width">
+                    <div class="content table-responsive table-full-width" style="overflow-y: auto;max-height: 80vh;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -35,11 +35,11 @@
                                 <tr *ngFor="let item of filteredProducts">
                                     <td>{{ item.name }}</td>
                                     <td>{{ item?.outlet?.name || '' }}</td>
-                                    <td>{{ item.currentStock }}</td>
+                                    <td>{{ item.inventory }}</td>
                                     <td>{{ item.supply_price | currency }}</td>
-                                    <td>{{ item.stockValue | currency }}</td>
-                                    <td>{{ item.reorderPoint }}</td>
-                                    <td>{{ item.reorderAmount }}</td>
+                                    <td>{{ item.regular_price | currency }}</td>
+                                    <td>{{ item.reorder_point }}</td>
+                                    <td>{{ item.reorder_amount }}</td>
                                 </tr>
                             </tbody>
                         </table>

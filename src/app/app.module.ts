@@ -33,6 +33,7 @@ import { AuthInterceptor } from './interceptors/auth.service';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
+   
   ],
   providers: [{
     provide: 'APP_CONFIG', useValue: APP_CONFIG

@@ -1,12 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CustomerService } from 'app/api/salesledger/api.service';
 import { quantity } from 'chartist';
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  product: string;
-}
+
 
 @Component({
   selector: 'app-openclose',
@@ -14,187 +9,198 @@ interface Product {
   styleUrls: ['./openclose.component.scss']
 })
 export class OpencloseComponent implements OnInit {
-  print_totalnetsales = 0;
-  print_tax = 0;
-  today: string;
-  summary_subtotal = 0;
-  summary_hst = 0;
-  summary_total = 0;
-  categorySummary = [];
-  categoryTotal = 0;
-  total_discount = [];
-  total_discount_value = 0;
-  total_discount_qty = 0;
-  total_credit = [];
+
+  openclose: any;
+
   total_creditcard_amount = 0;
 
-  server_tipouts = {
-    'total_cash_payments': { type: 'Total Cash Payments', amount: 0 },
-    'cash_adjustments': { type: 'Cash Adjustments', amount: 0 },
-    'cash_before_tipouts': { type: 'Cash before Tipouts', amount: 0 },
-    'cash_gratuity': { type: 'Cash Gratuity', amount: 0 },
-    'non_cash_gratuity': { type: 'Credit/Non-Cash gratuity', amount: 0 },
-    'non_cash_tips': { type: 'Credit/Non-Cash tips', amount: 0 },
-    'total_none_cash_tips_gratuity': { type: 'Total Non-Cash Tips and Total Gratuity', amount: 0 },
-    'total_cash': { type: 'Total Cash', amount: 0 }
+  payhistory = [];
+
+  categorySummary = [];
+  categorySum = {
+    qty: 0,
+    expect: 0,
+    tax: 0,
   };
   paymentSummary = [];
+  paymentSum = {
+    expected: 0,
+    counted: 0,
+    differences: 0,
+  };
 
-  totalnonecashtipsandGratuity = -366.79;
+  zSalesTaxesSummary = {
+    totalNetSale: 0,
+    tax: 0,
+    total: 0,
+  };
+  serverTipout = {
+    cash: {
+      type: 'Total Cash Payments',
+      bal: 0
+    },
+    cashAdjustments: {
+      type: 'Cash Adjstments',
+      bal: 0
+    },
+    cashBeforeTip: {
+      type: 'Cash before Tipouts',
+      bal: 0,
+    },
+    cashGratuity: {
+      type: 'Cash Gratuity',
+      bal: 0,
+    },
+    noneCashGratuity: {
+      type: 'Credit/Non-Cash gratuity',
+      bal: 0,
+    },
+    noneCashTip: {
+      type: 'Credit/Non-Cash tips',
+      bal: 0,
+    },
+    totalNonCashtip: {
+      type: 'Total Non-Cash Tips and Total Gratuity',
+      bal: 0,
+    },
+    total: {
+      bal: 0
+    }
+  };
+  discounts = [];
 
-  date_s = new Date();
-  formtted_date = this.date_s.toISOString().slice(0, 19).replace('T', '');
-
-  reg_outlet: string = this.config.outlet_name;
-  reg_register: string = this.config.register_name;
-  reg_id = this.config.register;
-  reg_openingTime = '';
   showZReport = false; // To control visibility of the Z Report
 
-  rows: Product[] = [];
-  currentRow: Product = { id: null, name: '', description: '', product: '' };
   isContentVisible: boolean = false;
-  searchQuery: string = '';
-  paginatedRows: Product[] = [];
-  currentPage: number = 1;
-  itemsPerPage: number = 5;
 
-  constructor(@Inject('APP_CONFIG') private config: any, private customerService: CustomerService) {
+
+  constructor(private customerService: CustomerService) {
     const currentDate = new Date();
-    this.today = currentDate.toLocaleDateString(); // Default format (MM/DD/YYYY)
   }
   ngOnInit() {
     this.fetchSearchItems();
 
-    // Load initial data
-    this.rows = [
-      { id: 1, name: 'Product 1', description: 'Description 1', product: 'Product A' },
-      { id: 2, name: 'Product 2', description: 'Description 2', product: 'Product B' },
-      { id: 3, name: 'Product 3', description: 'Description 3', product: 'Product C' },
-      { id: 4, name: 'Product 4', description: 'Description 4', product: 'Product D' },
-      { id: 5, name: 'Product 5', description: 'Description 5', product: 'Product E' },
-      { id: 6, name: 'Product 6', description: 'Description 6', product: 'Product F' },
-      // Add more products as needed
-    ];
+
   }
   roundToTwo(num) {
     return Math.round(num * 100) / 100;
   }
   fetchSearchItems() {
     this.categorySummary = [];
-    this.categoryTotal = 0;
-    this.print_totalnetsales = 0;
-    this.print_tax = 0;
-    this.paymentSummary = []; // Initialize as an array
-    let index = 0;
-    this.total_creditcard_amount = 0;
-    this.total_discount_value = 0;
-    this.total_discount_qty = 0;
 
+    this.paymentSummary = []; // Initialize as an array
+
+    // this.customerService.fetchOpenClose().subscribe(
+    //   (res) => {
+    //   },
+    //   (error) => {
+    //     console.error('Error fetching customer data:', error);
+    //     // Handle the error as needed
+    //   }
+    // );
     this.customerService.fetchTodaySale().subscribe(
       (res) => {
-        //set time///////////////////
-        const startDate = new Date(res.start);
-        const endDate = new Date(res.end);
+        this.openclose = res;
+        if (res.payment_data.all_payments.length > 0) {
+          res.payment_data.all_payments.forEach(element => {
+            // Ensure paymentSummary is initialized for the correct payment status
+            if (!this.paymentSummary[element.payment_status]) {
+              this.paymentSummary[element.payment_status] = {
+                expected: 0,
+                counted: 0,
+                differences: 0
+              };
+            }
+            console.log(element.tip, '-------', element.cash_tip);
+            //calc cash tips 
+            this.serverTipout.cashGratuity.bal += element.cash_tip;
+            this.serverTipout.noneCashTip.bal += element.tip;
 
-        this.reg_openingTime = `${startDate.toLocaleString('en-US')} ~ ${endDate.toLocaleString('en-US')}`;
-        // this.reg_openingTime = `${startDate}~${endDate}`;
-        ////////////////////////////////////
-        const groupedSales = res.data.reduce((acc, item) => {
+            // Now, use the same payment status to aggregate data
+            this.paymentSummary[element.payment_status].expected += element.total;
+            this.paymentSummary[element.payment_status].counted =
+              (this.paymentSummary[element.payment_status].counted * 1000 + element.total_paid * 1000) / 1000;
+            this.paymentSummary[element.payment_status].differences += (element.total - element.total_paid);
+            this.paymentSum.expected += element.total;
+            this.paymentSum.counted += element.total_paid;
+            this.paymentSum.differences += element.total - element.total_paid;
 
-          this.print_tax += item.tax * 1;
-          this.print_totalnetsales += item.subtotal * 1;
+            //calc sales and taxes summary
+            this.zSalesTaxesSummary.totalNetSale += element.subtotal;
+            this.zSalesTaxesSummary.tax += element.tax;
+            this.zSalesTaxesSummary.total += element.subtotal + element.tax;
 
-          //Server Tipsouts
-          if (item.payments && item.payments.length > 0) {
-            item.payments.forEach(element => {
-              //credit card breakdown
+            if (element.payments.length > 0) {
+              element.payments.forEach(el => {
+                if (!this.payhistory[el.type]) {
+                  this.payhistory[el.type] = {
+                    bal: 0
+                  }
+                }
+                this.payhistory[el.type].bal += el.amount;
 
-              //server tipouts
-              if (element.type === 'cash') {
-                // Update total cash payments
-                this.server_tipouts['total_cash_payments'].amount = this.roundToTwo(
-                  this.server_tipouts['total_cash_payments'].amount + element.amount
-                );
-              } else {
-                this.total_creditcard_amount = this.roundToTwo(this.total_creditcard_amount + element.amount);
-              }
-              // else {
-              // Handle non-cash payments
-              if (!this.total_credit[element.type]) {
-                this.total_credit[element.type] = 0;
-              }
-              // console.log(`index:${index++}=${element.type}:${element.amount}`);
-              this.total_credit[element.type] = this.roundToTwo(
-                this.total_credit[element.type] + element.amount
-              );
+                if (el.type == 'cash') {
+                  this.serverTipout.cash.bal += el.amount;
+                } else {
+                  this.total_creditcard_amount += el.amount;
+                }
+              });
+            }
 
-              // }
-            });
-          }
-          if (item.products && item.products.length > 0) {
-            item.products.forEach(el => {
-              // console.log('--------------', el.discount.mode, el.discount.value);
-              if (el.discount.value != 0 && el.discount.mode == 'percent') {
-                this.server_tipouts['cash_adjustments'].amount += el.price * el.qty * el.discount.value / 100;
-                if (!this.total_discount[el._id]) {
-                  this.total_discount[el._id] = {
-                    name: el.product_name,
-                    value: 0, //el.price,
-                    qty: 0, //el.qty,
-                    // discount: el.discount.value,
+
+            if (element.products.length > 0) {
+              element.products.forEach(({ product_id, product_name, qty, tax, price, discount }) => {
+                const productId = product_id._id;
+
+                // Initialize category summary if it doesn't exist
+                if (!this.categorySummary[productId]) {
+                  this.categorySummary[productId] = {
+                    product_name: product_name,
+                    qty: 0,
+                    tax: 0,
+                    price: price,
                   };
                 }
-                this.total_discount[el._id].qty += el.qty;
-                this.total_discount[el._id].value += el.price * el.qty * el.discount.value / 100;
-                this.total_discount_value += el.price * el.qty * el.discount.value / 100;
-                this.total_discount_qty += el.qty;
-              }
-              //category
-              if (!this.categorySummary[el._id]) {
-                this.categorySummary[el._id] = {
-                  ...el,
-                  category_amount: 0
-                };
-              }
-              this.categorySummary[el._id].category_amount += el.qty;
-              this.categoryTotal += el.price;
-            });
-          }
-          this.server_tipouts['cash_gratuity'].amount += item.cash_tip;
-          this.server_tipouts['non_cash_gratuity'].amount += item.tip;
-          // if (item.payment_status == 'cash') {
-          //   if (item.voided == true || item.returned == true) {
-          //     this.server_tipouts['cash_adjustments'].amount += item.total_paid;
-          //   }
-          // }
 
-          //payments
-          let paymentType = acc[item.payment_status];
+                //calc servertipout cash adjstments
+                if (discount.mode == 'percent') {
+                  this.serverTipout.cashAdjustments.bal += qty * price * discount.value / 100;
+                }
+                //product discount
+                if (discount.value != 0) {
 
-          if (!paymentType) {
-            paymentType = {
-              type: item.payment_status,
-              expected: 0,
-              counted: 0,
-              differences: 0
-            };
-            acc[item.payment_status] = paymentType;
-            this.paymentSummary.push(paymentType); // Push to paymentSummary
-          }
+                  if (!this.discounts[productId]) {
 
-          // Update expected and counted amounts
-          paymentType.expected = this.roundToTwo(paymentType.expected + item.total);
-          paymentType.counted = this.roundToTwo(paymentType.counted + item.total_paid);
-          paymentType.differences = paymentType.expected - paymentType.counted;
+                    this.discounts[productId] = {
+                      product_name: product_name,
+                      mode: discount.mode,
+                      value: discount.value,
+                      qty: 0,
+                      bal: 0,
+                    }
+                  }
+                  this.discounts[productId].qty += qty;
+                  if (discount.mode == 'percent') {
 
+                    this.discounts[productId].bal += qty * price * discount.value / 100;
+                  }
+                }
 
-          this.calc_server_tipsouts();
+                // Update quantities, taxes, and prices
+                this.categorySummary[productId].qty += qty;
+                this.categorySummary[productId].tax += tax;
 
-          return acc;
-        }, {});
+                // Update overall category sums
+                this.categorySum.qty += qty;
+                this.categorySum.tax += tax;
+                this.categorySum.expect += qty * price; // Changed from 'expect' to 'expected'
+                // console.log(`${product_name}===> ${qty}(qty)*${price}(price): ${this.categorySum.expect}`);
+              });
 
-        console.log(this.total_discount);
+            }
+          });
+        }
+        console.log(this.categorySummary);
       },
       (error) => {
         console.error('Error fetching customer data:', error);
@@ -203,11 +209,7 @@ export class OpencloseComponent implements OnInit {
     );
   }
   calc_server_tipsouts() {
-    this.server_tipouts['cash_before_tipouts'].amount = this.server_tipouts['total_cash_payments'].amount - this.server_tipouts['cash_adjustments'].amount;
 
-    this.server_tipouts['total_none_cash_tips_gratuity'].amount = this.server_tipouts['non_cash_gratuity'].amount + this.server_tipouts['non_cash_tips'].amount;
-
-    this.server_tipouts['total_cash'].amount = this.server_tipouts['total_cash_payments'].amount + this.server_tipouts['cash_adjustments'].amount + this.server_tipouts['cash_gratuity'].amount + this.server_tipouts['non_cash_gratuity'].amount + this.server_tipouts['non_cash_tips'].amount;
 
   }
   formatCurrency(total: number): string {
@@ -220,30 +222,30 @@ export class OpencloseComponent implements OnInit {
     if (this.isContentVisible) { this.closeRegister(); }
   }
 
-  openEditModal(row: Product) {
-    this.currentRow = { ...row };
-    // $('#editModal').show();
-  }
+  calculatePaymentSum() {
+    // Reset totals
+    this.paymentSum.expected = 0;
+    this.paymentSum.counted = 0;
+    this.paymentSum.differences = 0;
 
+    // Calculate new totals
+    Object.values(this.paymentSummary).forEach(element => {
+      this.paymentSum.expected += element.expected;
+      this.paymentSum.counted += element.counted;
+      this.paymentSum.differences += element.differences;
+    });
+
+  }
   updateDifference(payment: any) {
     payment.differences = payment.expected - payment.counted;
+    this.calculatePaymentSum();
   }
 
   closeRegister() {
     this.showZReport = true; // Show Z Report
     this.printZReport(); // Optionally, print immediately
   }
-  totalExpected() {
-    return this.paymentSummary.reduce((sum, payment) => sum + payment.expected, 0);
-  }
 
-  totalCounted() {
-    return this.paymentSummary.reduce((sum, payment) => sum + payment.counted, 0);
-  }
-
-  totalDifference() {
-    return this.paymentSummary.reduce((sum, payment) => sum + payment.differences, 0);
-  }
   printZReport() {
     setTimeout(() => {
       window.print(); // Print the current window

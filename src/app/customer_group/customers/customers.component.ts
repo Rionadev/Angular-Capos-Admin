@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CustomerService } from 'app/api/salesledger/api.service';
+import { ToastService } from 'app/component/toast/toast.service';
 
 
 @Component({
@@ -18,7 +19,11 @@ export class CustomersComponent implements OnInit {
   // List of countries
   countries: any;
   isModalOpen = false; // Control modal visibility
-  constructor(private renderer: Renderer2, private customerService: CustomerService) {
+  constructor(
+    private renderer: Renderer2,
+    private customerService: CustomerService,
+    private toastService: ToastService,
+  ) {
     this.selectedCustomer = '';
     this.selectedGroup = 'all';
     this.selectedCountry = 'all';
@@ -136,7 +141,29 @@ export class CustomersComponent implements OnInit {
     this.filteredTransactions = [...this.transactions];
   }
 
+  validateFields(): boolean {
+    const requiredFields = [
+      this.selectedTransaction.name,
+      this.selectedTransaction.code,
+      this.selectedTransaction.groupId,
+      this.selectedTransaction.gender,
+      this.selectedTransaction.email,
+      this.selectedTransaction.physical_address.street,
+      this.selectedTransaction.physical_address.city
+    ];
+
+    return requiredFields.every(field => field && field.trim() !== '');
+  }
+
   saveCustomer() {
+    console.log(this.selectedTransaction);
+    if (!this.validateFields()) {
+      // alert('Please fill in all required fields.');
+      this.toastService.showToast('Please fill in all required fields.', 'warning', 3000);
+
+      return;
+    }
+
     if (this.selectedTransaction.name && this.selectedTransaction.email) {
       this.customerService.saveCumtomerData(this.selectedTransaction).subscribe(
         (res) => {

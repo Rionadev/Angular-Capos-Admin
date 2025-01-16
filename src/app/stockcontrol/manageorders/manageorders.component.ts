@@ -1,21 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-interface Product {
-  id: number;
-  name: string;
-  category: string; // Product Type
-  brand: string;
-  supplier: string;
-  attributes: string; // Comma-separated values for attributes
-  tags: string; // Comma-separated values for tags
-  status: string; // e.g., "Active", "Inactive"
-  Barcode: string;
-  retailPrice: number;
-  inventory: string;
-  active: boolean;
-  touch: boolean;
-  created: Date;
-  isEditing?: boolean; // Add isEditing property
-}
+import { StockService } from 'app/api/stockcontrol/api.service';
 
 @Component({
   selector: 'app-manageorders',
@@ -23,121 +7,47 @@ interface Product {
   styleUrls: ['./manageorders.component.scss']
 })
 export class ManageordersComponent implements OnInit {
-  allRows: any[] = [
-    {
-      id: 1,
-      type: 'Purchase Order',
-      number: 'PO-1001',
-      from: 'Main Outlet',
-      to: 'Sub Store',
-      status: 'Pending',
-      items: 5,
-      cost: 150.00,
-      created: new Date('2024-01-15'),
-      dueDate: new Date('2024-01-30')
-    },
-    {
-      id: 2,
-      type: 'Return Order',
-      number: 'RO-2001',
-      from: 'Sub Store',
-      to: 'Main Outlet',
-      status: 'Completed',
-      items: 2,
-      cost: 50.00,
-      created: new Date('2024-01-10'),
-      dueDate: new Date('2024-01-20')
-    },
-    {
-      id: 3,
-      type: 'Receive Order',
-      number: 'RO-3001',
-      from: 'Supplier A',
-      to: 'Main Outlet',
-      status: 'In Transit',
-      items: 10,
-      cost: 300.00,
-      created: new Date('2024-01-12'),
-      dueDate: new Date('2024-01-25')
-    },
-    {
-      id: 4,
-      type: 'Purchase Order',
-      number: 'PO-1002',
-      from: 'Test Outlet1',
-      to: 'Main Outlet',
-      status: 'Pending',
-      items: 8,
-      cost: 200.00,
-      created: new Date('2024-01-18'),
-      dueDate: new Date('2024-02-02')
-    },
-    {
-      id: 5,
-      type: 'Return Order',
-      number: 'RO-2002',
-      from: 'Main Outlet',
-      to: 'Supplier B',
-      status: 'Completed',
-      items: 3,
-      cost: 75.00,
-      created: new Date('2024-01-14'),
-      dueDate: new Date('2024-01-22')
-    },
-    {
-      id: 6,
-      type: 'Receive Order',
-      number: 'RO-3002',
-      from: 'Supplier C',
-      to: 'Sub Store',
-      status: 'Pending',
-      items: 15,
-      cost: 450.00,
-      created: new Date('2024-01-16'),
-      dueDate: new Date('2024-01-28')
-    },
-    {
-      id: 7,
-      type: 'Purchase Order',
-      number: 'PO-1003',
-      from: 'Main Outlet',
-      to: 'Test Outlet1',
-      status: 'Completed',
-      items: 4,
-      cost: 120.00,
-      created: new Date('2024-01-20'),
-      dueDate: new Date('2024-02-05')
-    },
-    {
-      id: 8,
-      type: 'Return Order',
-      number: 'RO-2003',
-      from: 'Sub Store',
-      to: 'Supplier A',
-      status: 'In Transit',
-      items: 1,
-      cost: 25.00,
-      created: new Date('2024-01-11'),
-      dueDate: new Date('2024-01-21')
-    }
-  ];
+  allRows: any;
 
   ngOnInit(): void {
+    this.setDateFromTo();
+    this.fetchSearchItems();
 
   }
-  constructor() { }
+  constructor(private stockService: StockService) { }
+
+  ordersTypes: any;
+  outlets: any;
+  suppliers: any;
+
+
   searchInvoice: string = '';
   selectedOrderType: string = '';
   selectedOutlet: string = '';
   selectedSupplier: string = '';
-  createdAtStart: Date | null = null;
-  createdAtEnd: Date | null = null;
-  dueDateStart: Date | null = null;
-  dueDateEnd: Date | null = null;
+  createdAtStart: string | null = null;
+  createdAtEnd: string | null = null;
+  dueDateStart: string | null = null;
+  dueDateEnd: string | null = null;
 
-  filteredRows: any[] = [];
+  filteredRows: any;
   currentPage: number = 1;
   totalPages: number = 1;
+  setDateFromTo() {
+    const today = new Date();
+    const sevenDaysAgo = new Date(today);
+    const oneDayAfter = new Date(today);
+
+    sevenDaysAgo.setDate(today.getDate() - 1000); // Subtract 7 days
+    oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
+
+
+    this.createdAtStart = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
+    this.createdAtEnd = oneDayAfter.toISOString().split('T')[0]; // Set the end date to today
+
+    this.dueDateStart = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
+    this.dueDateEnd = oneDayAfter.toISOString().split('T')[0]; // Set the end date to today
+  }
 
   // Method to filter rows based on the criteria
   filterRows() {
@@ -147,26 +57,67 @@ export class ManageordersComponent implements OnInit {
       const matchesOutlet = !this.selectedOutlet || row.from === this.selectedOutlet;
       const matchesSupplier = !this.selectedSupplier || row.from === this.selectedSupplier;
 
-      const matchesCreatedAt = (!this.createdAtStart || new Date(row.created) >= new Date(this.createdAtStart)) &&
-        (!this.createdAtEnd || new Date(row.created) <= new Date(this.createdAtEnd));
+      // const matchesCreatedAt = (!this.createdAtStart || new Date(row.created) >= new Date(this.createdAtStart)) &&
+      //   (!this.createdAtEnd || new Date(row.created) <= new Date(this.createdAtEnd));
 
-      const matchesDueDate = (!this.dueDateStart || new Date(row.dueDate) >= new Date(this.dueDateStart)) &&
-        (!this.dueDateEnd || new Date(row.dueDate) <= new Date(this.dueDateEnd));
+      // const matchesDueDate = (!this.dueDateStart || new Date(row.dueDate) >= new Date(this.dueDateStart)) &&
+      //   (!this.dueDateEnd || new Date(row.dueDate) <= new Date(this.dueDateEnd));
 
-      return matchesInvoice && matchesOrderType && matchesOutlet && matchesSupplier && matchesCreatedAt && matchesDueDate;
+      return matchesInvoice && matchesOrderType && matchesOutlet && matchesSupplier;
+      //  && matchesCreatedAt && matchesDueDate;
     });
     this.updatePagination();
   }
 
+  fetchSearchItems() {
+
+    let params: any = {
+      date_from: this.createdAtStart,
+      date_to: this.createdAtEnd,
+      due_from: this.dueDateStart,
+      due_to: this.dueDateEnd,
+    };
+    if (this.selectedOrderType != '') {
+      params = {
+        ...params,
+        type: this.selectedOrderType,
+      };
+    }
+    if (this.selectedOutlet != '') {
+      params = {
+        ...params,
+        outlet: this.selectedOutlet,
+      };
+    }
+    if (this.selectedSupplier != '') {
+      params = {
+        ...params,
+        supplier: this.selectedSupplier,
+      };
+    }
+    if (this.searchInvoice != '') {
+      params = {
+        ...params,
+        kewyword: this.searchInvoice,
+      };
+    }
+
+    this.stockService.readOrderProduct(params).subscribe(
+      (res) => {
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+  }
   clearFilters() {
     this.searchInvoice = '';
     this.selectedOrderType = '';
     this.selectedOutlet = '';
     this.selectedSupplier = '';
-    this.createdAtStart = null;
-    this.createdAtEnd = null;
-    this.dueDateStart = null;
-    this.dueDateEnd = null;
+    this.setDateFromTo();
+
     this.filterRows(); // Reapply filter to reset the displayed rows
   }
 
@@ -174,11 +125,11 @@ export class ManageordersComponent implements OnInit {
     // Logic to update currentPage and totalPages based on filteredRows
   }
   getTotalItems(): number {
-    return this.filteredRows.reduce((total, row) => total + row.items, 0);
+    return this.filteredRows?.reduce((total, row) => total + row.items, 0);
   }
 
   getTotalCost(): number {
-    return this.filteredRows.reduce((total, row) => total + row.cost, 0);
+    return this.filteredRows?.reduce((total, row) => total + row.cost, 0);
   }
   // Other methods...
 }

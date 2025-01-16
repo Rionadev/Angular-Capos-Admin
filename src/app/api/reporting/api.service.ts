@@ -17,4 +17,60 @@ export class ReportingService {
     //   { params }
     // );
   }
+  fecthRegister() {
+    let httpParams = new HttpParams();
+    let params: any = {
+      private_web_address: this.config.private_web_address
+    };
+    Object.keys(params).forEach(key => {
+      if (params[key] !== undefined && params[key] !== null) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    });
+    return this.http.get(`${this.config.apiUrl}/sell/register`,
+      { params }
+    );
+  }
+  fetchPaymentReg(param: any) {
+    let httpParams = new HttpParams();
+    console.log(param);
+    let params: any = {
+      private_web_address: this.config.private_web_address
+    };
+    if (param.register) {
+      if (param.register != 'all') {
+        params = {
+          ...params,
+          ...param
+        };
+      }
+    }
+    // Build HttpParams from the provided params object
+    Object.keys(params).forEach(key => {
+      if (params[key] !== undefined && params[key] !== null) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    });
+    return this.http.get(`${this.config.apiUrl}/sell/openclose`,
+      { params }
+    );
+  }
+  fetchSaleTaxReport(): Observable<any> {
+    let httpParams = new HttpParams();
+    const params = {
+      private_web_address: this.config.private_web_address
+    };
+    // Build HttpParams from the provided params object
+    Object.keys(params).forEach(key => {
+      if (params[key] !== undefined && params[key] !== null) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    });
+
+    // Log the constructed HttpParams to verify
+    console.log('Constructed HttpParams:', httpParams.toString());
+
+    // Make the API call
+    return this.http.get(`${this.config.apiUrl}/sale/saletax`, { params: httpParams });
+  }
 }

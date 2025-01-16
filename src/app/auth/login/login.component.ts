@@ -29,12 +29,13 @@ export class LoginComponent {
     }
     this.login(this.private_web_address, this.email, this.password).subscribe({
       next: (response) => {
-        console.log('Login successful', response);
+        // console.log('Login successful', response);
         // Mock saving user data or token
         switch (response.error) {
           case 0:
             localStorage.setItem('user', JSON.stringify(response.token));
             localStorage.setItem('private_web_address', this.private_web_address);
+            localStorage.setItem('user_id', response.user?._id);
             localStorage.setItem('user_email', this.email);
             localStorage.setItem('user_outlet', response.user?.outlet?._id);
             localStorage.setItem('user_register', response.user?.register);
@@ -45,7 +46,10 @@ export class LoginComponent {
             this.config.private_web_address = this.private_web_address;
             this.config.user_email = this.email;
             this.config.userinfo = response.user;
-            console.log(`-------------`, response.user);
+            this.config.outlet_id = response.user?.outlet?._id;
+            this.config.register_id = response.user?.register;
+            this.config.user_id = response.user?._id;
+
             this.router.navigate(['/dashboard']);
             break;
           case 'email_verify':

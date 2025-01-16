@@ -117,40 +117,36 @@
                                     <td *ngIf="transaction.isEditing">
                                         <input [(ngModel)]="transaction.transaction" class="form-control" />
                                     </td>
-
                                     <td>
-                                        <div style="display: flex;gap: 1rem;">
-
-                                            <button *ngIf="!transaction.isActionButton" class="btn btn-info btn-xs"
-                                                (click)="editTransaction(transaction)">
-                                                <i class="pe-7s-note" style="font-size: large;"></i>
-                                                <!-- Edit -->
-                                            </button>
-                                            <button *ngIf="!transaction.isActionButton" class="btn btn-danger btn-xs"
-                                                (click)="confirmDelete(transaction)">
-                                                <i class="pe-7s-trash" style="font-size: large;"></i>
-                                                <!-- Delete -->
-                                            </button>
-                                            <button *ngIf="transaction.isEditing" class="btn btn-success btn-xs"
-                                                (click)="saveTransaction(transaction)">
-                                                <i class="pe-7s-diskette" style="font-size: large;"></i>
-                                                <!-- Save -->
-                                            </button>
-                                            <button *ngIf="transaction.isEditing" class="btn btn-secondary btn-xs"
-                                                (click)="cancelTransaction(transaction)">
-                                                <i class="pe-7s-back" style="font-size: large;"></i>
-                                                <!-- Cancel -->
-                                            </button>
-                                            <button *ngIf="transaction.isConfirming" class="btn btn-danger btn-xs"
-                                                (click)="deleteTransaction(transaction)">
-                                                Yes
-                                            </button>
-                                            <button *ngIf="transaction.isConfirming" class="btn btn-secondary btn-xs"
-                                                (click)="cancelConfirm(transaction)">
-                                                No
-                                            </button>
-                                        </div>
+                                        <button *ngIf="!transaction.isActionButton" class="btn btn-sm btn-info"
+                                            (click)="editTransaction(transaction)" data-toggle="tooltip" title="Edit">
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                        <button *ngIf="!transaction.isActionButton" class="btn btn-sm btn-danger"
+                                            (click)="showDeleteModal(transaction._id)" data-toggle="tooltip"
+                                            title="Delete">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                        <button *ngIf="transaction.isEditing" class="btn btn-success btn-xs"
+                                            (click)="saveTransaction(transaction)">
+                                            <i class="pe-7s-diskette" style="font-size: large;"></i>
+                                            <!-- Save -->
+                                        </button>
+                                        <button *ngIf="transaction.isEditing" class="btn btn-secondary btn-xs"
+                                            (click)="cancelTransaction(transaction)">
+                                            <i class="pe-7s-back" style="font-size: large;"></i>
+                                            <!-- Cancel -->
+                                        </button>
+                                        <button *ngIf="transaction.isConfirming" class="btn btn-danger btn-xs"
+                                            (click)="deleteTransaction(transaction)">
+                                            Yes
+                                        </button>
+                                        <button *ngIf="transaction.isConfirming" class="btn btn-secondary btn-xs"
+                                            (click)="cancelConfirm(transaction)">
+                                            No
+                                        </button>
                                     </td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -163,3 +159,7 @@
 
     </div>
 </div>
+<app-confirm-modal *ngIf="isDeleteModal" [title]="'Remove Cash Data'"
+    [description]="'Do you really want to remove this Cash info ?'" [confirmButtonCaption]="'Delete'"
+    [cancelButtonCaption]="'Cancel'" (confirmed)="deleteRow()" (cancelled)="closeDeleteModal()">
+</app-confirm-modal>

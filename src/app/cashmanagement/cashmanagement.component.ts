@@ -12,7 +12,8 @@ import { userInfo } from 'os';
 export class CashmanagementComponent implements OnInit {
   selectedDateFrom: string = '';
   selectedDateTo: string = '';
-
+  currentDeleteID = '';
+  isDeleteModal = false;
   currentRow: any = {};
   newTransaction: any = { reasons: '', type: '', transaction: null };
   isContentVisible: boolean = false;
@@ -28,19 +29,19 @@ export class CashmanagementComponent implements OnInit {
   ngOnInit() {
     this.setDateFromTo();
     this.fetchTransactions();
-    console.log('------------------', this.config.userinfo);
 
     // Log the object directly
-    console.log(this.config.userinfo);
+    // console.log(this.config.user_id);
 
-    // Log as a string
-    console.log(JSON.stringify(this.config.userinfo, null, 2));
+    // // Log as a string
+    // console.log('outlet', this.config.outlet_id);
 
-    // Log entries
-    console.log(Object.entries(this.config.userinfo));
+    // // Log entries
+    // console.log('register', this.config.register_id);
 
-    // Log keys
-    console.log(Object.keys(this.config.userinfo));
+    // // Log keys
+    // console.log('id', this.config.user_id);
+
   }
 
   setDateFromTo() {
@@ -118,6 +119,8 @@ export class CashmanagementComponent implements OnInit {
         // console.log('cash  Data:', data);
         this.transactions.push({ ...data, date: new Date().toLocaleString() });
         this.cancelAddCash(); // Reset the form after saving
+        this.fetchTransactions();
+
       },
       (error) => {
         console.error('Error fetching cash data:', error);
@@ -211,4 +214,33 @@ export class CashmanagementComponent implements OnInit {
       // });
     }
   }
+
+  showDeleteModal(id: string) {
+    this.currentDeleteID = id;
+    this.isDeleteModal = true;
+  }
+
+  closeDeleteModal() {
+    this.isDeleteModal = false;
+  }
+
+  deleteRow() {
+    this.cashmanagement.deleteCash(
+      this.currentDeleteID
+    ).subscribe(
+      (data) => {
+        this.fetchTransactions();
+
+      },
+      (error) => {
+        console.error('Error fetching cash data:', error);
+        // Handle the error as needed
+      }
+    );
+
+    this.isDeleteModal = false;
+    /* this.rows = this.rows.filter((row) => row.id !== this.currentDeleteID); // Remove row by id
+    this.isDeleteModal = false; */
+  }
+
 }

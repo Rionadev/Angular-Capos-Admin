@@ -69,6 +69,12 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr style="background-color: rgb(199, 199, 199);">
+                                    <!-- total row  -->
+                                    <td class="colspan-6" colspan="6" ><strong>Total:</strong>
+                                    </td>
+                                    <td>{{ calculateTotal() | currency }}</td>
+                                </tr>
                                 <tr *ngFor="let transaction of filteredTransactions">
                                     <td>{{ transaction.date }}</td>
                                     <td>{{ transaction.receipt }}</td>

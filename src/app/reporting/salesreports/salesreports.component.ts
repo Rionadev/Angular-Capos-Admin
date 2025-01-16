@@ -9,7 +9,7 @@ import { CustomerService } from 'app/api/salesledger/api.service';
 })
 export class SalesreportsComponent implements OnInit {
   [x: string]: any;
-
+  showModal = false;
   selectedDateFrom: string = '';
   selectedDateTo: string = '';
   transactionsByDate: any = [];
@@ -58,13 +58,24 @@ export class SalesreportsComponent implements OnInit {
       );
     });
   }
-
+  close() {
+    this.showModal = false;
+  }
   clearFilters() {
     // this.startDate = '';    this.endDate = '';
     this.setDateFromTo();
     this.fetchSearchItems();
   }
+  selected_rowdata: any;
+  showDetail(rowData: any) {
+    this.selected_rowdata = {
+      row: rowData,
+      data: this.transactionsByDate[rowData.date]
+    }
+    console.log(this.selected_rowdata);
+    this.showModal = true;
 
+  }
   fetchSearchItems() {
     // this.http.get<any[]>(`${environment.apiUrl}/sale/getSearchItem`).subscribe(data => {
 
@@ -159,6 +170,19 @@ export class SalesreportsComponent implements OnInit {
         // Handle the error as needed
       }
     );
+  }
+  formatDate(dateString: string) {
+    const date = new Date(dateString);
+
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(date.getUTCDate()).padStart(2, '0');
+
+    const hours = String(date.getUTCHours()).padStart(2, '0');
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+
+    return `${hours}:${minutes}:${seconds}`;
   }
 }
 

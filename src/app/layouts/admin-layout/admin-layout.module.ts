@@ -83,6 +83,7 @@ import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/to
 import { ConfirmModalComponent } from '../../component/confirm-modal/confirm-modal.component';
 import { PaginationComponent } from '../../component/pagination/pagination.component';
 import { TagInputComponent } from '../../component/tag-input/tag-input.component';
+import { OpencloseZComponent } from 'app/openclose-z/openclose-z.component';
 
 @NgModule({
   imports: [
@@ -106,7 +107,7 @@ import { TagInputComponent } from '../../component/tag-input/tag-input.component
     EmployeesComponent,
     RolesComponent,
     SaleslegderComponent,
-    
+
     BillingComponent,
     OutletsComponent,
     PreferencesComponent,
@@ -133,7 +134,8 @@ import { TagInputComponent } from '../../component/tag-input/tag-input.component
     TagInputComponent,
     ProductEditModalComponent,
     EditableSelectComponent,
-    
+
+    OpencloseZComponent,
     SaletransactionComponent,
     GroupsComponent,
 
@@ -147,7 +149,7 @@ import { TagInputComponent } from '../../component/tag-input/tag-input.component
     SupplliersComponent,
     ProducttagsComponent,
     ProductattributesComponent,
-    
+
     // Ecommerce
     DashboardComponent,
     CollectionsComponent,

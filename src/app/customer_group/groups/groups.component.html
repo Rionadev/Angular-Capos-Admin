@@ -32,19 +32,20 @@
                     <td>{{ pointRate.limit }}</td>
                     <td>{{ calculateAverage(pointRate?.point_rates) }}</td>
                     <td style="display: flex;justify-content: right;">
+                        <button *ngIf="!isEdit && !isDel" class="btn btn-sm btn-info" (click)="editPointRate(pointRate)"
+                            data-toggle="tooltip" title="Edit">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button>
+                        <button *ngIf="!isEdit && !isDel" class="btn btn-sm btn-danger" (click)="delconfirm(pointRate)"
+                            data-toggle="tooltip" title="Delete">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
 
-                        <button *ngIf="!isEdit && !isDel" class="btn btn-sm btn-warning"
-                            (click)="editPointRate(pointRate)">
-                            <i class="pe-7s-note" style="font-size:large;"></i>
-                        </button>
-                        <button *ngIf="!isEdit && !isDel" class="btn btn-sm btn-danger" (click)="delconfirm(pointRate)">
-                            <i class="pe-7s-trash" style="font-size:large;"></i>
-                        </button>
-                        <button *ngIf="isDel && selPointRates?.id == pointRate.id" class="btn btn-sm btn-warning"
+                        <button *ngIf="isDel && selPointRates?.id == pointRate.id" class="btn btn-sm btn-danger"
                             (click)="deletePointRate(pointRate)">
                             <i class="pe-7s-close-circle" style="font-size:large;"></i>
                         </button>
-                        <button *ngIf="isDel && selPointRates?.id == pointRate.id" class="btn btn-sm btn-danger"
+                        <button *ngIf="isDel && selPointRates?.id == pointRate.id" class="btn btn-sm btn-primary"
                             (click)="cancelDel()">
                             <i class="pe-7s-back" style="font-size:large;"></i>
                         </button>
