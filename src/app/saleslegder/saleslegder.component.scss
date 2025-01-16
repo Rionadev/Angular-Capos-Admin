@@ -71,7 +71,14 @@ select {
 table td {
     padding-bottom: 3px;
     padding-top: 3px;
+    padding: 2rem;
+
     min-height: 39px !important;
+}
+
+.is-invalid {
+    border: 1px solid rgb(255, 145, 145) !important;
+    /* Red border for invalid fields */
 }
 
 .custom-file-upload {

@@ -15,9 +15,15 @@
     /* Adjust as needed */
 }
 
+tr {
+    cursor: pointer;
+}
+
 td,
 th {
     text-align: center;
+    font-size: medium;
+    padding: 1.5rem;
 }
 
 .btn {

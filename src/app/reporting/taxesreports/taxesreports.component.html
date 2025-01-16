@@ -17,16 +17,18 @@
 
                         <!-- <div class="row" style="display: flex;align-items: center;flex-direction: row;gap: 2rem;"> -->
                         <label style="margin-left: 2rem; margin-right: 10px;">From:</label>
-                        <input class="form-control" type="date" [(ngModel)]="selectedDateFrom" />
+                        <input class="form-control" type="date" [(ngModel)]="selectedDateFrom"
+                            (change)="fetchSearchItems()" />
                         <label style="margin: 0 10px;">To:</label>
-                        <input class="form-control" type="date" [(ngModel)]="selectedDateTo" />
+                        <input class="form-control" type="date" [(ngModel)]="selectedDateTo"
+                            (change)="fetchSearchItems()" />
                         <!-- </div> -->
                     </div>
                     <div class="col-md-2"
                         style=" display: flex;flex-direction: row;gap: 1rem;   justify-content: right;">
-                        <button class="btn btn-sm btn-info btn-fill" (click)="filterData()">
+                        <!-- <button class="btn btn-sm btn-info btn-fill" (click)="filterData()">
                             Search
-                        </button>
+                        </button> -->
                         <button class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">
                             Clear Filter
                         </button>
@@ -37,7 +39,7 @@
 
                 <!-- Sales Table -->
                 <div class="card">
-                    <div class="content table-responsive table-full-width">
+                    <div class="content table-responsive table-full-width" style="max-height: 70vh;overflow-y: auto;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -49,13 +51,13 @@
                             <tbody>
                                 <tr style="font-weight: bold; background-color: #f0f0f0;">
                                     <td>Total</td>
-                                    <td>{{ getTotal('total_paid')|currency }}</td>
+                                    <td>{{ getTotal('sale')|currency }}</td>
                                     <td>{{ getTotal('tax') |currency}}</td>
                                 </tr>
-                                <tr *ngFor="let record of records">
-                                    <td>{{ record.register.name }}</td>
-                                    <td>{{ record.total_paid |currency}}</td>
-                                    <td>{{ record.tax |currency}}</td>
+                                <tr *ngFor="let record of records" (click)="selrow(record)">
+                                    <td>{{ record.category }}</td>
+                                    <td>{{ (record.sale||'') |currency}}</td>
+                                    <td>{{ (record.tax||'') |currency}}</td>
                                 </tr>
                             </tbody>
                         </table>

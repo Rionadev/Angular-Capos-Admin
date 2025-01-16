@@ -14,10 +14,10 @@
                                 <div style="display: flex; justify-content: space-between;align-items: center;">
                                     Period:
                                     <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
-                                        name="startDate" />
+                                        name="startDate" (change)="fetchSearchItems()" />
 
-                                    <input type="date" [(ngModel)]="selectedDateTo" class="form-control"
-                                        name="endDate" />
+                                    <input type="date" [(ngModel)]="selectedDateTo" class="form-control" name="endDate"
+                                        (change)="fetchSearchItems()" />
                                 </div>
                             </div>
 
@@ -34,7 +34,7 @@
 
                 <!-- Transactions Table -->
                 <div class="card">
-                    <div class="content table-responsive table-full-width">
+                    <div class="content table-responsive table-full-width" style="max-height: 80vh;overflow-y: auto;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -50,16 +50,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let transaction of filteredTransactions">
-                                    <td>{{ transaction.date }}</td>
-                                    <td>{{ transaction.storeCredit | currency }}</td>
-                                    <td>{{ transaction.cashConcealedTotal | currency }}</td>
-                                    <td>{{ transaction.cash | currency }}</td>
-                                    <td>{{ transaction.credit | currency }}</td>
-                                    <td>{{ transaction.debit | currency }}</td>
-                                    <td>{{ transaction.refunds | currency }}</td>
-                                    <td>{{ transaction.voided | currency }}</td>
-                                    <td>{{ transaction.total | currency }}</td>
+                                <tr style="font-weight: bold; font-size: medium;">
+                                    <td><b>Total</b></td>
+                                    <td><b>{{total_sotre_credit_amount |currency}}</b></td>
+                                    <td><b>{{total_cash_conceal_amount|currency}}</b></td>
+                                    <td><b>{{total_cash_amount|currency}}</b></td>
+                                    <td><b>{{total_credit_amount|currency}}</b></td>
+                                    <td><b>{{total_debit_amount|currency}}</b></td>
+                                    <td><b>{{total_refund_amount|currency}}</b></td>
+                                    <td><b>{{total_voided_amount|currency}}</b></td>
+                                    <td><b>{{(
+                                            total_sotre_credit_amount +
+                                            total_cash_conceal_amount +
+                                            total_cash_amount +
+                                            total_credit_amount +
+                                            total_debit_amount +
+                                            total_refund_amount +
+                                            total_voided_amount)|currency}}</b></td>
+                                </tr>
+                                <tr *ngFor="let transaction of filteredTransactions |keyvalue;"
+                                    (click)="showRow(transaction.key)">
+                                    <td>{{ transaction.key }}</td>
+                                    <td>{{ transaction.value.sotre_credit_amount |currency }}</td>
+                                    <td>{{ transaction.value.cash_conceal_amount |currency}}</td>
+                                    <td>{{ transaction.value.cash_amount |currency}}</td>
+                                    <td>{{ transaction.value.credit_amount |currency}}</td>
+                                    <td>{{ transaction.value.debit_amount |currency}}</td>
+                                    <td>{{ transaction.value.refund_amount |currency}}</td>
+                                    <td>{{ transaction.value.voided_amount |currency}}</td>
+                                    <td>{{ transaction.value.total_amount |currency}}</td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -68,4 +88,238 @@
             </div>
         </div>
     </div>
+</div>
+<div *ngIf="isModalOpen" class="modal-backdrop" (click)="close()"></div>
+<div *ngIf="isModalOpen" class="modal-content" (click)="$event.stopPropagation()">
+    <h3> Payment Information</h3>
+
+    <div class="modal-body">
+        <!-- <div class="info-group">
+            <label>Date:</label>
+            <p>{{ sel_row.date }}</p>
+        </div>
+        <div class="info-group">
+            <label>STORE CREDIT:</label>
+            <p>{{( sel_row.sum.sotre_credit_amount==''?0:sel_row.sum.sotre_credit_amount)| currency }}</p>
+        </div>
+        <div class="info-group">
+            <label>CASH AMOUNT:</label>
+            <p>{{( sel_row.sum.cash_amount==''?0:sel_row.sum.cash_amount) | currency }}</p>
+        </div>
+        <div class="info-group">
+            <label>CREDIT AMOUNT:</label>
+            <p>{{( sel_row.sum.credit_amount==''?0:sel_row.sum.credit_amount )| currency }}</p>
+        </div>
+        <div class="info-group">
+            <label>DEBIT AMOUNT:</label>
+            <p>{{ (sel_row.sum.debit_amount==''?0:sel_row.sum.debit_amount )| currency }}</p>
+        </div>
+        <div class="info-group">
+            <label>REFUND AMOUNT:</label>
+            <p>{{ (sel_row.sum.refund_amount==''?0:sel_row.sum.refund_amount )| currency }}</p>
+        </div>
+        <div class="info-group">
+            <label>VOIDED AMOUNT:</label>
+            <p>{{ (sel_row.sum.voided_amount==''?0: sel_row.sum.voided_amount) | currency }}</p>
+        </div>
+        <div class="info-group">
+            <label>TOTAL AMOUNT:</label>
+            <p>{{ (sel_row.sum.total_amount==''?0:sel_row.sum.total_amount) | currency }}</p>
+        </div> -->
+        <div class="info-group">
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Store Credit</th>
+                        <th>Cash<br> (Concealed Total)</th>
+                        <th>Cash</th>
+                        <th>Credit</th>
+                        <th>Debit</th>
+                        <th>Refunds</th>
+                        <th>Voided</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ sel_row.date }}</td>
+                        <td>{{ sel_row.sum.sotre_credit_amount |currency }}</td>
+                        <td>{{ sel_row.sum.cash_conceal_amount |currency}}</td>
+                        <td>{{ sel_row.sum.cash_amount |currency}}</td>
+                        <td>{{ sel_row.sum.credit_amount |currency}}</td>
+                        <td>{{ sel_row.sum.debit_amount |currency}}</td>
+                        <td>{{ sel_row.sum.refund_amount |currency}}</td>
+                        <td>{{ sel_row.sum.voided_amount |currency}}</td>
+                        <td>{{ sel_row.sum.total_amount |currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="sel_row.data.cash.length>0">
+            <h3>Cash payment</h3>
+        </div>
+        <div class="info-group" *ngIf="sel_row.data.cash.length>0">
+
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Reason</th>
+                        <th>Is Credit</th>
+                        <th>Transaction <br> Amount</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cash of sel_row.data.cash">
+                        <td>{{ cash.reasons }}</td>
+                        <td>{{ cash.is_credit == '0' }}</td>
+                        <td>{{ cash.transaction |currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+        <div *ngIf="sel_row.data.openclose.length>0">
+            <h3>OpenClose payment</h3>
+
+        </div>
+        <div class="info-group" *ngIf="sel_row.data.openclose.length>0">
+
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Open Note</th>
+                        <th>Opening Time</th>
+                        <th>Value</th>
+                        <th>Close Note</th>
+                        <th>Close Status</th>
+                        <th>Closing Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let openclose of sel_row.data.openclose">
+                        <td>{{ openclose.status }}</td>
+                        <td>{{ openclose.open_note }}</td>
+                        <td>{{ getFormattedDate(openclose.opening_time)}}</td>
+                        <td>{{openclose.open_value | currency}}</td>
+                        <td>{{openclose.close_note}}</td>
+                        <td>{{openclose.closure_status}}</td>
+                        <td>{{getFormattedDate(openclose.closing_time)}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div *ngIf="sel_row.data.returns.length>0">
+            <h3>Refunds payment</h3>
+        </div>
+        <div class="info-group" *ngIf="sel_row.data.returns.length>0">
+
+
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Action Status</th>
+                        <th>Applied</th>
+                        <th>Old Invoice</th>
+                        <th>Payment Type</th>
+                        <th>penny</th>
+                        <th>Invoice</th>
+                        <th>Value</th>
+                        <th>Tax</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let return of sel_row.data.returns">
+                        <td>{{ return.action_status }}</td>
+                        <td>{{ return.applied_inventory }}</td>
+                        <td>{{ return.origin_sale_number}}</td>
+                        <td>{{return.payment_status}}</td>
+                        <td>{{return.penny}}</td>
+                        <td>{{return.sale_number}}</td>
+                        <td>{{return.subtotal|currency}}</td>
+                        <td>{{return.tax|currency}}</td>
+                        <td>{{return.total|currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="sel_row.data.voided.length>0">
+
+            <h3>Voided payment</h3>
+        </div>
+        <div class="info-group" *ngIf="sel_row.data.voided.length>0">
+
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Action Status</th>
+                        <th>Applied</th>
+                        <th>Old Invoice</th>
+                        <th>Payment Type</th>
+                        <th>penny</th>
+                        <th>Invoice</th>
+                        <th>Value</th>
+                        <th>Tax</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let voided of sel_row.data.voided">
+                        <td>{{ voided.action_status }}</td>
+                        <td>{{ voided.applied_inventory }}</td>
+                        <td>{{ voided.origin_sale_number}}</td>
+                        <td>{{voided.payment_status}}</td>
+                        <td>{{voided.penny}}</td>
+                        <td>{{voided.sale_number}}</td>
+                        <td>{{voided.subtotal|currency}}</td>
+                        <td>{{voided.tax|currency}}</td>
+                        <td>{{voided.total|currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="sel_row.data.sales.length>0">
+            <h3>Sale payment</h3>
+
+        </div>
+        <div class="info-group" *ngIf="sel_row.data.sales.length>0">
+
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Action Status</th>
+                        <th>Applied</th>
+                        <th>Old Invoice</th>
+                        <th>Payment Type</th>
+                        <th>penny</th>
+                        <th>Invoice</th>
+                        <th>Value</th>
+                        <th>Tax</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let sale of sel_row.data.sales">
+                        <td>{{ sale.action_status }}</td>
+                        <td>{{ sale.applied_inventory }}</td>
+                        <td>{{ sale.origin_sale_number}}</td>
+                        <td>{{sale.payment_status}}</td>
+                        <td>{{sale.penny}}</td>
+                        <td>{{sale.sale_number}}</td>
+                        <td>{{sale.subtotal|currency}}</td>
+                        <td>{{sale.tax|currency}}</td>
+                        <td>{{sale.total|currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <button class="close-button" (click)="close()">Close</button>
 </div>

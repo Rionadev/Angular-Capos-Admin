@@ -18,6 +18,8 @@
 td,
 th {
     text-align: center;
+    font-size: medium;
+    padding: 2rem;
 }
 
 .btn {
@@ -69,8 +71,11 @@ select {
 }
 
 table td {
+
     padding-bottom: 3px;
     padding-top: 3px;
+    padding: 0.5rem;
+
     min-height: 39px !important;
 }
 

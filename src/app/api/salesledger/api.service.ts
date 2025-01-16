@@ -64,6 +64,10 @@ export class CustomerService {
     return this.http.get(`${this.config.apiUrl}/product/fetchproduct`,);
   }
   fetchPaymentHistory(params: any): Observable<any> {
+    params = {
+      ...params,
+      private_web_address: this.config.private_web_address
+    }
     let httpParams = new HttpParams();
 
     // Build HttpParams from the provided params object

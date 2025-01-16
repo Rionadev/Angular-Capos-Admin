@@ -5,14 +5,14 @@
                 <!-- Search Bar -->
                 <div class="card margin-bottom-10">
                     <div class="content add-content" style="display: flex; align-items: center; width: 30%;">
-                        <input type="text" class="form-control" placeholder="Search by Customer Name"
-                            [(ngModel)]="searchTerm" (keyup.enter)="searchCustomers()" style="flex-grow: 1;">
+                        <input type="text" class="form-control" placeholder="Search by Customer Name or Email"
+                            [(ngModel)]="searchTerm" (change)="searchCustomers()" style="flex-grow: 1;">
                     </div>
                 </div>
 
                 <!-- Customers Table -->
                 <div class="card">
-                    <div class="content table-responsive table-full-width">
+                    <div class="content table-responsive table-full-width" style="max-height: 80vh;overflow-y: auto;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -24,6 +24,12 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr style="font-weight: bold; background-color: #f0f0f0;">
+                                    <td colspan="2">Total</td>
+                                    <td>{{ getTotal('total_issued') | currency }}</td>
+                                    <td>{{ getTotal('total_redeemed') | currency }}</td>
+                                    <td>{{ getTotal('credit') | currency }}</td> <!-- Changed 'balance' to 'credit' -->
+                                </tr>
                                 <tr *ngFor="let customer of filteredCustomers">
                                     <td>{{ customer.name }}</td>
                                     <td>{{ customer.email }}</td>
@@ -31,13 +37,7 @@
                                     <td>{{ customer.total_redeemed| currency}}</td>
                                     <td>{{ customer.credit| currency}}</td>
                                 </tr>
-                                <tr style="font-weight: bold; background-color: #f0f0f0;">
-                                    <td>Total</td>
-                                    <td></td>
-                                    <td>{{ getTotal('total_issued') | currency }}</td>
-                                    <td>{{ getTotal('total_redeemed') | currency }}</td>
-                                    <td>{{ getTotal('credit') | currency }}</td> <!-- Changed 'balance' to 'credit' -->
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>

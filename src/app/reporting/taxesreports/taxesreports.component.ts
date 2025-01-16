@@ -8,17 +8,20 @@ import { CustomerService } from 'app/api/salesledger/api.service';
     styleUrls: ['./taxesreports.component.scss']
 })
 export class TaxesreportsComponent implements OnInit {
-    selectedDateFrom: string = '';
-    selectedDateTo: string = '';
+    selectedDateFrom: any;
+    selectedDateTo: any;
 
     searchTerm: string = '';
     selectedPeriod: string = 'today';
-    startDate: Date | null = new Date();
-    endDate: Date | null = new Date();
+
     ngOnInit(): void {
         this.setDateFromTo();
         this.fetchSearchItems();
     }
+    selrow(selrow: any) {
+        console.log(selrow);
+    }
+
     setDateFromTo() {
         const today = new Date();
         const sevenDaysAgo = new Date(today);
@@ -33,21 +36,37 @@ export class TaxesreportsComponent implements OnInit {
     }
 
     fetchSearchItems() {
-        // this.http.get<any[]>(`${environment.apiUrl}/sale/getSearchItem`).subscribe(data => {
-
-        // });
         const params = {
             from: this.selectedDateFrom,
             to: this.selectedDateTo,
         };
-
-        // Log the params to check their structure
-        console.log('Sending params:', params);
-
-
+        // this.reportingService.fetchSaleTaxReport().subscribe(
         this.customerService.fetchSaleHistory(params).subscribe(
+
             (res) => {
-                this.records = res;
+                let sale_tax = {};
+                // this.records = res;
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        if (element.products.length > 0) {
+                            element.products.forEach(el => {
+                                if (!sale_tax[el._id]) {
+                                    sale_tax[el._id] = {
+                                        id: el._id,
+                                        category: el.product_name,
+                                        sale: 0,
+                                        tax: 0
+                                    };
+                                }
+                                sale_tax[el._id].sale += element.total;
+                                sale_tax[el._id].tax += element.tax;
+                            });
+                        }
+                    });
+                }
+                console.log(sale_tax);
+                this.records = Object.values(sale_tax);
+
             },
             (error) => {
                 console.error('Error fetching customer data:', error);
@@ -56,13 +75,13 @@ export class TaxesreportsComponent implements OnInit {
         );
     }
 
-
-
     records: any;
 
     filteredRecords: any;
 
-    constructor(private reportingService: ReportingService, private customerService: CustomerService) {
+    constructor(
+        private reportingService: ReportingService,
+        private customerService: CustomerService) {
         this.updateDateRange(); // Set default date range on initialization
     }
 
@@ -81,8 +100,9 @@ export class TaxesreportsComponent implements OnInit {
     clearFilters(): void {
         this.searchTerm = '';
         this.selectedPeriod = 'today';
-        this.startDate = new Date();
-        this.endDate = new Date();
+        this.setDateFromTo();
+        this.fetchSearchItems();
+
     }
 
     // Method to update the date range based on the selected period
@@ -90,20 +110,25 @@ export class TaxesreportsComponent implements OnInit {
         const today = new Date();
         switch (this.selectedPeriod) {
             case 'today':
-                this.startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-                this.endDate = this.startDate;
+                this.selectedDateFrom = new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0];
+                this.selectedDateTo = this.selectedDateFrom;
                 break;
             case 'thisWeek':
-                this.startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
-                this.endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + (6 - today.getDay()));
+                const dayOfWeek = today.getDay(); // Sunday is 0, Monday is 1, ..., Saturday is 6
+
+                // Calculate the start date (Sunday of the current week)
+                this.selectedDateFrom = new Date(today.getFullYear(), today.getMonth(), today.getDate() - dayOfWeek).toISOString().split('T')[0];
+
+                // Calculate the end date (Saturday of the current week)
+                this.selectedDateTo = new Date(today.getFullYear(), today.getMonth(), today.getDate() + (6 - dayOfWeek)).toISOString().split('T')[0];
                 break;
             case 'thisMonth':
-                this.startDate = new Date(today.getFullYear(), today.getMonth(), 1);
-                this.endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                this.selectedDateFrom = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0];
+                this.selectedDateTo = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0];
                 break;
             case 'thisYear':
-                this.startDate = new Date(today.getFullYear(), 0, 1);
-                this.endDate = new Date(today.getFullYear(), 11, 31);
+                this.selectedDateFrom = new Date(today.getFullYear(), 0, 1).toISOString().split('T')[0];
+                this.selectedDateTo = new Date(today.getFullYear(), 11, 31).toISOString().split('T')[0];
                 break;
         }
         this.filterData(); // Re-filter records after updating dates
@@ -112,8 +137,8 @@ export class TaxesreportsComponent implements OnInit {
     // Method to check if a record falls within the selected date range
     checkDateRange(createdAt: string): boolean {
         const recordDate = new Date(createdAt);
-        const start = this.startDate ? new Date(this.startDate) : null;
-        const end = this.endDate ? new Date(this.endDate) : null;
+        const start = this.selectedDateFrom ? new Date(this.selectedDateFrom) : null;
+        const end = this.selectedDateTo ? new Date(this.selectedDateTo) : null;
         return (!start || recordDate >= start) && (!end || recordDate <= end);
     }
 
