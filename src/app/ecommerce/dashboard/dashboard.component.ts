@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit {
     };
     this.chartOptions = {
       low: 0,
-      high: 800,
+      high: 10,
       showArea: false,
       height: '245px',
       axisX: {
