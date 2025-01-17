@@ -82,13 +82,13 @@ export class DashboardComponent implements OnInit {
     this.chartData = {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       series: [
-        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 795],
-        [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       ]
     };
     this.chartOptions = {
       low: 0,
-      high: 800,
+      high: 10,
       showArea: false,
       height: '245px',
       axisX: {
