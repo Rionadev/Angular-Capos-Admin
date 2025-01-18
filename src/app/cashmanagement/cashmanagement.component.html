@@ -3,11 +3,13 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card margin-bottom-10">
-                    <div class="content add-content flex" style="display:flex; justify-content: space-between;">
-                        <div style="display: flex; align-items: center;">
-                            <label style="text-wrap: nowrap;">Period of Created At: </label>
+                    <div class="content add-content">
+                        <div class="align-center">
+                            <label style="text-wrap: nowrap;" class="margin-bottom-0">Period of Created At: </label>
+                            <p class="category">&nbsp;&nbsp;</p>
                             <input type="date" [(ngModel)]="selectedDateFrom" class="form-control" name="createdFrom"
                                 (change)="fetchTransactions()" />
+                            <p class="category">&nbsp;&nbsp;~&nbsp;&nbsp;</p>
                             <input type="date" [(ngModel)]="selectedDateTo" class="form-control" name="createdTo"
                                 (change)="fetchTransactions()" />
                         </div>

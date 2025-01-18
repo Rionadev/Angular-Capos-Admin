@@ -4,11 +4,10 @@
             <div class="col-md-12">
                 <!-- Search Bar -->
                 <div class="card margin-bottom-10">
-                    <div class="content add-content"
-                        style="display: flex; justify-content: space-between; align-items: center;">
-                        <div style="flex-grow: 1; display: flex; justify-content: space-between;">
-                            <div class="col-md-2">
-                                <label>Customer:</label>
+                    <div class="content add-content">
+                        <div class="align-center">
+                            <div class="col-md-4">
+                                <!-- <label>Customer:</label> -->
                                 <select [(ngModel)]="selectedCustomer" class="form-control" name="customer"
                                     (change)="searchTransactions()">
                                     <option *ngFor="let customer of customers" [value]="customer.value">
@@ -16,8 +15,8 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-md-2">
-                                <label>User:</label>
+                            <div class="col-md-4">
+                                <!-- <label>User:</label> -->
                                 <select [(ngModel)]="selectedUser" class="form-control" name="user"
                                     (change)="searchTransactions()">
                                     <option *ngFor="let el of users" [value]="el.value">
@@ -25,8 +24,8 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-md-2">
-                                <label>Status:</label>
+                            <div class="col-md-4">
+                                <!-- <label>Status:</label> -->
                                 <select [(ngModel)]="selectedStatus" class="form-control" name="status"
                                     (change)="searchTransactions()">
                                     <option *ngFor="let el of sale_status" [value]="el.value">
@@ -34,21 +33,16 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
-                                <label>Period of Created At:</label>
-                                <span style="display: flex;">
-                                    <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
-                                        (change)="fetchSearchItems()" name="createdFrom" />
-                                    <input type="date" [(ngModel)]="selectedDateTo" class="form-control"
-                                        (change)="fetchSearchItems()" name="createdTo" />
-                                </span>
-                            </div>
-                            <div class=" d-flex align-items-center" style="display: flex;">
-                                <!-- <button class="btn btn-sm btn-info btn-fill"
-                                    (click)="searchTransactions()">Search</button> -->
-                                <button class="btn btn-sm btn-danger btn-fill " (click)="clearFilters()">Clear
-                                    Filters</button>
-                            </div>
+                        </div>
+                        <div class="align-center">
+                            <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
+                                (change)="fetchSearchItems()" name="createdFrom" />
+                            <p class="category">&nbsp;&nbsp;~&nbsp;&nbsp;</p>
+                            <input type="date" [(ngModel)]="selectedDateTo" class="form-control"
+                                (change)="fetchSearchItems()" name="createdTo" />
+                            <p class="category">&nbsp;&nbsp;</p>
+                            <button class="btn btn-sm btn-danger btn-fill " (click)="clearFilters()">Clear
+                                Filters</button>
                         </div>
                     </div>
                 </div>
