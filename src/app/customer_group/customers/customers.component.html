@@ -3,15 +3,15 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card margin-bottom-10">
-                    <div class="content add-content flex" style="display: flex;justify-content: space-between;">
-                        <div style="display: flex; align-items: center;">
-                            <span>
+                    <div class="content add-content">
+                        <div>
+                            <p class="category">
                                 Manage your customers and their balances, or segment them by demographics and spending
                                 habits.
                                 <a href="#">Need help ?</a>
-                            </span>
+                            </p>
                         </div>
-                        <div style="display: flex; justify-content: right;">
+                        <div class="align-center">
                             <div class="file-upload-container" style="align-items: center;">
                                 <label for="fileInput" class="custom-file-upload" style="margin: 2px ;">
                                     Import Customers
@@ -297,246 +297,226 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Search Bar -->
-                    <div class="card margin-bottom-10">
-                        <div class="content add-content"
-                            style="display: flex; justify-content: space-between; align-items: center;">
-                            <div style="flex-grow: 1; display: flex; justify-content: space-between;">
-                                <div class="col-md-3">
-                                    <label>Search Customers:</label>
-                                    <input type="text" [(ngModel)]="customerSearch" class="form-control"
-                                        placeholder="Search..." />
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Customer Group:</label>
-                                    <select [(ngModel)]="selectedGroup" class="form-control" name="group"
-                                        id="searchGroup">
-                                        <option value="all">All Groups</option>
-                                        <option *ngFor="let group of groups" [value]="group?._id">{{ group.name }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Country:</label>
-                                    <select [(ngModel)]="selectedCountry" class="form-control" name="country"
-                                        id="searchCountry">
-                                        <option value="all" selected>All Country</option>
-                                        <option *ngFor="let country of countries" [value]="country._id">{{
-                                            country.country_name }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center"
-                                    style="display: flex; align-items:center;justify-content:right;">
-                                    <button class="btn btn-sm btn-info btn-fill"
-                                        [disabled]="!customerSearch && !selectedGroup && selectedCountry === 'all'"
-                                        (click)="searchTransactions()">Search</button>
-                                    <button style="margin-left: 1rem;" class="btn btn-sm btn-danger btn-fill ml-2"
-                                        (click)="clearFilters()">Clear
-                                        Filters</button>
-                                </div>
+                <!-- Search Bar -->
+                <div class="card margin-bottom-0">
+                    <div class="content add-content">
+                        <div class="align-center">
+                            <div class="form-group">
+                                <input type="text" [(ngModel)]="customerSearch" class="form-control"
+                                    placeholder="Search Customers..." />
+                            </div>
+                            <div class="form-group margin-left-10">
+                                <select [(ngModel)]="selectedGroup" class="form-control" name="group" id="searchGroup">
+                                    <option value="all">All Customer Groups</option>
+                                    <option *ngFor="let group of groups" [value]="group?._id">{{ group.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group margin-left-10">
+                                <select [(ngModel)]="selectedCountry" class="form-control" name="country"
+                                    id="searchCountry">
+                                    <option value="all" selected>All Country</option>
+                                    <option *ngFor="let country of countries" [value]="country._id">{{
+                                        country.country_name }}
+                                    </option>
+                                </select>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Transactions Table -->
-                    <!-- Transactions Table -->
-                    <div class="card">
-                        <div class="content table-responsive table-full-width">
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Group</th>
-                                        <th>Store Credit</th>
-                                        <th>Balance</th>
-                                        <th>Points</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let transaction of filteredTransactions">
-                                        <td>{{ transaction.name }}</td>
-                                        <td>{{ transaction.email }}</td>
-                                        <td>{{ transaction?.groupId?.name }}</td>
-                                        <td>{{ transaction.credit | currency }}</td>
-                                        <td>{{ (transaction.debit - transaction.credit) | currency }}</td>
-                                        <td>{{ transaction.point }}</td>
-                                        <td>
-                                            <div style="display: flex;flex-direction: row;gap: 1rem;">
-                                                <button class="btn btn-sm btn-info"
-                                                    (click)="viewTransaction(transaction)">
-                                                    <i class="pe-7s-look" style="font-size:large;"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-warning"
-                                                    (click)="editTransaction(transaction)">
-                                                    <i class="pe-7s-note" style="font-size:large;"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-danger"
-                                                    (click)="deleteTransaction(transaction)">
-                                                    <i class="pe-7s-trash" style="font-size:large;"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="align-center">
+                            <button class="btn btn-sm btn-info btn-fill"
+                                [disabled]="!customerSearch && !selectedGroup && selectedCountry === 'all'"
+                                (click)="searchTransactions()">Search</button>
+                            <button class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">Clear
+                                Filters</button>
                         </div>
-                        <div class="modal" tabindex="-1" role="dialog" *ngIf="isModalOpen" (click)="closeModal()">
-                            <div class="modal-dialog" role="document" (click)="$event.stopPropagation()">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h3 class="modal-title">Transaction Details</h3>
-                                        <!-- Close button can be uncommented if needed -->
-                                        <!-- <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+                    </div>
+                </div>
+
+                <!-- Transactions Table -->
+                <!-- Transactions Table -->
+                <div class="card">
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Group</th>
+                                    <th>Store Credit</th>
+                                    <th>Balance</th>
+                                    <th>Points</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let transaction of filteredTransactions">
+                                    <td>{{ transaction.name }}</td>
+                                    <td>{{ transaction.email }}</td>
+                                    <td>{{ transaction?.groupId?.name }}</td>
+                                    <td>{{ transaction.credit | currency }}</td>
+                                    <td>{{ (transaction.debit - transaction.credit) | currency }}</td>
+                                    <td>{{ transaction.point }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" (click)="viewTransaction(transaction)">
+                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                        </button>
+                                        <button class="btn btn-sm btn-warning"
+                                            (click)="editTransaction(transaction)">
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger"
+                                            (click)="deleteTransaction(transaction)">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal" tabindex="-1" role="dialog" *ngIf="isModalOpen" (click)="closeModal()">
+                        <div class="modal-dialog" role="document" (click)="$event.stopPropagation()">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Transaction Details</h3>
+                                    <!-- Close button can be uncommented if needed -->
+                                    <!-- <button type="button" class="close" (click)="closeModal()" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button> -->
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row" style="text-align: center; display: flex; justify-content: center;
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row" style="text-align: center; display: flex; justify-content: center;
                                             border-bottom: 1px solid rgb(221, 221, 221);">
-                                            <div class="col-md-5">
-                                                <h3><b>Contact Info</b></h3>
-                                                <table class="info-table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td><strong>Name:</strong></td>
-                                                            <td>{{ selectedTransaction.name }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><strong>Email:</strong></td>
-                                                            <td>{{ selectedTransaction.email }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><strong>Mobile:</strong></td>
-                                                            <td>{{ selectedTransaction.mobile }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><strong>Phone:</strong></td>
-                                                            <td>{{ selectedTransaction.phone }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><strong>Group:</strong></td>
-                                                            <td>{{ selectedTransaction.groupId }}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-md-7">
-                                                <h3><b>Balance</b></h3>
-                                                <table class="info-table">
-                                                    <tbody style="text-align: right;">
-                                                        <tr>
-                                                            <td><strong>Account</strong></td>
-                                                            <td>{{
-                                                                formatCurrency(selectedTransaction.debit-selectedTransaction.credit)
-                                                                }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Total Spent</td>
-                                                            <td>{{ formatCurrency(selectedTransaction.total_spent) }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><strong>Store Credit</strong></td>
-                                                            <td>{{ formatCurrency(selectedTransaction.credit) }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Total Issued</td>
-                                                            <td>{{
-                                                                formatCurrency(selectedTransaction.total_issued)
-                                                                }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Total Redeemed</td>
-                                                            <td>{{
-                                                                formatCurrency(selectedTransaction.total_redeemed)
-                                                                }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><strong>Points</strong></td>
-                                                            <td>{{ formatCurrency(selectedTransaction.point) }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Total Points Issued</td>
-                                                            <td>{{ formatCurrency(selectedTransaction.point_issued) }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Total Points Redeemed</td>
-                                                            <td>{{ formatCurrency(selectedTransaction.point_redeemed) }}
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                        <div class="col-md-5">
+                                            <h3><b>Contact Info</b></h3>
+                                            <table class="info-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><strong>Name:</strong></td>
+                                                        <td>{{ selectedTransaction.name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Email:</strong></td>
+                                                        <td>{{ selectedTransaction.email }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Mobile:</strong></td>
+                                                        <td>{{ selectedTransaction.mobile }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Phone:</strong></td>
+                                                        <td>{{ selectedTransaction.phone }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Group:</strong></td>
+                                                        <td>{{ selectedTransaction.groupId }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <!-- Pay Account Balance Card -->
-                                        <div class="pay-balance-card" *ngIf="isPayBalanceOpen"
-                                            style="text-align: center;">
-                                            <h4><b>Pay Account Balance</b></h4>
+                                        <div class="col-md-7">
+                                            <h3><b>Balance</b></h3>
+                                            <table class="info-table">
+                                                <tbody style="text-align: right;">
+                                                    <tr>
+                                                        <td><strong>Account</strong></td>
+                                                        <td>{{
+                                                            formatCurrency(selectedTransaction.debit-selectedTransaction.credit)
+                                                            }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total Spent</td>
+                                                        <td>{{ formatCurrency(selectedTransaction.total_spent) }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Store Credit</strong></td>
+                                                        <td>{{ formatCurrency(selectedTransaction.credit) }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total Issued</td>
+                                                        <td>{{
+                                                            formatCurrency(selectedTransaction.total_issued)
+                                                            }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total Redeemed</td>
+                                                        <td>{{
+                                                            formatCurrency(selectedTransaction.total_redeemed)
+                                                            }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Points</strong></td>
+                                                        <td>{{ formatCurrency(selectedTransaction.point) }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total Points Issued</td>
+                                                        <td>{{ formatCurrency(selectedTransaction.point_issued) }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total Points Redeemed</td>
+                                                        <td>{{ formatCurrency(selectedTransaction.point_redeemed) }}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- Pay Account Balance Card -->
+                                    <div class="pay-balance-card" *ngIf="isPayBalanceOpen" style="text-align: center;">
+                                        <h4><b>Pay Account Balance</b></h4>
 
-                                            <div class="form-group" style="margin: 1rem;">
-                                                <label>Sales (Layby & Account):</label>
+                                        <div class="form-group" style="margin: 1rem;">
+                                            <label>Sales (Layby & Account):</label>
+                                            <select class="form-control">
+                                                <option value="layby">Layby</option>
+                                                <option value="account">Account</option>
+                                            </select>
+                                        </div>
+                                        <div style="display: flex;justify-content: space-between;">
+                                            <div class="form-group col-md-6">
+                                                <label>Amount to Pay:</label>
+                                                <input type="number" class="form-control" placeholder="Enter amount" />
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Payment Type:</label>
                                                 <select class="form-control">
-                                                    <option value="layby">Layby</option>
-                                                    <option value="account">Account</option>
+                                                    <option value="cash">Cash</option>
+                                                    <option value="creditCard">Credit Card</option>
+                                                    <option value="masterCard">Master Card</option>
+                                                    <option value="storeCredit">Store Credit</option>
                                                 </select>
                                             </div>
-                                            <div style="display: flex;justify-content: space-between;">
-                                                <div class="form-group col-md-6">
-                                                    <label>Amount to Pay:</label>
-                                                    <input type="number" class="form-control"
-                                                        placeholder="Enter amount" />
-                                                </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <label>Payment Type:</label>
-                                                    <select class="form-control">
-                                                        <option value="cash">Cash</option>
-                                                        <option value="creditCard">Credit Card</option>
-                                                        <option value="masterCard">Master Card</option>
-                                                        <option value="storeCredit">Store Credit</option>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                            <div class="pay-balance-actions" style="justify-self:right;">
-                                                <button type="button" class="btn btn-success">Pay Balance</button>
-                                                <!-- <button type="button" class="btn btn-danger"
-                                                    (click)="isPayBalanceOpen = false">Cancel</button> -->
-                                            </div>
                                         </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary"
-                                                (click)="showPayAccountBalance()">Pay Account Balance</button>
-                                            <button type="button" class="btn btn-secondary"
-                                                (click)="closeModal()">Close</button>
+                                        <div class="pay-balance-actions" style="justify-self:right;">
+                                            <button type="button" class="btn btn-success">Pay Balance</button>
+                                            <!-- <button type="button" class="btn btn-danger"
+                                                    (click)="isPayBalanceOpen = false">Cancel</button> -->
                                         </div>
                                     </div>
 
-
-
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="showPayAccountBalance()">Pay Account Balance</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            (click)="closeModal()">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-    <app-confirm-modal *ngIf="isDeleteModal" [title]="'Remove Customer'"
-        [description]="'Do you really want to remove this Customer ?'" [confirmButtonCaption]="'Delete'"
-        [cancelButtonCaption]="'Cancel'" (confirmed)="deleteRow()" (cancelled)="closeDeleteModal()">
-    </app-confirm-modal>
+</div>
+<app-confirm-modal *ngIf="isDeleteModal" [title]="'Remove Customer'"
+    [description]="'Do you really want to remove this Customer ?'" [confirmButtonCaption]="'Delete'"
+    [cancelButtonCaption]="'Cancel'" (confirmed)="deleteRow()" (cancelled)="closeDeleteModal()">
+</app-confirm-modal>
