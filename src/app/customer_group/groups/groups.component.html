@@ -1,105 +1,109 @@
 <div class="main-content">
-    <div class="card ">
-        <div class="content add-content flex" style="display: flex;justify-content: space-between;">
-            <div style="display: flex; align-items: center;">
-                <span>
-                    Count and receive products that have been delivered from your suppliers to ensure your inventory
-                    stays accurate.
-                    <a href="#">Need help ?</a>
-                </span>
-            </div>
-            <div style="display: flex; justify-content: right;">
-                <button class="btn btn-sm btn-success btn-fill" (click)="createPointRate()">
-                    Add Group
-                </button>
-
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <table class="table table-hover table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Limit</th>
-                    <th>Point Rates</th>
-                    <th style="display: flex;justify-content: right;">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let pointRate of group_data">
-                    <td>{{ pointRate.name }}</td>
-                    <td>{{ pointRate.limit }}</td>
-                    <td>{{ calculateAverage(pointRate?.point_rates) }}</td>
-                    <td style="display: flex;justify-content: right;">
-                        <button *ngIf="!isEdit && !isDel" class="btn btn-sm btn-info" (click)="editPointRate(pointRate)"
-                            data-toggle="tooltip" title="Edit">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card margin-bottom-10">
+                    <div class="content add-content">
+                        <p class="category">
+                            Count and receive products that have been delivered from your suppliers to ensure your
+                            inventory
+                            stays accurate.
+                            <a href="#">Need help ?</a>
+                        </p>
+                        <button class="btn btn-sm btn-info btn-fill" (click)="createPointRate()">
+                            Add Group
                         </button>
-                        <button *ngIf="!isEdit && !isDel" class="btn btn-sm btn-danger" (click)="delconfirm(pointRate)"
-                            data-toggle="tooltip" title="Delete">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </button>
-
-                        <button *ngIf="isDel && selPointRates?.id == pointRate.id" class="btn btn-sm btn-danger"
-                            (click)="deletePointRate(pointRate)">
-                            <i class="pe-7s-close-circle" style="font-size:large;"></i>
-                        </button>
-                        <button *ngIf="isDel && selPointRates?.id == pointRate.id" class="btn btn-sm btn-primary"
-                            (click)="cancelDel()">
-                            <i class="pe-7s-back" style="font-size:large;"></i>
-                        </button>
-
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div *ngIf="isEdit" class="overlay" (click)="closeDialog()"></div>
-        <div *ngIf="isEdit" class="edit-dialog" #editDialog>
-            <h3>Group</h3>
-            <div>
-                <div class="edit-container">
-                    <div style="display: flex; justify-content: space-between;">
-                        <div class="form-group col-md-6">
-                            <label for="name">Name</label>
-                            <input id="name" [(ngModel)]="selPointRates.name" class="form-control"
-                                placeholder="Enter name" />
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="limit">Limit</label>
-                            <input id="limit" type="number" [(ngModel)]="selPointRates.limit" class="form-control"
-                                placeholder="Enter limit" />
-                        </div>
                     </div>
+                </div>
+                <div class="card">
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Limit</th>
+                                    <th>Point Rates</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pointRate of group_data">
+                                    <td>{{ pointRate.name }}</td>
+                                    <td>{{ pointRate.limit }}</td>
+                                    <td></td>
+                                    <td>
+                                        <button *ngIf="!isEdit && !isDel" class="btn btn-sm btn-info"
+                                            (click)="editPointRate(pointRate)" data-toggle="tooltip" title="Edit">
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                        <button *ngIf="!isEdit && !isDel" class="btn btn-sm btn-danger"
+                                            (click)="delconfirm(pointRate)" data-toggle="tooltip" title="Delete">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
 
-                    <h4>Point Rates</h4>
-                    <div class="rates-grid">
-                        <div *ngFor="let rate of selPointRates.point_rates" class="rate-item">
-                            <label>{{ rate.payment }}</label>
-                            <div style="display: flex; align-items: center;">
-                                <input [(ngModel)]="rate.rate" type="number" class="form-control"
-                                    placeholder="Enter rate" /> <span> %</span>
-                            </div>
-                        </div>
+                                        <button *ngIf="isDel && selPointRates?.id == pointRate.id"
+                                            class="btn btn-sm btn-danger" (click)="deletePointRate(pointRate)">
+                                            <i class="pe-7s-close-circle" style="font-size:large;"></i>
+                                        </button>
+                                        <button *ngIf="isDel && selPointRates?.id == pointRate.id"
+                                            class="btn btn-sm btn-primary" (click)="cancelDel()">
+                                            <i class="pe-7s-back" style="font-size:large;"></i>
+                                        </button>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="button-group">
-                        <button *ngIf="isNoneViewing" class="btn btn-sm btn-success"
-                            (click)="savePointRate(selPointRates)">
-                            <i class="pe-7s-diskette" style="font-size:large;"></i>
-                        </button>
-                        <button class="btn btn-sm btn-secondary" (click)="cancelEdit(selPointRates)">
-                            <i class="pe-7s-back" style="font-size:large;"></i>
-                        </button>
-                        <!-- <button class="btn btn-success" (click)="savePointRate(pointRate)">
+                    <div *ngIf="isEdit" class="overlay" (click)="closeDialog()"></div>
+                    <div *ngIf="isEdit" class="edit-dialog" #editDialog>
+                        <h3>Group</h3>
+                        <div>
+                            <div class="edit-container">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div class="form-group col-md-6">
+                                        <label for="name">Name</label>
+                                        <input id="name" [(ngModel)]="selPointRates.name" class="form-control"
+                                            placeholder="Enter name" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="limit">Limit</label>
+                                        <input id="limit" type="number" [(ngModel)]="selPointRates.limit"
+                                            class="form-control" placeholder="Enter limit" />
+                                    </div>
+                                </div>
+
+                                <h4>Point Rates</h4>
+                                <div class="rates-grid">
+                                    <div *ngFor="let rate of selPointRates.point_rates" class="rate-item">
+                                        <label>{{ rate.payment }}</label>
+                                        <div style="display: flex; align-items: center;">
+                                            <input [(ngModel)]="rate.rate" type="number" class="form-control"
+                                                placeholder="Enter rate" /> <span> %</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button-group">
+                                    <button *ngIf="isNoneViewing" class="btn btn-sm btn-success"
+                                        (click)="savePointRate(selPointRates)">
+                                        <i class="pe-7s-diskette" style="font-size:large;"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-secondary" (click)="cancelEdit(selPointRates)">
+                                        <i class="pe-7s-back" style="font-size:large;"></i>
+                                    </button>
+                                    <!-- <button class="btn btn-success" (click)="savePointRate(pointRate)">
                             Save
                         </button>
                         <button class="btn btn-secondary" (click)="cancelEdit(pointRate)">
                             Cancel
                         </button> -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
-
     </div>
 </div>
