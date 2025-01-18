@@ -19,62 +19,62 @@
                             </button>
                         </div>
                     </div>
-                    <div class="card margin-bottom-10" *ngIf="isContentVisible">
-                        <div class="header">
-                            <h4 class="title">Add Cash Transaction</h4>
-                            <p class="category">Fill in the details to add a new cash transaction</p>
-                        </div>
-                        <div class="content">
-                            <form (ngSubmit)="saveCashTransaction()">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Reason:</label>
-                                            <input type="text" class="form-control" placeholder="Reason"
-                                                [(ngModel)]="newTransaction.reasons" name="reason" required />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Type:</label>
-                                            <select [(ngModel)]="newTransaction.type" class="form-control" name="type"
-                                                required>
-                                                <option value="" disabled selected>Select Type</option>
-                                                <option value="Credit">Credit</option>
-                                                <option value="Debit">Debit</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Transaction Amount:</label>
-                                            <input type="number" class="form-control" placeholder="Amount"
-                                                [(ngModel)]="newTransaction.transaction" name="transaction" required />
-                                        </div>
+                </div>
+                <div class="card margin-bottom-10" *ngIf="isContentVisible">
+                    <div class="header">
+                        <h4 class="title">Add Cash Transaction</h4>
+                        <p class="category">Fill in the details to add a new cash transaction</p>
+                    </div>
+                    <div class="content">
+                        <form (ngSubmit)="saveCashTransaction()">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Reason:</label>
+                                        <input type="text" class="form-control" placeholder="Reason"
+                                            [(ngModel)]="newTransaction.reasons" name="reason" required />
                                     </div>
                                 </div>
-                                <div style="display: flex;gap: 1rem;justify-content: right;">
-                                    <button type="submit" class="btn btn-sm btn-success btn-fill pull-right">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Type:</label>
+                                        <select [(ngModel)]="newTransaction.type" class="form-control" name="type"
+                                            required>
+                                            <option value="" disabled selected>Select Type</option>
+                                            <option value="Credit">Credit</option>
+                                            <option value="Debit">Debit</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Transaction Amount:</label>
+                                        <input type="number" class="form-control" placeholder="Amount"
+                                            [(ngModel)]="newTransaction.transaction" name="transaction" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="add-content">
+                                <p></p>
+                                <div class="align-center">
+                                    <button type="submit" class="btn btn-sm btn-success pull-right">
                                         <!-- Save -->
-                                        <i style="font-size: large;" class="
-                                    pe-7s-diskette
-                                    "></i>
+                                        <!-- <i style="font-size: large;" class="pe-7s-diskette"></i> -->
+                                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-danger btn-fill pull-right"
+                                    <button type="button" class="btn btn-sm btn-danger pull-right"
                                         (click)="cancelAddCash()">
-                                        <i style="font-size: large;" class="
-                                    pe-7s-back
-                                    "></i>
+                                        <!-- <i style="font-size: large;" class="pe-7s-back"></i> -->
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         <!-- Cancel -->
                                     </button>
                                 </div>
+                            </div>
 
-                                <div class="clearfix"></div>
-                            </form>
-                        </div>
+                            <div class="clearfix"></div>
+                        </form>
                     </div>
                 </div>
-
                 <div class="card">
                     <div class="content table-responsive table-full-width">
                         <table class="table table-hover table-striped">

@@ -67,25 +67,16 @@
                                 <tr *ngFor="let transaction of filteredTransactions">
                                     <td>{{ formatDate(transaction.created_at) }}</td>
                                     <td>{{ transaction.sale_number }}</td>
-                                    <td>
-                                        <span style="display: grid;text-align: center;">
-                                            <span>
-                                                {{ transaction.user_id.first_name}} {{transaction.user_id.last_name}}
-                                            </span>
-                                            <span style="font-size: small;color: rgb(117, 117, 117);">
-                                                {{ transaction.user_id.email }}
-                                            </span>
-                                        </span>
+                                    <td class="compact-spacing">
+                                        {{ transaction.user_id.first_name}}
+                                        {{transaction.user_id.last_name}}<br><small>{{ transaction.user_id.email
+                                            }}</small>
                                     </td>
                                     <td>{{ transaction.register.name }}</td>
-                                    <td> <span style="display: grid;text-align: center;">
-                                            <span>
-                                                {{ transaction.customer.name || '' }}
-                                            </span>
-                                            <span style="font-size: small;color: rgb(117, 117, 117);">
-                                                {{ transaction.customer.email || '' }}
-                                            </span>
-                                        </span></td>
+                                    <td class="compact-spacing">
+                                        {{ transaction.customer.name || '' }}
+                                        <br><small>{{ transaction.customer.email || '' }}</small>
+                                    </td>
                                     <td>{{ transaction.sale_status }}</td>
                                     <td>{{ transaction.total | currency }}</td>
                                     <td>

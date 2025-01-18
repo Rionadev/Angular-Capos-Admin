@@ -63,34 +63,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style="background-color: rgb(199, 199, 199);">
+                                <tr>
                                     <!-- total row  -->
-                                    <td class="colspan-6" colspan="6" ><strong>Total:</strong>
-                                    </td>
+                                    <td colspan="5"></td>
+                                    <td><strong>Total:</strong></td>
                                     <td>{{ calculateTotal() | currency }}</td>
                                 </tr>
                                 <tr *ngFor="let transaction of filteredTransactions">
                                     <td>{{ transaction.date }}</td>
                                     <td>{{ transaction.receipt }}</td>
-                                    <td>
-                                        <span style="display: grid;text-align: center;">
-                                            <span>
-                                                {{ transaction.user_name }}
-                                            </span>
-                                            <span style="font-size: small;color: rgb(117, 117, 117);">
-                                                {{ transaction.user_email }}
-                                            </span>
-                                        </span>
+                                    <td class="compact-spacing">
+                                        {{ transaction.user_name }}<br><small>{{ transaction.user_email }}</small>
                                     </td>
                                     <td>{{ transaction.register }}</td>
-                                    <td> <span style="display: grid;text-align: center;">
-                                            <span>
-                                                {{ transaction.customer_name }}
-                                            </span>
-                                            <span style="font-size: small;color: rgb(117, 117, 117);">
-                                                {{ transaction.customer_email }}
-                                            </span>
-                                        </span></td>
+                                    <td class="compact-spacing">
+                                        {{ transaction.customer_name }}<br><small> {{ transaction.customer_email }}</small>
+                                    </td>
                                     <td>{{ transaction.status }}</td>
                                     <td>{{ transaction.total | currency }}</td>
                                 </tr>

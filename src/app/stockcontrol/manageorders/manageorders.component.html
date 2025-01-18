@@ -3,10 +3,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card margin-bottom-10">
-                    <div class="content add-content"
-                        style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="content add-content">
                         <p class="category">View and manage your consignments. <a href="#">Need help?</a></p>
-                        <div style="gap:1rem">
+                        <div>
                             <button class="btn btn-sm btn-info btn-fill">Order Stock</button>
                         </div>
                     </div>
@@ -14,14 +13,14 @@
 
                 <!-- Search Filters -->
                 <div class="card margin-bottom-10">
-                    <div class="content">
-                        <div class="row" style="align-items: center; display: flex;overflow-x: auto;">
-                            <div class="col-12 col-md-2 mb-2">
+                    <div class="content add-content">
+                        <div class="align-center">
+                            <div class="form-group">
                                 <label>Invoice/Order Number</label>
                                 <input type="text" class="form-control" placeholder="Invoice/Order Number"
                                     [(ngModel)]="searchInvoice" />
                             </div>
-                            <div class="col-12 col-md-2 mb-2">
+                            <div class="form-group margin-left-10">
                                 <label>Order Type</label>
                                 <select class="form-control" [(ngModel)]="selectedOrderType">
                                     <option value="">All Orders</option>
@@ -30,7 +29,7 @@
                                     <option value="Receive Orders">Receive Orders</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-md-2 mb-2">
+                            <div class="form-group margin-left-10">
                                 <label>Outlet</label>
                                 <select class="form-control" [(ngModel)]="selectedOutlet">
                                     <option value="">All Outlets</option>
@@ -39,7 +38,7 @@
                                     <option value="Main Outlet">Main Outlet</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-md-2 mb-2">
+                            <div class="form-group margin-left-10">
                                 <label>Supplier</label>
                                 <select class="form-control" [(ngModel)]="selectedSupplier">
                                     <option value="">All Suppliers</option>
@@ -47,38 +46,30 @@
                                     <option value="Computer Plug">Computer Plug</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-md-2 mb-2">
+                        </div>
+                        <div class="align-center">
+                            <div class="form-group">
                                 <label>Created At:</label>
-                                <div class="input-group">
-                                    <div>
-                                        <input type="date" class="form-control" [(ngModel)]="createdAtStart" />
-                                    </div>
-                                    <div>
-                                        <input type="date" class="form-control" [(ngModel)]="createdAtEnd" />
-                                    </div>
+                                <div class="align-center">
+                                    <input type="date" class="form-control" [(ngModel)]="createdAtStart" />
+                                    <p class="category">&nbsp;~&nbsp;</p>  
+                                    <input type="date" class="form-control" [(ngModel)]="createdAtEnd" />
                                 </div>
                             </div>
-                            <div class="col-12 col-md-2 mb-2">
+                            <div class="form-group margin-left-10">
                                 <label>Due Date:</label>
-                                <div class="input-group">
-                                    <div>
-                                        <input type="date" class="form-control" [(ngModel)]="dueDateStart" />
-                                    </div>
-                                    <div>
-                                        <input type="date" class="form-control" [(ngModel)]="dueDateEnd" />
-                                    </div>
+                                <div class="align-center">
+                                    <input type="date" class="form-control" [(ngModel)]="dueDateStart" />
+                                    <p class="category">&nbsp;~&nbsp;</p>  
+                                    <input type="date" class="form-control" [(ngModel)]="dueDateEnd" />
                                 </div>
                             </div>
-                            <div class="col "
-                                style="align-self: center;gap: 1rem; flex-direction: column;
-                                font-size: 2rem;">
-                                <button style="margin-bottom: 1rem;" class="btn btn-sm btn-danger btn-fill"
-                                    (click)="clearFilters()">
+                            <div class="form-group margin-left-10 margin-top-15 align-center">
+                                <button class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">
                                     <i class="pe-7s-refresh"></i>
                                 </button>
                                 <button class="btn btn-sm btn-info btn-fill" (click)="filterRows()">
                                     <i class="pe-7s-search"></i>
-
                                 </button>
                             </div>
                         </div>

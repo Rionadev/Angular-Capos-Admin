@@ -12,12 +12,18 @@
                 </div> -->
 
                 <!-- Products Table -->
-                <div class="card">
-                    <div style="flex-grow: 1; padding: 2rem 2rem 0rem 2rem;">
-                        <label>Search:</label>
-                        <input type="text" [(ngModel)]="searchTerm" class="form-control"
-                            placeholder="Search for products or outlets" (keydown.enter)="searchProducts()" />
+                <div class="card margin-bottom-10">
+                    <div class="content add-content">
+                        <div class="align-center">
+                            <label class="text-nowrap">Search:</label>
+                            <p>&nbsp;&nbsp;</p>
+                            <input type="text" [(ngModel)]="searchTerm" class="form-control"
+                                placeholder="Poducts or Outlets" (keydown.enter)="searchProducts()" />
+                        </div>
+                        <div></div>
                     </div>
+                </div>    
+                <div class="card">
                     <div class="content table-responsive table-full-width" style="overflow-y: auto;max-height: 80vh;">
                         <table class="table table-hover table-striped">
                             <thead>

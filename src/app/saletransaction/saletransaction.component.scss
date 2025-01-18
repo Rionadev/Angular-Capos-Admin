@@ -11,11 +11,6 @@
     /* Adjust as needed */
 }
 
-td,
-th {
-    text-align: center;
-}
-
 .btn {
     margin: 0 2px;
 }
@@ -68,7 +63,6 @@ select {
 table td {
     padding-bottom: 3px;
     padding-top: 3px;
-    min-height: 39px;
 }
 
 .custom-file-upload {
@@ -166,10 +160,6 @@ table td {
     justify-content: flex-end;
 }
 
-.btn {
-    margin-left: 10px;
-}
-
 .form-group {
     margin-bottom: 15px;
     /* Space between form groups */
@@ -193,4 +183,13 @@ label{
     align-items: center;
     display: flex;
     gap: 1;
+}
+
+.compact-spacing {
+    line-height: 1.2; /* Adjust as needed, smaller values reduce spacing */
+}
+
+.compact-spacing small {
+    margin-top: 0;
+    display: block; /* Ensures proper spacing control */
 }
