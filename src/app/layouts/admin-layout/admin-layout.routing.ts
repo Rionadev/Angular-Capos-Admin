@@ -65,7 +65,7 @@ import { SingleForcedModifierComponent } from '../../menus/single-forced-modifie
 import { OpencloseZComponent } from 'app/openclose-z/openclose-z.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard', component: HomeComponent },
+    { path: 'dashboard', component: DashboardComponent },//HomeComponent
     { path: 'openclose', component: OpencloseComponent },
     { path: 'cashmanagement', component: CashmanagementComponent },
     { path: 'saleslegder', component: SaleslegderComponent },

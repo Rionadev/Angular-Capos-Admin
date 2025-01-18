@@ -1,7 +1,3 @@
-.content.add-content {
-    // padding: 15px;
-}
-
 .d-flex {
     display: flex;
 }
@@ -13,11 +9,6 @@
 .ml-2 {
     margin-left: 1rem;
     /* Adjust as needed */
-}
-
-td,
-th {
-    text-align: center;
 }
 
 .btn {
@@ -71,9 +62,7 @@ select {
 table td {
     padding-bottom: 3px;
     padding-top: 3px;
-    padding: 2rem;
-
-    min-height: 39px !important;
+    height: 39px !important;
 }
 
 .is-invalid {
@@ -110,10 +99,8 @@ table td {
     justify-content: center;
 }
 
-.col-md-4,
-.col-sm-4,
-.col-md-6 {
-    padding-right: 0px;
+.col-md-4 {
+    padding-left: 0px;
 }
 
 @media (max-width: 991px) {
@@ -138,4 +125,19 @@ table td {
     display: block;
     margin-top: 0em;
     unicode-bidi: isolate;
+}
+
+.align-center {
+    align-items: center;
+    display: flex;
+    gap: 1;
+}
+
+.compact-spacing {
+    line-height: 1.2; /* Adjust as needed, smaller values reduce spacing */
+}
+
+.compact-spacing small {
+    margin-top: 0;
+    display: block; /* Ensures proper spacing control */
 }
