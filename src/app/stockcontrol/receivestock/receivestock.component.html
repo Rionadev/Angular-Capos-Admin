@@ -1,109 +1,131 @@
 <div class="main-content">
-    <div class="card ">
-        <div class="content add-content flex" style="display: flex;justify-content: space-between;">
-            <div style="display: flex; align-items: center;">
-                <span>
-                    Count and receive products that have been delivered from your suppliers to ensure your inventory
-                    stays accurate.
-                    <a href="#">Need help ?</a>
-                </span>
-            </div>
-            <div style="display: flex; justify-content: right;">
-                <button class="btn btn-sm btn-success btn-fill">
-                    Receive
-                </button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card margin-bottom-10">
+                    <div class="content add-content">
+                        <div class="align-center">
+                            <p class="category">
+                                Count and receive products that have been delivered from your suppliers to ensure your
+                                inventory
+                                stays accurate.
+                                <a href="#">Need help ?</a>
+                            </p>
+                        </div>
+                        <div class="align-center">
+                            <button class="btn btn-sm btn-success btn-fill">
+                                Receive
+                            </button>
 
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div style="display: flex; border-bottom: 1px solid rgb(212, 212, 212); padding: 1.5rem; width: 100%;">
-            <div class="col-md-3">
-                <h4><b>Details</b></h4>
-                <span>
-                    Adding details for this order helps you stay on top of all your orders and main data.
-                </span>
-            </div>
-            <div class="col-md-9">
-                <div class="row space-between p-1">
-                    <div class="col-md-6">
-                        <label for="supplier">Supplier:</label>
-                        <select id="supplier" class="form-control">
-                            <option value="newSup">New Supplier</option>
-                            <option value="computerPlug">Computer Plug</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="deliveredTo">Delivered To:</label>
-                        <select id="deliveredTo" class="form-control">
-                            <option value="location1">Location 1</option>
-                            <option value="location2">Location 2</option>
-                        </select>
+                        </div>
                     </div>
                 </div>
-                <div class="row space-between p-1">
-                    <div class="col-md-6">
-                        <label for="supplierInvoiceNumber">Supplier Invoice Number:</label>
-                        <input type="text" id="supplierInvoiceNumber" class="form-control"
-                            placeholder="Enter Invoice Number" />
+                <div class="card margin-bottom-10">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="header">
+                                    <h4 class="title">Details</h4>
+                                    <p class="category">
+                                        Adding details for this order helps you stay on top of all your orders and main
+                                        data.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row space-between p-1">
+                                    <div class="col-md-6">
+                                        <label for="supplier">Supplier:</label>
+                                        <select id="supplier" class="form-control">
+                                            <option value="newSup">New Supplier</option>
+                                            <option value="computerPlug">Computer Plug</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="deliveredTo">Delivered To:</label>
+                                        <select id="deliveredTo" class="form-control">
+                                            <option value="location1">Location 1</option>
+                                            <option value="location2">Location 2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row space-between p-1">
+                                    <div class="col-md-6">
+                                        <label for="supplierInvoiceNumber">Supplier Invoice Number:</label>
+                                        <input type="text" id="supplierInvoiceNumber" class="form-control"
+                                            placeholder="Enter Invoice Number" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="deliveryDate">Delivery Date:</label>
+                                        <input type="date" id="deliveryDate" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row space-between p-1">
+                                    <div class="col-md-6">
+                                        <label for="orderNumber">Order Number:</label>
+                                        <input type="text" id="orderNumber" class="form-control"
+                                            placeholder="Enter Order Number" />
+                                        <p class="category">This is to help to identify this order </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="note">Note:</label>
+                                        <textarea id="note" class="form-control" rows="3"
+                                            placeholder="Enter any notes"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="deliveryDate">Delivery Date:</label>
-                        <input type="date" id="deliveryDate" class="form-control" />
+                    <hr>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="header">
+                                    <h4 class="title">Products</h4>
+                                    <p class="category">
+                                        Choose products to receive by searching or scanning.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="searchProduct">Search Product:</label>
+                                    <!-- <div class="input-group"> -->
+                                    <input type="text" id="searchProduct" class="form-control"
+                                        placeholder="Search or scan to add product" />
+                                    <!-- <span class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </span> -->
+                                    <!-- </div> -->
+                                </div>
+    
+                                <div style="width: 100%;" class="p-1">
+                                    <div class="content table-responsive table-full-width">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr class="p-1">
+                                                    <th style="width: 40%;"><strong>Product</strong></th>
+                                                    <th style="width: 15%;"><strong>Current Inventory</strong></th>
+                                                    <th style="width: 15%;"><strong>Received Quantity</strong></th>
+                                                    <th style="width: 15%;"><strong>Supply Price</strong></th>
+                                                    <th style="width: 15%;"><strong>Total Cost</strong></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><b></b></td>
+                                                    <td><b></b></td>
+                                                    <td><b></b></td>
+                                                    <td><b></b></td>
+                                                    <td><strong>$0.00</strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row space-between p-1">
-                    <div class="col-md-6">
-                        <label for="orderNumber">Order Number:</label>
-                        <input type="text" id="orderNumber" class="form-control" placeholder="Enter Order Number" />
-                        <span style="font-size: 1.2rem;color: gainsboro;">This is to help to identify this order </span>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="note">Note:</label>
-                        <textarea id="note" class="form-control" rows="3" placeholder="Enter any notes"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style="display: flex; border-bottom: 1px solid rgb(212, 212, 212); padding: 1.5rem; width: 100%;">
-            <div class="col-md-3">
-                <h4><b>Products</b></h4>
-                <span>
-                    Choose products to receive by searching or scanning.
-                </span>
-            </div>
-            <div class="col-md-9">
-                <div class="" style="width: 100%;">
-                    <label for="searchProduct" class="me-2 ">Search Product:</label>
-                    <!-- <div class="input-group"> -->
-                    <input type="text" id="searchProduct" class="form-control"
-                        placeholder="Search or scan to add product" />
-                    <!-- <span class="input-group-text">
-                            <i class="fas fa-search"></i>
-                        </span> -->
-                    <!-- </div> -->
-                </div>
-                <div style="width: 100%;" class="p-1">
-                    <table style="width: 100%;justify-content: space-between;" class="p-1">
-                        <thead style="border-bottom: 1px solid gray;">
-                            <tr class="p-1">
-                                <th style="width: 40%;"><b>Product</b></th>
-                                <th style="width: 15%;"><b>Current Inventory</b></th>
-                                <th style="width: 15%;"><b>Received Quantity</b></th>
-                                <th style="width: 15%;"><b>Supply Price</b></th>
-                                <th style="width: 15%;"><b>Total Cost</b></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="margin: 1rem;">
-                                <td><b></b></td>
-                                <td><b></b></td>
-                                <td><b></b></td>
-                                <td><b></b></td>
-                                <td><b>$0.00</b></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

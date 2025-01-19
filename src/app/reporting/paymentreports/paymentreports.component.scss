@@ -1,7 +1,3 @@
-.content.add-content {
-    // padding: 15px;
-}
-
 .d-flex {
     display: flex;
 }
@@ -13,11 +9,6 @@
 .ml-2 {
     margin-left: 1rem;
     /* Adjust as needed */
-}
-
-td,
-th {
-    text-align: center;
 }
 
 .btn {
@@ -198,14 +189,18 @@ tr {
 
 .modal-header {
     display: flex;
-    justify-content: space-between; /* Space between title and button */
-    align-items: center; /* Center items vertically */
-    padding: 10px 20px; /* Add some padding */
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
-.modal-title {
-    flex: 1; /* Allow the title to take up available space */
-    text-align: center; /* Center the title text */
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+p {
+    margin: 0;
+    color: #333;
 }
 
 .close-button {

@@ -49,8 +49,7 @@ select {
 table td {
     padding-bottom: 3px;
     padding-top: 3px;
-    min-height: 39px;
-    height: 35px;
+    height: 39px;
     cursor: pointer;
 }
 
@@ -192,4 +191,19 @@ table td {
 .sales-table tr:hover {
     background-color: #e1f5fe;
     /* Highlight on hover */
+}
+
+.align-center {
+    align-items: center;
+    display: flex;
+    gap: 1;
+}
+
+.align-center label{
+    line-height: 1;
+    margin-bottom: 0px;
+}
+
+.text-nowrap {
+    text-wrap: nowrap;
 }

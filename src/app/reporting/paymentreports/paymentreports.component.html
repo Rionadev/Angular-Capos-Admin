@@ -4,30 +4,23 @@
             <div class="col-md-12">
                 <!-- Search Bar -->
                 <div class="card margin-bottom-10">
-                    <div class="content add-content" style="display: flex; align-items: center; width: 100%;">
-                        <div style="flex-grow: 1; display: flex; justify-content: space-between;align-items: center;">
-                            <div class="col-md-4 flex">
-                                <!-- <div>
-                                    <label>Period:</label>
+                    <div class="content add-content">
+                        <div class="align-center">
+                            <label class="text-nowrap">Period:</label>
+                            <p class="category">&nbsp;&nbsp;</p>
+                            <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
+                                name="startDate" (change)="fetchSearchItems()" />
+                            <p class="category">&nbsp;&nbsp;~&nbsp;&nbsp;</p>
+                            <input type="date" [(ngModel)]="selectedDateTo" class="form-control" name="endDate"
+                                (change)="fetchSearchItems()" />
+                        </div>
 
-                                </div> -->
-                                <div style="display: flex; justify-content: space-between;align-items: center;">
-                                    Period:
-                                    <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
-                                        name="startDate" (change)="fetchSearchItems()" />
+                        <div class="align-center">
+                            <button class="btn btn-sm btn-danger btn-fill" (click)="initToday()">Clear
+                                Filters</button>
+                            <!-- <button class="btn btn-sm btn-info btn-fill mx-2" style="margin: 1rem" (click)="searchTransactions()">Search</button> -->
+                            <button class="btn btn-sm btn-success btn-fill">Excel</button>
 
-                                    <input type="date" [(ngModel)]="selectedDateTo" class="form-control" name="endDate"
-                                        (change)="fetchSearchItems()" />
-                                </div>
-                            </div>
-
-                            <div class=" d-flex align-items-center;" style="display:flex; gap:1rem;">
-                                <button class="btn btn-sm btn-danger btn-fill flex-grow-1 " (click)="initToday()">Clear
-                                    Filters</button>
-                                <!-- <button class="btn btn-sm btn-info btn-fill mx-2" style="margin: 1rem" (click)="searchTransactions()">Search</button> -->
-                                <button class="btn btn-sm btn-success btn-fill flex-grow-1">Excel</button>
-
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -50,23 +43,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style="font-weight: bold; font-size: medium;">
-                                    <td><b>Total</b></td>
-                                    <td><b>{{total_sotre_credit_amount |currency}}</b></td>
-                                    <td><b>{{total_cash_conceal_amount|currency}}</b></td>
-                                    <td><b>{{total_cash_amount|currency}}</b></td>
-                                    <td><b>{{total_credit_amount|currency}}</b></td>
-                                    <td><b>{{total_debit_amount|currency}}</b></td>
-                                    <td><b>{{total_refund_amount|currency}}</b></td>
-                                    <td><b>{{total_voided_amount|currency}}</b></td>
-                                    <td><b>{{(
+                                <tr>
+                                    <td><strong>Total</strong></td>
+                                    <td><strong>{{total_sotre_credit_amount |currency}}</strong></td>
+                                    <td><strong>{{total_cash_conceal_amount|currency}}</strong></td>
+                                    <td><strong>{{total_cash_amount|currency}}</strong></td>
+                                    <td><strong>{{total_credit_amount|currency}}</strong></td>
+                                    <td><strong>{{total_debit_amount|currency}}</strong></td>
+                                    <td><strong>{{total_refund_amount|currency}}</strong></td>
+                                    <td><strong>{{total_voided_amount|currency}}</strong></td>
+                                    <td><strong>{{(
                                             total_sotre_credit_amount +
                                             total_cash_conceal_amount +
                                             total_cash_amount +
                                             total_credit_amount +
                                             total_debit_amount +
                                             total_refund_amount +
-                                            total_voided_amount)|currency}}</b></td>
+                                            total_voided_amount)|currency}}</strong></td>
                                 </tr>
                                 <tr *ngFor="let transaction of filteredTransactions |keyvalue;"
                                     (click)="showRow(transaction.key)">

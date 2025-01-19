@@ -4,9 +4,13 @@
             <div class="col-md-12">
                 <!-- Search Bar -->
                 <div class="card margin-bottom-10">
-                    <div class="content add-content" style="display: flex; align-items: center; width: 30%;">
-                        <input type="text" class="form-control" placeholder="Search by Customer Name or Email"
+                    <div class="content add-content">
+                        <div class="align-center">
+                            <input type="text" class="form-control" placeholder="Search by Customer Name or Email"
                             [(ngModel)]="searchTerm" (change)="searchCustomers()" style="flex-grow: 1;">
+                        </div>
+                        
+                        <div></div>
                     </div>
                 </div>
 
@@ -24,11 +28,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style="font-weight: bold; background-color: #f0f0f0;">
-                                    <td colspan="2">Total</td>
-                                    <td>{{ getTotal('total_issued') | currency }}</td>
-                                    <td>{{ getTotal('total_redeemed') | currency }}</td>
-                                    <td>{{ getTotal('credit') | currency }}</td> <!-- Changed 'balance' to 'credit' -->
+                                <tr>
+                                    <td colspan="2"><strong>Total:</strong></td>
+                                    <td><strong>{{ getTotal('total_issued') | currency }}</strong></td>
+                                    <td><strong>{{ getTotal('total_redeemed') | currency }}</strong></td>
+                                    <td><strong>{{ getTotal('credit') | currency }}</strong></td> <!-- Changed 'balance' to 'credit' -->
                                 </tr>
                                 <tr *ngFor="let customer of filteredCustomers">
                                     <td>{{ customer.name }}</td>

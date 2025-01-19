@@ -4,11 +4,10 @@
             <div class="col-md-12">
                 <div class="card margin-bottom-10" *ngIf="!isImportContentVisible && !isProductContentVisible">
                     <div class="content add-content">
-                        <p class="category">Add, view and edit your products all in one place. Need help ?</p>
-                        <div>
+                        <div class="category">Add, view and edit your products all in one place. Need help ?</div>
+                        <div class="align-center">
                             <button class="btn btn-sm btn-info btn-fill" (click)="toggleImportContent()">Import</button>
-                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleProductContent()">Add
-                                Product</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="toggleProductContent()">Add Product</button>
                         </div>
                     </div>
                 </div>
@@ -454,46 +453,45 @@
                 </div>
                 <div class="card margin-bottom-0" *ngIf="!isImportContentVisible && !isProductContentVisible">
                     <div class="content add-content">
-                        <div class="flex-item">
+                        <div class="row padding-left-10">
                             <div class="col-md-2">
                                 <input type="text" class="form-control" placeholder="Search" id="search" name="search"
                                     [(ngModel)]="keyword" />
                             </div>
-                            <div class="row padding-left-10">
-                                <div class="col-md-2">
-                                    <select class="form-control" id="type-select" [(ngModel)]="type">
-                                        <option *ngFor="let row of searchTypes" [value]="row.value">{{row.name}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <select class="form-control" id="brand-select" [(ngModel)]="brand">
-                                        <option *ngFor="let row of searchBrands" [value]="row.value">{{row.name}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <select class="form-control" id="supplier-select" [(ngModel)]="supplier">
-                                        <option *ngFor="let row of searchSuppliers" [value]="row.value">{{row.name}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <select class="form-control" id="attribute-select" [(ngModel)]="attribute">
-                                        <option *ngFor="let row of searchAttributes" [value]="row.value">{{row.name}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <select class="form-control" id="tags-select" [(ngModel)]="tag">
-                                        <option *ngFor="let row of searchTags" [value]="row.value">{{row.name}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <select class="form-control" id="status-select" [(ngModel)]="status">
-                                        <option *ngFor="let row of searchStatus" [value]="row.value">{{row.name}}</option>
-                                    </select>
-                                </div>
+                            <div class="col-md-2">
+                                <select class="form-control" id="type-select" [(ngModel)]="type">
+                                    <option *ngFor="let row of searchTypes" [value]="row.value">{{row.name}}</option>
+                                </select>
                             </div>
+                            <div class="col-md-2">
+                                <select class="form-control" id="brand-select" [(ngModel)]="brand">
+                                    <option *ngFor="let row of searchBrands" [value]="row.value">{{row.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-control" id="supplier-select" [(ngModel)]="supplier">
+                                    <option *ngFor="let row of searchSuppliers" [value]="row.value">{{row.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-control" id="attribute-select" [(ngModel)]="attribute">
+                                    <option *ngFor="let row of searchAttributes" [value]="row.value">{{row.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-control" id="tags-select" [(ngModel)]="tag">
+                                    <option *ngFor="let row of searchTags" [value]="row.value">{{row.name}}</option>
+                                </select>
+                            </div>
+                            <!-- For Responsible, Hidden Temp -->
+                            <!-- <div class="col-md-2">
+                                <select class="form-control" id="status-select" [(ngModel)]="status">
+                                    <option *ngFor="let row of searchStatus" [value]="row.value">{{row.name}}</option>
+                                </select>
+                            </div> -->
                         </div>
-                        <div class="">
-                            <button class="btn btn-sm btn-info btn-fill">Clear Filters</button>
+                        <div class="row align-center margin-right-0">
+                            <button class="btn btn-sm btn-info btn-fill">Clear</button>
                             <button class="btn btn-sm btn-info btn-fill">Search</button>
                         </div>
                     </div>

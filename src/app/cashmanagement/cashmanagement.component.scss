@@ -54,7 +54,10 @@ select {
     height: 32px;
 }
 
-table td {     padding-bottom: 3px;     padding-top: 3px;     min-height: 39px; }
+table td {     
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
 
 .custom-file-upload {
     display: inline-block;
@@ -113,4 +116,14 @@ table td {     padding-bottom: 3px;     padding-top: 3px;     min-height: 39px; 
     display: block;
     margin-top: 0em;
     unicode-bidi: isolate;
+}
+
+.align-center {
+    align-items: center;
+    display: flex;
+    gap: 1;
+}
+
+.align-center label{
+    line-height: 1;
 }
