@@ -4,6 +4,7 @@ import { LegendItem, ChartType } from '../../lbd/lbd-chart/lbd-chart.component';
 import * as Chartist from 'chartist';
 import { OrdersService } from '../../api/orders/orders.service';
 import { SalesService } from '../../api/sales/sales.service';
+import { CustomerService } from 'app/api/salesledger/api.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,9 +33,23 @@ export class DashboardComponent implements OnInit {
 
   chartVisible: boolean = false;
   
+  // Variable for Sales Report
+  totalForThisMonth: number = 0;
+  totalForToday: number = 0;
+
+  // Variable for Product Report
+  totalByUser: number = 0;
+  totalByOutlet: number = 0;
+  totalByCustomer: number = 0;
+
+  // Stock Report
+  stockLevels: number = 0;
+  stockOnHand: number = 0;
+
   constructor(
     private ordersService: OrdersService,
     private salesService: SalesService,
+    private customerService: CustomerService,
   ) {
     const today = new Date();
     this.start = today.toISOString().split('T')[0];
@@ -45,6 +60,63 @@ export class DashboardComponent implements OnInit {
     this.onSetChart();
     this.onGetSalesData();
     this.onGetOrdersData();
+
+    this.onGetSalesReport();
+    this.onGetProductReport();
+    this.onStockReport();
+  }
+
+  onGetSalesReport() {
+    const today = new Date();
+    const start = today.toISOString().split('T')[0];
+    const end = today.toISOString().split('T')[0];
+
+    //totalForThisMonth: number = 0;
+    //totalForToday: number = 0;
+    // For today
+    this.customerService.fetchSaleHistory({
+      from: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
+      to: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
+    }).subscribe(
+      (res) => {
+        // Get Real Paid. total_paid item.
+        this.totalForToday = this.getTotal(res, "total_paid");
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+
+    // Fpor Month
+    this.customerService.fetchSaleHistory({
+      from: new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0],
+      to: new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0],
+    }).subscribe(
+      (res) => {
+        this.totalForThisMonth = this.getTotal(res, "total_paid");
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+
+  }
+
+  onGetProductReport() {
+    /* totalByUser: number = 0;
+    totalByOutlet: number = 0;
+    totalByCustomer: number = 0; */
+  }
+
+  onStockReport() {
+    /* stockLevels: number = 0;
+    stockOnHand: number = 0; */
+  }
+
+  getTotal(records: any, field: string): number {
+    return (records?.reduce((sum, record) => sum + record[field], 0)).toFixed(2);
   }
 
   onGetSalesData() {
