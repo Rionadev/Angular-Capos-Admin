@@ -71,7 +71,7 @@ select {
 table td {
     padding-bottom: 3px;
     padding-top: 3px;
-    height: 40px !important;
+    height: 35px !important;
 }
 
 .custom-file-upload {
@@ -137,15 +137,16 @@ tr {
     cursor: pointer;
 }
 
+
 .modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
-    font-size: medium;
+    overflow: hidden;
 }
 
 .modal-content {
@@ -153,53 +154,68 @@ tr {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
+    background-color: white;
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 800px;
+    width: 90%;
     z-index: 1001;
-    max-width: 1000px;
-    min-width: 800px;
-    max-height: 800px;
-    overflow: auto;
-    /* Adjust width as needed */
 }
 
-h3 {
-    margin-bottom: 15px;
-    color: #333;
-}
+// .modal-title {
+//     margin-bottom: 20px;
+//     font-size: 24px;
+//     text-align: center;
+// }
 
 .modal-body {
-    margin-bottom: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+    text-align: center;
 }
 
 .info-group {
+    margin-bottom: 20px;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.report-table th,
+.report-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.report-table th {
+    background-color: #f2f2f2;
+}
+
+.modal-header {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    justify-content: space-between; /* Space between title and button */
+    align-items: center; /* Center items vertically */
+    padding: 10px 20px; /* Add some padding */
 }
 
-label {
-    font-weight: bold;
-    color: #555;
-}
-
-p {
-    margin: 0;
-    color: #333;
+.modal-title {
+    flex: 1; /* Allow the title to take up available space */
+    text-align: center; /* Center the title text */
 }
 
 .close-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    background-color: transparent; /* Make the button background transparent */
+    border: none; /* Remove border */
+    font-size: 20px; /* Increase font size */
+    cursor: pointer; /* Change cursor on hover */
+    color: #8a8a8a; /* Button color */
 }
 
 .close-button:hover {
-    background-color: #0056b3;
+    color: #1f1f1f; /* Change color on hover */
 }

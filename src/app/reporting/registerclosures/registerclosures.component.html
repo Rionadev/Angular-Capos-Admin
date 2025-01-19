@@ -15,8 +15,8 @@
                                 </select>
                             </div>
                             <div style="display: flex;">
-                                <button class="btn btn-sm btn-danger btn-fill" style="margin-right: 1rem;">Clear
-                                    Filters</button>
+                                <!-- <button class="btn btn-sm btn-danger btn-fill" style="margin-right: 1rem;">Clear
+                                    Filters</button> -->
                                 <!-- <button class="btn btn-sm btn-info btn-fill" (click)="searchRecords()">Search</button> -->
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                     <td colspan="3"><b>Total</b></td>
                                     <td><b>{{ (total_sum.store_credit || '') | currency }}</b></td>
                                     <td><b>{{ (total_sum.cash_concealed || '') | currency }}</b></td>
-                                    <td><b>{{ (total_sum.cash || '') | currency }}</b></td>
+                                    <td><b>{{ ((total_sum.cash*1 +total_sum.cash_d*1 ) || '') | currency }}</b></td>
                                     <td><b>{{ (total_sum.credit || '') | currency }}</b></td>
                                     <td><b>{{ (total_sum.debit || '') | currency }}</b></td>
                                     <td><b>{{ (total_sum.refunds || '') | currency }}</b></td>
@@ -56,18 +56,18 @@
                                     <td><b>{{ (total_sum.total || '') | currency }}</b></td>
                                 </tr>
                                 <ng-container *ngFor="let item of filteredRecords">
-                                    <tr>
+                                    <tr (click)="showDetails(item)">
                                         <td>{{ item?.register?.name }}</td>
                                         <td>{{ item?.formattedOpeningTime }}</td>
                                         <td>{{ item?.formattedClosingTime }}</td>
                                         <td>{{ (item?.open_value||'') | currency }}</td>
                                         <td>{{ item?.cash_concealed || '' | currency }}</td>
-                                        <td>{{ (item?.cash || '') | currency }}</td>
-                                        <td>{{ (item?.credit||'') | currency }}</td>
-                                        <td>{{ (item?.debit||'') | currency }}</td>
-                                        <td>{{ (item?.refunds||'') | currency }}</td>
-                                        <td>{{ (item?.voided||'') | currency }}</td>
-                                        <td>{{ (item?.total||'') | currency }}</td>
+                                        <td>{{ ((item?.cash+item?.cash_d) || '') | currency }}</td>
+                                        <td>{{ (item?.credit || '') | currency }}</td>
+                                        <td>{{ (item?.debit || '') | currency }}</td>
+                                        <td>{{ (item?.refunds || '') | currency }}</td>
+                                        <td>{{ (item?.voided || '') | currency }}</td>
+                                        <td>{{ (item?.total || '') | currency }}</td>
                                         <!-- <td>{{ ((item.open_value+
                                             item.cash_concealed+
                                             item.cash+
@@ -87,8 +87,8 @@
         </div>
     </div>
 </div>
-<div class="details-container" *ngIf="selectedRecord" (click)="onBackdropClick($event)">
-    <div class="details-box" (click)="$event.stopPropagation()">
+<!-- <div class="details-container" *ngIf="isShowdetailflag" (click)="onBackdropClick($event)">
+    <div class="details-box"  *ngIf="isShowdetailflag" (click)="$event.stopPropagation()">
         <h4>Details for Register: {{ selectedRecord.register }}</h4>
         <p><strong>Time Opened:</strong> {{ selectedRecord.timeOpened }}</p>
         <p><strong>Time Closed:</strong> {{ selectedRecord.timeClosed }}</p>
@@ -100,8 +100,314 @@
         <p><strong>Refunds:</strong> {{ selectedRecord.refunds | currency }}</p>
         <p><strong>Voided:</strong> {{ selectedRecord.voided | currency }}</p>
         <p><strong>Total:</strong> {{ selectedRecord.total | currency }}</p>
-        <!-- <button (click)="selectedRecord = null">Close</button> -->
         <button (click)="onBackdropClick(selectedRecord)">Close</button>
 
+    </div>
+</div> -->
+<div class="modal-overlay" *ngIf="isShowdetailflag" (click)="onBackdropClick($event)">
+    <div class="modal-content" *ngIf="isShowdetailflag" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <span class="modal-title">OpenClose Information
+                <span style="color: #696969;">
+                    ({{selectedRecord?.opening_time |date}}-
+                    {{selectedRecord?.closing_time |date}})
+                </span>
+            </span>
+            <button class="close-button" (click)="onBackdropClick(selectedRecord)">×</button>
+        </div>
+        <!-- <table class="details-table">
+            <tbody>
+                <tr>
+                    <td><strong>Time Opened:</strong></td>
+                    <td>{{ selectedRecord.timeOpened }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Time Closed:</strong></td>
+                    <td>{{ selectedRecord.timeClosed }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Store Credit:</strong></td>
+                    <td>{{ selectedRecord.storeCredit | currency }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Cash Concealed Total:</strong></td>
+                    <td>{{ selectedRecord.cashConcealedTotal | currency }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Cash:</strong></td>
+                    <td>{{ selectedRecord.cash | currency }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Credit:</strong></td>
+                    <td>{{ selectedRecord.credit | currency }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Debit:</strong></td>
+                    <td>{{ selectedRecord.debit | currency }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Refunds:</strong></td>
+                    <td>{{ selectedRecord.refunds | currency }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Voided:</strong></td>
+                    <td>{{ selectedRecord.voided | currency }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Total:</strong></td>
+                    <td>{{ selectedRecord.total | currency }}</td>
+                </tr>
+            </tbody>
+        </table> -->
+        <!-- Register Details -->
+        <div class="modal-body">
+            <table>
+                <thead>
+                    <th>Outlet</th>
+                    <th>Register</th>
+                    <th>ID#</th>
+                    <th>Open Time</th>
+                    <th>Close Time</th>
+                </thead>
+                <tbody>
+                    <td>{{selectedRecord?.outlet?.name}}<br>{{openclose?.outlet?.email}}</td>
+                    <td>{{selectedRecord?.register?.name}}</td>
+                    <td>{{selectedRecord?.uid}}</td>
+                    <td>
+                        {{selectedRecord?.opening_time | date}}<br>
+                        {{selectedRecord?.opening_time | date:'shortTime' }}
+                    </td>
+                    <td>
+                        {{selectedRecord?.closing_time | date}}<br>
+                        {{selectedRecord?.closing_time | date:'shortTime' }}
+                    </td>
+                </tbody>
+            </table>
+
+            <!-- register cloures -->
+            <table>
+                <thead>
+                    <th>Store<br>Credit</th>
+                    <th>Cash<br>(Conceal)</th>
+                    <th>Cash</th>
+                    <th>Credit</th>
+                    <th>Debit</th>
+                    <th>Refunds</th>
+                    <th>Voided</th>
+                    <th>Total</th>
+
+                </thead>
+                <tbody>
+                    <td>{{ (selectedRecord?.open_value) | currency }}</td>
+                    <td>{{ selectedRecord?.cash_concealed | currency }}</td>
+                    <td>{{ ((selectedRecord?.cash+selectedRecord?.cash_d) ) | currency }}</td>
+                    <td>{{ (selectedRecord?.credit ) | currency }}</td>
+                    <td>{{ (selectedRecord?.debit ) | currency }}</td>
+                    <td>{{ (selectedRecord?.refunds ) | currency }}</td>
+                    <td>{{ (selectedRecord?.voided ) | currency }}</td>
+                    <td>{{ (selectedRecord?.total ) | currency }}</td>
+                </tbody>
+            </table>
+
+            <table>
+                <thead style="text-align: center;">
+                    <tr>
+                        <th colspan="4">Sold</th>
+                        <th colspan="4">Refunds</th>
+                        <th colspan="4">Voided</th>
+
+                    </tr>
+                    <tr>
+                        <th>Payment</th>
+                        <th>Net<br>Sale</th>
+                        <th>Tax</th>
+                        <th>Tips<br>(cash/none)</th>
+                        <th>Payment</th>
+                        <th>Net<br>Sale</th>
+                        <th>Tax</th>
+                        <th>Tips<br>(cash/none)</th>
+                        <th>Payment</th>
+                        <th>Net<br>Sale</th>
+                        <th>Tax</th>
+                        <th>Tips<br>(cash/none)</th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{detail_records.all.paymentinfo.sum |currency}}</td>
+                        <td>{{detail_records.all.categoryinfo.sum|currency}}</td>
+                        <td>{{detail_records.all.sel_info.tax|currency}}</td>
+                        <td>{{detail_records.all.sel_info.cash_tip|currency}}/<br>
+                            {{detail_records.all.sel_info.tip|currency}}
+                        </td>
+
+                        <td>{{detail_records.return.paymentinfo.sum |currency}}</td>
+                        <td>{{detail_records.return.categoryinfo.sum|currency}}</td>
+                        <td>{{detail_records.return.sel_info.tax|currency}}</td>
+                        <td>{{detail_records.return.sel_info.cash_tip|currency}}/<br>
+                            {{detail_records.return.sel_info.tip|currency}}
+                        </td>
+
+                        <td>{{detail_records.voided.paymentinfo.sum |currency}}</td>
+                        <td>{{detail_records.voided.categoryinfo.sum|currency}}</td>
+                        <td>{{detail_records.voided.sel_info.tax|currency}}</td>
+                        <td>{{detail_records.voided.sel_info.cash_tip|currency}}/<br>
+                            {{detail_records.voided.sel_info.tip|currency}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{detail_records.all.paymentinfo.sum |currency}}</td>
+                        <td colspan="3"> {{(detail_records.all.categoryinfo.sum +
+                            detail_records.all.sel_info.tax+
+                            detail_records.all.sel_info.cash_tip+
+                            detail_records.all.sel_info.tip)|currency}}
+                        </td>
+
+                        <td>{{detail_records.return.paymentinfo.sum |currency}}</td>
+                        <td colspan="3"> {{(detail_records.return.categoryinfo.sum +
+                            detail_records.return.sel_info.tax+
+                            detail_records.return.sel_info.cash_tip+
+                            detail_records.return.sel_info.tip)|currency}}
+                        </td>
+
+                        <td>{{detail_records.voided.paymentinfo.sum |currency}}</td>
+                        <td colspan="3"> {{(detail_records.voided.categoryinfo.sum +
+                            detail_records.voided.sel_info.tax+
+                            detail_records.voided.sel_info.cash_tip+
+                            detail_records.voided.sel_info.tip)|currency}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            {{(detail_records.all.paymentinfo.sum-
+                            detail_records.all.categoryinfo.sum -
+                            detail_records.all.sel_info.tax-
+                            detail_records.all.sel_info.cash_tip-
+                            detail_records.all.sel_info.tip)|currency}}
+                        </td>
+                        <td colspan="4">
+                            {{(detail_records.return.paymentinfo.sum-
+                            detail_records.return.categoryinfo.sum -
+                            detail_records.return.sel_info.tax-
+                            detail_records.return.sel_info.cash_tip-
+                            detail_records.return.sel_info.tip)|currency}}
+                        </td>
+                        <td colspan="4">
+                            {{(detail_records.voided.paymentinfo.sum-
+                            detail_records.voided.categoryinfo.sum -
+                            detail_records.voided.sel_info.tax-
+                            detail_records.voided.sel_info.cash_tip-
+                            detail_records.voided.sel_info.tip)|currency}}
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- <div style="display: grid; grid-template-columns: repeat(2, 1fr); overflow-y: auto; "> -->
+            <!-- <div style="display: grid; grid-template-columns: 35% 1fr; overflow-y: auto; "> -->
+
+
+            <table>
+                <thead>
+                    <th style="width: 40%;">
+                        Payment Type
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                </thead>
+                <tr>
+                    <td><b>SUM</b></td>
+                    <td><b>{{sel_total_payment.sum+detail_records.cash|currency}}</b></td>
+                </tr>
+                <tr>
+                    <td><b>Cash(direct)</b></td>
+                    <td>{{detail_records.cash|currency}}</td>
+                </tr>
+                <tr *ngFor="let pay of sel_total_payment |keyvalue">
+                    <ng-container *ngIf="pay.key !== 'sum'">
+                        <td><b>{{ pay.key }}</b></td>
+                        <td>{{ pay.value |currency}}</td>
+                    </ng-container>
+                </tr>
+            </table>
+            <table>
+                <thead>
+                    <th>Product</th>
+                    <th>price</th>
+                    <th>qty</th>
+                    <th>Value</th>
+                    <th>discount</th>
+                </thead>
+                <tr>
+                    <td><b>Sold</b></td>
+                    <td colspan="4"><b>{{detail_records?.all?.categoryinfo?.sum || 0 |currency}}</b></td>
+                </tr>
+                <tr>
+                    <td><b>Return</b></td>
+                    <td colspan="4"><b>{{detail_records?.reutrn?.categoryinfo?.sum || 0 |currency}}</b></td>
+                </tr>
+                <tr>
+                    <td><b>Voided</b></td>
+                    <td colspan="4"><b>{{detail_records?.voided?.categoryinfo?.sum || 0 |currency}}</b></td>
+                </tr>
+
+                <tr>
+                    <td><b>Total</b></td>
+                    <td colspan="4"><b>{{sel_total_caetory.sum|currency}}</b></td>
+                </tr>
+                <tbody *ngIf="!(detail_records?.all?.categoryinfo?.length > 0)">
+
+
+                    <tr>
+                        <td colspan="5"><strong>SOLD</strong></td>
+                    </tr>
+                    <tr *ngFor="let product of detail_records.all.categoryinfo | keyvalue">
+                        <ng-container *ngIf="product.key !== 'sum'">
+                            <td><b>{{ product?.value.product_name || '' }}</b></td>
+                            <td>{{ product?.value.price || '' | currency }}</td>
+                            <td>{{ product?.value.qty || '' }}</td>
+                            <td>{{ product?.value.qty*product?.value.price |currency }}</td>
+                            <td>{{ product?.value.discount.value || '' }}%</td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!(detail_records?.return?.categoryinfo?.length > 0)">
+
+                    <tr>
+                        <td colspan="5"><strong>Return</strong></td>
+                    </tr>
+                    <tr *ngFor="let product of detail_records.return.categoryinfo | keyvalue">
+                        <ng-container *ngIf="product.key !== 'sum'">
+                            <td><b>{{ product?.value.product_name || '' }}</b></td>
+                            <td>{{ product?.value.price || '' | currency }}</td>
+                            <td>{{ product?.value.qty || '' }}</td>
+                            <td>{{ product?.value.qty*product?.value.price |currency }}</td>
+                            <td>{{ product?.value.discount.value || '' }}%</td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!(detail_records?.voided?.categoryinfo?.length > 0)">
+                    <tr>
+                        <td colspan="5"><strong>Voided</strong></td>
+                    </tr>
+                    <tr *ngFor="let product of detail_records.voided.categoryinfo | keyvalue">
+                        <ng-container *ngIf="product.key !== 'sum'">
+                            <td><b>{{ product?.value.product_name || '' }}</b></td>
+                            <td>{{ product?.value.price || '' | currency }}</td>
+                            <td>{{ product?.value.qty || '' }}</td>
+                            <td>{{ product?.value.qty*product?.value.price |currency }}</td>
+                            <td>{{ product?.value.discount.value || '' }}%</td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+
+            </table>
+            <!-- </div> -->
+
+        </div>
     </div>
 </div>
