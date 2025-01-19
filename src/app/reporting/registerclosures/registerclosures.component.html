@@ -4,23 +4,20 @@
             <div class="col-md-12">
                 <!-- Search Bar -->
                 <div class="card margin-bottom-10">
-                    <div class="content add-content" style="display: flex; align-items: center; width: 100%;">
-                        <div class="d-flex align-items-center"
-                            style="width: 100%;display: flex; justify-content: space-between;gap: 3rem;">
-                            <div class="col-md-2">
-                                <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;"
-                                    (change)="searchRecords()">
-                                    <option *ngFor="let register of sel_reg" [value]="register.id">{{ register.label }}
-                                    </option>
-                                </select>
-                            </div>
+                    <div class="content add-content" >
+                        <div class="d-flex align-items-center">
+                            <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;"
+                                (change)="searchRecords()">
+                                <option *ngFor="let register of sel_reg" [value]="register.id">{{ register.label }}
+                                </option>
+                            </select>
                             <div style="display: flex;">
                                 <!-- <button class="btn btn-sm btn-danger btn-fill" style="margin-right: 1rem;">Clear
                                     Filters</button> -->
                                 <!-- <button class="btn btn-sm btn-info btn-fill" (click)="searchRecords()">Search</button> -->
                             </div>
                         </div>
-                        <button class="btn btn-sm btn-danger btn-fill" style="margin-right: 1rem;">Clear Filters</button>
+                        <button class="btn btn-sm btn-danger btn-fill">Clear Filters</button>
                         <!-- <button class="btn btn-sm btn-info btn-fill" (click)="searchRecords()">Search</button> -->
                         
                     </div>
