@@ -24,26 +24,27 @@
                                 <label>Order Type</label>
                                 <select class="form-control" [(ngModel)]="selectedOrderType">
                                     <option value="">All Orders</option>
-                                    <option value="Purchase Orders">Purchase Orders</option>
-                                    <option value="Return Orders">Return Orders</option>
-                                    <option value="Receive Orders">Receive Orders</option>
+                                    <option value="purchase">Purchase Orders</option>
+                                    <option value="return">Return Orders</option>
+                                    <option value="receive">Receive Orders</option>
                                 </select>
                             </div>
                             <div class="form-group margin-left-10">
                                 <label>Outlet</label>
                                 <select class="form-control" [(ngModel)]="selectedOutlet">
                                     <option value="">All Outlets</option>
-                                    <option value="Sub Store">Sub Store</option>
-                                    <option value="Test Outlet1">Test Outlet1</option>
-                                    <option value="Main Outlet">Main Outlet</option>
+                                    <option *ngFor="let outlet of outlets" [value]="outlet._id">{{
+                                        outlet.name }}
+                                    </option>
                                 </select>
                             </div>
                             <div class="form-group margin-left-10">
                                 <label>Supplier</label>
                                 <select class="form-control" [(ngModel)]="selectedSupplier">
                                     <option value="">All Suppliers</option>
-                                    <option value="New Up">New Up</option>
-                                    <option value="Computer Plug">Computer Plug</option>
+                                    <option *ngFor="let supplier of suppliers" [value]="supplier._id">{{
+                                        supplier.description }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -52,7 +53,7 @@
                                 <label>Created At:</label>
                                 <div class="align-center">
                                     <input type="date" class="form-control" [(ngModel)]="createdAtStart" />
-                                    <p class="category">&nbsp;~&nbsp;</p>  
+                                    <p class="category">&nbsp;~&nbsp;</p>
                                     <input type="date" class="form-control" [(ngModel)]="createdAtEnd" />
                                 </div>
                             </div>
@@ -60,16 +61,17 @@
                                 <label>Due Date:</label>
                                 <div class="align-center">
                                     <input type="date" class="form-control" [(ngModel)]="dueDateStart" />
-                                    <p class="category">&nbsp;~&nbsp;</p>  
+                                    <p class="category">&nbsp;~&nbsp;</p>
                                     <input type="date" class="form-control" [(ngModel)]="dueDateEnd" />
                                 </div>
                             </div>
-                            <div class="margin-top-15">
-                                <button class="btn btn-sm btn-danger btn-fill"
+                            <div class="col " style="align-self: center;gap: 1rem; flex-direction: column;
+                                font-size: 2rem;">
+                                <button style="margin-bottom: 1rem;" class="btn btn-sm btn-danger btn-fill"
                                     (click)="clearFilters()">
                                     <i class="pe-7s-refresh"></i>
                                 </button>
-                                <button class="btn btn-sm btn-info btn-fill" (click)="filterRows()">
+                                <button class="btn btn-sm btn-info btn-fill" (click)="searchByIndex()">
                                     <i class="pe-7s-search"></i>
                                 </button>
                             </div>
@@ -93,27 +95,29 @@
                                     <th>Created</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr *ngFor="let row of filteredRows">
-                                    <td>{{ row.type }}</td>
-                                    <td>{{ row.number }}</td>
-                                    <td>{{ row.from }}</td>
-                                    <td>{{ row.to }}</td>
-                                    <td>{{ row.status }}</td>
-                                    <td>{{ row.items }}</td>
-                                    <td>{{ row.cost | currency }}</td>
-                                    <td>{{ row.created | date }}</td>
-                                </tr>
-                            </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="5" class="text-center"><strong>Total:</strong></td>
-                                    <td>{{ getTotalItems() }}</td>
-
-                                    <td>{{ getTotalCost() | currency }}</td>
+                                    <td><strong>{{ total_items}}</strong></td>
+                                    <td><strong>{{ total_cost | currency }}</strong></td>
                                     <td></td>
                                 </tr>
                             </tfoot>
+                            <tbody>
+                                <tr *ngFor="let row of orderData">
+                                    <td>{{ row.type }}</td>
+                                    <td>{{ row.order_number }}</td>
+                                    <td>{{ row?.supplier?.name ||'' }}</td>
+                                    <td>{{ row?.deliver_to?.name || ''}}<br>
+                                        <label style="font-size: small;">{{ row?.deliver_to?.email || ''}}</label>
+                                    </td>
+                                    <td>{{ row.status }}</td>
+                                    <td>{{ calcItemCount(row.products) }}</td>
+                                    <td>{{ calcProductCost(row.products) | currency }}</td>
+                                    <td>{{ row.created_at | date }}</td>
+                                </tr>
+                            </tbody>
+
                         </table>
                     </div>
                 </div>
@@ -122,20 +126,21 @@
     </div>
 </div>
 <div class="main-content" *ngIf="isOrderModal">
-    <div class="card ">
-        <div class="content add-content flex" style="display: flex;justify-content: space-between;">
+    <div class="card margin-bottom-10">
+        <div class="content add-content flex">
             <div style="display: flex; align-items: center;">
                 <span>
-                    Count and receive products that have been delivered from your suppliers to ensure your inventory
-                    stays accurate.
+                    Add products to this purchase order to keep track of inbound inventory.
                     <a href="#">Need help ?</a>
                 </span>
             </div>
             <div style="display: flex; justify-content: right;">
-                <button class="btn btn-sm btn-success btn-fill">
-                    Receive
+                <button class="btn btn-sm btn-info btn-fill" (click)="saveOrder()">
+                    Save
                 </button>
-
+                <button class="btn btn-sm btn-success btn-fill" (click)="closeModal()">
+                    Back
+                </button>
             </div>
         </div>
     </div>
@@ -151,16 +156,19 @@
                 <div class="row space-between p-1">
                     <div class="col-md-6">
                         <label for="supplier">Supplier:</label>
-                        <select id="supplier" class="form-control">
-                            <option value="newSup">New Supplier</option>
-                            <option value="computerPlug">Computer Plug</option>
+                        <select id="supplier" class="form-control"
+                            (change)="selectOption('supplier', $event.target.value)">
+                            <option *ngFor="let supplier of productSuppliers" [value]="supplier._id">{{
+                                supplier.description }}
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label for="deliveredTo">Delivered To:</label>
-                        <select id="deliveredTo" class="form-control">
-                            <option value="location1">Location 1</option>
-                            <option value="location2">Location 2</option>
+                        <select id="deliveredTo" class="form-control"
+                            (change)="selectOption('deliver_to', $event.target.value)">
+                            <option *ngFor="let outlet of productOutlets" [value]="outlet._id">{{ outlet.name }}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -168,22 +176,25 @@
                     <div class="col-md-6">
                         <label for="supplierInvoiceNumber">Supplier Invoice Number:</label>
                         <input type="text" id="supplierInvoiceNumber" class="form-control"
-                            placeholder="Enter Invoice Number" />
+                            placeholder="Enter Invoice Number" [(ngModel)]="newOrder.invoice_number" />
                     </div>
                     <div class="col-md-6">
                         <label for="deliveryDate">Delivery Date:</label>
-                        <input type="date" id="deliveryDate" class="form-control" />
+                        <input type="date" id="deliveryDate" class="form-control"
+                            [(ngModel)]="newOrder.delivery_date" />
                     </div>
                 </div>
                 <div class="row space-between p-1">
                     <div class="col-md-6">
                         <label for="orderNumber">Order Number:</label>
-                        <input type="text" id="orderNumber" class="form-control" placeholder="Enter Order Number" />
+                        <input type="text" id="orderNumber" class="form-control" placeholder="Enter Order Number"
+                            [(ngModel)]="newOrder.order_number" />
                         <span style="font-size: 1.2rem;color: gainsboro;">This is to help to identify this order </span>
                     </div>
                     <div class="col-md-6">
                         <label for="note">Note:</label>
-                        <textarea id="note" class="form-control" rows="3" placeholder="Enter any notes"></textarea>
+                        <textarea id="note" class="form-control" rows="3" placeholder="Enter any notes"
+                            [(ngModel)]="newOrder.note"></textarea>
                     </div>
                 </div>
             </div>
@@ -192,15 +203,24 @@
             <div class="col-md-3">
                 <h4><b>Products</b></h4>
                 <span>
-                    Choose products to receive by searching or scanning.
+                    Choose products to add to this order.
                 </span>
             </div>
             <div class="col-md-9">
                 <div class="" style="width: 100%;">
                     <label for="searchProduct" class="me-2 ">Search Product:</label>
                     <!-- <div class="input-group"> -->
-                    <input type="text" id="searchProduct" class="form-control"
-                        placeholder="Search or scan to add product" />
+                    <div>
+
+                        <input type="text" id="searchProduct" class="form-control" [(ngModel)]="keyword"
+                            placeholder="Search or scan to add product" (input)="searchProduct()" />
+                        <ul *ngIf="filteredProducts.length > 0" class="dropdown-list">
+                            <li *ngFor="let product of filteredProducts" (click)="selectProduct(product)"
+                                class="dropdown-item">
+                                {{ product.name }}
+                            </li>
+                        </ul>
+                    </div>
                     <!-- <span class="input-group-text">
                             <i class="fas fa-search"></i>
                         </span> -->
@@ -212,19 +232,37 @@
                             <tr class="p-1">
                                 <th style="width: 40%;"><b>Product</b></th>
                                 <th style="width: 15%;"><b>Current Inventory</b></th>
-                                <th style="width: 15%;"><b>Received Quantity</b></th>
+                                <th style="width: 15%;"><b>Quantity</b></th>
                                 <th style="width: 15%;"><b>Supply Price</b></th>
                                 <th style="width: 15%;"><b>Total Cost</b></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="margin: 1rem;">
-                                <td><b></b></td>
-                                <td><b></b></td>
-                                <td><b></b></td>
-                                <td><b></b></td>
-                                <td><b>$0.00</b></td>
+                            <tr style="margin: 1rem;" *ngFor="let product of newOrder.products">
+                                <td>{{product.product_name}}</td>
+                                <td>{{product.inventory}}</td>
+                                <td>
+                                    <input type="number" id="qty" class="form-control" placeholder="" step="1"
+                                        [(ngModel)]="product.qty" min="0" />
+                                </td>
+                                <td>
+                                    <input type="number" id="price" class="form-control" placeholder=""
+                                        [(ngModel)]="product.supply_price" min="0" />
+                                </td>
+                                <td><b>{{product.qty * product.supply_price | currency}}</b></td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" (click)="deleteproduct(product)"
+                                        data-toggle="tooltip" title="Delete">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </button>
+                                </td>
                             </tr>
+                            <tr>
+                                <td colspan="4"></td>
+                                <td colspan="2"><strong>{{ calcCost()||0 | currency }}</strong></td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -232,3 +270,4 @@
         </div>
     </div>
 </div>
+<app-toast></app-toast>
