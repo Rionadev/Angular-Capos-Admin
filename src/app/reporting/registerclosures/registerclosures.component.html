@@ -19,7 +19,7 @@
                         </div>
                         <button class="btn btn-sm btn-danger btn-fill">Clear Filters</button>
                         <!-- <button class="btn btn-sm btn-info btn-fill" (click)="searchRecords()">Search</button> -->
-                        
+
                     </div>
                 </div>
 
@@ -47,7 +47,8 @@
                                     <td colspan="3"><strong>Total</strong></td>
                                     <td><strong>{{ (total_sum.store_credit || '') | currency }}</strong></td>
                                     <td><strong>{{ (total_sum.cash_concealed || '') | currency }}</strong></td>
-                                    <td><strong>{{ ((total_sum.cash*1 +total_sum.cash_d*1 ) || '') | currency }}</strong></td>
+                                    <td><strong>{{ ((total_sum.cash*1 +total_sum.cash_d*1 ) || '') | currency
+                                            }}</strong></td>
                                     <td><strong>{{ (total_sum.credit || '') | currency }}</strong></td>
                                     <td><strong>{{ (total_sum.debit || '') | currency }}</strong></td>
                                     <td><strong>{{ (total_sum.refunds || '') | currency }}</strong></td>
@@ -334,13 +335,6 @@
                 </tr>
             </table>
             <table>
-                <thead>
-                    <th>Product</th>
-                    <th>price</th>
-                    <th>qty</th>
-                    <th>Value</th>
-                    <th>discount</th>
-                </thead>
                 <tr>
                     <td><b>Sold</b></td>
                     <td colspan="4"><b>{{detail_records?.all?.categoryinfo?.sum || 0 |currency}}</b></td>
@@ -358,12 +352,23 @@
                     <td><b>Total</b></td>
                     <td colspan="4"><b>{{sel_total_caetory.sum|currency}}</b></td>
                 </tr>
+
                 <tbody *ngIf="!(detail_records?.all?.categoryinfo?.length > 0)">
 
 
                     <tr>
                         <td colspan="5"><strong>SOLD</strong></td>
                     </tr>
+
+                    <tr>
+
+                        <th>Product</th>
+                        <th>price</th>
+                        <th>qty</th>
+                        <th>Value</th>
+                        <th>discount</th>
+                    </tr>
+
                     <tr *ngFor="let product of detail_records.all.categoryinfo | keyvalue">
                         <ng-container *ngIf="product.key !== 'sum'">
                             <td><b>{{ product?.value.product_name || '' }}</b></td>
@@ -379,6 +384,14 @@
                     <tr>
                         <td colspan="5"><strong>Return</strong></td>
                     </tr>
+                    <tr>
+
+                        <th>Product</th>
+                        <th>price</th>
+                        <th>qty</th>
+                        <th>Value</th>
+                        <th>discount</th>
+                    </tr>
                     <tr *ngFor="let product of detail_records.return.categoryinfo | keyvalue">
                         <ng-container *ngIf="product.key !== 'sum'">
                             <td><b>{{ product?.value.product_name || '' }}</b></td>
@@ -392,6 +405,13 @@
                 <tbody *ngIf="!(detail_records?.voided?.categoryinfo?.length > 0)">
                     <tr>
                         <td colspan="5"><strong>Voided</strong></td>
+                    </tr>
+                    <tr>
+                        <th>Product</th>
+                        <th>price</th>
+                        <th>qty</th>
+                        <th>Value</th>
+                        <th>discount</th>
                     </tr>
                     <tr *ngFor="let product of detail_records.voided.categoryinfo | keyvalue">
                         <ng-container *ngIf="product.key !== 'sum'">
