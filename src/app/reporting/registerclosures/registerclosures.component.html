@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Search Bar -->
-                <div class="card margin-bottom-10">
-                    <div class="content add-content" >
-                        <div class="d-flex align-items-center">
+                <div class="card margin-bottom-0">
+                    <div class="content add-content">
+                        <div>
                             <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;"
                                 (change)="searchRecords()">
                                 <option *ngFor="let register of sel_reg" [value]="register.id">{{ register.label }}
@@ -43,17 +43,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr
-                                    style="font-size: medium; font-weight: bold; background-color: #bbbbbb;font-weight:bolder;">
-                                    <td colspan="3"><b>Total</b></td>
-                                    <td><b>{{ (total_sum.store_credit || '') | currency }}</b></td>
-                                    <td><b>{{ (total_sum.cash_concealed || '') | currency }}</b></td>
-                                    <td><b>{{ ((total_sum.cash*1 +total_sum.cash_d*1 ) || '') | currency }}</b></td>
-                                    <td><b>{{ (total_sum.credit || '') | currency }}</b></td>
-                                    <td><b>{{ (total_sum.debit || '') | currency }}</b></td>
-                                    <td><b>{{ (total_sum.refunds || '') | currency }}</b></td>
-                                    <td><b>{{ (total_sum.voided || '') | currency }}</b></td>
-                                    <td><b>{{ (total_sum.total || '') | currency }}</b></td>
+                                <tr>
+                                    <td colspan="3"><strong>Total</strong></td>
+                                    <td><strong>{{ (total_sum.store_credit || '') | currency }}</strong></td>
+                                    <td><strong>{{ (total_sum.cash_concealed || '') | currency }}</strong></td>
+                                    <td><strong>{{ ((total_sum.cash*1 +total_sum.cash_d*1 ) || '') | currency }}</strong></td>
+                                    <td><strong>{{ (total_sum.credit || '') | currency }}</strong></td>
+                                    <td><strong>{{ (total_sum.debit || '') | currency }}</strong></td>
+                                    <td><strong>{{ (total_sum.refunds || '') | currency }}</strong></td>
+                                    <td><strong>{{ (total_sum.voided || '') | currency }}</strong></td>
+                                    <td><strong>{{ (total_sum.total || '') | currency }}</strong></td>
                                 </tr>
                                 <ng-container *ngFor="let item of filteredRecords">
                                     <tr (click)="showDetails(item)">
