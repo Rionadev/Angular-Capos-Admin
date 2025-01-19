@@ -211,3 +211,18 @@ tr {
     font-size: large;
     font-weight: bolder;
 }
+
+.align-center {
+    align-items: center;
+    display: flex;
+    gap: 1;
+}
+
+.align-center label{
+    line-height: 1;
+    margin-bottom: 0px;
+}
+
+.text-nowrap {
+    text-wrap: nowrap;
+}
