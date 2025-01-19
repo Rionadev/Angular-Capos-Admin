@@ -10,7 +10,7 @@ import { quantity } from 'chartist';
 })
 export class OpencloseComponent implements OnInit {
 
-  openclose: any;
+  openclose: any = [];
 
   total_creditcard_amount = 0;
 
@@ -101,6 +101,7 @@ export class OpencloseComponent implements OnInit {
     this.customerService.fetchTodaySale().subscribe(
       (res) => {
         this.openclose = res;
+
         if (res.payment_data.all_payments.length > 0) {
           res.payment_data.all_payments.forEach(element => {
             // Ensure paymentSummary is initialized for the correct payment status
@@ -141,7 +142,7 @@ export class OpencloseComponent implements OnInit {
 
                 if (el.type == 'cash') {
                   this.serverTipout.cash.bal += el.amount;
-                } else {
+                } else if (el.type == 'credit') {
                   this.total_creditcard_amount += el.amount;
                 }
               });
@@ -198,6 +199,32 @@ export class OpencloseComponent implements OnInit {
               });
 
             }
+          });
+        }
+        if (res.payment_data.cash_movements.length > 0) {
+          res.payment_data.cash_movements.forEach(element => {
+            if (!this.paymentSummary['cash']) {
+              this.paymentSummary['cash'] = {
+                expected: 0,
+                counted: 0,
+                differences: 0
+              };
+            }
+            this.paymentSummary['cash'].expected += element.transaction;
+            this.paymentSummary['cash'].counted += element.transaction;
+            this.paymentSum.expected += element.transaction;
+            this.paymentSum.counted += element.transaction;
+
+
+            if (!this.payhistory['cash']) {
+              this.payhistory['cash'] = {
+                bal: 0
+              }
+            }
+            this.payhistory['cash'] += element.transaction;
+
+            this.zSalesTaxesSummary.totalNetSale += element.transaction;
+            this.zSalesTaxesSummary.total += element.transaction;
           });
         }
         console.log(this.categorySummary);

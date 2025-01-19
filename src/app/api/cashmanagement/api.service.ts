@@ -13,6 +13,11 @@ export class CashManagement {
   // GET request
   getCashList(params: any): Observable<any> {
     // Prepare query parameters
+    params = {
+      ...params,
+      private_web_address: this.config.private_web_address,
+
+    }
     let queryParams = new HttpParams();
     Object.keys(params).forEach((key) => {
       if (params[key]) {

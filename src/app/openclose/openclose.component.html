@@ -19,10 +19,10 @@
                                     <th>Opening Time</th>
                                 </thead>
                                 <tbody>
-                                    <td>{{openclose.outlet.name}}<br>{{openclose.outlet.email}}</td>
-                                    <td>{{openclose.register.name}}</td>
-                                    <td>{{openclose.uid}}</td>
-                                    <td>{{openclose.opening_time}}</td>
+                                    <td>{{openclose?.outlet?.name}}<br>{{openclose?.outlet?.email}}</td>
+                                    <td>{{openclose?.register?.name}}</td>
+                                    <td>{{openclose?.uid}}</td>
+                                    <td>{{openclose?.opening_time}}</td>
                                 </tbody>
                             </table>
                         </div>
@@ -230,7 +230,7 @@
             <div class="mb-1">
                 <div class="just-row">
                     <b>Total Payments - Total Sales =</b>
-                    <b>{{(zSalesTaxesSummary.total-paymentSum.counted)|currency }}</b>
+                    <b>{{(paymentSum.counted - zSalesTaxesSummary.total)|currency }}</b>
                 </div>
             </div>
             <div class="mb-1">

@@ -8,6 +8,7 @@ import { StockService } from 'app/api/stockcontrol/api.service';
 })
 export class ManageordersComponent implements OnInit {
   allRows: any;
+  isOrderModal = false;
 
   ngOnInit(): void {
     this.setDateFromTo();
@@ -33,6 +34,7 @@ export class ManageordersComponent implements OnInit {
   filteredRows: any;
   currentPage: number = 1;
   totalPages: number = 1;
+
   setDateFromTo() {
     const today = new Date();
     const sevenDaysAgo = new Date(today);
@@ -101,7 +103,14 @@ export class ManageordersComponent implements OnInit {
         kewyword: this.searchInvoice,
       };
     }
-
+    this.stockService.fetchSupplier().subscribe(
+      (res) => {
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
     this.stockService.readOrderProduct(params).subscribe(
       (res) => {
       },
@@ -132,4 +141,7 @@ export class ManageordersComponent implements OnInit {
     return this.filteredRows?.reduce((total, row) => total + row.cost, 0);
   }
   // Other methods...
+  showModal(): void {
+    this.isOrderModal = true;
+  }
 }

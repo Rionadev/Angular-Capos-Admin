@@ -20,7 +20,8 @@ export class ReportingService {
   fecthRegister() {
     let httpParams = new HttpParams();
     let params: any = {
-      private_web_address: this.config.private_web_address
+      private_web_address: this.config.private_web_address,
+      // status: 2
     };
     Object.keys(params).forEach(key => {
       if (params[key] !== undefined && params[key] !== null) {
@@ -35,7 +36,8 @@ export class ReportingService {
     let httpParams = new HttpParams();
     console.log(param);
     let params: any = {
-      private_web_address: this.config.private_web_address
+      private_web_address: this.config.private_web_address,
+      status: 2
     };
     if (param.register) {
       if (param.register != 'all') {

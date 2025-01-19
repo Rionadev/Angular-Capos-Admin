@@ -24,7 +24,7 @@ export class LoginComponent {
 
   check() {
     console.log(this.private_web_address, this.email, this.password);
-    if (this.private_web_address == '' || this.email == '' || this.password == '') {
+    if (this.password == '') {
       return;
     }
     this.login(this.private_web_address, this.email, this.password).subscribe({
@@ -34,17 +34,17 @@ export class LoginComponent {
         switch (response.error) {
           case 0:
             localStorage.setItem('user', JSON.stringify(response.token));
-            localStorage.setItem('private_web_address', this.private_web_address);
+            localStorage.setItem('private_web_address', response.user?.private_web_address);
             localStorage.setItem('user_id', response.user?._id);
-            localStorage.setItem('user_email', this.email);
+            localStorage.setItem('user_email', response.user?.email);
             localStorage.setItem('user_outlet', response.user?.outlet?._id);
             localStorage.setItem('user_register', response.user?.register);
 
             // localStorage.setItem('user_outletemail', response.user?.outlet?._id);
             localStorage.setItem('user_info', response.user);
 
-            this.config.private_web_address = this.private_web_address;
-            this.config.user_email = this.email;
+            this.config.private_web_address = response.user?.private_web_address;
+            this.config.user_email = response.user?.email;
             this.config.userinfo = response.user;
             this.config.outlet_id = response.user?.outlet?._id;
             this.config.register_id = response.user?.register;
@@ -99,6 +99,10 @@ export class LoginComponent {
   }
 
   login(private_web_address: string, email: string, password: string): Observable<any> {
-    return this.http.post(`${this.config.apiUrl}/auth/login`, { status: 'Admin', private_web_address, email, password });
+    return this.http.post(`${this.config.apiUrl}/auth/login`, {
+      status: 'Admin',
+      // private_web_address, 
+      password
+    });
   }
 }

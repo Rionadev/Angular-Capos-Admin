@@ -18,7 +18,8 @@ export class StockService {
     const param = {
       ...params,
       field: 'all-factor',
-      private_web_address: this.config.private_web_address
+      private_web_address: this.config.private_web_address,
+      outlet: this.config.outlet_id,
     };
     let httpParams = new HttpParams();
 
@@ -28,14 +29,23 @@ export class StockService {
         httpParams = httpParams.set(key, param[key]);
       }
     });
-    // let httpParams = new HttpParams();
-    // Object.keys(params).forEach(key => {
-    //   if (params[key]) {
-    //     httpParams = httpParams.set(key, params[key]);
-    //   }
-    // });
 
     // Make the API call
     return this.http.get(`${this.config.apiUrl}/product/order`, { params: httpParams });
   }
+
+  fetchSupplier(): Observable<any> {
+    let param = {
+      private_web_address: this.config.private_web_address,
+    };
+    let httpParams = new HttpParams();
+    Object.keys(param).forEach(key => {
+      if (param[key] !== undefined && param[key] !== null) {
+        httpParams = httpParams.set(key, param[key]);
+      }
+    });
+    // Make the API call
+    return this.http.get(`${this.config.apiUrl}/product/supplier`, { params: httpParams });
+  }
+
 }
