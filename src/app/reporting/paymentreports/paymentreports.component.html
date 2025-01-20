@@ -8,8 +8,8 @@
                         <div class="align-center">
                             <label class="text-nowrap">Period:</label>
                             <p class="category">&nbsp;&nbsp;</p>
-                            <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
-                                name="startDate" (change)="fetchSearchItems()" />
+                            <input type="date" [(ngModel)]="selectedDateFrom" class="form-control" name="startDate"
+                                (change)="fetchSearchItems()" />
                             <p class="category">&nbsp;&nbsp;~&nbsp;&nbsp;</p>
                             <input type="date" [(ngModel)]="selectedDateTo" class="form-control" name="endDate"
                                 (change)="fetchSearchItems()" />
@@ -37,6 +37,7 @@
                                     <th>Cash</th>
                                     <th>Credit</th>
                                     <th>Debit</th>
+                                    <th>Other</th>
                                     <th>Refunds</th>
                                     <th>Voided</th>
                                     <th>Total</th>
@@ -50,6 +51,7 @@
                                     <td><strong>{{total_cash_amount|currency}}</strong></td>
                                     <td><strong>{{total_credit_amount|currency}}</strong></td>
                                     <td><strong>{{total_debit_amount|currency}}</strong></td>
+                                    <td><strong>{{total_other_amount|currency}}</strong></td>
                                     <td><strong>{{total_refund_amount|currency}}</strong></td>
                                     <td><strong>{{total_voided_amount|currency}}</strong></td>
                                     <td><strong>{{(
@@ -58,6 +60,7 @@
                                             total_cash_amount +
                                             total_credit_amount +
                                             total_debit_amount +
+                                            total_other_amount +
                                             total_refund_amount +
                                             total_voided_amount)|currency}}</strong></td>
                                 </tr>
@@ -69,6 +72,7 @@
                                     <td>{{ transaction.value.cash_amount |currency}}</td>
                                     <td>{{ transaction.value.credit_amount |currency}}</td>
                                     <td>{{ transaction.value.debit_amount |currency}}</td>
+                                    <td>{{ transaction.value.other_amount |currency}}</td>
                                     <td>{{ transaction.value.refund_amount |currency}}</td>
                                     <td>{{ transaction.value.voided_amount |currency}}</td>
                                     <td>{{ transaction.value.total_amount |currency}}</td>
@@ -104,6 +108,7 @@
                         <th>Cash</th>
                         <th>Credit</th>
                         <th>Debit</th>
+                        <th>Other</th>
                         <th>Refunds</th>
                         <th>Voided</th>
                         <th>Total</th>
@@ -117,6 +122,7 @@
                         <td>{{ sel_row.sum.cash_amount | currency }}</td>
                         <td>{{ sel_row.sum.credit_amount | currency }}</td>
                         <td>{{ sel_row.sum.debit_amount | currency }}</td>
+                        <td>{{ sel_row.sum.other_amount | currency }}</td>
                         <td>{{ sel_row.sum.refund_amount | currency }}</td>
                         <td>{{ sel_row.sum.voided_amount | currency }}</td>
                         <td>{{ sel_row.sum.total_amount | currency }}</td>

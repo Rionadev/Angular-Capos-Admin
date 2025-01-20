@@ -43,7 +43,9 @@ export class SalesreportsComponent implements OnInit {
     { date: '2024-01-02', totalInclTax: 200, revenue: 250, costOfGoods: 150, grossProfit: 100, margin: 40.00, tax: 20 },
     // Add more sample data as needed
   ];
-
+  get filteredSales() {
+    return this.selected_rowdata.data.filter(sale => sale.payment_status != 'not paid');
+  }
   filteredTransactions = [...this.transactions];
 
   searchTransactions() {
@@ -81,8 +83,8 @@ export class SalesreportsComponent implements OnInit {
 
     // });
     const params = {
-      from: this.selectedDateFrom,
-      to: this.selectedDateTo,
+      start: new Date(this.selectedDateFrom),
+      end: new Date(this.selectedDateTo),
     };
 
     // Log the params to check their structure
@@ -90,7 +92,7 @@ export class SalesreportsComponent implements OnInit {
 
     this.total_reportData = [];
 
-    this.customerService.fetchSaleHistory(params).subscribe(
+    this.customerService.fetchSale(params).subscribe(
       (res) => {
         let t_total = 0;
         let t_revenue = 0;
@@ -100,7 +102,8 @@ export class SalesreportsComponent implements OnInit {
         let t_tax = 0;
         // Group transactions by date
         const groupedTransactions = res.reduce((acc, item) => {
-          const date = new Date(item.created_at).toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
+          const date = new Date(item.updated_at).toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
+          // if (item?.payment_status != 'not paid') {
 
           // Group by date
           if (!acc[date]) {
@@ -108,14 +111,15 @@ export class SalesreportsComponent implements OnInit {
           }
           acc[date].push(item);
 
+          // }
           return acc;
         }, {} as Record<string, any[]>);
 
         this.transactionsByDate = groupedTransactions;
         this.reportsData = [];
+        console.log(groupedTransactions);
 
-
-        const groupedTransactionsArray = Object.keys(groupedTransactions).map(date => {
+        const groupedTransactionsArray = Object.keys(groupedTransactions)?.map(date => {
           // console.log('------', groupedTransactions[date]);
 
           const calc_row = groupedTransactions[date];
@@ -127,17 +131,23 @@ export class SalesreportsComponent implements OnInit {
           let tax = 0;
 
           calc_row.forEach(transaction => {
-            total += transaction.total; // include tax
-            revenue += transaction.subtotal; //sale products
-            tax += transaction.tax; //Tax
-            cog += transaction.total_paid; //Cost of Products
-            gp += transaction.subtotal - transaction.total_paid; //Gross profit
-            //total whole
-            t_total += total;
-            t_revenue += revenue;
-            t_tax += tax;
-            t_cog += cog;
-            t_gp += gp;
+            if (transaction.payment_status != 'not paid') {
+
+              total += transaction.total; // include tax
+              revenue += transaction.subtotal; //sale products
+              tax += transaction.tax; //Tax
+              cog += transaction.total_paid; //Cost of Products
+              gp += transaction.subtotal - transaction.total_paid; //Gross profit
+              //total whole
+              t_total += total;
+              t_revenue += revenue;
+              t_tax += tax;
+              t_cog += cog;
+              t_gp += gp;
+            } else {
+              console.log('--------',transaction);
+
+            }
           });
 
 

@@ -109,11 +109,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let sale of selected_rowdata.data">
+                    <!-- <tr *ngFor="let sale of selected_rowdata.data" > -->
+                    <tr *ngFor="let sale of filteredSales">
                         <td>{{ formatDate(sale.created_at) }}</td>
                         <td>{{ sale.payment_status }}</td>
-                        <td>{{ sale.outlet.name }}</td>
-                        <td>{{ sale.register.name }}</td>
+                        <td>{{ sale.outlet?.name }}</td>
+                        <td>{{ sale.register?.name }}</td>
                         <td>{{ sale.sale_number }}</td>
                         <td>{{ sale.sale_status }}</td>
                         <td>{{ sale.total_items }}</td>

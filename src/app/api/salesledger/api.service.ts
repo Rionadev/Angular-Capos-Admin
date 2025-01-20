@@ -26,6 +26,40 @@ export class CustomerService {
     // Make the API call
     return this.http.get(`${this.config.apiUrl}/customers/getAllSearchCustoms`);
   }
+  getType(): any {
+    const params = {
+      private_web_address: this.config.private_web_address,
+    };
+    let httpParams = new HttpParams();
+
+    Object.keys(params).forEach(key => {
+      if (params[key] !== undefined && params[key] !== null) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    });
+    return this.http.get(`${this.config.apiUrl}/product/type`, { params: httpParams });
+
+  }
+  fetchSale(params: any): Observable<any> {
+    params = {
+      ...params,
+      private_web_address: this.config.private_web_address,
+    }
+    let httpParams = new HttpParams();
+
+    // Build HttpParams from the provided params object
+    Object.keys(params).forEach(key => {
+      if (params[key] !== undefined && params[key] !== null) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    });
+
+    // Log the constructed HttpParams to verify
+    console.log('Constructed HttpParams:', httpParams.toString());
+
+    // Make the API call
+    return this.http.get(`${this.config.apiUrl}/sale/sale`, { params: httpParams });
+  }
   fetchSaleHistory(params: any): Observable<any> {
     params = {
       ...params,

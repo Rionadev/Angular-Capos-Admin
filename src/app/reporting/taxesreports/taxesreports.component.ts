@@ -10,6 +10,7 @@ import { CustomerService } from 'app/api/salesledger/api.service';
 export class TaxesreportsComponent implements OnInit {
     selectedDateFrom: any;
     selectedDateTo: any;
+    categoryData: any;
 
     searchTerm: string = '';
     selectedPeriod: string = 'today';
@@ -37,12 +38,27 @@ export class TaxesreportsComponent implements OnInit {
 
     fetchSearchItems() {
         const params = {
-            from: this.selectedDateFrom,
-            to: this.selectedDateTo,
+            start: new Date(this.selectedDateFrom),
+            end: new Date(this.selectedDateTo),
         };
         // this.reportingService.fetchSaleTaxReport().subscribe(
-        this.customerService.fetchSaleHistory(params).subscribe(
 
+        this.customerService.getType().subscribe(
+            (res) => {
+                this.categoryData = {};
+                if (res.length > 0) {
+                    res.forEach(element => {
+                        this.categoryData[element._id] = element;
+                    });
+                }
+                console.log(this.categoryData);
+            },
+            (error) => {
+                console.error('Error fetching customer data:', error);
+                // Handle the error as needed
+            }
+        );
+        this.customerService.fetchSale(params).subscribe(
             (res) => {
                 let sale_tax = {};
                 // this.records = res;
@@ -50,16 +66,20 @@ export class TaxesreportsComponent implements OnInit {
                     res.forEach(element => {
                         if (element.products.length > 0) {
                             element.products.forEach(el => {
-                                if (!sale_tax[el._id]) {
-                                    sale_tax[el._id] = {
-                                        id: el._id,
-                                        category: el.product_name,
+                                if (!sale_tax[el.product_id.type]) {
+                                    sale_tax[el.product_id.type] = {
+                                        id: el.product_id.type,
+                                        category: this.categoryData[el.product_id.type].name,
                                         sale: 0,
-                                        tax: 0
+                                        tax: 0,
+                                        qty:0,
+                                        products: [],
                                     };
                                 }
-                                sale_tax[el._id].sale += element.total;
-                                sale_tax[el._id].tax += element.tax;
+                                sale_tax[el.product_id.type].sale += el.price * el.qty;
+                                sale_tax[el.product_id.type].tax += el.tax;
+                                sale_tax[el.product_id.type].qty += el.qty;
+                                sale_tax[el.product_id.type].products.push(element);
                             });
                         }
                     });
@@ -73,6 +93,16 @@ export class TaxesreportsComponent implements OnInit {
                 // Handle the error as needed
             }
         );
+        // this.customerService.fetchSaleHistory(params).subscribe(
+
+        //     (res) => {
+
+        //     },
+        //     (error) => {
+        //         console.error('Error fetching customer data:', error);
+        //         // Handle the error as needed
+        //     }
+        // );
     }
 
     records: any;
