@@ -29,7 +29,8 @@ export class ManageordersComponent implements OnInit {
     this.newOrder[type] = value;
     console.log(this.newOrder);
   }
-  constructor(private stockService: StockService,
+  constructor(
+    private stockService: StockService,
     private toastService: ToastService,
   ) { }
 

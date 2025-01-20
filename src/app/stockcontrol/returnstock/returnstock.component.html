@@ -35,16 +35,18 @@
                                 <div class="row space-between p-1">
                                     <div class="col-md-6">
                                         <label for="deliveredTo">Delivery To*:</label>
-                                        <select id="deliveredTo" class="form-control">
-                                            <option value="location1">Location 1</option>
-                                            <option value="location2">Location 2</option>
+                                        <select class="form-control" [(ngModel)]="selectedOutletTo">
+                                            <option *ngFor="let outlet of outlets" [value]="outlet._id">{{
+                                                outlet.name }}
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="returnFrom">Return From*:</label>
-                                        <select id="returnFrom" class="form-control">
-                                            <option value="returnLocation1">Return Location 1</option>
-                                            <option value="returnLocation2">Return Location 2</option>
+                                        <select class="form-control" [(ngModel)]="selectedOutletFrom">
+                                            <option *ngFor="let outlet of outlets" [value]="outlet._id">{{
+                                                outlet.name }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -52,7 +54,7 @@
                                     <div class="col-md-6">
                                         <label for="returnNumber">Return Number*:</label>
                                         <input type="text" id="returnNumber" class="form-control"
-                                            placeholder="Enter Return Number" />
+                                            placeholder="Enter Return Number" [(ngModel)]="returnNumber" />
                                     </div>
                                     <div class="col-md-6">
                                         <label for="nameReference">Name/Reference:</label>
@@ -68,7 +70,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="deliveryDate">Delivery Date*:</label>
-                                        <input type="date" id="deliveryDate" class="form-control" />
+                                        <input type="date" id="deliveryDate" class="form-control"
+                                            [(ngModel)]="deliveryDate" />
                                     </div>
                                 </div>
                             </div>
@@ -88,32 +91,61 @@
                                 <div class="" style="width: 100%;">
                                     <label for="searchProduct" class="me-2 ">Search Product:</label>
                                     <!-- <div class="input-group"> -->
-                                    <input type="text" id="searchProduct" class="form-control"
-                                        placeholder="Search or scan to add product" />
+                                    <div>
+
+                                        <input type="text" id="searchProduct" class="form-control" [(ngModel)]="keyword"
+                                            placeholder="Search or scan to add product" (input)="searchProduct()" />
+                                        <ul *ngIf="filteredProducts.length > 0" class="dropdown-list">
+                                            <li *ngFor="let product of filteredProducts"
+                                                (click)="selectProduct(product)" class="dropdown-item">
+                                                {{ product.name }}
+                                            </li>
+                                        </ul>
+                                    </div>
                                     <!-- <span class="input-group-text">
-                                <i class="fas fa-search"></i>
-                            </span> -->
+                                            <i class="fas fa-search"></i>
+                                        </span> -->
                                     <!-- </div> -->
                                 </div>
-                                <div class="content table-responsive table-full-width">
-                                    <table class="table table-hover table-striped">
-                                        <thead>
+                                <div style="width: 100%;" class="p-1">
+                                    <table style="width: 100%;justify-content: space-between;" class="p-1">
+                                        <thead style="border-bottom: 1px solid gray;">
                                             <tr class="p-1">
                                                 <th style="width: 40%;"><b>Product</b></th>
                                                 <th style="width: 15%;"><b>Current Inventory</b></th>
-                                                <th style="width: 15%;"><b>Received Quantity</b></th>
+                                                <th style="width: 15%;"><b>Quantity</b></th>
                                                 <th style="width: 15%;"><b>Supply Price</b></th>
                                                 <th style="width: 15%;"><b>Total Cost</b></th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><b></b></td>
-                                                <td><b></b></td>
-                                                <td><b></b></td>
-                                                <td><b></b></td>
-                                                <td><b>$0.00</b></td>
+                                            <tr style="margin: 1rem;" *ngFor="let product of newOrder.products">
+                                                <td>{{product.product_name}}</td>
+                                                <td>{{product.inventory}}</td>
+                                                <td>
+                                                    <input type="number" id="qty" class="form-control" placeholder=""
+                                                        step="1" [(ngModel)]="product.qty" min="0" />
+                                                </td>
+                                                <td>
+                                                    <input type="number" id="price" class="form-control" placeholder=""
+                                                        [(ngModel)]="product.supply_price" min="0" />
+                                                </td>
+                                                <td><b>{{product.qty * product.supply_price | currency}}</b></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-danger"
+                                                        (click)="deleteproduct(product)" data-toggle="tooltip"
+                                                        title="Delete">
+                                                        <span class="glyphicon glyphicon-trash"
+                                                            aria-hidden="true"></span>
+                                                    </button>
+                                                </td>
                                             </tr>
+                                            <tr>
+                                                <td colspan="4"></td>
+                                                <td colspan="2"><strong>{{ calcCost()||0 | currency }}</strong></td>
+                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
