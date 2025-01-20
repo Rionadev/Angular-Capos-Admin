@@ -124,6 +124,10 @@ export class SidebarComponent implements OnInit {
   isMenusContentVisible: boolean = false;
   employeesContentItems: any[];
   isEmployeesContentVisible: boolean = false;
+
+  // Common Variable for Menu expanding and contracting
+  menuState: string = '';
+
   constructor() { }
 
   ngOnInit() {
@@ -161,6 +165,11 @@ export class SidebarComponent implements OnInit {
   employeesContent(): void {
     this.isEmployeesContentVisible = !this.isEmployeesContentVisible; // Toggle the visibility
   }
+
+  onMenuContent(content: string): void {
+    this.menuState = content;
+  }
+
   isMobileMenu() {
     if ($(window).width() > 991) {
       return false;

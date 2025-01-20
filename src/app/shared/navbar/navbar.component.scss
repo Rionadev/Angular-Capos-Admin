@@ -17,8 +17,18 @@
 
 .nav i, .nav span {
     font-size: 28px;
+    color: white !important;
 }
 
 li a{
     cursor: pointer;
+    color: white !important;
+}
+
+.container-fluid {
+    background-color: #1DC7EA;//#9DEDFF;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
 }
