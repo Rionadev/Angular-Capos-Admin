@@ -6,11 +6,23 @@
                 <div class="card margin-bottom-0">
                     <div class="content add-content">
                         <div>
-                            <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;"
-                                (change)="searchRecords()">
-                                <option *ngFor="let register of sel_reg" [value]="register.id">{{ register.label }}
-                                </option>
-                            </select>
+
+                            <div class="align-center">
+
+                                <label class="text-nowrap">Period:</label>
+                                <p class="category">&nbsp;&nbsp;</p>
+                                <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
+                                    (change)="filterByDate()" name="startDate" />
+                                <p class="category">&nbsp;&nbsp;~&nbsp;&nbsp;</p>
+                                <input type="date" [(ngModel)]="selectedDateTo" class="form-control"
+                                    (change)="filterByDate()" name="endDate" />
+                                <label class="text-nowrap">&nbsp;&nbsp;Register:&nbsp;</label>
+                                <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;"
+                                    (change)="searchRecords()">
+                                    <option *ngFor="let register of sel_reg" [value]="register.id">{{ register.label }}
+                                    </option>
+                                </select>
+                            </div>
                             <div style="display: flex;">
                                 <!-- <button class="btn btn-sm btn-danger btn-fill" style="margin-right: 1rem;">Clear
                                     Filters</button> -->
@@ -25,7 +37,7 @@
 
                 <!-- Transactions Table -->
                 <div class="card">
-                    <div class="content table-responsive table-full-width" style="height: 80vh;overflow-y: auto;">
+                    <div class="content table-responsive table-full-width" style="height: 72vh;overflow-y: auto;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -88,6 +100,10 @@
 
             </div>
         </div>
+        <!-- <app-pagination class="float-right" [totalCount]="totalItems"
+            [countsPerPageOptions]="[5, 10, 20, 50]" (pageChanged)="onPageChanged($event)"
+            (countPerPageChanged)="onCountPerPageChanged($event)">
+        </app-pagination> -->
     </div>
 </div>
 <!-- <div class="details-container" *ngIf="isShowdetailflag" (click)="onBackdropClick($event)">

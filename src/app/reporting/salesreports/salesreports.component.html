@@ -21,7 +21,7 @@
 
                 <!-- Transactions Table -->
                 <div class="card">
-                    <div class="content table-responsive table-full-width" style="max-height: 80vh;overflow-y: auto;">
+                    <div class="content table-responsive table-full-width" style="max-height: 64vh;overflow-y: auto;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -57,9 +57,14 @@
                         </table>
                     </div>
                 </div>
+
             </div>
+
         </div>
     </div>
+    <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50]"
+        (pageChanged)="onPageChanged($event)" (countPerPageChanged)="onCountPerPageChanged($event)">
+    </app-pagination>
 </div>
 <div *ngIf="showModal" class="modal-overlay" (click)="close()">
     <div class="modal-content" (click)="$event.stopPropagation()">

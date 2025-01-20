@@ -17,6 +17,12 @@ export class SalesreportsComponent implements OnInit {
   reportsData: any = [];
   total_reportData: any = [];
 
+
+  // Pagination
+  totalItems: number = 100; // Total number of items
+  countPerPage: number = 10; // Default items per page
+  currentPage: number = 1;
+
   ngOnInit(): void {
     this.setDateFromTo();
     this.fetchSearchItems();
@@ -46,20 +52,20 @@ export class SalesreportsComponent implements OnInit {
   get filteredSales() {
     return this.selected_rowdata.data.filter(sale => sale.payment_status != 'not paid');
   }
-  filteredTransactions = [...this.transactions];
+  filteredTransactions: any = [];
 
-  searchTransactions() {
-    this.filteredTransactions = this.transactions.filter(transaction => {
-      const transactionDate = new Date(transaction.date);
-      const start = new Date(this.selectedDateFrom);
-      const end = new Date(this.selectedDateTo);
+  // searchTransactions() {
+  //   this.filteredTransactions = this.transactions.filter(transaction => {
+  //     const transactionDate = new Date(transaction.date);
+  //     const start = new Date(this.selectedDateFrom);
+  //     const end = new Date(this.selectedDateTo);
 
-      return (
-        (this.selectedDateFrom ? transactionDate >= start : true) &&
-        (this.selectedDateTo ? transactionDate <= end : true)
-      );
-    });
-  }
+  //     return (
+  //       (this.selectedDateFrom ? transactionDate >= start : true) &&
+  //       (this.selectedDateTo ? transactionDate <= end : true)
+  //     );
+  //   });
+  // }
   close() {
     this.showModal = false;
   }
@@ -85,6 +91,8 @@ export class SalesreportsComponent implements OnInit {
     const params = {
       start: new Date(this.selectedDateFrom),
       end: new Date(this.selectedDateTo),
+      // page: this.currentPage - 1,
+      // size: this.countPerPage,
     };
 
     // Log the params to check their structure
@@ -145,7 +153,7 @@ export class SalesreportsComponent implements OnInit {
               t_cog += cog;
               t_gp += gp;
             } else {
-              console.log('--------',transaction);
+              console.log('--------', transaction);
 
             }
           });
@@ -161,7 +169,7 @@ export class SalesreportsComponent implements OnInit {
             margin: ((gp / revenue) * 100).toFixed(2),
           });
         });
-
+        this.filteredTransactions = groupedTransactionsArray;
         this.total_reportData = {
           total: t_total.toFixed(2),
           revenue: t_revenue.toFixed(2),
@@ -193,6 +201,42 @@ export class SalesreportsComponent implements OnInit {
     const seconds = String(date.getUTCSeconds()).padStart(2, '0');
 
     return `${hours}:${minutes}:${seconds}`;
+  }
+  onPageChanged(page: number) {
+    this.paginateItems(page);
+  }
+
+  onCountPerPageChanged(count: number) {
+    if (this.countPerPage != count) {
+      this.countPerPage = count; // Update count per page
+      this.paginateItems(1);
+    }
+  }
+  paginateItems(page: number) {
+    this.currentPage = page;
+    /* const startIndex = (page - 1) * this.countPerPage; // Default items per page
+    const endIndex = startIndex + this.countPerPage; */
+    //this.paginatedItems = this.allItems.slice(startIndex, endIndex);
+    this.onGetData();
+  }
+  onGetData() {
+    const page = (this.currentPage - 1).toString();
+    const size = (this.countPerPage).toString();
+    console.log(this.countPerPage);
+    console.log(this.currentPage);
+    // this.fetchSearchItems();
+
+    //   this.productsService.read({ range: 'all-factor', page: page, size: size }).subscribe({
+    //     next: (data) => {
+    //       console.log('onGetData', data);
+    //       this.data = data?.data;
+    //       this.totalItems = data?.totalElements;
+    //       //
+    //     },
+    //     error: (err) => {
+    //       console.error('Error fetching stores:', err);
+    //     },
+    //   });
   }
 }
 
