@@ -76,6 +76,7 @@ export class RegisterclosuresComponent implements OnInit {
           debit: this.calcCashPayment('debit', item.payment_data.all_payments),
           refunds: this.calcCashPayment('refunds', item.payment_data.all_returns),
           voided: this.calcCashPayment('voided', item.payment_data.all_voided),
+          other: this.calcCashPayment('other', item.payment_data.all_payments),
           total: this.calcSumCashPayment(),
           // paymentSummary: this.calcCashPayment('paymentSummary', item.payment_data.all_voided),
           // categorySummary: this.calcCashPayment('categorySummary', item.payment_data.all_voided),
@@ -99,7 +100,8 @@ export class RegisterclosuresComponent implements OnInit {
       + this.row_sum['credit']
       + this.row_sum['debit']
       + this.row_sum['refunds']
-      + this.row_sum['voided'];
+      + this.row_sum['voided']
+      + this.row_sum['other'];
     this.row_sum['total'] = sum;
     this.total_sum['total'] += sum;
     // sum = cash + credit + debit + refunds + voided;
@@ -134,6 +136,15 @@ export class RegisterclosuresComponent implements OnInit {
       });
     } else if (type == 'store_credit') {
       if (payData) sum = payData;
+    } else if (type == 'other') {
+      payData.forEach(element => {
+        if (element.payment_status != 'credit' &&
+          element.payment_status != 'debit' &&
+          element.payment_status != 'cash'
+        ) {
+          sum += element.total_paid;
+        }
+      });
     }
 
     this.row_sum[type] = sum;
@@ -278,8 +289,8 @@ export class RegisterclosuresComponent implements OnInit {
             }
             this.sel_total_caetory.sum += product.qty * product.price * discount_v || 0;
 
-            if (!result.categoryinfo[product._id]) {
-              result.categoryinfo[product._id] = {
+            if (!result.categoryinfo[product.type]) {
+              result.categoryinfo[product.type] = {
                 discount: product.discount,
                 price: product.price,
                 product_name: product.product_name,
@@ -287,7 +298,7 @@ export class RegisterclosuresComponent implements OnInit {
                 qty: 0,
               }
             }
-            result.categoryinfo[product._id].qty += product.qty || 0;
+            result.categoryinfo[product.type].qty += product.qty || 0;
             // let discount_v = 1;
             // if (product.discount.value > 0) {
             //   if (product.discount.mode == 'percent') {
@@ -336,6 +347,7 @@ export class RegisterclosuresComponent implements OnInit {
       'debit': 0,
       'refunds': 0,
       'voided': 0,
+      'other': 0,
       'total': 0
     };
 
@@ -350,6 +362,7 @@ export class RegisterclosuresComponent implements OnInit {
       'debit': 0,
       'refunds': 0,
       'voided': 0,
+      'other': 0,
       'total': 0
     };
   }

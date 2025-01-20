@@ -37,7 +37,7 @@ export class SaleslegderComponent implements OnInit {
     const sevenDaysAgo = new Date(today);
     const oneDayAfter = new Date(today);
 
-    sevenDaysAgo.setDate(today.getDate() - 30); // Subtract 7 days
+    sevenDaysAgo.setDate(today.getDate() - 7); // Subtract 7 days
     oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
 
 
@@ -166,7 +166,7 @@ export class SaleslegderComponent implements OnInit {
     console.log('Filtered Transactions:', this.filteredTransactions);
   }
   calculateTotal() {
-    return this.filteredTransactions.reduce((acc, transaction) => acc + transaction.total, 0);
+    return this.filteredTransactions.reduce((acc, transaction) => acc + transaction.total, 0) || 0;
   }
   clearFilters() {
     this.selectedCustomer = 'all';

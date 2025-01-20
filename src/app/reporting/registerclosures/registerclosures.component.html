@@ -37,6 +37,7 @@
                                     <th>Cash</th>
                                     <th>Credit</th>
                                     <th>Debit</th>
+                                    <th>Other</th>
                                     <th>Refunds</th>
                                     <th>Voided</th>
                                     <th>Total</th>
@@ -51,6 +52,7 @@
                                             }}</strong></td>
                                     <td><strong>{{ (total_sum.credit || '') | currency }}</strong></td>
                                     <td><strong>{{ (total_sum.debit || '') | currency }}</strong></td>
+                                    <td><strong>{{ (total_sum.other || '') | currency }}</strong></td>
                                     <td><strong>{{ (total_sum.refunds || '') | currency }}</strong></td>
                                     <td><strong>{{ (total_sum.voided || '') | currency }}</strong></td>
                                     <td><strong>{{ (total_sum.total || '') | currency }}</strong></td>
@@ -65,6 +67,7 @@
                                         <td>{{ ((item?.cash+item?.cash_d) || '') | currency }}</td>
                                         <td>{{ (item?.credit || '') | currency }}</td>
                                         <td>{{ (item?.debit || '') | currency }}</td>
+                                        <td>{{ (item?.other || '') | currency }}</td>
                                         <td>{{ (item?.refunds || '') | currency }}</td>
                                         <td>{{ (item?.voided || '') | currency }}</td>
                                         <td>{{ (item?.total || '') | currency }}</td>
@@ -192,6 +195,7 @@
                     <th>Cash</th>
                     <th>Credit</th>
                     <th>Debit</th>
+                    <th>Other</th>
                     <th>Refunds</th>
                     <th>Voided</th>
                     <th>Total</th>
@@ -203,6 +207,7 @@
                     <td>{{ ((selectedRecord?.cash+selectedRecord?.cash_d) ) | currency }}</td>
                     <td>{{ (selectedRecord?.credit ) | currency }}</td>
                     <td>{{ (selectedRecord?.debit ) | currency }}</td>
+                    <td>{{ (selectedRecord?.other ) | currency }}</td>
                     <td>{{ (selectedRecord?.refunds ) | currency }}</td>
                     <td>{{ (selectedRecord?.voided ) | currency }}</td>
                     <td>{{ (selectedRecord?.total ) | currency }}</td>
@@ -335,11 +340,11 @@
                 </tr>
             </table>
             <table>
-                <tr>
+                <!-- <tr>
                     <td><b>Sold</b></td>
                     <td colspan="4"><b>{{detail_records?.all?.categoryinfo?.sum || 0 |currency}}</b></td>
-                </tr>
-                <tr>
+                </tr> -->
+                <!-- <tr>
                     <td><b>Return</b></td>
                     <td colspan="4"><b>{{detail_records?.reutrn?.categoryinfo?.sum || 0 |currency}}</b></td>
                 </tr>
@@ -351,17 +356,15 @@
                 <tr>
                     <td><b>Total</b></td>
                     <td colspan="4"><b>{{sel_total_caetory.sum|currency}}</b></td>
-                </tr>
+                </tr> -->
 
                 <tbody *ngIf="!(detail_records?.all?.categoryinfo?.length > 0)">
 
-
-                    <tr>
+                    <!-- <tr>
                         <td colspan="5"><strong>SOLD</strong></td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
-
                         <th>Product</th>
                         <th>price</th>
                         <th>qty</th>
@@ -379,7 +382,7 @@
                         </ng-container>
                     </tr>
                 </tbody>
-                <tbody *ngIf="!(detail_records?.return?.categoryinfo?.length > 0)">
+                <!-- <tbody *ngIf="!(detail_records?.return?.categoryinfo?.length > 0)">
 
                     <tr>
                         <td colspan="5"><strong>Return</strong></td>
@@ -401,8 +404,8 @@
                             <td>{{ product?.value.discount.value || '' }}%</td>
                         </ng-container>
                     </tr>
-                </tbody>
-                <tbody *ngIf="!(detail_records?.voided?.categoryinfo?.length > 0)">
+                </tbody> -->
+                <!-- <tbody *ngIf="!(detail_records?.voided?.categoryinfo?.length > 0)">
                     <tr>
                         <td colspan="5"><strong>Voided</strong></td>
                     </tr>
@@ -422,7 +425,7 @@
                             <td>{{ product?.value.discount.value || '' }}%</td>
                         </ng-container>
                     </tr>
-                </tbody>
+                </tbody> -->
 
             </table>
             <!-- </div> -->
