@@ -20,6 +20,7 @@ export class PaymentreportsComponent implements OnInit {
     debit_amount = 0;
     refund_amount = 0;
     voided_amount = 0;
+    other_amount = 0;
 
     total_sotre_credit_amount = 0;
     total_cash_conceal_amount = 0;
@@ -28,6 +29,8 @@ export class PaymentreportsComponent implements OnInit {
     total_debit_amount = 0;
     total_refund_amount = 0;
     total_voided_amount = 0;
+    total_other_amount = 0;
+
 
 
     filteredTransactions: any;
@@ -53,6 +56,7 @@ export class PaymentreportsComponent implements OnInit {
         this.debit_amount = 0;
         this.refund_amount = 0;
         this.voided_amount = 0;
+        this.other_amount = 0;
 
     }
     init_totalsum() {
@@ -64,6 +68,8 @@ export class PaymentreportsComponent implements OnInit {
         this.total_debit_amount = 0;
         this.total_refund_amount = 0;
         this.total_voided_amount = 0;
+        this.total_other_amount = 0;
+
     }
     ngOnInit(): void {
         this.init_rowtotal();
@@ -107,8 +113,12 @@ export class PaymentreportsComponent implements OnInit {
                             this.calc_store_credit('refunds', value, key);
                         calc_total[key].voided_amount =
                             this.calc_store_credit('voided', value, key);
+                        calc_total[key].other_amount =
+                            this.calc_store_credit('other', value, key);
                         calc_total[key].total_amount =
                             this.calc_store_credit('total', value, key);
+                        if (key == '2022-10-11') { console.log(calc_total[key]); }
+
                     });
                 }
                 this.filteredTransactions = calc_total;
@@ -174,6 +184,32 @@ export class PaymentreportsComponent implements OnInit {
                     });
                 }
                 this.cash_amount = sum;
+                // this.filteredTransactions[key] =
+                // {
+                //     ...this.filteredTransactions[key],
+                //     cash_amount: sum
+                // };
+
+                return sum == 0 ? '' : sum;
+
+                break;
+            case 'other':
+                if (Object.keys(row?.sales).length > 0) {
+                    Object.entries(row.sales).forEach(([key, value]: [key: any, value: any]) => {
+                        if (value.payments.length > 0) {
+                            value.payments.forEach(element => {
+                                if (element.type != 'credit' &&
+                                    element.type != 'debit' &&
+                                    element.type != 'cash'
+                                ) {
+                                    sum += element.amount;
+                                }
+                            });
+
+                        }
+                    });
+                }
+                this.other_amount = sum;
                 // this.filteredTransactions[key] =
                 // {
                 //     ...this.filteredTransactions[key],
@@ -265,6 +301,7 @@ export class PaymentreportsComponent implements OnInit {
                 return sum == 0 ? '' : sum;
 
                 break;
+
             case 'total':
                 //calc total
                 this.total_sotre_credit_amount += this.sotre_credit_amount;
@@ -274,6 +311,8 @@ export class PaymentreportsComponent implements OnInit {
                 this.total_debit_amount += this.debit_amount;
                 this.total_refund_amount += this.refund_amount;
                 this.total_voided_amount += this.voided_amount;
+                this.total_other_amount += this.other_amount;
+
                 //calc row
                 const total_sum = this.sotre_credit_amount +
                     this.cash_conceal_amount +
@@ -281,7 +320,8 @@ export class PaymentreportsComponent implements OnInit {
                     this.credit_amount +
                     this.debit_amount +
                     this.refund_amount +
-                    this.voided_amount;
+                    this.refund_amount +
+                    this.other_amount;
                 this.init_rowtotal();
 
                 // this.filteredTransactions[key] =

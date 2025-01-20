@@ -154,11 +154,13 @@ tr {
     z-index: 1001;
 }
 
-// .modal-title {
-//     margin-bottom: 20px;
-//     font-size: 24px;
-//     text-align: center;
-// }
+.modal-title {
+    // margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    flex: 1;
+    text-align: center;
+}
 
 .modal-body {
     max-height: 70vh;
@@ -204,15 +206,21 @@ p {
 }
 
 .close-button {
-    background-color: transparent; /* Make the button background transparent */
-    border: none; /* Remove border */
-    font-size: 20px; /* Increase font size */
-    cursor: pointer; /* Change cursor on hover */
-    color: #8a8a8a; /* Button color */
+    background-color: transparent;
+    /* Make the button background transparent */
+    border: none;
+    /* Remove border */
+    font-size: 20px;
+    /* Increase font size */
+    cursor: pointer;
+    /* Change cursor on hover */
+    color: #8a8a8a;
+    /* Button color */
 }
 
 .close-button:hover {
-    color: #1f1f1f; /* Change color on hover */
+    color: #1f1f1f;
+    /* Change color on hover */
 }
 
 .align-center {
@@ -221,7 +229,7 @@ p {
     gap: 1;
 }
 
-.align-center label{
+.align-center label {
     line-height: 1;
     margin-bottom: 0px;
 }

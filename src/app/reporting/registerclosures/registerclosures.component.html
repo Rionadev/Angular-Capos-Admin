@@ -6,11 +6,23 @@
                 <div class="card margin-bottom-0">
                     <div class="content add-content">
                         <div>
-                            <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;"
-                                (change)="searchRecords()">
-                                <option *ngFor="let register of sel_reg" [value]="register.id">{{ register.label }}
-                                </option>
-                            </select>
+
+                            <div class="align-center">
+
+                                <label class="text-nowrap">Period:</label>
+                                <p class="category">&nbsp;&nbsp;</p>
+                                <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
+                                    (change)="filterByDate()" name="startDate" />
+                                <p class="category">&nbsp;&nbsp;~&nbsp;&nbsp;</p>
+                                <input type="date" [(ngModel)]="selectedDateTo" class="form-control"
+                                    (change)="filterByDate()" name="endDate" />
+                                <label class="text-nowrap">&nbsp;&nbsp;Register:&nbsp;</label>
+                                <select class="form-control" [(ngModel)]="selectedRegister" style="flex-grow: 1;"
+                                    (change)="searchRecords()">
+                                    <option *ngFor="let register of sel_reg" [value]="register.id">{{ register.label }}
+                                    </option>
+                                </select>
+                            </div>
                             <div style="display: flex;">
                                 <!-- <button class="btn btn-sm btn-danger btn-fill" style="margin-right: 1rem;">Clear
                                     Filters</button> -->
@@ -25,7 +37,7 @@
 
                 <!-- Transactions Table -->
                 <div class="card">
-                    <div class="content table-responsive table-full-width" style="height: 80vh;overflow-y: auto;">
+                    <div class="content table-responsive table-full-width" style="height: 72vh;overflow-y: auto;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -37,6 +49,7 @@
                                     <th>Cash</th>
                                     <th>Credit</th>
                                     <th>Debit</th>
+                                    <th>Other</th>
                                     <th>Refunds</th>
                                     <th>Voided</th>
                                     <th>Total</th>
@@ -51,6 +64,7 @@
                                             }}</strong></td>
                                     <td><strong>{{ (total_sum.credit || '') | currency }}</strong></td>
                                     <td><strong>{{ (total_sum.debit || '') | currency }}</strong></td>
+                                    <td><strong>{{ (total_sum.other || '') | currency }}</strong></td>
                                     <td><strong>{{ (total_sum.refunds || '') | currency }}</strong></td>
                                     <td><strong>{{ (total_sum.voided || '') | currency }}</strong></td>
                                     <td><strong>{{ (total_sum.total || '') | currency }}</strong></td>
@@ -65,6 +79,7 @@
                                         <td>{{ ((item?.cash+item?.cash_d) || '') | currency }}</td>
                                         <td>{{ (item?.credit || '') | currency }}</td>
                                         <td>{{ (item?.debit || '') | currency }}</td>
+                                        <td>{{ (item?.other || '') | currency }}</td>
                                         <td>{{ (item?.refunds || '') | currency }}</td>
                                         <td>{{ (item?.voided || '') | currency }}</td>
                                         <td>{{ (item?.total || '') | currency }}</td>
@@ -85,6 +100,10 @@
 
             </div>
         </div>
+        <!-- <app-pagination class="float-right" [totalCount]="totalItems"
+            [countsPerPageOptions]="[5, 10, 20, 50]" (pageChanged)="onPageChanged($event)"
+            (countPerPageChanged)="onCountPerPageChanged($event)">
+        </app-pagination> -->
     </div>
 </div>
 <!-- <div class="details-container" *ngIf="isShowdetailflag" (click)="onBackdropClick($event)">
@@ -192,6 +211,7 @@
                     <th>Cash</th>
                     <th>Credit</th>
                     <th>Debit</th>
+                    <th>Other</th>
                     <th>Refunds</th>
                     <th>Voided</th>
                     <th>Total</th>
@@ -203,6 +223,7 @@
                     <td>{{ ((selectedRecord?.cash+selectedRecord?.cash_d) ) | currency }}</td>
                     <td>{{ (selectedRecord?.credit ) | currency }}</td>
                     <td>{{ (selectedRecord?.debit ) | currency }}</td>
+                    <td>{{ (selectedRecord?.other ) | currency }}</td>
                     <td>{{ (selectedRecord?.refunds ) | currency }}</td>
                     <td>{{ (selectedRecord?.voided ) | currency }}</td>
                     <td>{{ (selectedRecord?.total ) | currency }}</td>
@@ -335,11 +356,11 @@
                 </tr>
             </table>
             <table>
-                <tr>
+                <!-- <tr>
                     <td><b>Sold</b></td>
                     <td colspan="4"><b>{{detail_records?.all?.categoryinfo?.sum || 0 |currency}}</b></td>
-                </tr>
-                <tr>
+                </tr> -->
+                <!-- <tr>
                     <td><b>Return</b></td>
                     <td colspan="4"><b>{{detail_records?.reutrn?.categoryinfo?.sum || 0 |currency}}</b></td>
                 </tr>
@@ -351,17 +372,15 @@
                 <tr>
                     <td><b>Total</b></td>
                     <td colspan="4"><b>{{sel_total_caetory.sum|currency}}</b></td>
-                </tr>
+                </tr> -->
 
                 <tbody *ngIf="!(detail_records?.all?.categoryinfo?.length > 0)">
 
-
-                    <tr>
+                    <!-- <tr>
                         <td colspan="5"><strong>SOLD</strong></td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
-
                         <th>Product</th>
                         <th>price</th>
                         <th>qty</th>
@@ -379,7 +398,7 @@
                         </ng-container>
                     </tr>
                 </tbody>
-                <tbody *ngIf="!(detail_records?.return?.categoryinfo?.length > 0)">
+                <!-- <tbody *ngIf="!(detail_records?.return?.categoryinfo?.length > 0)">
 
                     <tr>
                         <td colspan="5"><strong>Return</strong></td>
@@ -401,8 +420,8 @@
                             <td>{{ product?.value.discount.value || '' }}%</td>
                         </ng-container>
                     </tr>
-                </tbody>
-                <tbody *ngIf="!(detail_records?.voided?.categoryinfo?.length > 0)">
+                </tbody> -->
+                <!-- <tbody *ngIf="!(detail_records?.voided?.categoryinfo?.length > 0)">
                     <tr>
                         <td colspan="5"><strong>Voided</strong></td>
                     </tr>
@@ -422,7 +441,7 @@
                             <td>{{ product?.value.discount.value || '' }}%</td>
                         </ng-container>
                     </tr>
-                </tbody>
+                </tbody> -->
 
             </table>
             <!-- </div> -->

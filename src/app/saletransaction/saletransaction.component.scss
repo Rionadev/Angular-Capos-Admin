@@ -143,7 +143,7 @@ table td {
     z-index: 1000;
     width: 90%;
     /* Responsive width */
-    max-width: 600px;
+    max-width: 800px;
     /* Maximum width */
     padding: 20px;
     /* Padding around content */
@@ -157,25 +157,29 @@ table td {
 
 .modal-footer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .form-group {
     margin-bottom: 15px;
     /* Space between form groups */
 }
+
 @media (max-width: 768px) {
     .grid-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 items on smaller screens */
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 items on smaller screens */
     }
 }
 
 @media (max-width: 480px) {
     .grid-container {
-        grid-template-columns: 1fr; /* 1 item on extra small screens */
+        grid-template-columns: 1fr;
+        /* 1 item on extra small screens */
     }
 }
-label{
+
+label {
     color: rgb(182, 182, 182);
 }
 
@@ -186,10 +190,57 @@ label{
 }
 
 .compact-spacing {
-    line-height: 1.2; /* Adjust as needed, smaller values reduce spacing */
+    line-height: 1.2;
+    /* Adjust as needed, smaller values reduce spacing */
 }
 
 .compact-spacing small {
     margin-top: 0;
-    display: block; /* Ensures proper spacing control */
+    display: block;
+    /* Ensures proper spacing control */
+}
+
+.modal-title {
+    // margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    flex: 1;
+}
+
+
+.report-table,
+.sales-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.report-table th,
+.sales-table th {
+    background-color: #f9f9f9;
+    /* Light background for headers */
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.report-table td,
+.sales-table td {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.report-table tr:nth-child(even),
+.sales-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+    /* Zebra striping */
+}
+
+.report-table tr:hover,
+.sales-table tr:hover {
+    background-color: #e1f5fe;
+    /* Highlight on hover */
+}
+tr{
+    cursor: pointer;
 }

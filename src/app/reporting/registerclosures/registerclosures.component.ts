@@ -11,10 +11,19 @@ import { rmSync } from 'fs';
 export class RegisterclosuresComponent implements OnInit {
 
   constructor(private reportingService: ReportingService,) { }
+  selectedDateFrom: string = '';
+  selectedDateTo: string = '';
+
+  // Pagination
+  totalItems: number = 100; // Total number of items
+  countPerPage: number = 10; // Default items per page
+  currentPage: number = 1;
+
   isRendered: boolean = false;
   selectedRecord: any = null; // Holds the clicked record for details
   isShowdetailflag: boolean = false;
   filteredRecords: any;
+  org_data: any;
 
   sel_total_payment: any;
   sel_total_caetory: any;
@@ -26,6 +35,7 @@ export class RegisterclosuresComponent implements OnInit {
   selectedRegister: string = 'all'; // Default selection
   detail_records: any
   ngOnInit(): void {
+    this.setDateFromTo();
     this.init_row_sum();
     this.init_total_sum();
     this.fetchRegisters();
@@ -33,6 +43,47 @@ export class RegisterclosuresComponent implements OnInit {
   }
   value(index, item) {
     return item;
+  }
+  setDateFromTo() {
+    const today = new Date();
+    const sevenDaysAgo = new Date(today);
+    const oneDayAfter = new Date(today);
+
+    sevenDaysAgo.setDate(today.getDate() - 100); // Subtract 7 days
+    oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
+
+
+    this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
+    this.selectedDateTo = oneDayAfter.toISOString().split('T')[0]; // Set the end date to today
+  }
+  filterByDate() {
+    this.init_row_sum();
+    this.init_total_sum();
+    const start = new Date(this.selectedDateFrom);
+    const end = new Date(this.selectedDateTo);
+    this.filteredRecords = this.org_data
+      .filter(item => {
+        const openingTime = new Date(item.opening_time);
+        const closingTime = new Date(item.closing_time);
+        return openingTime >= start && closingTime <= end;
+      })
+      .map(item => ({
+        ...item,
+        formattedOpeningTime: this.getFormattedDate(item.opening_time),
+        formattedClosingTime: this.getFormattedDate(item.closing_time),
+        store_credit: this.calcCashPayment('store_credit', item.open_value),
+        cash_concealed: this.calcCashPayment('cash_concealed', item.payment_data.all_payments),
+        cash_d: this.calcCashPayment('cash_d', item.payment_data.cash_movements),
+        cash: this.calcCashPayment('cash', item.payment_data.all_payments),
+        credit: this.calcCashPayment('credit', item.payment_data.all_payments),
+        debit: this.calcCashPayment('debit', item.payment_data.all_payments),
+        refunds: this.calcCashPayment('refunds', item.payment_data.all_returns),
+        voided: this.calcCashPayment('voided', item.payment_data.all_voided),
+        other: this.calcCashPayment('other', item.payment_data.all_payments),
+        total: this.calcSumCashPayment(),
+        // paymentSummary: this.calcCashPayment('paymentSummary', item.payment_data.all_voided),
+        // categorySummary: this.calcCashPayment('categorySummary', item.payment_data.all_voided),
+      }));
   }
   fetchRegisters() {
     //fecthRegister
@@ -64,7 +115,7 @@ export class RegisterclosuresComponent implements OnInit {
     }).subscribe(
       (res) => {
         this.filteredRecords = res;
-        this.filteredRecords = this.filteredRecords.map(item => ({
+        this.org_data = this.filteredRecords.map(item => ({
           ...item,
           formattedOpeningTime: this.getFormattedDate(item.opening_time),
           formattedClosingTime: this.getFormattedDate(item.closing_time),
@@ -76,13 +127,13 @@ export class RegisterclosuresComponent implements OnInit {
           debit: this.calcCashPayment('debit', item.payment_data.all_payments),
           refunds: this.calcCashPayment('refunds', item.payment_data.all_returns),
           voided: this.calcCashPayment('voided', item.payment_data.all_voided),
+          other: this.calcCashPayment('other', item.payment_data.all_payments),
           total: this.calcSumCashPayment(),
           // paymentSummary: this.calcCashPayment('paymentSummary', item.payment_data.all_voided),
           // categorySummary: this.calcCashPayment('categorySummary', item.payment_data.all_voided),
-
         }));
-        console.log(this.total_sum);
-        console.log(this.filteredRecords);
+        this.filterByDate();
+
       },
       (error) => {
         console.error('Error fetching customer data:', error);
@@ -99,7 +150,8 @@ export class RegisterclosuresComponent implements OnInit {
       + this.row_sum['credit']
       + this.row_sum['debit']
       + this.row_sum['refunds']
-      + this.row_sum['voided'];
+      + this.row_sum['voided']
+      + this.row_sum['other'];
     this.row_sum['total'] = sum;
     this.total_sum['total'] += sum;
     // sum = cash + credit + debit + refunds + voided;
@@ -134,6 +186,15 @@ export class RegisterclosuresComponent implements OnInit {
       });
     } else if (type == 'store_credit') {
       if (payData) sum = payData;
+    } else if (type == 'other') {
+      payData.forEach(element => {
+        if (element.payment_status != 'credit' &&
+          element.payment_status != 'debit' &&
+          element.payment_status != 'cash'
+        ) {
+          sum += element.total_paid;
+        }
+      });
     }
 
     this.row_sum[type] = sum;
@@ -278,8 +339,8 @@ export class RegisterclosuresComponent implements OnInit {
             }
             this.sel_total_caetory.sum += product.qty * product.price * discount_v || 0;
 
-            if (!result.categoryinfo[product._id]) {
-              result.categoryinfo[product._id] = {
+            if (!result.categoryinfo[product.type]) {
+              result.categoryinfo[product.type] = {
                 discount: product.discount,
                 price: product.price,
                 product_name: product.product_name,
@@ -287,7 +348,7 @@ export class RegisterclosuresComponent implements OnInit {
                 qty: 0,
               }
             }
-            result.categoryinfo[product._id].qty += product.qty || 0;
+            result.categoryinfo[product.type].qty += product.qty || 0;
             // let discount_v = 1;
             // if (product.discount.value > 0) {
             //   if (product.discount.mode == 'percent') {
@@ -336,6 +397,7 @@ export class RegisterclosuresComponent implements OnInit {
       'debit': 0,
       'refunds': 0,
       'voided': 0,
+      'other': 0,
       'total': 0
     };
 
@@ -350,7 +412,40 @@ export class RegisterclosuresComponent implements OnInit {
       'debit': 0,
       'refunds': 0,
       'voided': 0,
+      'other': 0,
       'total': 0
     };
+  }
+  onPageChanged(page: number) {
+    this.paginateItems(page);
+  }
+
+  onCountPerPageChanged(count: number) {
+    if (this.countPerPage != count) {
+      this.countPerPage = count; // Update count per page
+      this.paginateItems(1);
+    }
+  }
+  paginateItems(page: number) {
+    this.currentPage = page;
+    /* const startIndex = (page - 1) * this.countPerPage; // Default items per page
+    const endIndex = startIndex + this.countPerPage; */
+    //this.paginatedItems = this.allItems.slice(startIndex, endIndex);
+    this.onGetData();
+  }
+  onGetData() {
+    const page = (this.currentPage - 1).toString();
+    const size = (this.countPerPage).toString();
+    //   this.productsService.read({ range: 'all-factor', page: page, size: size }).subscribe({
+    //     next: (data) => {
+    //       console.log('onGetData', data);
+    //       this.data = data?.data;
+    //       this.totalItems = data?.totalElements;
+    //       //
+    //     },
+    //     error: (err) => {
+    //       console.error('Error fetching stores:', err);
+    //     },
+    //   });
   }
 }

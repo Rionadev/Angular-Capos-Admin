@@ -17,6 +17,12 @@ export class SalesreportsComponent implements OnInit {
   reportsData: any = [];
   total_reportData: any = [];
 
+
+  // Pagination
+  totalItems: number = 100; // Total number of items
+  countPerPage: number = 10; // Default items per page
+  currentPage: number = 1;
+
   ngOnInit(): void {
     this.setDateFromTo();
     this.fetchSearchItems();
@@ -43,21 +49,23 @@ export class SalesreportsComponent implements OnInit {
     { date: '2024-01-02', totalInclTax: 200, revenue: 250, costOfGoods: 150, grossProfit: 100, margin: 40.00, tax: 20 },
     // Add more sample data as needed
   ];
-
-  filteredTransactions = [...this.transactions];
-
-  searchTransactions() {
-    this.filteredTransactions = this.transactions.filter(transaction => {
-      const transactionDate = new Date(transaction.date);
-      const start = new Date(this.selectedDateFrom);
-      const end = new Date(this.selectedDateTo);
-
-      return (
-        (this.selectedDateFrom ? transactionDate >= start : true) &&
-        (this.selectedDateTo ? transactionDate <= end : true)
-      );
-    });
+  get filteredSales() {
+    return this.selected_rowdata.data.filter(sale => sale.payment_status != 'not paid');
   }
+  filteredTransactions: any = [];
+
+  // searchTransactions() {
+  //   this.filteredTransactions = this.transactions.filter(transaction => {
+  //     const transactionDate = new Date(transaction.date);
+  //     const start = new Date(this.selectedDateFrom);
+  //     const end = new Date(this.selectedDateTo);
+
+  //     return (
+  //       (this.selectedDateFrom ? transactionDate >= start : true) &&
+  //       (this.selectedDateTo ? transactionDate <= end : true)
+  //     );
+  //   });
+  // }
   close() {
     this.showModal = false;
   }
@@ -81,8 +89,10 @@ export class SalesreportsComponent implements OnInit {
 
     // });
     const params = {
-      from: this.selectedDateFrom,
-      to: this.selectedDateTo,
+      start: new Date(this.selectedDateFrom),
+      end: new Date(this.selectedDateTo),
+      // page: this.currentPage - 1,
+      // size: this.countPerPage,
     };
 
     // Log the params to check their structure
@@ -90,7 +100,7 @@ export class SalesreportsComponent implements OnInit {
 
     this.total_reportData = [];
 
-    this.customerService.fetchSaleHistory(params).subscribe(
+    this.customerService.fetchSale(params).subscribe(
       (res) => {
         let t_total = 0;
         let t_revenue = 0;
@@ -100,7 +110,8 @@ export class SalesreportsComponent implements OnInit {
         let t_tax = 0;
         // Group transactions by date
         const groupedTransactions = res.reduce((acc, item) => {
-          const date = new Date(item.created_at).toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
+          const date = new Date(item.updated_at).toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
+          // if (item?.payment_status != 'not paid') {
 
           // Group by date
           if (!acc[date]) {
@@ -108,14 +119,15 @@ export class SalesreportsComponent implements OnInit {
           }
           acc[date].push(item);
 
+          // }
           return acc;
         }, {} as Record<string, any[]>);
 
         this.transactionsByDate = groupedTransactions;
         this.reportsData = [];
+        console.log(groupedTransactions);
 
-
-        const groupedTransactionsArray = Object.keys(groupedTransactions).map(date => {
+        const groupedTransactionsArray = Object.keys(groupedTransactions)?.map(date => {
           // console.log('------', groupedTransactions[date]);
 
           const calc_row = groupedTransactions[date];
@@ -127,17 +139,23 @@ export class SalesreportsComponent implements OnInit {
           let tax = 0;
 
           calc_row.forEach(transaction => {
-            total += transaction.total; // include tax
-            revenue += transaction.subtotal; //sale products
-            tax += transaction.tax; //Tax
-            cog += transaction.total_paid; //Cost of Products
-            gp += transaction.subtotal - transaction.total_paid; //Gross profit
-            //total whole
-            t_total += total;
-            t_revenue += revenue;
-            t_tax += tax;
-            t_cog += cog;
-            t_gp += gp;
+            if (transaction.payment_status != 'not paid') {
+
+              total += transaction.total; // include tax
+              revenue += transaction.subtotal; //sale products
+              tax += transaction.tax; //Tax
+              cog += transaction.total_paid; //Cost of Products
+              gp += transaction.subtotal - transaction.total_paid; //Gross profit
+              //total whole
+              t_total += total;
+              t_revenue += revenue;
+              t_tax += tax;
+              t_cog += cog;
+              t_gp += gp;
+            } else {
+              console.log('--------', transaction);
+
+            }
           });
 
 
@@ -151,7 +169,7 @@ export class SalesreportsComponent implements OnInit {
             margin: ((gp / revenue) * 100).toFixed(2),
           });
         });
-
+        this.filteredTransactions = groupedTransactionsArray;
         this.total_reportData = {
           total: t_total.toFixed(2),
           revenue: t_revenue.toFixed(2),
@@ -183,6 +201,42 @@ export class SalesreportsComponent implements OnInit {
     const seconds = String(date.getUTCSeconds()).padStart(2, '0');
 
     return `${hours}:${minutes}:${seconds}`;
+  }
+  onPageChanged(page: number) {
+    this.paginateItems(page);
+  }
+
+  onCountPerPageChanged(count: number) {
+    if (this.countPerPage != count) {
+      this.countPerPage = count; // Update count per page
+      this.paginateItems(1);
+    }
+  }
+  paginateItems(page: number) {
+    this.currentPage = page;
+    /* const startIndex = (page - 1) * this.countPerPage; // Default items per page
+    const endIndex = startIndex + this.countPerPage; */
+    //this.paginatedItems = this.allItems.slice(startIndex, endIndex);
+    this.onGetData();
+  }
+  onGetData() {
+    const page = (this.currentPage - 1).toString();
+    const size = (this.countPerPage).toString();
+    console.log(this.countPerPage);
+    console.log(this.currentPage);
+    // this.fetchSearchItems();
+
+    //   this.productsService.read({ range: 'all-factor', page: page, size: size }).subscribe({
+    //     next: (data) => {
+    //       console.log('onGetData', data);
+    //       this.data = data?.data;
+    //       this.totalItems = data?.totalElements;
+    //       //
+    //     },
+    //     error: (err) => {
+    //       console.error('Error fetching stores:', err);
+    //     },
+    //   });
   }
 }
 

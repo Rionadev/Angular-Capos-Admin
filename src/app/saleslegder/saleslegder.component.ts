@@ -37,7 +37,7 @@ export class SaleslegderComponent implements OnInit {
     const sevenDaysAgo = new Date(today);
     const oneDayAfter = new Date(today);
 
-    sevenDaysAgo.setDate(today.getDate() - 30); // Subtract 7 days
+    sevenDaysAgo.setDate(today.getDate() - 7); // Subtract 7 days
     oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
 
 
@@ -67,69 +67,73 @@ export class SaleslegderComponent implements OnInit {
         this.users = [];
 
         this.transactions = res.map(item => {
+          if (item.payment_status != 'not paid') {
+            console.log(item.payment_status);
 
-          if (item.customer && item.customer.email) {
-            const customerEmail = item.customer?.email;
-            if (customerEmail) {
-              const customerExists = this.customers.some(
-                customer => customer.value === customerEmail
-              );
+            if (item.customer && item.customer.email) {
+              const customerEmail = item.customer?.email;
+              if (customerEmail) {
+                const customerExists = this.customers.some(
+                  customer => customer.value === customerEmail
+                );
 
-              if (!customerExists) {
-                this.customers.push({
-                  value: customerEmail,
-                  label: item.customer.name
-                    ? `${item.customer.name} (${customerEmail})`
-                    : `New Customer (${customerEmail})`
-                });
+                if (!customerExists) {
+                  this.customers.push({
+                    value: customerEmail,
+                    label: item.customer.name
+                      ? `${item.customer.name} (${customerEmail})`
+                      : `New Customer (${customerEmail})`
+                  });
+                }
               }
             }
-          }
-          if (item.user_id && item.user_id.email) {
-            const userEmail = item.user_id?.email;
-            if (userEmail) {
-              const customerExists = this.users.some(
-                user => user.value === userEmail
-              );
+            if (item.user_id && item.user_id.email) {
+              const userEmail = item.user_id?.email;
+              if (userEmail) {
+                const customerExists = this.users.some(
+                  user => user.value === userEmail
+                );
 
-              if (!customerExists) {
-                this.users.push({
-                  value: userEmail,
-                  label: `${item.user_id.first_name} ${item.user_id.last_name}`
-                    ? `${item.user_id.first_name} ${item.user_id.last_name} (${userEmail})`
-                    : `New Customer (${userEmail})`
-                });
+                if (!customerExists) {
+                  this.users.push({
+                    value: userEmail,
+                    label: `${item.user_id.first_name} ${item.user_id.last_name}`
+                      ? `${item.user_id.first_name} ${item.user_id.last_name} (${userEmail})`
+                      : `New Customer (${userEmail})`
+                  });
+                }
               }
             }
-          }
-          if (item.sale_status) {
-            const status1 = item.sale_status;
-            if (status1) {
-              const customerExists = this.sale_status.some(
-                status => status.value === status1
-              );
-              if (!customerExists) {
-                this.sale_status.push({
-                  value: status1,
-                  label: status1
-                });
+            if (item.sale_status) {
+              const status1 = item.sale_status;
+              if (status1) {
+                const customerExists = this.sale_status.some(
+                  status => status.value === status1
+                );
+                if (!customerExists) {
+                  this.sale_status.push({
+                    value: status1,
+                    label: status1
+                  });
+                }
               }
             }
-          }
 
-          // Map transaction
-          return {
-            date: new Date(item.created_at).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
-            receipt: item.sale_number, // Receipt number
-            user: `${item.user_id.first_name} ${item.user_id.last_name}`, // Full name of user
-            user_email: item.user_id.email, // Email of user
-            register: item.register.name, // Register name
-            customer: item.customer.name || '', // Customer name
-            customer_email: item.customer.email || '', // Customer email
-            status: item.sale_status, // Sale status
-            total: item.total, // Total amount
-          };
-        });
+            // Map transaction
+            return {
+              date: new Date(item.created_at).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
+              receipt: item.sale_number, // Receipt number
+              user: `${item.user_id.first_name} ${item.user_id.last_name}`, // Full name of user
+              user_email: item.user_id.email, // Email of user
+              register: item.register.name, // Register name
+              customer: item.customer.name || '', // Customer name
+              customer_email: item.customer.email || '', // Customer email
+              status: item.sale_status, // Sale status
+              total: item.total, // Total amount
+            };
+          }
+          return null; // Return null if payment status is 'not paid'
+        }).filter(item => item !== null); // Filter out null values;
 
         this.filteredTransactions = [...this.transactions];
 
@@ -166,7 +170,7 @@ export class SaleslegderComponent implements OnInit {
     console.log('Filtered Transactions:', this.filteredTransactions);
   }
   calculateTotal() {
-    return this.filteredTransactions.reduce((acc, transaction) => acc + transaction.total, 0);
+    return this.filteredTransactions.reduce((acc, transaction) => acc + transaction.total, 0) || 0;
   }
   clearFilters() {
     this.selectedCustomer = 'all';

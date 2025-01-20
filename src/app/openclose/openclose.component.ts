@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { ReportingService } from 'app/api/reporting/api.service';
 import { CustomerService } from 'app/api/salesledger/api.service';
+import { ToastService } from 'app/component/toast/toast.service';
 import { quantity } from 'chartist';
 
 
@@ -10,12 +12,23 @@ import { quantity } from 'chartist';
 })
 export class OpencloseComponent implements OnInit {
 
+  isOpenClose = false;
+  isConfirmClose = false;
+
+  //create new order
+  openingFloat: number; // Property for opening float
+  new_note: string; // Property for notes
+  selected_reg: string; // Property for selected register
+
   openclose: any = [];
+
+  isCreateOpenClose = false;
+
 
   total_creditcard_amount = 0;
 
   payhistory = [];
-
+  producttype: any;
   categorySummary = [];
   categorySum = {
     qty: 0,
@@ -74,7 +87,12 @@ export class OpencloseComponent implements OnInit {
   isContentVisible: boolean = false;
 
 
-  constructor(private customerService: CustomerService) {
+  constructor(
+    @Inject('APP_CONFIG') private config: any,
+    private customerService: CustomerService,
+    private reportingservice: ReportingService,
+    private toastService: ToastService,
+  ) {
     const currentDate = new Date();
   }
   ngOnInit() {
@@ -82,28 +100,104 @@ export class OpencloseComponent implements OnInit {
 
 
   }
+  nowday(str: string): string {
+    let today = new Date();
+    if (str !== 'now') {
+      today = new Date(str);
+    }
+
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(today.getDate()).padStart(2, '0');
+
+    const hours = String(today.getHours()).padStart(2, '0');
+    const minutes = String(today.getMinutes()).padStart(2, '0');
+    const seconds = String(today.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`; // Returns '2025-01-20 10:11:00'
+  }
   roundToTwo(num) {
     return Math.round(num * 100) / 100;
+  }
+  createNewOpenClose() {
+    // Logic to handle opening a register
+
+    let createData = {
+      status: 1,
+      register: this.selected_reg,
+      open_note: this.new_note || '',
+    };
+
+    // console.log(createData);
+    if (!createData.register) {
+      this.toastService.showToast('Please select register.', 'warning', 3000);
+      this.isCreateOpenClose = false;
+      return;
+    }
+    this.customerService.createOpenClose(createData).subscribe(
+      (res) => {
+        this.toastService.showToast('Register opened successfully.', 'success', 3000);
+
+        this.isCreateOpenClose = false;
+        this.isOpenClose = false;
+        this.fetchSearchItems();
+
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+        this.isCreateOpenClose = false;
+
+      }
+    );
+  }
+  registers: any;
+  confirmCreate() {
+    this.isCreateOpenClose = true;
   }
   fetchSearchItems() {
     this.categorySummary = [];
 
     this.paymentSummary = []; // Initialize as an array
+    this.reportingservice.fecthRegister().subscribe(
+      (res) => {
+        // this.seletced_reg = this.config.register_id;
+        this.registers = res;
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
 
-    // this.customerService.fetchOpenClose().subscribe(
-    //   (res) => {
-    //   },
-    //   (error) => {
-    //     console.error('Error fetching customer data:', error);
-    //     // Handle the error as needed
-    //   }
-    // );
+    this.customerService.fetchCatetogry().subscribe(
+      (res) => {
+        this.producttype = {};
+        Object.keys(res).forEach(key => {
+          const element = res[key]; // Access the element using the key
+          if (element._id) { // Check if _id exists
+            this.producttype[element._id] = element; // Assign the element to producttype using _id as the key
+          }
+        });
+        console.log(this.producttype);
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
     this.customerService.fetchTodaySale().subscribe(
       (res) => {
-        this.openclose = res;
+        if (res.length === 0) {
+          // this.preparingToOpen();
+          return;
+        } else {
+          this.isOpenClose = true;
+        }
+        this.openclose = res[0];
 
-        if (res.payment_data.all_payments.length > 0) {
-          res.payment_data.all_payments.forEach(element => {
+        if (res[0].payment_data.all_payments.length > 0) {
+          res[0].payment_data.all_payments.forEach(element => {
             // Ensure paymentSummary is initialized for the correct payment status
             if (!this.paymentSummary[element.payment_status]) {
               this.paymentSummary[element.payment_status] = {
@@ -151,11 +245,13 @@ export class OpencloseComponent implements OnInit {
 
             if (element.products.length > 0) {
               element.products.forEach(({ product_id, product_name, qty, tax, price, discount }) => {
-                const productId = product_id._id;
+                // const productType = product_id._id;
+                const productType = product_id.type;
+
 
                 // Initialize category summary if it doesn't exist
-                if (!this.categorySummary[productId]) {
-                  this.categorySummary[productId] = {
+                if (!this.categorySummary[productType]) {
+                  this.categorySummary[productType] = {
                     product_name: product_name,
                     qty: 0,
                     tax: 0,
@@ -170,9 +266,9 @@ export class OpencloseComponent implements OnInit {
                 //product discount
                 if (discount.value != 0) {
 
-                  if (!this.discounts[productId]) {
+                  if (!this.discounts[productType]) {
 
-                    this.discounts[productId] = {
+                    this.discounts[productType] = {
                       product_name: product_name,
                       mode: discount.mode,
                       value: discount.value,
@@ -180,16 +276,16 @@ export class OpencloseComponent implements OnInit {
                       bal: 0,
                     }
                   }
-                  this.discounts[productId].qty += qty;
+                  this.discounts[productType].qty += qty;
                   if (discount.mode == 'percent') {
 
-                    this.discounts[productId].bal += qty * price * discount.value / 100;
+                    this.discounts[productType].bal += qty * price * discount.value / 100;
                   }
                 }
 
                 // Update quantities, taxes, and prices
-                this.categorySummary[productId].qty += qty;
-                this.categorySummary[productId].tax += tax;
+                this.categorySummary[productType].qty += qty;
+                this.categorySummary[productType].tax += tax;
 
                 // Update overall category sums
                 this.categorySum.qty += qty;
@@ -201,8 +297,8 @@ export class OpencloseComponent implements OnInit {
             }
           });
         }
-        if (res.payment_data.cash_movements.length > 0) {
-          res.payment_data.cash_movements.forEach(element => {
+        if (res[0].payment_data.cash_movements.length > 0) {
+          res[0].payment_data.cash_movements.forEach(element => {
             if (!this.paymentSummary['cash']) {
               this.paymentSummary['cash'] = {
                 expected: 0,
@@ -245,8 +341,40 @@ export class OpencloseComponent implements OnInit {
 
 
   toggleContent() {
-    this.isContentVisible = !this.isContentVisible;
-    if (this.isContentVisible) { this.closeRegister(); }
+    this.isConfirmClose = true;
+    // this.isContentVisible = !this.isContentVisible;
+    // if (this.isContentVisible) { this.closeRegister(); }
+  }
+
+
+  confirmCloseRegister() {
+    // console.log(this.paymentSummary['cash']);
+    let saveData = {
+      _id: this.openclose._id,
+      counted: {
+        cash: this.paymentSummary['cash']?.counted || 0,
+        credit_card: this.paymentSummary['credit']?.counted || 0,
+        master_card: this.paymentSummary['master']?.counted || 0,
+        debit_card: this.paymentSummary['debit']?.counted || 0,
+      },
+      status: 2,
+      open_value: (this.paymentSum.counted - this.zSalesTaxesSummary.total),
+    };
+    this.customerService.updateOpenClsoe(saveData).subscribe(
+      (res) => {
+        //save successful toast
+        this.isConfirmClose = false;
+        this.isContentVisible = true;
+        if (this.isContentVisible) { this.closeRegister(); }
+        // this.toastService.showToast('Closed Register updated successfully.', 'success', 3000);
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+    // console.log(saveData);
+
   }
 
   calculatePaymentSum() {
@@ -256,12 +384,11 @@ export class OpencloseComponent implements OnInit {
     this.paymentSum.differences = 0;
 
     // Calculate new totals
-    Object.values(this.paymentSummary).forEach(element => {
-      this.paymentSum.expected += element.expected;
-      this.paymentSum.counted += element.counted;
-      this.paymentSum.differences += element.differences;
+    Object.values(this.paymentSummary).forEach(({ expected, counted, differences }) => {
+      this.paymentSum.expected += expected;
+      this.paymentSum.counted += counted;
+      this.paymentSum.differences += differences;
     });
-
   }
   updateDifference(payment: any) {
     payment.differences = payment.expected - payment.counted;

@@ -147,3 +147,35 @@ table td{
 table {
     border: 1px solid #E3E3E3;
 }
+
+
+.dropdown-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    width: 95%;
+    /* Set a max height */
+    overflow-y: auto;
+    /* Enable scrolling */
+    position: absolute;
+    /* Position it below the input */
+    background: white;
+    /* Background color */
+    z-index: 1000;
+    /* Ensure it appears above other elements */
+}
+
+.dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+    /* Highlight on hover */
+}
+th{
+    text-align: center;
+}

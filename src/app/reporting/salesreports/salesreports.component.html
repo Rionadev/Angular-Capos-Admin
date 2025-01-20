@@ -21,7 +21,7 @@
 
                 <!-- Transactions Table -->
                 <div class="card">
-                    <div class="content table-responsive table-full-width" style="max-height: 80vh;overflow-y: auto;">
+                    <div class="content table-responsive table-full-width" style="max-height: 64vh;overflow-y: auto;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -57,14 +57,19 @@
                         </table>
                     </div>
                 </div>
+
             </div>
+
         </div>
     </div>
+    <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50]"
+        (pageChanged)="onPageChanged($event)" (countPerPageChanged)="onCountPerPageChanged($event)">
+    </app-pagination>
 </div>
 <div *ngIf="showModal" class="modal-overlay" (click)="close()">
     <div class="modal-content" (click)="$event.stopPropagation()">
         <div class="modal-header">
-            <h3>Sales History & Report ({{ selected_rowdata.row.date }})</h3>
+            <h3 class="modal-title">Sales History & Report ({{ selected_rowdata.row.date }})</h3>
             <button class="close-button" (click)="close()">×</button>
         </div>
 
@@ -109,11 +114,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let sale of selected_rowdata.data">
+                    <!-- <tr *ngFor="let sale of selected_rowdata.data" > -->
+                    <tr *ngFor="let sale of filteredSales">
                         <td>{{ formatDate(sale.created_at) }}</td>
                         <td>{{ sale.payment_status }}</td>
-                        <td>{{ sale.outlet.name }}</td>
-                        <td>{{ sale.register.name }}</td>
+                        <td>{{ sale.outlet?.name }}</td>
+                        <td>{{ sale.register?.name }}</td>
                         <td>{{ sale.sale_number }}</td>
                         <td>{{ sale.sale_status }}</td>
                         <td>{{ sale.total_items }}</td>
