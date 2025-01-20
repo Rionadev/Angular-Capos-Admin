@@ -84,6 +84,13 @@ hr{
     margin-top: 5px;
 }
 
+.margin-top-15 {
+    margin-top: 15px;
+}
+.margin-bottom-5 {
+    margin-bottom: 5px;
+}
+
 .margin-top-0 {
     margin-top: 0px;
 }
@@ -92,7 +99,7 @@ hr{
     margin-top: 6px;
 }
 
-div .form-group {
+div .form-group{
     margin-bottom: 5px;
 }
 
@@ -216,4 +223,16 @@ td div .description {
 
 .padding-right-15{
     padding-right: 25px;
+}
+
+.col-md-3 .header {
+    padding-left: 0px;
+}
+
+.header i{
+    font-size: 28px;
+}
+
+.title i {
+    cursor: pointer;
 }
