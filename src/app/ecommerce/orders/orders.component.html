@@ -4,7 +4,10 @@
             <div class="col-md-12">
                 <div class="card margin-bottom-10" *ngIf="isProductContentVisible">
                     <div class="header">
-                        <h4 class="title">Add Product</h4>
+                        <h4 class="title flex-item"> 
+                            <i class="pe-7s-angle-left-circle" (click)="onHideAddProductContent()"></i>
+                            Detail & Edit Order
+                        </h4>
                     </div>
                     <div class="content">                        
                         <form (ngSubmit)="saveRow()">
@@ -387,7 +390,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let row of data">
+                                    <tr *ngFor="let row of data" (click)="editRow(row)">
                                         <td>{{ row.reference }}</td>
                                         <td class="compact-spacing">{{ row.customer?.company }}<br><small>{{ row.customer?.email }}</small></td>
                                         <td>{{ row.total }}</td>
