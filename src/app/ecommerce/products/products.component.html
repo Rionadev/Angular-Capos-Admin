@@ -148,8 +148,7 @@
                                                     <!-- [(checked)]="currentRow.enabled" (tagsChange)="currentRow.enabled = $event" -->
                                                     <app-toggle-switch [(checked)]="currentRow.enabled"
                                                         (tagsChange)="currentRow.enabled = $event"></app-toggle-switch>
-                                                    Sell on Point-of-Sale<small>(Make this product active for sale
-                                                        in-store)</small>
+                                                    Sell Online
                                                 </div>
                                                 <div class="flex-item">
                                                     <app-toggle-switch [(checked)]="currentRow.touch"
@@ -218,8 +217,8 @@
                                 <div class="col-md-9 margin-top-15">
                                     <div>
                                         <div class="flex-item category">
-                                            <app-toggle-switch [(checked)]="currentRow.feature.variant_inv"
-                                                (tagsChange)="currentRow.feature.variant_inv = $event"></app-toggle-switch>
+                                            <app-toggle-switch [(checked)]="currentRow.variant_inv"
+                                                (tagsChange)="currentRow.variant_inv = $event"></app-toggle-switch>
                                             Product with Variants
                                         </div>
                                     </div>
@@ -230,8 +229,8 @@
                                             each attribute (like green, blue, black).</small></p>
                                     <div>
                                         <div class="flex-item category">
-                                            <app-toggle-switch [(checked)]="currentRow.feature.tracking_inv"
-                                                (tagsChange)="currentRow.feature.tracking_inv = $event"></app-toggle-switch>
+                                            <app-toggle-switch [(checked)]="currentRow.tracking_inv"
+                                                (tagsChange)="currentRow.tracking_inv = $event"></app-toggle-switch>
                                             Tracking Inventory
                                         </div>
                                     </div>
