@@ -84,12 +84,25 @@ export class CustomerService {
     // Make the API call
     return this.http.get(`${this.config.apiUrl}/sale/fetchpaymenthistory`, { params: httpParams });
   }
+
+  createOpenClose(params: any): any {
+    params = {
+      ...params,
+      outlet: this.config.outlet_id,
+      private_web_address: this.config.private_web_address,
+      user_id: this.config.user_id,
+    }
+    return this.http.post(`${this.config.apiUrl}/sell/openclose`, params);
+  }
+  updateOpenClsoe(params: any): Observable<any> {
+    return this.http.post(`${this.config.apiUrl}/sell/openclose`, params);
+  }
   fetchOpenClose(): Observable<any> {
     // Make the API call
     let params = {
       user_id: this.config.user_id,
       outlet: this.config.outlet_id,
-      register: this.config.register_id,
+      // register: this.config.register_id,
       private_web_address: this.config.private_web_address
     }
     let httpParams = new HttpParams();
@@ -107,8 +120,9 @@ export class CustomerService {
     let params = {
       user_id: this.config.user_id,
       outlet: this.config.outlet_id,
-      register: this.config.register_id,
-      private_web_address: this.config.private_web_address
+      // register: this.config.register_id,
+      private_web_address: this.config.private_web_address,
+      status: 1,
     }
     let httpParams = new HttpParams();
 
@@ -118,7 +132,22 @@ export class CustomerService {
         httpParams = httpParams.set(key, params[key]);
       }
     });
-    return this.http.get(`${this.config.apiUrl}/sale/fetchtodysale`, { params });
+    // return this.http.get(`${this.config.apiUrl}/sale/fetchtodysale`, { params });
+    return this.http.get(`${this.config.apiUrl}/sell/openclose`, { params });
+
+  }
+  fetchCatetogry() {
+    let params = {
+      private_web_address: this.config.private_web_address
+    };
+    let httpParams = new HttpParams();
+    // Build HttpParams from the provided params object
+    Object.keys(params).forEach(key => {
+      if (params[key] !== undefined && params[key] !== null) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    });
+    return this.http.get(`${this.config.apiUrl}/product/type`, { params });
   }
   fetchCoutries() {
     return this.http.get(`${this.config.apiUrl}/util/countries`);

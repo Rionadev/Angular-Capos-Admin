@@ -43,16 +43,14 @@ export class CashmanagementComponent implements OnInit {
     // console.log('id', this.config.user_id);
 
   }
-
+ 
   setDateFromTo() {
     const today = new Date();
-    const sevenDaysAgo = new Date(today);
-    const OneDayAfer = new Date(today);
-    sevenDaysAgo.setDate(today.getDate() - 30); // Subtract 7 days
-    OneDayAfer.setDate(today.getDate() + 1); // Subtract 7 days
+    const fromDate = new Date(today.setHours(0, 0, 0, 0)); // Set to today 00:00:00
+    const toDate = new Date(today.setHours(23, 59, 59, 999)); // Current date and time
 
-    this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
-    this.selectedDateTo = OneDayAfer.toISOString().split('T')[0]; // Set the end date to today
+    this.selectedDateFrom = fromDate.toISOString().split('T')[0]; // Set the start date to today
+    this.selectedDateTo = toDate.toISOString().split('T')[0]; // Set the end date to now
   }
 
   fetchTransactions() {

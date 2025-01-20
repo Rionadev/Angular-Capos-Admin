@@ -1,6 +1,34 @@
 <div style="height: 100vh;">
+    <app-toast></app-toast>
+    <div class="custom-card" *ngIf="!isOpenClose">
+        <div class="custom-form-group">
+            <label for="openingFloat" required>Opening Float*</label>
+            <input type="number" id="openingFloat" placeholder="Enter opening float" required
+                [(ngModel)]="openingFloat">
+        </div>
+
+        <div class="custom-form-group">
+            <label for="notes">Notes (Optional):</label>
+            <textarea id="notes" placeholder="Enter any notes..." [(ngModel)]="new_note"></textarea>
+        </div>
+
+        <div class="custom-form-group">
+            <label for="register">Register*</label>
+            <select id="register" required [(ngModel)]="selected_reg">
+                <option value="" disabled selected>Select a register</option>
+                <option *ngFor="let register of registers" [value]="register._id">{{ register.name }}</option>
+            </select>
+        </div>
+
+        <button class="custom-submit-btn" (click)="confirmCreate()">OPEN REGISTER</button>
+    </div>
+    <app-confirm-modal *ngIf="isCreateOpenClose" [title]="'Open Register'"
+        [description]="'Are you sure to want to open this register ?'" [confirmButtonCaption]="'Yes'"
+        [cancelButtonCaption]="'No'" (confirmed)="createNewOpenClose()" (cancelled)="isCreateOpenClose=false">
+    </app-confirm-modal>
+
     <!-- <div class="main-content" *ngIf="false"> -->
-    <div class="main-content" *ngIf="!isContentVisible">
+    <div class="main-content" *ngIf="!isContentVisible && isOpenClose">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -22,7 +50,7 @@
                                     <td>{{openclose?.outlet?.name}}<br>{{openclose?.outlet?.email}}</td>
                                     <td>{{openclose?.register?.name}}</td>
                                     <td>{{openclose?.uid}}</td>
-                                    <td>{{openclose?.opening_time}}</td>
+                                    <td>{{nowday(openclose?.opening_time)}}</td>
                                 </tbody>
                             </table>
                         </div>
@@ -175,17 +203,21 @@
             </div>
         </div>
     </div>
+    <app-confirm-modal *ngIf="isConfirmClose" [title]="'Close Register'"
+        [description]="'Are you sure to want to close this register ?'" [confirmButtonCaption]="'Yes'"
+        [cancelButtonCaption]="'No'" (confirmed)="confirmCloseRegister()" (cancelled)="isConfirmClose=false">
+    </app-confirm-modal>
 </div>
 
 <!-- Z Report Section -->
 <!-- <div  class="z-report  print-roll"> -->
-<div *ngIf="isContentVisible" class="print-roll-bg" (click)="toggleContent()">
+<div *ngIf="isContentVisible" class="print-roll-bg">
 
     <div class="z-report  print-roll">
         <div class="print-table">
-            <div class="border just-row mb-1">
+            <div class="border just-row mb-1" style="justify-content: space-between;">
                 <b>Z Report</b>
-                <b>{{today}}</b>
+                ({{nowday(openclose?.opening_time)}} - {{nowday('now')}})
             </div>
             <div class="mb-1">
                 <div class="border" style="text-align: center;">
