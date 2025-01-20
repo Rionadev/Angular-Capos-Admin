@@ -64,7 +64,7 @@
 <div *ngIf="showModal" class="modal-overlay" (click)="close()">
     <div class="modal-content" (click)="$event.stopPropagation()">
         <div class="modal-header">
-            <h3>Sales History & Report ({{ selected_rowdata.row.date }})</h3>
+            <h3 class="modal-title">Sales History & Report ({{ selected_rowdata.row.date }})</h3>
             <button class="close-button" (click)="close()">×</button>
         </div>
 
