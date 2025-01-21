@@ -63,6 +63,7 @@ import { ModifierComponent } from '../../menus/modifier/modifier.component';
 import { ModifierTypesComponent } from '../../menus/modifier-types/modifier-types.component';
 import { SingleForcedModifierComponent } from '../../menus/single-forced-modifier/single-forced-modifier.component';
 import { OpencloseZComponent } from 'app/openclose-z/openclose-z.component';
+import { ExternalRedirectComponent } from '../../external-redirect/external-redirect.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },//HomeComponent
@@ -133,4 +134,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'menus/modifiertypes', component: ModifierTypesComponent },
     { path: 'menus/forcedmodifier', component: SingleForcedModifierComponent },
 
+    { path: 'online-store/onestore/home', component: ExternalRedirectComponent },
+    
 ];

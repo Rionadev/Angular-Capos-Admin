@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Inject, Component, OnInit } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 import { LegendItem, ChartType } from '../../lbd/lbd-chart/lbd-chart.component';
 import * as Chartist from 'chartist';
 import { OrdersService } from '../../api/orders/orders.service';
 import { SalesService } from '../../api/sales/sales.service';
 import { CustomerService } from 'app/api/salesledger/api.service';
+import { ProductsService } from '../../api/products/api.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,9 +31,10 @@ export class DashboardComponent implements OnInit {
 
   salesData: any[] = [];
   ordersData: any[] = [];
+  productsData: any[] = [];
 
   chartVisible: boolean = false;
-  
+
   // Variable for Sales Report
   totalForThisMonth: number = 0;
   totalForToday: number = 0;
@@ -47,6 +49,8 @@ export class DashboardComponent implements OnInit {
   stockOnHand: number = 0;
 
   constructor(
+    @Inject('APP_CONFIG') private config: any,
+    private productsService: ProductsService,
     private ordersService: OrdersService,
     private salesService: SalesService,
     private customerService: CustomerService,
@@ -105,14 +109,44 @@ export class DashboardComponent implements OnInit {
   }
 
   onGetProductReport() {
-    /* totalByUser: number = 0;
-    totalByOutlet: number = 0;
-    totalByCustomer: number = 0; */
+    this.salesService.read({})
+      .subscribe({
+        next: (data) => {
+          console.log('Product Report', data);
+          //
+          //totalByOutlet
+
+          //config.outlet_id
+          console.log('config.outlet_id', this.config.outlet_id);
+          const totalSubtotal = data.reduce((acc, item) => {
+            if (item.outlet === this.config.outlet_id) {
+              acc += item.subtotal; // Sum the subtotal only for the target outlet
+            }
+            return acc;
+          }, 0);
+          this.totalByOutlet = totalSubtotal;
+        },
+        error: (err) => {
+          console.error('Error fetching sales:', err);
+        },
+      });
   }
 
   onStockReport() {
-    /* stockLevels: number = 0;
-    stockOnHand: number = 0; */
+    this.productsService.read({ range: 'stock_level' }).subscribe({
+      next: (data) => {
+        console.log('productsData', data);
+        this.stockLevels = data.stock_level;
+        this.stockOnHand = data.stock;
+        // this.productsData = data?.data;
+        //
+        /* stockLevels: number = 0;
+       stockOnHand: number = 0; */
+      },
+      error: (err) => {
+        console.error('Error fetching stores:', err);
+      },
+    });
   }
 
   getTotal(records: any, field: string): number {
@@ -189,6 +223,7 @@ export class DashboardComponent implements OnInit {
 
   setActivePeriod(tab: string): void {
     this.activePeriod = tab;
+    this.onGetAllData();
   }
 
   onClearFilters() {
@@ -200,47 +235,49 @@ export class DashboardComponent implements OnInit {
   }
 
   onGetAllData() {
-      this.salesService.read({
-        start: this.start,
-        end: this.end
-      }).subscribe({
-        next: (sales) => {
-          this.salesData = sales;
-          this.ordersService.read({
-            date_from: this.start,
-            date_to: this.end
-          }).subscribe({
-            next: (orders) => {
-              this.ordersData = orders;
-              this.onDataProcessing();
-            },
-            error: (err) => {
-              console.error('Error fetching orders:', err);
-            },
-          });
-        },
-        error: (err) => {
-          console.error('Error fetching sales:', err);
-        },
-      });
+    this.salesService.read({
+      start: this.start,
+      end: this.end
+    }).subscribe({
+      next: (sales) => {
+        this.salesData = sales;
+        this.ordersService.read({
+          date_from: this.start,
+          date_to: this.end
+        }).subscribe({
+          next: (orders) => {
+            this.ordersData = orders;
+            this.onDataProcessing();
+          },
+          error: (err) => {
+            console.error('Error fetching orders:', err);
+          },
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching sales:', err);
+      },
+    });
   }
 
   onDataProcessing() {
-    
-    
     const dateArray = this.generateDateArray(this.start, this.end);
     console.log("dateArray", dateArray);
-    const salesData = this.updateDateArray(dateArray, this.salesData);
-    const ordersData =  this.updateDateArray(dateArray, this.ordersData);
+    const salesData = this.updateDateArray(dateArray, this.salesData, false);
+    const ordersData = this.updateDateArray(dateArray, this.ordersData, true);
 
-    const datesOnlyArray = dateArray?.map(item => item.date);
+    let datesOnlyArray = dateArray?.map(item => item.date);
     const salesOnlyArray = salesData?.map(item => item.value);
     const ordersOnlyArray = ordersData?.map(item => item.value);
 
     console.log("datesOnlyArray", datesOnlyArray);
     console.log("salesOnlyArray", salesOnlyArray);
     console.log("ordersOnlyArray", ordersOnlyArray);
-    
+
+    if (datesOnlyArray.length >= 15) {
+      datesOnlyArray = datesOnlyArray.map(() => '-');
+    }
+
     this.maxSales = Math.max(...salesOnlyArray);
     this.maxOrders = Math.max(...ordersOnlyArray);
     const maxAxis = Math.max(this.maxSales, this.maxOrders);
@@ -259,18 +296,19 @@ export class DashboardComponent implements OnInit {
     /* const inputElement = event.target as HTMLInputElement;
     const selectedDate = inputElement.value; // The selected date as a string (YYYY-MM-DD format)
     console.log('Selected Date:', selectedDate); */
-    
+
   }
 
   updateDateArray(
     dateArray: { date: string; value: number }[],
-    saleData: { created_at: string; subtotal: number }[]
+    saleData: { created_at: string; subtotal: number }[],
+    count: boolean
   ): { date: string; value: number }[] {
     // Create a mapping of dateArray for faster lookups
     const dateMap = new Map(
       dateArray?.map(item => [item.date, { date: item.date, value: item.value }])
     );
-  
+
     // Iterate through the sales data
     saleData.forEach(sale => {
       let saleDate: string;
@@ -287,28 +325,31 @@ export class DashboardComponent implements OnInit {
       if (dateMap.has(saleDate)) {
         // Add the subtotal to the corresponding date's value
         const entry = dateMap.get(saleDate)!;
-        entry.value += sale.subtotal;
+        if (count)
+          entry.value++;
+        else
+          entry.value += sale.subtotal;
       }
     });
-  
+
     // Convert the map back to an array
     return Array.from(dateMap.values());
   }
-  
+
   generateDateArray(startDate: string, endDate: string): { date: string; value: number }[] {
     const start = new Date(startDate);
     const end = new Date(endDate);
     const dateArray: { date: string; value: number }[] = [];
 
     //
-    if (this.activePeriod === 'monthly'){
-      if(end.getDate() < start.getDate())
+    if (this.activePeriod === 'monthly') {
+      if (end.getDate() < start.getDate())
         end.setDate(start.getDate());
     }
-    if (this.activePeriod === 'yearly'){
-      if(end.getDate() < start.getDate())
+    if (this.activePeriod === 'yearly') {
+      if (end.getDate() < start.getDate())
         end.setDate(start.getDate());
-      if(end.getMonth() < start.getMonth())
+      if (end.getMonth() < start.getMonth())
         end.setMonth(start.getMonth());
     }
 

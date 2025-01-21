@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ReportingService } from 'app/api/reporting/api.service';
 import { sum } from 'chartist';
 import { rmSync } from 'fs';
@@ -10,7 +10,11 @@ import { rmSync } from 'fs';
 })
 export class RegisterclosuresComponent implements OnInit {
 
-  constructor(private reportingService: ReportingService,) { }
+  constructor(
+    private reportingService: ReportingService,
+    @Inject('APP_CONFIG') private config: any,
+  ) { }
+
   selectedDateFrom: string = '';
   selectedDateTo: string = '';
 
@@ -434,5 +438,168 @@ export class RegisterclosuresComponent implements OnInit {
     //       console.error('Error fetching stores:', err);
     //     },
     //   });
+  }
+  getPlain(): string {
+    return this.filteredRecords.map(item =>
+      `<tr>
+        <td>${item?.register?.name}</td>
+        <td>${item?.formattedOpeningTime}</td>
+        <td>${item?.formattedClosingTime}</td>
+        <td>$${Number(item?.open_value || 0).toFixed(2)}</td>
+        <td>$${Number(item?.cash_concealed || 0).toFixed(2)}</td>
+        <td>$${Number(item?.cash + item?.cash_d || 0).toFixed(2)}</td>
+        <td>$${Number(item?.credit || 0).toFixed(2)}</td>
+        <td>$${Number(item?.debit || 0).toFixed(2)}</td>
+        <td>$${Number(item?.other || 0).toFixed(2)}</td>
+        <td>$${Number(item?.refunds || 0).toFixed(2)}</td>
+        <td>$${Number(item?.voided || 0).toFixed(2)}</td>
+        <td>$${Number(item?.total || 0).toFixed(2)}</td>
+      </tr>`
+    ).join('');
+  }
+
+
+  printContent() {
+    const plainData = this.getPlain();
+    const printWindow = window.open('Z-Report', 'Z-Report', 'height=3508,width=2480');
+    /* printWindow?.document.write('<html><head><title>Print</title>');
+    printWindow?.document.write('</head><body >');
+    printWindow?.document.write(document.getElementById('print-section')?.innerHTML || '');
+    printWindow?.document.write('</body></html>'); */
+    printWindow.document.write(`
+        <html>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" media="print"/>
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+            <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+            <title>Z-Report</title>
+            <style>
+                @media print {
+                    app-root > * { display: none; }
+                    app-root app-print-layout { display: block; }
+                }
+
+                .header {
+                    font-size: 16px; 
+                    text-align: center;
+                    margin-top: 16px;
+                    margin-bottom: 16px;
+                }
+
+                .date {
+                    font-size: 9px;
+                    line-height: 0.5;
+                    margin-bottom: 56px;
+                }
+                
+                table, td, th {
+                    border: 1px solid;
+                    padding: 3px 4px;
+                }
+                
+                th {
+                    font-weight: 100;
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    text-align: left;
+                    font-size: 9px;
+                }
+
+                .footer {
+                    position: fixed;
+                    font-size: 9px;
+                    bottom: 0px;
+                }
+
+                .footer div{
+                    width: 100%;
+                    text-align: center;
+                }
+
+
+            </style>
+            <body onload="window.print()">
+                <p class="header"><strong>Z-Report</strong></p>
+                <div class="date">
+                <p>Date: ${this.selectedDateFrom} - ${this.selectedDateTo}</p>
+                <p>PWA: ${this.config.private_web_address}</p>
+                </div>
+                <div>
+                    <table>
+                        <tr>
+                            <th>Register</th>
+                            <th>Time Opened</th>
+                            <th>Time Closed</th>
+                            <th>Store Credit</th>
+                            <th>Cash(Concealed Total)</th>
+                            <th>Cash</th>
+                            <th>Credit</th>
+                            <th>Debit</th>
+                            <th>Other</th>
+                            <th>Refunds</th>
+                            <th>Voided</th>
+                            <th>Total</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>$${Number(this.total_sum.store_credit).toFixed(2) || 0}</strong></td>
+                            <td><strong>$${Number(this.total_sum.cash_concealed).toFixed(2) || 0}</strong></td>
+                            <td><strong>$${Number(this.total_sum.cash * 1 + this.total_sum.cash_d * 1).toFixed(2) || 0}</strong></td>
+                            <td><strong>$${Number(this.total_sum.credit).toFixed(2) || 0}</strong></td>
+                            <td><strong>$${Number(this.total_sum.debit).toFixed(2) || 0}</strong></td>
+                            <td><strong>$${Number(this.total_sum.other).toFixed(2) || 0}</strong></td>
+                            <td><strong>$${Number(this.total_sum.refunds).toFixed(2) || 0}</strong></td>
+                            <td><strong>$${Number(this.total_sum.voided).toFixed(2) || 0}</strong></td>
+                            <td><strong>$${Number(this.total_sum.total).toFixed(2) || 0}</strong></td>
+                        </tr>
+                        ${plainData}
+                    </table>
+                <div>
+                <div class="footer">
+                    <div>Register Cloures Report</div>
+                <div>
+            </body>
+        </html>
+    `);
+
+    printWindow?.document.close();
+    //printWindow?.focus();
+    //printWindow?.print();
+    //printWindow?.document.close();
+    //printWindow?.close();
+    setTimeout(function () {
+      //printWindow?.print();
+      printWindow.close();
+    }, 1000);
+  }
+
+  getCSVPlain(): string {
+    return this.filteredRecords.map(item =>
+      `${item?.register?.name},${item?.formattedOpeningTime},${item?.formattedClosingTime},$${Number(item?.open_value || 0).toFixed(2)},$${Number(item?.cash_concealed || 0).toFixed(2)},$${Number(item?.cash + item?.cash_d || 0).toFixed(2)},$${Number(item?.credit || 0).toFixed(2)},$${Number(item?.debit || 0).toFixed(2)},$${Number(item?.other || 0).toFixed(2)},$${Number(item?.refunds || 0).toFixed(2)},$${Number(item?.voided || 0).toFixed(2)},$${Number(item?.total || 0).toFixed(2)}\n`
+    ).join('');
+  }
+
+  exportContent() {
+    const header = 'register, time opened, time closed, store credit, cash(concealed total), cash, credit, debit, other, refunds, voided, total\n';
+    const total = ` Total,,,$${Number(this.total_sum.store_credit).toFixed(2) || 0},$${Number(this.total_sum.cash_concealed).toFixed(2) || 0},$${Number(this.total_sum.cash * 1 + this.total_sum.cash_d * 1).toFixed(2) || 0},$${Number(this.total_sum.credit).toFixed(2) || 0},$${Number(this.total_sum.debit).toFixed(2) || 0},$${Number(this.total_sum.other).toFixed(2) || 0},$${Number(this.total_sum.refunds).toFixed(2) || 0},$${Number(this.total_sum.voided).toFixed(2) || 0},$${Number(this.total_sum.total).toFixed(2) || 0} \n`;
+    const rows = this.getCSVPlain();
+
+    const content = header + total + rows;
+
+    const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'register_cloures_report.csv');
+    link.style.visibility = 'hidden';
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }

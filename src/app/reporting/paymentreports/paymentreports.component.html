@@ -16,11 +16,14 @@
                         </div>
 
                         <div class="align-center">
-                            <button class="btn btn-sm btn-danger btn-fill" (click)="initToday()">Clear
-                                Filters</button>
+                            <button class="btn btn-sm btn-danger btn-fill" (click)="initToday()">Clear Filters</button>
                             <!-- <button class="btn btn-sm btn-info btn-fill mx-2" style="margin: 1rem" (click)="searchTransactions()">Search</button> -->
-                            <button class="btn btn-sm btn-success btn-fill">Excel</button>
-
+                            <button class="btn btn-sm btn-info btn-fill" (click)="printContent()">
+                                &nbsp;&nbsp;&nbsp;&nbsp;Print&nbsp;&nbsp;&nbsp;&nbsp;
+                            </button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="exportContent()">
+                                &nbsp;&nbsp;&nbsp;Export&nbsp;&nbsp;&nbsp;
+                            </button>
                         </div>
                     </div>
                 </div>
