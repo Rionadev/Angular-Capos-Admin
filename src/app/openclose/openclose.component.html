@@ -123,7 +123,8 @@
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let item of categorySummary | keyvalue">
-                                                <td>{{ item.value.product_name}}</td>
+                                                <!-- <td>{{ item.value.product_name}}</td> -->
+                                                <td>{{ producttype[item.key].name}}</td>
                                                 <td>{{ item.value.qty
                                                     }} ( {{item.value.price|currency}} )</td>
                                                 <td>{{ (item.value.qty * item.value.price) |
@@ -402,7 +403,7 @@
                     </thead>
                     <tbody class="border">
                         <tr *ngFor="let product of categorySummary | keyvalue">
-                            <td class="print-table" style="float: left;">{{ product.value.product_name }}</td>
+                            <td class="print-table" style="float: left;">{{ producttype[product.key].name }}</td>
                             <td class="print-table">({{ product.value.qty }})</td>
                             <td class="print-table" style="float: right;">{{
                                 (product.value.price*product.value.qty)|currency }}</td>

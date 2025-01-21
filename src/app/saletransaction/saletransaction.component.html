@@ -198,7 +198,24 @@
         <div class="form-group">
             <div style="display: flex;text-align: center;align-items: center;">
                 <label for="sale_status1">Status:</label>
-                <input [(ngModel)]="selTransactions.sale_status" name="sale_status1" class="form-control" />
+                <!-- <input [(ngModel)]="selTransactions.sale_status" name="sale_status1" class="form-control" /> -->
+                <select [(ngModel)]="selTransactions.sale_status" class="form-control" >                    
+                    <option value="" disabled>CLOSED</option>
+                    <option value="completed">completed</option>
+                    <option value="layby_completed">layby_completed</option>
+                    <option value="on_account_completed">on_account_completed</option>
+                    <option value="delivery_completed">delivery_completed</option>
+                    <option value="pickup_completed">pickup_completed</option>
+                    <option value="" disabled>OPEN</option>
+                    <option value="layby">layby</option>
+                    <option value="on_account">on_account</option>
+                    <option value="parked">parked</option>
+                    <option value="" disabled>FULLFILLMENT</option>
+                    <option value="delivery_unfulfilled">delivery_unfulfilled</option>
+                    <option value="pickup_unfulfilled">pickup_unfulfilled</option>
+                    <option value="" disabled>RETURN</option>
+                    <option value="return_completed">return_completed</option>
+                </select>
             </div>
         </div>
         <button class="btn btn-secondary" (click)="onClose()">Cancel</button>

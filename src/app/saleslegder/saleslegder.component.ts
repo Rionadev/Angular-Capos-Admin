@@ -55,6 +55,7 @@ export class SaleslegderComponent implements OnInit {
     const params = {
       from: this.selectedDateFrom,
       to: this.selectedDateTo,
+      sale_status: 'all_closed',
     };
 
     // Log the params to check their structure

@@ -12,6 +12,7 @@ import { quantity } from 'chartist';
 })
 export class OpencloseComponent implements OnInit {
 
+
   isOpenClose = false;
   isConfirmClose = false;
 
@@ -335,9 +336,7 @@ export class OpencloseComponent implements OnInit {
 
 
   }
-  formatCurrency(total: number): string {
-    return `$${total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
-  }
+
 
 
   toggleContent() {
@@ -349,6 +348,9 @@ export class OpencloseComponent implements OnInit {
 
   confirmCloseRegister() {
     // console.log(this.paymentSummary['cash']);
+    this.isContentVisible = true;
+    this.isConfirmClose = false;
+    this.printReport()
     let saveData = {
       _id: this.openclose._id,
       counted: {
@@ -360,19 +362,19 @@ export class OpencloseComponent implements OnInit {
       status: 2,
       open_value: (this.paymentSum.counted - this.zSalesTaxesSummary.total),
     };
-    this.customerService.updateOpenClsoe(saveData).subscribe(
-      (res) => {
-        //save successful toast
-        this.isConfirmClose = false;
-        this.isContentVisible = true;
-        if (this.isContentVisible) { this.closeRegister(); }
-        // this.toastService.showToast('Closed Register updated successfully.', 'success', 3000);
-      },
-      (error) => {
-        console.error('Error fetching customer data:', error);
-        // Handle the error as needed
-      }
-    );
+    // this.customerService.updateOpenClsoe(saveData).subscribe(
+    //   (res) => {
+    //     //save successful toast
+    //     this.isConfirmClose = false;
+    //     this.isContentVisible = true;
+    //     if (this.isContentVisible) { this.closeRegister(); }
+    //     // this.toastService.showToast('Closed Register updated successfully.', 'success', 3000);
+    //   },
+    //   (error) => {
+    //     console.error('Error fetching customer data:', error);
+    //     // Handle the error as needed
+    //   }
+    // );
     // console.log(saveData);
 
   }
@@ -406,5 +408,212 @@ export class OpencloseComponent implements OnInit {
     }, 1000); // Delay to allow the Z Report to render
   }
 
+  formatCurrency(amount: number, currency: string = 'USD'): string {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency,
+    }).format(amount);
+  }
+
+  printReport() {
+    const reportWindow = window.open('', '', 'height=842,width=595'); // A4 size in pixels at 72 DPI
+    reportWindow.document.write(`
+      <html>
+        <head>
+          <title>Z Report</title>
+          <style>
+             @page {
+        size: A4;
+        /* Set the page size to A4 */
+        margin: 10mm;
+        /* Set margins for the print */
+    }
+
+    body {
+        font-size: 14pt;
+        /* Base font size for print */
+    }
+
+
+    .print-roll-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 95vh;
+        z-index: 1000;
+    }
+
+    .print-roll {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        // position: absolute;
+        // max-height: 90%;
+        // overflow-y: auto;
+        // top: 20%;
+        // left: 30%;
+    }
+
+    .z-report {
+        border: 1px solid #8b8b8b;
+        /* Keep the border for print */
+        background-color: #f9f9f9;
+        /* Maintain background color */
+        margin-top: 20px;
+        /* Keep top margin */
+        padding: 10px;
+        /* Add padding for print */
+    }
+
+    .z-report h3 {
+        text-align: center;
+        /* Center align heading */
+        font-size: 20px;
+        /* Adjust font size for print */
+        margin-bottom: 15px;
+        /* Reduce bottom margin */
+    }
+
+    .z-report h4 {
+        font-size: 18px;
+        /* Adjust font size for print */
+        margin-top: 10px;
+        /* Reduce top margin */
+    }
+
+    .z-report p {
+        font-size: 14px;
+        /* Adjust font size for print */
+        margin: 5px 0;
+        /* Add margin for spacing */
+    }
+
+    .z-report table {
+        width: 100%;
+        /* Full width for tables */
+        border-collapse: collapse;
+        /* Merge borders */
+        margin-top: 10px;
+        /* Maintain top margin */
+    }
+
+    .z-report th,
+    .z-report td {
+        border: 1px solid #ddd;
+        /* Keep border for cells */
+        text-align: left;
+        /* Left align text */
+        padding: 8px;
+        /* Add padding for cells */
+    }
+
+    .z-report th {
+        background-color: #f2f2f2;
+        /* Light gray background for headers */
+        font-weight: bold;
+        /* Bold text for headers */
+    }
+
+    .z-report .total-border {
+        font-weight: bold;
+        /* Bold text for total */
+        background-color: #e9e9e9;
+        /* Light background for total */
+    }
+
+    .print-table {
+        border: none !important;
+        /* Remove borders */
+        background: none !important;
+        /* Remove background */
+        font-size: 1rem;
+        /* Adjust font size for print */
+        padding: 0 !important;
+        /* Remove padding */
+        margin: 0 !important;
+        /* Remove margin */
+        text-align: center;
+        /* Center align text */
+    }
+          </style>
+        </head>
+        <body>
+          <div class="print-roll-bg">
+            <div class="z-report print-roll">
+              <div class="print-table">
+                <div class="border just-row mb-1">
+                  <b>Z Report</b> (${this.nowday(this.openclose?.opening_time)} - ${this.nowday('now')})
+                </div>
+                <div class="mb-1">
+                  <div class="border" style="text-align: center;">
+                    <b>SALES AND TAXES SUMMARY</b>
+                  </div>
+                  <div class="border">
+                    <div class="just-row">
+                      <span>Total Net Sales</span>
+                      <span>${this.formatCurrency(this.zSalesTaxesSummary.totalNetSale)}</span>
+                    </div>
+                    <div class="just-row">
+                      <span>Tax</span>
+                      <span>${this.formatCurrency(this.zSalesTaxesSummary.tax)}</span>
+                    </div>
+                  </div>
+                  <div class="just-row">
+                    <span><b>Total Sales</b></span>
+                    <span><b>${this.formatCurrency(this.zSalesTaxesSummary.total)}</b></span>
+                  </div>
+                </div>
+                <div class="mb-1">
+                  <div class="border"><b>PAYMENT DETAILS</b></div>
+                  <table style="border: none;" class="print-table">
+                    <tbody class="border">
+                      <tr *ngFor="let payment of paymentSummary | keyvalue">
+                        <td class="print-table" style="float: left;"></td>
+                        <td class="print-table" style="float: right;"></td>
+                      </tr>
+                      <tr>
+                        <td class="print-table" style="float: left;"><b>Total Payments</b></td>
+                        <td class="print-table" style="float: right;">
+                          <b>${this.formatCurrency(this.paymentSum.counted)}</b>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="mb-1">
+                  <div class="just-row">
+                    <b>Total Payments - Total Sales =</b>
+                    <b>${this.formatCurrency(this.paymentSum.counted - this.zSalesTaxesSummary.total)}</b>
+                  </div>
+                </div>
+                <div class="mb-1">
+                  <div class="border"><b>SERVER TIPOUTS</b></div>
+                  <table style="border: none;" class="print-table">
+                    <tbody>
+                      <tr>
+                        <td class="print-table" style="float: left;">${this.serverTipout.cash.type}</td>
+                        <td class="print-table" style="float: right;">${this.formatCurrency(this.serverTipout.cash.bal)})}</td>
+                      </tr>
+                      <!-- Additional rows for other tipouts -->
+                      <tr class="border">
+                        <td class="print-table" style="float: left;font-style: italic;">${this.serverTipout.totalNonCashtip.type}</td>
+                        <td class="print-table" style="float: right;">${this.formatCurrency(this.serverTipout.cashAdjustments.bal)}</td>
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                </div>
+                <!-- Additional sections for discounts, credit card breakdown, etc. -->
+              </div>
+            </div>
+          </div>
+        </body>
+      </html>
+    `);
+    reportWindow.document.close();
+    reportWindow.print();
+  }
 
 }

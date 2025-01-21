@@ -65,6 +65,7 @@ export class SaletransactionComponent implements OnInit {
     const params = {
       from: this.selectedDateFrom,
       to: this.selectedDateTo,
+      sale_status: 'all_closed',
     };
 
     // Log the params to check their structure
@@ -171,10 +172,11 @@ export class SaletransactionComponent implements OnInit {
     this.isshowedit = true;
   }
   searchTransactions() {
+
     this.filteredTransactions = this.transactions.filter(transaction => {
-      const customerMatches = this.selectedCustomer === 'all' || transaction.customer_email === this.selectedCustomer;
-      const userMatches = this.selectedUser === 'all' || transaction.user_email === this.selectedUser;
-      const statusMatches = this.selectedStatus === 'all' || transaction.status === this.selectedStatus;
+      const customerMatches = this.selectedCustomer === 'all' || transaction.customer.email === this.selectedCustomer;
+      const userMatches = this.selectedUser === 'all' || transaction.user_id.email === this.selectedUser;
+      const statusMatches = this.selectedStatus === 'all' || transaction.sale_status === this.selectedStatus;
 
       return customerMatches && userMatches && statusMatches;
     });

@@ -61,60 +61,90 @@ textarea {
     position: absolute;
     // max-height: 90%;
     overflow-y: auto;
-    top: 4%;
-    // left: 30%;
+    top: 20%;
+    left: 30%;
 }
 
 .z-report {
     border: 1px solid #8b8b8b;
+    /* Keep the border for print */
     background-color: #f9f9f9;
+    /* Maintain background color */
     margin-top: 20px;
+    /* Keep top margin */
+    padding: 10px;
+    /* Add padding for print */
 }
 
 .z-report h3 {
     text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
+    /* Center align heading */
+    font-size: 20px;
+    /* Adjust font size for print */
+    margin-bottom: 15px;
+    /* Reduce bottom margin */
 }
 
 .z-report h4 {
-    font-size: 20px;
-    margin-top: 15px;
+    font-size: 18px;
+    /* Adjust font size for print */
+    margin-top: 10px;
+    /* Reduce top margin */
 }
 
 .z-report p {
-    font-size: 16px;
+    font-size: 14px;
+    /* Adjust font size for print */
+    margin: 5px 0;
+    /* Add margin for spacing */
 }
 
 .z-report table {
     width: 100%;
+    /* Full width for tables */
     border-collapse: collapse;
+    /* Merge borders */
     margin-top: 10px;
+    /* Maintain top margin */
 }
 
 .z-report th,
 .z-report td {
     border: 1px solid #ddd;
+    /* Keep border for cells */
     text-align: left;
+    /* Left align text */
+    padding: 8px;
+    /* Add padding for cells */
 }
 
 .z-report th {
     background-color: #f2f2f2;
+    /* Light gray background for headers */
     font-weight: bold;
+    /* Bold text for headers */
 }
 
 .z-report .total-border {
     font-weight: bold;
+    /* Bold text for total */
     background-color: #e9e9e9;
+    /* Light background for total */
 }
 
 .print-table {
     border: none !important;
+    /* Remove borders */
     background: none !important;
-    font-size: 1.3rem;
-    padding: 0% !important;
-    margin: 0% !important;
+    /* Remove background */
+    font-size: 1rem;
+    /* Adjust font size for print */
+    padding: 0 !important;
+    /* Remove padding */
+    margin: 0 !important;
+    /* Remove margin */
     text-align: center;
+    /* Center align text */
 }
 
 .mb-1 {
@@ -177,85 +207,126 @@ td {
     }
 }
 
-/* Print Styles */
 @media print {
-    body {
-        margin: 0;
-        padding: 0;
-        font-size: 12pt;
-        /* Adjust font size for print */
+    @page {
+        size: A4;
+        /* Set the page size to A4 */
+        margin: 10mm;
+        /* Set margins for the print */
     }
 
+    body {
+        font-size: 14pt;
+        /* Base font size for print */
+    }
+
+
     .print-roll-bg {
-        position: static;
-        /* Remove absolute positioning for printing */
-        width: auto;
-        /* Allow width to adjust */
-        height: auto;
-        /* Allow height to adjust */
-        z-index: 1;
-        /* Reset z-index */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 95vh;
+        z-index: 1000;
     }
 
     .print-roll {
         width: 100%;
-        /* Full width for printing */
-        max-height: none;
-        /* Remove max height */
-        overflow: visible;
-        /* Ensure all content is visible */
-        padding: 20px;
+        height: 100%;
+        top: 0;
+        left: 0;
+        // position: absolute;
+        // max-height: 90%;
+        // overflow-y: auto;
+        // top: 20%;
+        // left: 30%;
+    }
+
+    .z-report {
+        border: 1px solid #8b8b8b;
+        /* Keep the border for print */
+        background-color: #f9f9f9;
+        /* Maintain background color */
+        margin-top: 20px;
+        /* Keep top margin */
+        padding: 10px;
         /* Add padding for print */
     }
 
-    .border {
-        border: none;
-        /* Remove borders for cleaner print */
+    .z-report h3 {
+        text-align: center;
+        /* Center align heading */
+        font-size: 20px;
+        /* Adjust font size for print */
+        margin-bottom: 15px;
+        /* Reduce bottom margin */
     }
 
-    .just-row {
-        display: block;
-        /* Stack elements for print */
-        margin-bottom: 10px;
-        /* Space between rows */
+    .z-report h4 {
+        font-size: 18px;
+        /* Adjust font size for print */
+        margin-top: 10px;
+        /* Reduce top margin */
     }
 
-    table {
+    .z-report p {
+        font-size: 14px;
+        /* Adjust font size for print */
+        margin: 5px 0;
+        /* Add margin for spacing */
+    }
+
+    .z-report table {
         width: 100%;
         /* Full width for tables */
         border-collapse: collapse;
         /* Merge borders */
+        margin-top: 10px;
+        /* Maintain top margin */
     }
 
-    th,
-    td {
-        border: 1px solid #686868;
-        /* Light border for table cells */
-        padding: 8px;
-        /* Padding inside cells */
+    .z-report th,
+    .z-report td {
+        border: 1px solid #ddd;
+        /* Keep border for cells */
         text-align: left;
-        /* Left-align text */
+        /* Left align text */
+        padding: 8px;
+        /* Add padding for cells */
     }
 
-    th {
+    .z-report th {
         background-color: #f2f2f2;
         /* Light gray background for headers */
         font-weight: bold;
         /* Bold text for headers */
     }
 
-    @page {
-        size: A4;
-        /* Set the page size to A4 */
-        margin: 20mm;
-        /* Set margins for the print */
+    .z-report .total-border {
+        font-weight: bold;
+        /* Bold text for total */
+        background-color: #e9e9e9;
+        /* Light background for total */
     }
 
-    .no-print {
-        display: none;
-        /* Example class to hide elements */
+    .print-table {
+        border: none !important;
+        /* Remove borders */
+        background: none !important;
+        /* Remove background */
+        font-size: 1rem;
+        /* Adjust font size for print */
+        padding: 0 !important;
+        /* Remove padding */
+        margin: 0 !important;
+        /* Remove margin */
+        text-align: center;
+        /* Center align text */
     }
+
 }
+
+
 
 .custom-card {
     align-content: center;
