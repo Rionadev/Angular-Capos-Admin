@@ -24,11 +24,11 @@
                             <div class="col-md-2 text-center margin-top-30">
                                 <div class="show">
                                     <p class="category">Sales</p>
-                                    <p class="category">${{ this.maxSales }} Tax excl.</p>
+                                    <p class="category">${{ maxSales | currency }} Tax excl.</p>
                                 </div>
                                 <div class="show margin-top-5">
                                     <p class="category">Orders</p>
-                                    <p class="category">{{ this.maxOrders }}</p>
+                                    <p class="category">{{ maxOrders.toFixed(0) }}</p>
                                 </div>
                             </div>
                             <div class="col-md-10">
@@ -57,29 +57,29 @@
                                 </div>
                                 <div class="show">
                                     <p class="category">Total for this month</p>
-                                    <p class="category">${{ totalForThisMonth }}</p>
+                                    <p class="category">${{ totalForThisMonth | currency }}</p>
                                 </div>
                                 <div class="show margin-top-5">
                                     <p class="category">Total for today</p>
-                                    <p class="category">${{ totalForToday }}</p>
+                                    <p class="category">${{ totalForToday | currency }}</p>
                                 </div>
                             </div>
                             <div class="col-md-4 text-center padding-10">
                                 <div class="header">
                                     <p class="category">Product Report</p>
                                 </div>
-                                <div class="show">
+                                <!-- <div class="show">
                                     <p class="category">Total by User</p>
                                     <p class="category">${{ totalByUser }}</p>
-                                </div>
-                                <div class="show margin-top-5">
+                                </div> -->
+                                <div class="show">
                                     <p class="category">Total by Outlet</p>
-                                    <p class="category">${{ totalByOutlet }}</p>
+                                    <p class="category">${{ totalByOutlet | currency }}</p>
                                 </div>
-                                <div class="show margin-top-5">
+                                <!-- <div class="show margin-top-5">
                                     <p class="category">Total by Customer</p>
                                     <p class="category">${{ totalByCustomer }}</p>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="col-md-4 text-center padding-10">
                                 <div class="header">
@@ -87,11 +87,11 @@
                                 </div>
                                 <div class="show">
                                     <p class="category">Stock Levels</p>
-                                    <p class="category">{{ stockLevels }}</p>
+                                    <p class="category">{{ stockLevels.toFixed(0) }}</p>
                                 </div>
                                 <div class="show margin-top-5">
                                     <p class="category">Stock on Hand</p>
-                                    <p class="category">{{ stockOnHand }}</p>
+                                    <p class="category">{{ stockOnHand.toFixed(0) }}</p>
                                 </div>
                             </div>
                         </div>

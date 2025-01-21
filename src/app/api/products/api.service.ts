@@ -32,6 +32,7 @@ export class ProductsService {
     category_slug?: string;
     sort_order?: string;
     keyword?: string;
+    enabled?: boolean;
   }): Observable<any> {
     // Prepare query parameters
     let queryParams = new HttpParams();

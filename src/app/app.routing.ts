@@ -7,6 +7,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { AuthRedirectGuard } from './_helpers/authRedirectGuard';
+import { ExternalRedirectComponent } from './external-redirect/external-redirect.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -32,6 +34,14 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: 'login',
+  },
+  {
+    path: 'online-store/onestore/home',
+    component: ExternalRedirectComponent,
+    canActivate: [AuthRedirectGuard], 
+    // Protect the login route
+    //redirectTo: 'https://caposgt.com/online-store/onestore/home', // Replace with the full URL
+    //pathMatch: 'full',
   },
 ];
 @NgModule({

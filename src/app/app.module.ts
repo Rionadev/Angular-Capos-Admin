@@ -33,16 +33,16 @@ import { AuthInterceptor } from './interceptors/auth.service';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-   
   ],
-  providers: [{
-    provide: 'APP_CONFIG', useValue: APP_CONFIG
-  },
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true, // Allows multiple interceptors to be used
-  },
+  providers: [
+    {
+      provide: 'APP_CONFIG', useValue: APP_CONFIG
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true, // Allows multiple interceptors to be used
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
