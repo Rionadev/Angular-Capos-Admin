@@ -321,41 +321,28 @@ export class RegisterclosuresComponent implements OnInit {
         if (sale_info.products.length > 0) {
           sale_info.products.forEach(product => {
 
-            if (!this.sel_total_caetory[product._id]) {
-              this.sel_total_caetory[product._id] = {
-                discount: product.discount,
-                price: product.price,
-                product_name: product.product_name,
-                tax: product.tax,
+            if (!this.sel_total_caetory[product.product_id.type._id]) {
+              this.sel_total_caetory[product.product_id.type._id] = {
+                cost: 0,
+                name: product.product_id.type.name,
                 qty: 0,
               }
             }
-            this.sel_total_caetory[product._id].qty += product.qty || 0;
-            let discount_v = 1;
-            if (product.discount.value > 0) {
-              if (product.discount.mode == 'percent') {
-                discount_v = product.value / 100;
-              }
-            }
-            this.sel_total_caetory.sum += product.qty * product.price * discount_v || 0;
+            this.sel_total_caetory[product.product_id.type._id].qty += product.qty || 0;
+            this.sel_total_caetory[product.product_id.type._id].cost += product.qty * product.price || 0;
+            this.sel_total_caetory.sum += product.qty * product.price || 0;
 
-            if (!result.categoryinfo[product.type]) {
-              result.categoryinfo[product.type] = {
-                discount: product.discount,
-                price: product.price,
-                product_name: product.product_name,
-                tax: product.tax,
+            if (!result.categoryinfo[product.product_id.type._id]) {
+              result.categoryinfo[product.product_id.type._id] = {
+                cost: 0,
+                name: product.product_id.type.name,
                 qty: 0,
               }
             }
-            result.categoryinfo[product.type].qty += product.qty || 0;
-            // let discount_v = 1;
-            // if (product.discount.value > 0) {
-            //   if (product.discount.mode == 'percent') {
-            //     discount_v = product.value / 100;
-            //   }
-            // }
-            result.categoryinfo.sum += product.qty * product.price * discount_v || 0;
+            result.categoryinfo[product.product_id.type._id].qty += product.qty || 0;
+            result.categoryinfo[product.product_id.type._id].cost += product.qty * product.price || 0;
+
+            result.categoryinfo.sum += product.qty * product.price || 0;
           });
         }
 

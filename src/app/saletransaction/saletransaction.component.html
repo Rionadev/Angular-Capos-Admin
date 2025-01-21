@@ -148,7 +148,16 @@
                                 </span>
                             </p>
                         </td>
-                        <td>{{selTransactions.outlet?.name||''}}</td>
+                        <td>
+                            <p style="display:grid ;">
+                                <span>
+                                    {{selTransactions.outlet?.name||''}}
+                                </span>
+                                <span style="font-size: small; color: rgb(117, 117, 117);">
+                                    {{ selTransactions.outlet?.email||'' }}
+                                </span>
+                            </p>
+                        </td>
                     </tr>
                     <tr>
                         <th>Payment<br>Status</th>
@@ -173,22 +182,16 @@
             <table class="report-table" style="max-height: 300px;overflow-y: auto;">
                 <thead>
                     <tr>
-                        <th>Product<br>name</th>
-                        <th>Price</th>
-                        <th>qty</th>
+                        <th>Category</th>
+                        <th>itemCount</th>
                         <th>Cost</th>
-                        <th>Discount</th>
-                        <th>Voided</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of selTransactions.products">
-                        <td>{{product.product_name}}</td>
-                        <td>{{product.price |currency}}</td>
-                        <td>{{product.qty}}</td>
-                        <td>{{product.price*product.qty | currency}}</td>
-                        <td>{{product.dicount?.value || 0}} %</td>
-                        <td>{{product.voided}}</td>
+                    <tr *ngFor="let category of selTransactions?.categories | keyvalue">
+                        <td>{{category.value.categoryname}}</td>
+                        <td>{{category.value.itemCount}}</td>
+                        <td>{{category.value.cost |currency}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -199,7 +202,7 @@
             <div style="display: flex;text-align: center;align-items: center;">
                 <label for="sale_status1">Status:</label>
                 <!-- <input [(ngModel)]="selTransactions.sale_status" name="sale_status1" class="form-control" /> -->
-                <select [(ngModel)]="selTransactions.sale_status" class="form-control" >                    
+                <select [(ngModel)]="selTransactions.sale_status" class="form-control">
                     <option value="" disabled>CLOSED</option>
                     <option value="completed">completed</option>
                     <option value="layby_completed">layby_completed</option>

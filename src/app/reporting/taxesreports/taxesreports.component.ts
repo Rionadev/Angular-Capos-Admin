@@ -8,6 +8,9 @@ import { CustomerService } from 'app/api/salesledger/api.service';
     styleUrls: ['./taxesreports.component.scss']
 })
 export class TaxesreportsComponent implements OnInit {
+    isShowdetailflag: boolean = false;
+
+
     selectedDateFrom: any;
     selectedDateTo: any;
     categoryData: any;
@@ -15,14 +18,20 @@ export class TaxesreportsComponent implements OnInit {
     searchTerm: string = '';
     selectedPeriod: string = 'today';
 
+    sel_row: any;
     ngOnInit(): void {
         this.setDateFromTo();
         this.fetchSearchItems();
     }
     selrow(selrow: any) {
         console.log(selrow);
-    }
+        this.sel_row = selrow;
+        this.isShowdetailflag = true;
 
+    }
+    onBackdropClick() {
+        this.isShowdetailflag = false;
+    }
     setDateFromTo() {
         const today = new Date();
         const sevenDaysAgo = new Date(today);
@@ -66,20 +75,19 @@ export class TaxesreportsComponent implements OnInit {
                     res.forEach(element => {
                         if (element.products.length > 0) {
                             element.products.forEach(el => {
-                                if (!sale_tax[el.product_id.type]) {
-                                    sale_tax[el.product_id.type] = {
-                                        id: el.product_id.type,
-                                        category: this.categoryData[el.product_id.type].name,
-                                        sale: 0,
+                                if (!sale_tax[el.product_id.type._id]) {
+                                    sale_tax[el.product_id.type._id] = {
+                                        category: el.product_id.type.name,
+                                        cost: 0,
+                                        qty: 0,
                                         tax: 0,
-                                        qty:0,
                                         products: [],
                                     };
                                 }
-                                sale_tax[el.product_id.type].sale += el.price * el.qty;
-                                sale_tax[el.product_id.type].tax += el.tax;
-                                sale_tax[el.product_id.type].qty += el.qty;
-                                sale_tax[el.product_id.type].products.push(element);
+                                sale_tax[el.product_id.type._id].cost += el.price * el.qty;
+                                sale_tax[el.product_id.type._id].tax += el.tax;
+                                sale_tax[el.product_id.type._id].qty += el.qty;
+                                sale_tax[el.product_id.type._id].products.push(el);
                             });
                         }
                     });

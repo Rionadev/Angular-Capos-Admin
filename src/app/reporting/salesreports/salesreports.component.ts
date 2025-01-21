@@ -91,12 +91,13 @@ export class SalesreportsComponent implements OnInit {
     const params = {
       start: new Date(this.selectedDateFrom),
       end: new Date(this.selectedDateTo),
-      // page: this.currentPage - 1,
-      // size: this.countPerPage,
+      page: this.currentPage - 1,
+      size: 2000,//this.countPerPage,
+      sale_status: 'all_closed',
     };
 
     // Log the params to check their structure
-    console.log('Sending params:', params);
+    // console.log('Sending params:', params);
 
     this.total_reportData = [];
 
@@ -109,7 +110,7 @@ export class SalesreportsComponent implements OnInit {
         let t_margin = 0;
         let t_tax = 0;
         // Group transactions by date
-        const groupedTransactions = res.reduce((acc, item) => {
+        const groupedTransactions = res.data.reduce((acc, item) => {
           const date = new Date(item.updated_at).toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
           // if (item?.payment_status != 'not paid') {
 
@@ -139,6 +140,7 @@ export class SalesreportsComponent implements OnInit {
           let tax = 0;
 
           calc_row.forEach(transaction => {
+            console.log(transaction.sale_status);
             if (transaction.payment_status != 'not paid') {
 
               total += transaction.total; // include tax
@@ -153,7 +155,7 @@ export class SalesreportsComponent implements OnInit {
               t_cog += cog;
               t_gp += gp;
             } else {
-              console.log('--------', transaction);
+              // console.log('--------', transaction);
 
             }
           });

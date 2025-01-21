@@ -247,16 +247,15 @@ export class OpencloseComponent implements OnInit {
             if (element.products.length > 0) {
               element.products.forEach(({ product_id, product_name, qty, tax, price, discount }) => {
                 // const productType = product_id._id;
-                const productType = product_id.type;
+                const productType = product_id.type._id;
 
 
                 // Initialize category summary if it doesn't exist
                 if (!this.categorySummary[productType]) {
                   this.categorySummary[productType] = {
-                    product_name: product_name,
+                    name: product_id.type.name,
                     qty: 0,
-                    tax: 0,
-                    price: price,
+                    cost: 0,
                   };
                 }
 
@@ -286,11 +285,10 @@ export class OpencloseComponent implements OnInit {
 
                 // Update quantities, taxes, and prices
                 this.categorySummary[productType].qty += qty;
-                this.categorySummary[productType].tax += tax;
+                this.categorySummary[productType].cost += qty * price;
 
                 // Update overall category sums
                 this.categorySum.qty += qty;
-                this.categorySum.tax += tax;
                 this.categorySum.expect += qty * price; // Changed from 'expect' to 'expected'
                 // console.log(`${product_name}===> ${qty}(qty)*${price}(price): ${this.categorySum.expect}`);
               });

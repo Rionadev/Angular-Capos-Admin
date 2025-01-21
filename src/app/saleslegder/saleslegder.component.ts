@@ -68,7 +68,8 @@ export class SaleslegderComponent implements OnInit {
         this.users = [];
 
         this.transactions = res.map(item => {
-          if (item.payment_status != 'not paid') {
+          // if (item.payment_status != 'not paid') 
+          {
             console.log(item.payment_status);
 
             if (item.customer && item.customer.email) {

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ReportingService {
+export class UtilService {
 
   constructor(@Inject('APP_CONFIG') private config: any, private http: HttpClient) { }
   //customer page
@@ -17,6 +17,9 @@ export class ReportingService {
     //   { params }
     // );
   }
+
+
+  
   //get members of registers
   getRegisters() {
     let httpParams = new HttpParams();
@@ -61,5 +64,19 @@ export class ReportingService {
     return this.http.get(`${this.config.apiUrl}/auth/users`,
       { params }
     );
+  }
+  getProductType(): any {
+    const params = {
+      private_web_address: this.config.private_web_address,
+    };
+    let httpParams = new HttpParams();
+
+    Object.keys(params).forEach(key => {
+      if (params[key] !== undefined && params[key] !== null) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    });
+    return this.http.get(`${this.config.apiUrl}/product/type`, { params: httpParams });
+
   }
 }
