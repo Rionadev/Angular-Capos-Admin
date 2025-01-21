@@ -8,6 +8,13 @@
     align-items: center;
 }
 
+.add-content-first {
+    width: 100%; 
+    display: flex; 
+    flex-direction: row;
+    gap: 5px;
+}
+
 .card .content {
     padding: 10px 15px 10px 15px;
 }
@@ -44,6 +51,7 @@ input, select{
 table td{
     padding-bottom: 3px;
     padding-top: 3px; 
+    height: 40px;
 }
 
 .col-md-5 {
@@ -60,7 +68,7 @@ table td{
 
 hr{
     margin: 0px 0px;
-    margin-bottom: 0px;
+    margin-bottom: 5px;
     margin-top: 5px;
 }
 
@@ -182,6 +190,12 @@ td div .description {
     justify-content:space-between;
 }
 
+.item-justify-stretch {
+    display: flex; 
+    flex-direction: row; 
+    justify-content:stretch;
+}
+
 .input-group-btn .btn {
     padding: 3px 16px !important;
 }
@@ -224,4 +238,20 @@ tr{
 
 .title i {
     cursor: pointer;
+}
+
+.col-md-3 .header {
+    padding-left: 0px;
+}
+
+.margin-top-15{
+    margin-top: 15px;
+}
+
+.margin-bottom-5 {
+    margin-bottom: 5px;
+}
+
+.content p {
+    font-size: 14px;
 }

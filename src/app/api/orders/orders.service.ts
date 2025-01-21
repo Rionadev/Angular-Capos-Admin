@@ -28,4 +28,8 @@ export class OrdersService {
     // Make the API call
     return this.http.get(`${this.config.apiUrl}/sale/order`, {params: queryParams});
   }
+
+  update(params): Observable<any> {
+    return this.http.put(`${this.config.apiUrl}/sale/order`, params);
+  }
 }

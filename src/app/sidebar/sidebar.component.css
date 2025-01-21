@@ -4,7 +4,9 @@
 }
 
 .logo {
-    background-color: white;
+    background-color:  white;/* #1e88e5; */
+    height: 60px;
+    /* margin-right: -1px; */
 }
 
 .logo-img {
