@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { CustomerService } from 'app/api/salesledger/api.service';
 
 @Component({
@@ -14,7 +14,10 @@ export class InventoryreportsComponent implements OnInit {
   countPerPage: number = 10; // Default items per page
   currentPage: number = 1;
 
-  constructor(private customerService: CustomerService) { }
+  constructor(
+    private customerService: CustomerService,
+    @Inject('APP_CONFIG') private config: any,
+  ) { }
 
   ngOnInit(): void {
     this.fetchSearchItems();
@@ -120,5 +123,139 @@ export class InventoryreportsComponent implements OnInit {
     console.log(this.currentPage);
     this.fetchSearchItems();
 
+  }
+
+
+  getPlain(): string {
+    return this.filteredProducts.map(item =>
+      `<tr>
+        <td>${ item.name }</td>
+        <td>${ item?.outlet?.name || '' }</td>
+        <td>${ Number(item.inventory - (this.soldProducts && this.soldProducts[item._id]?.qty || 0)).toFixed(0) }</td>
+        <td>$${ Number(item.supply_price || 0).toFixed(2) }</td>
+        <td>$${ Number(item.inventory - (this.soldProducts && this.soldProducts[item._id]?.qty || 0 ) *  item.supply_price ).toFixed(2) }</td>
+        <td>${ Number(item.reorder_point || 0 ).toFixed(0) }</td>
+        <td>$${ Number(item.reorder_point * item.supply_price).toFixed(2) }</td>
+      </tr>`
+    ).join('');
+  }
+
+  printContent() {
+    const plainData = this.getPlain();
+    const printWindow = window.open('Z-Report', 'Z-Report', 'height=3508,width=2480');
+    /* printWindow?.document.write('<html><head><title>Print</title>');
+    printWindow?.document.write('</head><body >');
+    printWindow?.document.write(document.getElementById('print-section')?.innerHTML || '');
+    printWindow?.document.write('</body></html>'); */
+    printWindow.document.write(`
+        <html>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" media="print"/>
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+            <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+            <title>Z-Report</title>
+            <style>
+                @media print {
+                    app-root > * { display: none; }
+                    app-root app-print-layout { display: block; }
+                }
+
+                .header {
+                    font-size: 32px; 
+                    text-align: center;
+                    margin-top: 56px;
+                    margin-bottom: 56px;
+                }
+
+                .date {
+                    font-size: 18px;
+                    line-height: 0.5;
+                    margin-bottom: 56px;
+                }
+                
+                table, td, th {
+                    border: 1px solid;
+                    padding: 6px 8px;
+                }
+                
+                th {
+                    font-weight: 100;
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    text-align: left;
+                    font-size: 18px;
+                }
+
+                .footer {
+                    margin-top: 56px;
+                    font-size: 18px;
+                }
+
+                .footer div{
+                    width: 100%;
+                    text-align: center;
+                }
+            </style>
+            <body onload="window.print()">
+                <p class="header"><strong>Z-Report</strong></p>
+                <div class="date">
+                <p>PWA: ${this.config.private_web_address}</p>
+                </div>
+                <div>
+                    <table>
+                        <tr>
+                            <th>Product</th>
+                            <th>Outlet</th>
+                            <th>Current Stock</th>
+                            <th>Item Value</th>
+                            <th>Stock Value</th>
+                            <th>Reorder Point</th>
+                            <th>Reorder Amount</th>
+                        </tr>
+                        ${plainData}
+                    </table>
+                <div>
+                <div class="footer">
+                    <div>Inventory Report</div>
+                <div>
+            </body>
+        </html>
+    `);
+
+    printWindow?.document.close();
+    //printWindow?.focus();
+    //printWindow?.print();
+    //printWindow?.document.close();
+    //printWindow?.close();
+    setTimeout(function () {
+      //printWindow?.print();
+      printWindow.close();
+    }, 1000);
+  }
+
+  getCSVPlain(): string {
+    return this.filteredProducts.map(item =>
+      `${ item.name },${ item?.outlet?.name || '' },${ Number(item.inventory - (this.soldProducts && this.soldProducts[item._id]?.qty || 0)).toFixed(0) },$${ Number(item.supply_price || 0).toFixed(2) },$${ Number(item.inventory - (this.soldProducts && this.soldProducts[item._id]?.qty || 0 ) *  item.supply_price ).toFixed(2) },${ Number(item.reorder_point || 0 ).toFixed(0) },$${ Number(item.reorder_point * item.supply_price).toFixed(2) }\n`
+    ).join('');
+  }
+
+  exportContent() {
+    const header = 'product, outlet, current stock, item value, stock value, reorder point, reorder amount\n';
+    const rows = this.getCSVPlain();
+    const content = header + rows;
+
+    const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'inventory_report.csv');
+    link.style.visibility = 'hidden';
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }

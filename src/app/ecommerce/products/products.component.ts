@@ -202,12 +202,13 @@ export class EcommerceProductsComponent implements OnInit {
   onGetData() {
     const page = (this.currentPage - 1).toString();
     const size = (this.countPerPage).toString();
-    this.productsService.read({ range: 'all-factor', page: page, size: size }).subscribe({
+    this.productsService.read({ range: 'all-factor', page: page, size: size, enabled: true}).subscribe({
       next: (data) => {
         console.log('onGetData', data);
         this.data = data?.data;
         this.totalItems = data?.totalElements;
-        //
+        // , enabled: true 
+        // const filteredData = dataArray.filter(item => item.returned === false);
       },
       error: (err) => {
         console.error('Error fetching stores:', err);

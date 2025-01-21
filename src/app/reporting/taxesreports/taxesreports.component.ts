@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ReportingService } from 'app/api/reporting/api.service';
 import { CustomerService } from 'app/api/salesledger/api.service';
 
@@ -72,7 +72,7 @@ export class TaxesreportsComponent implements OnInit {
                                         category: this.categoryData[el.product_id.type].name,
                                         sale: 0,
                                         tax: 0,
-                                        qty:0,
+                                        qty: 0,
                                         products: [],
                                     };
                                 }
@@ -111,7 +111,9 @@ export class TaxesreportsComponent implements OnInit {
 
     constructor(
         private reportingService: ReportingService,
-        private customerService: CustomerService) {
+        private customerService: CustomerService,
+        @Inject('APP_CONFIG') private config: any,
+    ) {
         this.updateDateRange(); // Set default date range on initialization
     }
 
@@ -175,5 +177,139 @@ export class TaxesreportsComponent implements OnInit {
     // Method to calculate totals for the specified field
     getTotal(field: string): number {
         return (this.records?.reduce((sum, record) => sum + record[field], 0)).toFixed(2);
+    }
+
+    getPlain():string {
+        return this.records.map(record => 
+            `<tr><td>${record.category}</td><td>$${record.sale}</td><td>$${record.tax}</td></tr>`
+          ).join('');
+    }
+
+    printContent() {
+        const plainData = this.getPlain();
+        const saleTotal = this.getTotal('sale');
+        const taxTotal = this.getTotal('tax');
+        const printWindow = window.open('Z-Report', 'Z-Report', 'height=3508,width=2480');
+        /* printWindow?.document.write('<html><head><title>Print</title>');
+        printWindow?.document.write('</head><body >');
+        printWindow?.document.write(document.getElementById('print-section')?.innerHTML || '');
+        printWindow?.document.write('</body></html>'); */
+        printWindow.document.write(`
+            <html>
+                <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" media="print"/>
+                <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+                <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+                <title>Z-Report</title>
+                <style>
+                    @media print {
+                        app-root > * { display: none; }
+                        app-root app-print-layout { display: block; }
+                    }
+
+                    .header {
+                        font-size: 32px; 
+                        text-align: center;
+                        margin-top: 56px;
+                        margin-bottom: 56px;
+                    }
+
+                    .date {
+                        font-size: 18px;
+                        line-height: 0.5;
+                        margin-bottom: 56px;
+                    }
+                    
+                    table, td, th {
+                        border: 1px solid;
+                        padding: 6px 8px;
+                    }
+                    
+                    th {
+                        font-weight: 100;
+                    }
+
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        text-align: left;
+                        font-size: 18px;
+                    }
+
+                    .footer {
+                        position: fixed;
+                        font-size: 18px;
+                        bottom: 0px;
+                    }
+
+                    .footer div{
+                        width: 100%;
+                        text-align: center;
+                    }
+
+
+                </style>
+                <body onload="window.print()">
+                    <p class="header"><strong>Z-Report</strong></p>
+                    <div class="date">
+                    <p>Date: ${ this.selectedDateFrom } - ${ this.selectedDateTo }</p>
+                    <p>PWA: ${ this.config.private_web_address}</p>
+                    </div>
+                    <div>
+                        <table>
+                            <tr>
+                                <th>Category</th>
+                                <th>Sale</th>
+                                <th>Tax</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Total</strong></td>
+                                <td><strong>$${ saleTotal }</strong></td>
+                                <td><strong>$${ taxTotal }</strong></td>
+                            </tr>
+                            ${ plainData }
+                        </table>
+                    <div>
+                    <div class="footer">
+                        <div>Tax Report</div>
+                    <div>
+                </body>
+            </html>
+        `);
+
+        printWindow?.document.close();
+        //printWindow?.focus();
+        //printWindow?.print();
+        //printWindow?.document.close();
+        //printWindow?.close();
+        setTimeout(function () {
+            //printWindow?.print();
+            printWindow.close();
+        }, 1000);
+    }
+
+    getCSVPlain():string {
+        return this.records.map(record => 
+            `${record.category},$${record.sale},$${record.tax}\n`
+          ).join('');
+    }
+
+    exportContent() {
+        const header = 'category,sale,tax\n';
+        const total =`Total,${this.getTotal('sale')},${this.getTotal('tax')}\n`;
+        const rows = this.getCSVPlain();
+        
+        const content = header + total + rows;
+
+        const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'tax_reports.csv');
+        link.style.visibility = 'hidden';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 }

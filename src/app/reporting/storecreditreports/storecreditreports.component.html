@@ -9,8 +9,14 @@
                             <input type="text" class="form-control" placeholder="Search by Customer Name or Email"
                             [(ngModel)]="searchTerm" (change)="searchCustomers()" style="flex-grow: 1;">
                         </div>
-                        
-                        <div></div>
+                        <div class="align-center">
+                            <button class="btn btn-sm btn-info btn-fill" (click)="printContent()">
+                                &nbsp;&nbsp;&nbsp;&nbsp;Print&nbsp;&nbsp;&nbsp;&nbsp;
+                            </button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="exportContent()">
+                                &nbsp;&nbsp;&nbsp;Export&nbsp;&nbsp;&nbsp;
+                            </button>
+                        </div>
                     </div>
                 </div>
 

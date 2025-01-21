@@ -88,6 +88,12 @@ export class NavbarComponent implements OnInit {
     }
     logout() {
         localStorage.removeItem('user');
+        localStorage.removeItem('private_web_address');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('user_email');
+        localStorage.removeItem('user_outlet');
+        localStorage.removeItem('user_register');
+        localStorage.removeItem('user_info');
         this.router.navigate(['/login']);
     }
 }

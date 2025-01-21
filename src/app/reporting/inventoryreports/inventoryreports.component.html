@@ -20,7 +20,14 @@
                             <input type="text" [(ngModel)]="searchTerm" class="form-control"
                                 placeholder="Poducts or Outlets" (keydown.enter)="fetchSearchItems()" />
                         </div>
-                        <div></div>
+                        <div class="align-center">
+                            <button class="btn btn-sm btn-info btn-fill" (click)="printContent()">
+                                &nbsp;&nbsp;&nbsp;&nbsp;Print&nbsp;&nbsp;&nbsp;&nbsp;
+                            </button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="exportContent()">
+                                &nbsp;&nbsp;&nbsp;Export&nbsp;&nbsp;&nbsp;
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="card">

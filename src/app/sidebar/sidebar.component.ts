@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Injectable, Inject , Component, OnInit } from '@angular/core';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -71,6 +71,7 @@ export const CUSTOMERROUTES: RouteInfo[] = [
   { path: '/customers/customers', title: 'Customers', icon: '', class: '' },
   { path: '/customers/groups', title: 'Groups', icon: '', class: '' },
 ];
+
 export const STOCKCONTROLROUTES: RouteInfo[] = [
   { path: '/stockcontrol/manageorders', title: 'Manage Orders', icon: '', class: '' },
   { path: '/stockcontrol/receivestock', title: 'Recievie Stock', icon: '', class: '' },
@@ -127,8 +128,11 @@ export class SidebarComponent implements OnInit {
 
   // Common Variable for Menu expanding and contracting
   menuState: string = '';
-
-  constructor() { }
+  onlinePath: string = '';
+  constructor(@Inject('APP_CONFIG') private config: any) {
+    this.onlinePath = "/online-store/" + config.private_web_address + "/home";
+    console.log(this.onlinePath);
+  }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -140,7 +144,10 @@ export class SidebarComponent implements OnInit {
     this.customerContentItems = CUSTOMERROUTES.filter(menuItems => menuItems);
     this.menusContentItems = MENUSROUTES.filter(menuItems => menuItems);
     this.employeesContentItems = EMPLOYEESROUTES.filter(menuItems => menuItems);
+
+    this.ecommerceMenuItems[this.ecommerceMenuItems.length - 1].path = this.onlinePath;
   }
+
   stockContent(): void {
     this.isStockContentVisible = !this.isStockContentVisible; // Toggle the visibility
   }
