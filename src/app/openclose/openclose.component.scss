@@ -416,8 +416,12 @@ textarea {
     color: #ffffff;
     padding: 20px;
     position: relative;
-    max-height: 250px; /* Set a max height for the left view */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 250px;
+    /* Set a max height for the left view */
+    overflow-y: auto;
+    
+    /* Enable vertical scrolling */
+
 }
 
 .reg_card .reg_left-view h2 {
@@ -430,7 +434,7 @@ textarea {
 }
 
 .reg_card .reg_left-view li {
-    margin: 5px 10px ;
+    margin: 5px 10px;
     text-align: center;
     cursor: pointer;
     height: 30px;
@@ -456,7 +460,8 @@ textarea {
     border-collapse: collapse;
 }
 
-.reg_card th, .reg_card td {
+.reg_card th,
+.reg_card td {
     border: 1px solid #ddd;
     padding: 12px;
     text-align: left;
@@ -473,26 +478,34 @@ textarea {
 
 /* Enhanced Scrollbar Styles */
 .reg_card .reg_left-view::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
+    width: 8px;
+    /* Width of the scrollbar */
 }
 
 .reg_card .reg_left-view::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Track color */
-    border-radius: 10px; /* Rounded corners for track */
+    background: #f1f1f1;
+    /* Track color */
+    border-radius: 10px;
+    /* Rounded corners for track */
 }
 
 .reg_card .reg_left-view::-webkit-scrollbar-thumb {
-    background: #007bff; /* Thumb color */
-    border-radius: 10px; /* Rounded corners for thumb */
+    background: #007bff;
+    /* Thumb color */
+    border-radius: 10px;
+    /* Rounded corners for thumb */
 }
 
 .reg_card .reg_left-view::-webkit-scrollbar-thumb:hover {
-    background: #0056b3; /* Thumb color on hover */
+    background: #0056b3;
+    /* Thumb color on hover */
 }
 
 .reg_card .reg_left-view {
-    scrollbar-width: thin; /* Thin scrollbar */
-    scrollbar-color: #007bff #f1f1f1; /* Thumb and track color */
+    scrollbar-width: thin;
+    /* Thin scrollbar */
+    scrollbar-color: #007bff #f1f1f1;
+    /* Thumb and track color */
 }
 
 .reg_card .reg_left-view h2 {
@@ -508,6 +521,7 @@ textarea {
     margin: 10px 0;
     cursor: pointer;
     transition: background-color 0.3s;
+    align-items: center;
 }
 
 .reg_card .reg_left-view li:hover {
@@ -528,7 +542,8 @@ textarea {
     border-collapse: collapse;
 }
 
-.reg_card th, .reg_card td {
+.reg_card th,
+.reg_card td {
     border: 1px solid #ddd;
     padding: 12px;
     text-align: left;

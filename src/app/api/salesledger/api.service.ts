@@ -204,7 +204,7 @@ export class CustomerService {
       }
     });
     // return this.http.get(`${this.config.apiUrl}/sale/fetchtodysale`, { params });
-    return this.http.get(`${this.config.apiUrl}/sell/openclose`, { params });
+    return this.http.get(`${this.config.apiUrl}/sell/openclose/opencloselist`, { params });
 
   }
 

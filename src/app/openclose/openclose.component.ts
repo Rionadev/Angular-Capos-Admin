@@ -194,6 +194,10 @@ export class OpencloseComponent implements OnInit {
     );
 
   }
+  goToReg() {
+    // this.init_var();
+    console.log(this.selected_reg);
+  }
   fetchSearchItems() {
     this.init_var();
 
