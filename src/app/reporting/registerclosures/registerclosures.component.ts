@@ -27,6 +27,7 @@ export class RegisterclosuresComponent implements OnInit {
   selectedRecord: any = null; // Holds the clicked record for details
   isShowdetailflag: boolean = false;
   filteredRecords: any;
+  before_filteredRecords: any;
   org_data: any;
 
   sel_total_payment: any;
@@ -65,7 +66,7 @@ export class RegisterclosuresComponent implements OnInit {
     this.init_total_sum();
     const start = new Date(this.selectedDateFrom);
     const end = new Date(this.selectedDateTo);
-    this.filteredRecords = this.org_data
+    this.before_filteredRecords = this.org_data
       .filter(item => {
         const openingTime = new Date(item.opening_time);
         const closingTime = new Date(item.closing_time);
@@ -88,7 +89,8 @@ export class RegisterclosuresComponent implements OnInit {
         // paymentSummary: this.calcCashPayment('paymentSummary', item.payment_data.all_voided),
         // categorySummary: this.calcCashPayment('categorySummary', item.payment_data.all_voided),
       }));
-    this.totalItems = this.filteredRecords.length;
+    this.onGetData();
+    this.totalItems = this.before_filteredRecords.length;
     console.log(this.totalItems);
   }
   fetchRegisters() {
@@ -139,6 +141,7 @@ export class RegisterclosuresComponent implements OnInit {
           // categorySummary: this.calcCashPayment('categorySummary', item.payment_data.all_voided),
         }));
         this.filterByDate();
+        // this.onGetData();
 
       },
       (error) => {
@@ -363,20 +366,14 @@ export class RegisterclosuresComponent implements OnInit {
     this.init_row_sum();
     this.init_total_sum();
     this.fetchSearchItems();
-    // if (this.selectedRegister === 'All Registers') {
-    //   this.filteredRecords = this.records;
-    // } else {
-    //   this.filteredRecords = this.records.filter(record => record.register.name === this.selectedRegister);
-    // }
+
   }
   getFormattedDate(date: any): string {
     if (!date) return '';
     const d = new Date(date);
     return d.toISOString().split('T')[0]; // Format to YYYY-MM-DD
   }
-  // getTotal(field: string) {
-  //   return this.filteredRecords.reduce((acc, record) => acc + record[field], 0);
-  // }
+
   calc(type: string, data: any) {
 
   }
@@ -422,25 +419,24 @@ export class RegisterclosuresComponent implements OnInit {
   }
   paginateItems(page: number) {
     this.currentPage = page;
-    /* const startIndex = (page - 1) * this.countPerPage; // Default items per page
-    const endIndex = startIndex + this.countPerPage; */
-    //this.paginatedItems = this.allItems.slice(startIndex, endIndex);
+
     this.onGetData();
   }
   onGetData() {
-    const page = (this.currentPage - 1).toString();
-    const size = (this.countPerPage).toString();
-    //   this.productsService.read({ range: 'all-factor', page: page, size: size }).subscribe({
-    //     next: (data) => {
-    //       console.log('onGetData', data);
-    //       this.data = data?.data;
-    //       this.totalItems = data?.totalElements;
-    //       //
-    //     },
-    //     error: (err) => {
-    //       console.error('Error fetching stores:', err);
-    //     },
-    //   });
+    console.log('count per page:', this.countPerPage,
+      'current page:', this.currentPage - 1,
+    );
+    const page = (this.currentPage - 1);
+    const size = (this.countPerPage);
+
+    const startIndex = page * size; // Starting index
+    const endIndex = startIndex + size; // Ending index
+
+    // Create the new array based on pagination
+    this.filteredRecords = this.before_filteredRecords.slice(startIndex, endIndex);
+    // console.log(this.filteredRecords);
+
+
   }
 
   getPlain(): string {

@@ -1,9 +1,9 @@
 .cr-bg {
-    background-color: #e5eaed;
+    background-color: #ffffff;
 }
 
 .card1 {
-    background-color: #e5eaed;
+    background-color: #fdfdfd;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 2rem;
     border-radius: 8px;
@@ -245,7 +245,7 @@ td {
     .z-report {
         border: 1px solid #8b8b8b;
         /* Keep the border for print */
-        background-color: #f9f9f9;
+        // background-color: #f9f9f9;
         /* Maintain background color */
         margin-top: 20px;
         /* Keep top margin */
@@ -332,10 +332,10 @@ td {
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 400px;
+    max-width: 700px;
     margin: 20px auto;
     font-family: Arial, sans-serif;
-    top: 30%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
@@ -357,6 +357,7 @@ label {
     font-weight: bold;
     color: #555;
 }
+
 
 .custom-card input[type="number"],
 .custom-card textarea,
@@ -396,6 +397,14 @@ textarea {
     background-color: #0056b3;
 }
 
+.custom-card td,
+th {
+    font-size: smaller;
+    padding: 0.5rem;
+    align-items: center;
+    text-align: center;
+}
+
 .reg_card {
     display: flex;
     border-radius: 12px;
@@ -419,7 +428,7 @@ textarea {
     max-height: 250px;
     /* Set a max height for the left view */
     overflow-y: auto;
-    
+
     /* Enable vertical scrolling */
 
 }

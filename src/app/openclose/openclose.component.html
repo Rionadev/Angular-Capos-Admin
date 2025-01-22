@@ -2,78 +2,93 @@
     <div>
         <app-toast></app-toast>
         <div class="custom-card" *ngIf="!isOpenClose">
-            <div class="custom-form-group">
-                <label for="openingFloat" required>Opening Float*</label>
-                <input type="number" id="openingFloat" placeholder="Enter opening float" required
-                    [(ngModel)]="openingFloat">
-            </div>
+            <div>
 
-            <div class="custom-form-group">
-                <label for="notes">Notes (Optional):</label>
-                <textarea id="notes" placeholder="Enter any notes..." [(ngModel)]="new_note"></textarea>
-            </div>
-
-            <div class="custom-form-group">
-                <label for="register">Register*</label>
-                <select id="register" required [(ngModel)]="selected_reg">
-                    <option value="" disabled selected>Select a register</option>
-                    <option *ngFor="let register of registers" [value]="register._id">{{ register.name }}</option>
-                </select>
-            </div>
-
-            <button class="custom-submit-btn" (click)="confirmCreate()">OPEN REGISTER</button>
-        </div>
-        <div class="reg_card" *ngIf="opencloseHistory?.length>0">
-            <div class="reg_left-view">
-                <ul>
-                    <li *ngFor="let item of opencloseHistory" (click)="sel_openclosehistory=item;">
-                        {{item.register.name}}
-                        <span style="font-size: xx-small;">
-                            {{item.opening_time|date}}-
-                            {{item.closing_time|date}}
-                        </span>
-                    </li>
-                    <!-- Add more outlets as needed -->
-                </ul>
-            </div>
-            <div class="reg_right-content">
-                <div style="display: flex; justify-content: space-between;">
-                    <h2>Details</h2>
-                    <button *ngIf="selected_reg" class="btn btn-sm btn-primary btn-fill"
-                        (click)="goToReg(selected_reg)">
-                        View</button>
+                <div class="custom-form-group">
+                    <label for="openingFloat" required>Opening Float*</label>
+                    <input type="number" id="openingFloat" placeholder="Enter opening float" required
+                        [(ngModel)]="openingFloat">
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Register</th>
-                            <th>Outlet</th>
-                            <th>ID#</th>
-                            <th>Opening Time</th>
-                            <th>Closing Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                {{sel_openclosehistory.register?.name}}
-                                <br>
-                                {{sel_openclosehistory.register?.email}}
-                            </td>
-                            <td>
-                                {{sel_openclosehistory.outlet?.name}}
-                                <br>
-                                {{sel_openclosehistory.outlet?.email}}
-                            </td>
-                            <td>{{sel_openclosehistory.uid}}</td>
-                            <td>{{sel_openclosehistory.opening_time|date}}</td>
-                            <td>{{sel_openclosehistory.closing_time|date}}</td>
-                        </tr>
 
-                    </tbody>
-                </table>
+                <div class="custom-form-group">
+                    <label for="notes">Notes (Optional):</label>
+                    <textarea id="notes" placeholder="Enter any notes..." [(ngModel)]="new_note"></textarea>
+                </div>
+
+                <div class="custom-form-group">
+                    <label for="register">Register*</label>
+                    <select id="register" required [(ngModel)]="selected_reg">
+                        <option value="" disabled selected>Select a register</option>
+                        <option *ngFor="let register of registers" [value]="register._id">{{ register.name }}</option>
+                    </select>
+                </div>
+
+                <button class="custom-submit-btn" (click)="confirmCreate()">OPEN REGISTER</button>
+            </div>
+            <div>
+                <div>
+                    <div>
+
+                    </div>
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Register</th>
+                                    <th>Outlet</th>
+                                    <th>ID#</th>
+                                    <th colspan="2">Opening Time</th>
+                                    <th colspan="2">Closing Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td>{{opencloseHistory.register?.name || ''}}
+                                    <br>{{opencloseHistory.register?.email || ''}}
+                                </td>
+                                <td>
+                                    {{opencloseHistory.outlet?.name || ''}}
+                                    <br>{{opencloseHistory.outlet?.email || ''}}
+                                </td>
+                                <td>
+                                    ${{opencloseHistory.uid || ''}}
+                                </td>
+                                <td colspan="2">{{opencloseHistory.opening_time | date: 'medium'}}</td>
+                                <td colspan="2">{{opencloseHistory.closing_time | date: 'medium'}}</td>
+
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th>Cash</th>
+                                    <th>Credit Card</th>
+                                    <th>Debit Card</th>
+                                    <th>Store Credit</th>
+                                    <th>Other</th>
+                                    <th>Refunds</th>
+                                    <th>Voided</th>
+                                </tr>
+                                {{calc_quickView(opencloseHistory.payment_data)}}
+                            </thead>
+                            <tbody>
+                                <td>{{last_payment.cash |currency}}</td>
+                                <td>{{last_payment.credit |currency}}</td>
+                                <td>{{last_payment.debit |currency}}</td>
+                                <td>{{opencloseHistory.open_value |currency}}</td>
+                                <td>{{last_payment.other |currency}}</td>
+                                <td>{{last_payment.refunds |currency}}</td>
+                                <td>{{last_payment.voided |currency}}</td>
+                            </tbody>
+                            <tr>
+                                <th colspan="7">
+                                    {{last_payment.sum|currency}}
+
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
+
 
         <app-confirm-modal *ngIf="isCreateOpenClose" [title]="'Open Register'"
             [description]="'Are you sure to want to open this register ?'" [confirmButtonCaption]="'Yes'"

@@ -108,28 +108,12 @@
 
             </div>
         </div>
-        <!-- <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50]"
+        <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50]"
             (pageChanged)="onPageChanged($event)" (countPerPageChanged)="onCountPerPageChanged($event)">
-        </app-pagination> -->
+        </app-pagination>
     </div>
 </div>
-<!-- <div class="details-container" *ngIf="isShowdetailflag" (click)="onBackdropClick($event)">
-    <div class="details-box"  *ngIf="isShowdetailflag" (click)="$event.stopPropagation()">
-        <h4>Details for Register: {{ selectedRecord.register }}</h4>
-        <p><strong>Time Opened:</strong> {{ selectedRecord.timeOpened }}</p>
-        <p><strong>Time Closed:</strong> {{ selectedRecord.timeClosed }}</p>
-        <p><strong>Store Credit:</strong> {{ selectedRecord.storeCredit | currency }}</p>
-        <p><strong>Cash Concealed Total:</strong> {{ selectedRecord.cashConcealedTotal | currency }}</p>
-        <p><strong>Cash:</strong> {{ selectedRecord.cash | currency }}</p>
-        <p><strong>Credit:</strong> {{ selectedRecord.credit | currency }}</p>
-        <p><strong>Debit:</strong> {{ selectedRecord.debit | currency }}</p>
-        <p><strong>Refunds:</strong> {{ selectedRecord.refunds | currency }}</p>
-        <p><strong>Voided:</strong> {{ selectedRecord.voided | currency }}</p>
-        <p><strong>Total:</strong> {{ selectedRecord.total | currency }}</p>
-        <button (click)="onBackdropClick(selectedRecord)">Close</button>
 
-    </div>
-</div> -->
 <div class="modal-overlay" *ngIf="isShowdetailflag" (click)="onBackdropClick($event)">
     <div class="modal-content" *ngIf="isShowdetailflag" (click)="$event.stopPropagation()">
         <div class="modal-header">
@@ -141,50 +125,7 @@
             </span>
             <button class="close-button" (click)="onBackdropClick(selectedRecord)">×</button>
         </div>
-        <!-- <table class="details-table">
-            <tbody>
-                <tr>
-                    <td><strong>Time Opened:</strong></td>
-                    <td>{{ selectedRecord.timeOpened }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Time Closed:</strong></td>
-                    <td>{{ selectedRecord.timeClosed }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Store Credit:</strong></td>
-                    <td>{{ selectedRecord.storeCredit | currency }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Cash Concealed Total:</strong></td>
-                    <td>{{ selectedRecord.cashConcealedTotal | currency }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Cash:</strong></td>
-                    <td>{{ selectedRecord.cash | currency }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Credit:</strong></td>
-                    <td>{{ selectedRecord.credit | currency }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Debit:</strong></td>
-                    <td>{{ selectedRecord.debit | currency }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Refunds:</strong></td>
-                    <td>{{ selectedRecord.refunds | currency }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Voided:</strong></td>
-                    <td>{{ selectedRecord.voided | currency }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Total:</strong></td>
-                    <td>{{ selectedRecord.total | currency }}</td>
-                </tr>
-            </tbody>
-        </table> -->
+       
         <!-- Register Details -->
         <div class="modal-body">
             <table>
@@ -363,30 +304,11 @@
                 </tr>
             </table>
             <table>
-                <!-- <tr>
-                    <td><b>Sold</b></td>
-                    <td colspan="4"><b>{{detail_records?.all?.categoryinfo?.sum || 0 |currency}}</b></td>
-                </tr> -->
-                <!-- <tr>
-                    <td><b>Return</b></td>
-                    <td colspan="4"><b>{{detail_records?.reutrn?.categoryinfo?.sum || 0 |currency}}</b></td>
-                </tr>
-                <tr>
-                    <td><b>Voided</b></td>
-                    <td colspan="4"><b>{{detail_records?.voided?.categoryinfo?.sum || 0 |currency}}</b></td>
-                </tr>
-
-                <tr>
-                    <td><b>Total</b></td>
-                    <td colspan="4"><b>{{sel_total_caetory.sum|currency}}</b></td>
-                </tr> -->
+           
 
                 <tbody *ngIf="!(detail_records?.all?.categoryinfo?.length > 0)">
 
-                    <!-- <tr>
-                        <td colspan="5"><strong>SOLD</strong></td>
-                    </tr> -->
-
+    
                     <tr>
                         <th>Category</th>
                         <th>Qty</th>
@@ -405,53 +327,9 @@
                         </ng-container>
                     </tr>
                 </tbody>
-                <!-- <tbody *ngIf="!(detail_records?.return?.categoryinfo?.length > 0)">
-
-                    <tr>
-                        <td colspan="5"><strong>Return</strong></td>
-                    </tr>
-                    <tr>
-
-                        <th>Product</th>
-                        <th>price</th>
-                        <th>qty</th>
-                        <th>Value</th>
-                        <th>discount</th>
-                    </tr>
-                    <tr *ngFor="let product of detail_records.return.categoryinfo | keyvalue">
-                        <ng-container *ngIf="product.key !== 'sum'">
-                            <td><b>{{ product?.value.product_name || '' }}</b></td>
-                            <td>{{ product?.value.price || '' | currency }}</td>
-                            <td>{{ product?.value.qty || '' }}</td>
-                            <td>{{ product?.value.qty*product?.value.price |currency }}</td>
-                            <td>{{ product?.value.discount.value || '' }}%</td>
-                        </ng-container>
-                    </tr>
-                </tbody> -->
-                <!-- <tbody *ngIf="!(detail_records?.voided?.categoryinfo?.length > 0)">
-                    <tr>
-                        <td colspan="5"><strong>Voided</strong></td>
-                    </tr>
-                    <tr>
-                        <th>Product</th>
-                        <th>price</th>
-                        <th>qty</th>
-                        <th>Value</th>
-                        <th>discount</th>
-                    </tr>
-                    <tr *ngFor="let product of detail_records.voided.categoryinfo | keyvalue">
-                        <ng-container *ngIf="product.key !== 'sum'">
-                            <td><b>{{ product?.value.product_name || '' }}</b></td>
-                            <td>{{ product?.value.price || '' | currency }}</td>
-                            <td>{{ product?.value.qty || '' }}</td>
-                            <td>{{ product?.value.qty*product?.value.price |currency }}</td>
-                            <td>{{ product?.value.discount.value || '' }}%</td>
-                        </ng-container>
-                    </tr>
-                </tbody> -->
+               
 
             </table>
-            <!-- </div> -->
 
         </div>
     </div>
