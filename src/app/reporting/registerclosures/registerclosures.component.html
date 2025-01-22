@@ -45,7 +45,7 @@
 
                 <!-- Transactions Table -->
                 <div class="card">
-                    <div class="content table-responsive table-full-width" style="height: 72vh;overflow-y: auto;">
+                    <div class="content table-responsive table-full-width" style="height: 64vh;overflow-y: auto;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -108,9 +108,8 @@
 
             </div>
         </div>
-        <!-- <app-pagination class="float-right" [totalCount]="totalItems"
-            [countsPerPageOptions]="[5, 10, 20, 50]" (pageChanged)="onPageChanged($event)"
-            (countPerPageChanged)="onCountPerPageChanged($event)">
+        <!-- <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50]"
+            (pageChanged)="onPageChanged($event)" (countPerPageChanged)="onCountPerPageChanged($event)">
         </app-pagination> -->
     </div>
 </div>
@@ -389,20 +388,20 @@
                     </tr> -->
 
                     <tr>
-                        <th>Product</th>
-                        <th>price</th>
-                        <th>qty</th>
-                        <th>Value</th>
-                        <th>discount</th>
+                        <th>Category</th>
+                        <th>Qty</th>
+                        <th>Cost</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><b>Total</b></td>
+                        <td>{{detail_records.all.categoryinfo.sum |currency}}</td>
                     </tr>
 
-                    <tr *ngFor="let product of detail_records.all.categoryinfo | keyvalue">
-                        <ng-container *ngIf="product.key !== 'sum'">
-                            <td><b>{{ product?.value.product_name || '' }}</b></td>
-                            <td>{{ product?.value.price || '' | currency }}</td>
-                            <td>{{ product?.value.qty || '' }}</td>
-                            <td>{{ product?.value.qty*product?.value.price |currency }}</td>
-                            <td>{{ product?.value.discount.value || '' }}%</td>
+                    <tr *ngFor="let category of detail_records.all.categoryinfo | keyvalue">
+                        <ng-container *ngIf="category.key !== 'sum'">
+                            <td><b>{{ category.value.name || '' }}</b></td>
+                            <td>{{ category.value.qty || '' }}</td>
+                            <td>{{ category.value.cost | currency }}</td>
                         </ng-container>
                     </tr>
                 </tbody>

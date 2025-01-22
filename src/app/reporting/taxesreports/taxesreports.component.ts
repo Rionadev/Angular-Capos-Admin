@@ -8,6 +8,9 @@ import { CustomerService } from 'app/api/salesledger/api.service';
     styleUrls: ['./taxesreports.component.scss']
 })
 export class TaxesreportsComponent implements OnInit {
+    isShowdetailflag: boolean = false;
+
+
     selectedDateFrom: any;
     selectedDateTo: any;
     categoryData: any;
@@ -15,14 +18,20 @@ export class TaxesreportsComponent implements OnInit {
     searchTerm: string = '';
     selectedPeriod: string = 'today';
 
+    sel_row: any;
     ngOnInit(): void {
         this.setDateFromTo();
         this.fetchSearchItems();
     }
     selrow(selrow: any) {
         console.log(selrow);
-    }
+        this.sel_row = selrow;
+        this.isShowdetailflag = true;
 
+    }
+    onBackdropClick() {
+        this.isShowdetailflag = false;
+    }
     setDateFromTo() {
         const today = new Date();
         const sevenDaysAgo = new Date(today);
@@ -66,20 +75,20 @@ export class TaxesreportsComponent implements OnInit {
                     res.forEach(element => {
                         if (element.products.length > 0) {
                             element.products.forEach(el => {
-                                if (!sale_tax[el.product_id.type]) {
-                                    sale_tax[el.product_id.type] = {
-                                        id: el.product_id.type,
-                                        category: this.categoryData[el.product_id.type].name,
-                                        sale: 0,
-                                        tax: 0,
+                                if (!sale_tax[el.product_id.type._id]) {
+                                    sale_tax[el.product_id.type._id] = {
+                                        category: el.product_id.type.name,
+                                        tax_rate: el.tax,
+                                        cost: 0,
                                         qty: 0,
+                                        tax: 0,
                                         products: [],
                                     };
                                 }
-                                sale_tax[el.product_id.type].sale += el.price * el.qty;
-                                sale_tax[el.product_id.type].tax += el.tax;
-                                sale_tax[el.product_id.type].qty += el.qty;
-                                sale_tax[el.product_id.type].products.push(element);
+                                sale_tax[el.product_id.type._id].cost += el.price * el.qty;
+                                sale_tax[el.product_id.type._id].tax += el.price * el.tax / 100;
+                                sale_tax[el.product_id.type._id].qty += el.qty;
+                                sale_tax[el.product_id.type._id].products.push(el);
                             });
                         }
                     });
@@ -179,10 +188,10 @@ export class TaxesreportsComponent implements OnInit {
         return (this.records?.reduce((sum, record) => sum + record[field], 0)).toFixed(2);
     }
 
-    getPlain():string {
-        return this.records.map(record => 
+    getPlain(): string {
+        return this.records.map(record =>
             `<tr><td>${record.category}</td><td>$${record.sale}</td><td>$${record.tax}</td></tr>`
-          ).join('');
+        ).join('');
     }
 
     printContent() {
@@ -251,8 +260,8 @@ export class TaxesreportsComponent implements OnInit {
                 <body onload="window.print()">
                     <p class="header"><strong>Z-Report</strong></p>
                     <div class="date">
-                    <p>Date: ${ this.selectedDateFrom } - ${ this.selectedDateTo }</p>
-                    <p>PWA: ${ this.config.private_web_address}</p>
+                    <p>Date: ${this.selectedDateFrom} - ${this.selectedDateTo}</p>
+                    <p>PWA: ${this.config.private_web_address}</p>
                     </div>
                     <div>
                         <table>
@@ -263,10 +272,10 @@ export class TaxesreportsComponent implements OnInit {
                             </tr>
                             <tr>
                                 <td><strong>Total</strong></td>
-                                <td><strong>$${ saleTotal }</strong></td>
-                                <td><strong>$${ taxTotal }</strong></td>
+                                <td><strong>$${saleTotal}</strong></td>
+                                <td><strong>$${taxTotal}</strong></td>
                             </tr>
-                            ${ plainData }
+                            ${plainData}
                         </table>
                     <div>
                     <div class="footer">
@@ -287,27 +296,27 @@ export class TaxesreportsComponent implements OnInit {
         }, 1000);
     }
 
-    getCSVPlain():string {
-        return this.records.map(record => 
+    getCSVPlain(): string {
+        return this.records.map(record =>
             `${record.category},$${record.sale},$${record.tax}\n`
-          ).join('');
+        ).join('');
     }
 
     exportContent() {
         const header = 'category,sale,tax\n';
-        const total =`Total,${this.getTotal('sale')},${this.getTotal('tax')}\n`;
+        const total = `Total,${this.getTotal('sale')},${this.getTotal('tax')}\n`;
         const rows = this.getCSVPlain();
-        
+
         const content = header + total + rows;
 
         const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
         const url = URL.createObjectURL(blob);
-        
+
         link.setAttribute('href', url);
         link.setAttribute('download', 'tax_reports.csv');
         link.style.visibility = 'hidden';
-        
+
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

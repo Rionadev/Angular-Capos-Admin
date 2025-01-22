@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'app/api/salesledger/api.service';
+import { UtilService } from 'app/api/utils/api.service';
 
 @Component({
   selector: 'app-saletransaction',
@@ -31,17 +32,22 @@ export class SaletransactionComponent implements OnInit {
     console.log('Selected Customer:', this.selectedCustomer);
   }
   transactions = [];
+  producttype: any;
 
   filteredTransactions = [...this.transactions];
-  constructor(private http: HttpClient, private customerService: CustomerService) { }
+  constructor(
+    private http: HttpClient,
+    private customerService: CustomerService,
+    private utilservice: UtilService,
+  ) { }
 
   setDateFromTo() {
     const today = new Date();
     const sevenDaysAgo = new Date(today);
     const oneDayAfter = new Date(today);
 
-    sevenDaysAgo.setDate(today.getDate() - 30); // Subtract 7 days
-    oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
+    sevenDaysAgo.setDate(today.getDate()); // Subtract 7 days
+    oneDayAfter.setDate(today.getDate()); // Subtract 7 days
 
 
     this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
@@ -65,10 +71,27 @@ export class SaletransactionComponent implements OnInit {
     const params = {
       from: this.selectedDateFrom,
       to: this.selectedDateTo,
+      sale_status: 'all_closed',
     };
 
     // Log the params to check their structure
+    this.utilservice.getProductType().subscribe(
+      (res) => {
+        this.producttype = {};
+        Object.keys(res).forEach(key => {
+          const element = res[key]; // Access the element using the key
+          if (element._id) { // Check if _id exists
+            this.producttype[element._id] = element; // Assign the element to producttype using _id as the key
+          }
+        });
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
 
+    // console.log(this.arr_categories['']);
     this.customerService.fetchSaleHistory(params).subscribe(
       (res) => {
         this.customers = [];
@@ -168,13 +191,31 @@ export class SaletransactionComponent implements OnInit {
 
   editRow(row: any): void {
     this.selTransactions = row;
+    this.selTransactions.categories = {};
+    // let newProductTypes = [];
+    if (this.selTransactions.products.length > 0) {
+      this.selTransactions.products.forEach(goods => {
+        if (!this.selTransactions.categories[goods.product_id.type._id]) {
+          this.selTransactions.categories[goods.product_id.type._id] = {
+            categoryname: goods.product_id.type.name || '',
+            itemCount: 0,
+            cost: 0,
+          }
+        }
+        this.selTransactions.categories[goods.product_id.type._id].itemCount += goods.qty;
+        this.selTransactions.categories[goods.product_id.type._id].cost += goods.price * goods.qty;
+      });
+    }
+    console.log(this.selTransactions);
+
     this.isshowedit = true;
   }
   searchTransactions() {
+
     this.filteredTransactions = this.transactions.filter(transaction => {
-      const customerMatches = this.selectedCustomer === 'all' || transaction.customer_email === this.selectedCustomer;
-      const userMatches = this.selectedUser === 'all' || transaction.user_email === this.selectedUser;
-      const statusMatches = this.selectedStatus === 'all' || transaction.status === this.selectedStatus;
+      const customerMatches = this.selectedCustomer === 'all' || transaction.customer.email === this.selectedCustomer;
+      const userMatches = this.selectedUser === 'all' || transaction.user_id.email === this.selectedUser;
+      const statusMatches = this.selectedStatus === 'all' || transaction.sale_status === this.selectedStatus;
 
       return customerMatches && userMatches && statusMatches;
     });

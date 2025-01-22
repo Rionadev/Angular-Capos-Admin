@@ -185,6 +185,29 @@ export class CustomerService {
     return this.http.get(`${this.config.apiUrl}/sell/openclose`, { params });
 
   }
+
+  fecthLastOpenCloseDatar(): Observable<any> {
+    // Make the API call
+    let params = {
+      user_id: this.config.user_id,
+      outlet: this.config.outlet_id,
+      // register: this.config.register_id,
+      private_web_address: this.config.private_web_address,
+      status: 2,
+    }
+    let httpParams = new HttpParams();
+
+    // Build HttpParams from the provided params object
+    Object.keys(params).forEach(key => {
+      if (params[key] !== undefined && params[key] !== null) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    });
+    // return this.http.get(`${this.config.apiUrl}/sale/fetchtodysale`, { params });
+    return this.http.get(`${this.config.apiUrl}/sell/openclose`, { params });
+
+  }
+
   fetchCatetogry() {
     let params = {
       private_web_address: this.config.private_web_address
