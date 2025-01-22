@@ -190,14 +190,14 @@ export class TaxesreportsComponent implements OnInit {
 
     getPlain(): string {
         return this.records.map(record =>
-            `<tr><td>${record.category}</td><td>$${record.sale}</td><td>$${record.tax}</td></tr>`
+            `<tr><td>${record.category || ''}</td><td>$${Number(record.sale || 0).toFixed(2)}</td><td>$${Number(record.tax || 0).toFixed(2)}</td></tr>`
         ).join('');
     }
 
     printContent() {
         const plainData = this.getPlain();
-        const saleTotal = this.getTotal('sale');
-        const taxTotal = this.getTotal('tax');
+        const saleTotal = Number(this.getTotal('sale')).toFixed(2);
+        const taxTotal = Number(this.getTotal('tax')).toFixed(2);
         const printWindow = window.open('Z-Report', 'Z-Report', 'height=3508,width=2480');
         /* printWindow?.document.write('<html><head><title>Print</title>');
         printWindow?.document.write('</head><body >');
@@ -216,32 +216,47 @@ export class TaxesreportsComponent implements OnInit {
                     }
 
                     .header {
-                        font-size: 32px; 
+                        font-size: 38px; 
                         text-align: center;
                         margin-top: 56px;
                         margin-bottom: 56px;
+                        color: tomato;
+                        position: relative;
                     }
 
                     .date {
                         font-size: 18px;
                         line-height: 0.5;
                         margin-bottom: 56px;
+                        color: green;
                     }
                     
                     table, td, th {
-                        border: 1px solid;
                         padding: 6px 8px;
                     }
                     
+                    tr:nth-child(even){background-color: #f2f2f2}
+
                     th {
-                        font-weight: 100;
+                      background-color: #666699;
+                      color: white;
                     }
 
+                    tr {
+                        border-bottom: 1px solid #666699;
+                    }
+                    
                     table {
                         width: 100%;
                         border-collapse: collapse;
                         text-align: left;
                         font-size: 18px;
+                    }
+                    
+                    .image {
+                        position: absolute;
+                        right: 0px;
+                        top: -56px;
                     }
 
                     .footer {
@@ -258,10 +273,15 @@ export class TaxesreportsComponent implements OnInit {
 
                 </style>
                 <body onload="window.print()">
-                    <p class="header"><strong>Z-Report</strong></p>
+                    <div class="header">
+                    	<div class="image">
+                              <img src="https://caposgt.com/assets/image/interface/home/logo.png" width="175" height="50"/>
+                        </div>
+                        <strong>Tax Report</strong>
+                    </div>
                     <div class="date">
-                    <p>Date: ${this.selectedDateFrom} - ${this.selectedDateTo}</p>
-                    <p>PWA: ${this.config.private_web_address}</p>
+                    <p>DATE: ${this.selectedDateFrom} - ${this.selectedDateTo}</p>
+                    <p>PWA : ${this.config.private_web_address}</p>
                     </div>
                     <div>
                         <table>
@@ -277,9 +297,6 @@ export class TaxesreportsComponent implements OnInit {
                             </tr>
                             ${plainData}
                         </table>
-                    <div>
-                    <div class="footer">
-                        <div>Tax Report</div>
                     <div>
                 </body>
             </html>
