@@ -37,8 +37,8 @@ export class SaleslegderComponent implements OnInit {
     const sevenDaysAgo = new Date(today);
     const oneDayAfter = new Date(today);
 
-    sevenDaysAgo.setDate(today.getDate() - 7); // Subtract 7 days
-    oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
+    sevenDaysAgo.setDate(today.getDate()); // Subtract 7 days
+    oneDayAfter.setDate(today.getDate()); // Subtract 7 days
 
 
     this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
@@ -55,6 +55,7 @@ export class SaleslegderComponent implements OnInit {
     const params = {
       from: this.selectedDateFrom,
       to: this.selectedDateTo,
+      sale_status: 'all_closed',
     };
 
     // Log the params to check their structure
@@ -67,7 +68,8 @@ export class SaleslegderComponent implements OnInit {
         this.users = [];
 
         this.transactions = res.map(item => {
-          if (item.payment_status != 'not paid') {
+          // if (item.payment_status != 'not paid') 
+          {
             console.log(item.payment_status);
 
             if (item.customer && item.customer.email) {

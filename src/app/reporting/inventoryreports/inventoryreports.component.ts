@@ -7,13 +7,13 @@ import { CustomerService } from 'app/api/salesledger/api.service';
   styleUrls: ['./inventoryreports.component.scss']
 })
 export class InventoryreportsComponent implements OnInit {
-
+  isShowdetailflag: boolean = false;
   // Pagination
 
   totalItems: number = 100; // Total number of items
   countPerPage: number = 10; // Default items per page
   currentPage: number = 1;
-
+  sel_row: any;
   constructor(
     private customerService: CustomerService,
     @Inject('APP_CONFIG') private config: any,
@@ -22,7 +22,9 @@ export class InventoryreportsComponent implements OnInit {
   ngOnInit(): void {
     this.fetchSearchItems();
   }
-
+  onBackdropClick() {
+    this.isShowdetailflag = false;
+  }
 
   arr_productIDs: any;
 
@@ -53,11 +55,17 @@ export class InventoryreportsComponent implements OnInit {
                   product_name: el.product_name,
                   qty: 0,
                   price: el.price,
+                  products: []
                 }
               }
 
               if (el.voided != 'false') {
                 this.soldProducts[el.product_id].qty += el.qty;
+                this.soldProducts[el.product_id].products.push(
+                  {
+                    product: el,
+                    sold_date: element.created_at,
+                  });
               }
             });
 
@@ -74,8 +82,9 @@ export class InventoryreportsComponent implements OnInit {
   fetchSearchItems() {
     let params: any = {
       range: 'all-factor',
-      page: this.currentPage - 1,
-      size: this.countPerPage,
+      // page: this.currentPage - 1,
+      // size: this.countPerPage,
+      // tracking_inv: true,
     };
     // Add keyword to params if searchTerm is not empty
     if (this.searchTerm) {
@@ -84,11 +93,11 @@ export class InventoryreportsComponent implements OnInit {
     this.customerService.fetchProducts(params).subscribe(
       (res) => {
         this.arr_productIDs = [];
-        res.data.forEach(element => {
+        res.forEach(element => {
           this.arr_productIDs.push(element._id);
         });
         this.fetchSoldProdcuts(this.arr_productIDs);
-        this.products = res.data;
+        this.products = res;
         this.filteredProducts = [...this.products];
 
       },
@@ -129,17 +138,23 @@ export class InventoryreportsComponent implements OnInit {
   getPlain(): string {
     return this.filteredProducts.map(item =>
       `<tr>
-        <td>${ item.name }</td>
-        <td>${ item?.outlet?.name || '' }</td>
-        <td>${ Number(item.inventory - (this.soldProducts && this.soldProducts[item._id]?.qty || 0)).toFixed(0) }</td>
-        <td>$${ Number(item.supply_price || 0).toFixed(2) }</td>
-        <td>$${ Number(item.inventory - (this.soldProducts && this.soldProducts[item._id]?.qty || 0 ) *  item.supply_price ).toFixed(2) }</td>
-        <td>${ Number(item.reorder_point || 0 ).toFixed(0) }</td>
-        <td>$${ Number(item.reorder_point * item.supply_price).toFixed(2) }</td>
+        <td>${item.name}</td>
+        <td>${item?.outlet?.name || ''}</td>
+        <td>${Number(item.inventory - (this.soldProducts && this.soldProducts[item._id]?.qty || 0)).toFixed(0)}</td>
+        <td>$${Number(item.supply_price || 0).toFixed(2)}</td>
+        <td>$${Number(item.inventory - (this.soldProducts && this.soldProducts[item._id]?.qty || 0) * item.supply_price).toFixed(2)}</td>
+        <td>${Number(item.reorder_point || 0).toFixed(0)}</td>
+        <td>$${Number(item.reorder_point * item.supply_price).toFixed(2)}</td>
       </tr>`
     ).join('');
   }
+  selRow(item: any) {
+    this.isShowdetailflag = true;
+    this.sel_row = item;
+    console.log('selected row', item);
+    console.log('sold items', this.soldProducts[item._id]);
 
+  }
   printContent() {
     const plainData = this.getPlain();
     const printWindow = window.open('Z-Report', 'Z-Report', 'height=3508,width=2480');
@@ -237,7 +252,7 @@ export class InventoryreportsComponent implements OnInit {
 
   getCSVPlain(): string {
     return this.filteredProducts.map(item =>
-      `${ item.name },${ item?.outlet?.name || '' },${ Number(item.inventory - (this.soldProducts && this.soldProducts[item._id]?.qty || 0)).toFixed(0) },$${ Number(item.supply_price || 0).toFixed(2) },$${ Number(item.inventory - (this.soldProducts && this.soldProducts[item._id]?.qty || 0 ) *  item.supply_price ).toFixed(2) },${ Number(item.reorder_point || 0 ).toFixed(0) },$${ Number(item.reorder_point * item.supply_price).toFixed(2) }\n`
+      `${item.name},${item?.outlet?.name || ''},${Number(item.inventory - (this.soldProducts && this.soldProducts[item._id]?.qty || 0)).toFixed(0)},$${Number(item.supply_price || 0).toFixed(2)},$${Number(item.inventory - (this.soldProducts && this.soldProducts[item._id]?.qty || 0) * item.supply_price).toFixed(2)},${Number(item.reorder_point || 0).toFixed(0)},$${Number(item.reorder_point * item.supply_price).toFixed(2)}\n`
     ).join('');
   }
 

@@ -1,31 +1,80 @@
-<div style="height: 100vh;">
-    <app-toast></app-toast>
-    <div class="custom-card" *ngIf="!isOpenClose">
-        <div class="custom-form-group">
-            <label for="openingFloat" required>Opening Float*</label>
-            <input type="number" id="openingFloat" placeholder="Enter opening float" required
-                [(ngModel)]="openingFloat">
+<div style="height: 87vh;">
+    <div>
+        <app-toast></app-toast>
+        <div class="custom-card" *ngIf="!isOpenClose">
+            <div class="custom-form-group">
+                <label for="openingFloat" required>Opening Float*</label>
+                <input type="number" id="openingFloat" placeholder="Enter opening float" required
+                    [(ngModel)]="openingFloat">
+            </div>
+
+            <div class="custom-form-group">
+                <label for="notes">Notes (Optional):</label>
+                <textarea id="notes" placeholder="Enter any notes..." [(ngModel)]="new_note"></textarea>
+            </div>
+
+            <div class="custom-form-group">
+                <label for="register">Register*</label>
+                <select id="register" required [(ngModel)]="selected_reg">
+                    <option value="" disabled selected>Select a register</option>
+                    <option *ngFor="let register of registers" [value]="register._id">{{ register.name }}</option>
+                </select>
+            </div>
+
+            <button class="custom-submit-btn" (click)="confirmCreate()">OPEN REGISTER</button>
+        </div>
+        <div class="reg_card" *ngIf="opencloseHistory.length>0">
+            <div class="reg_left-view">
+                <ul>
+                    <li *ngFor="let item of opencloseHistory" (click)="sel_openclosehistory=item;">
+                        {{item.register.name}}
+                        <span style="font-size: xx-small;">
+                            {{item.opening_time|date}}-
+                            {{item.closing_time|date}}
+                        </span>
+                    </li>
+                    <!-- Add more outlets as needed -->
+                </ul>
+            </div>
+            <div class="reg_right-content">
+                <h2>Details</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Register</th>
+                            <th>Outlet</th>
+                            <th>ID#</th>
+                            <th>Opening Time</th>
+                            <th>Closing Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {{sel_openclosehistory.register?.name}}
+                                <br>
+                                {{sel_openclosehistory.register?.email}}
+                            </td>
+                            <td>
+                                {{sel_openclosehistory.outlet?.name}}
+                                <br>
+                                {{sel_openclosehistory.outlet?.email}}
+                            </td>
+                            <td>{{sel_openclosehistory.uid}}</td>
+                            <td>{{sel_openclosehistory.opening_time|date}}</td>
+                            <td>{{sel_openclosehistory.closing_time|date}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="custom-form-group">
-            <label for="notes">Notes (Optional):</label>
-            <textarea id="notes" placeholder="Enter any notes..." [(ngModel)]="new_note"></textarea>
-        </div>
-
-        <div class="custom-form-group">
-            <label for="register">Register*</label>
-            <select id="register" required [(ngModel)]="selected_reg">
-                <option value="" disabled selected>Select a register</option>
-                <option *ngFor="let register of registers" [value]="register._id">{{ register.name }}</option>
-            </select>
-        </div>
-
-        <button class="custom-submit-btn" (click)="confirmCreate()">OPEN REGISTER</button>
+        <app-confirm-modal *ngIf="isCreateOpenClose" [title]="'Open Register'"
+            [description]="'Are you sure to want to open this register ?'" [confirmButtonCaption]="'Yes'"
+            [cancelButtonCaption]="'No'" (confirmed)="createNewOpenClose()" (cancelled)="isCreateOpenClose=false">
+        </app-confirm-modal>
     </div>
-    <app-confirm-modal *ngIf="isCreateOpenClose" [title]="'Open Register'"
-        [description]="'Are you sure to want to open this register ?'" [confirmButtonCaption]="'Yes'"
-        [cancelButtonCaption]="'No'" (confirmed)="createNewOpenClose()" (cancelled)="isCreateOpenClose=false">
-    </app-confirm-modal>
 
     <!-- <div class="main-content" *ngIf="false"> -->
     <div class="main-content" *ngIf="!isContentVisible && isOpenClose">
@@ -55,10 +104,15 @@
                             </table>
                         </div>
 
-                        <div>
-                            <button class="btn btn-sm btn-success btn-fill" (click)="toggleContent()">
-                                <!-- <i class="pe-7s-next-2" style="font-size: 2rem;"></i> -->
+                        <div style="display: grid;gap: 2rem;">
+                            <button *ngIf="!isClosedReg" class="btn btn-sm btn-success btn-fill"
+                                (click)="toggleContent()">
                                 Close Register</button>
+                            <button *ngIf="isClosedReg" class="btn btn-sm btn-info btn-fill" (click)="printReport()">
+                                Print</button>
+                            <button *ngIf="isClosedReg" class="btn btn-sm btn-primary btn-fill"
+                                (click)="fetchSearchItems()">
+                                Back</button>
                         </div>
                     </div>
 
@@ -123,15 +177,10 @@
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let item of categorySummary | keyvalue">
-                                                <td>{{ item.value.product_name}}</td>
-                                                <td>{{ item.value.qty
-                                                    }} ( {{item.value.price|currency}} )</td>
-                                                <td>{{ (item.value.qty * item.value.price) |
-                                                    currency
-                                                    }}</td>
-                                                <!-- <td>{{ (item.value.tax) |
-                                                    currency
-                                                    }}</td> -->
+                                                <td>{{ item.value.name}}</td>
+                                                <td>{{ item.value.qty }}</td>
+                                                <td>{{ item.value.cost | currency }}</td>
+
                                             </tr>
                                             <tr class="total-border">
                                                 <td colspan="2" style="text-align:center">
@@ -140,9 +189,7 @@
                                                 <td>
                                                     <strong>{{categorySum.expect | currency}}</strong>
                                                 </td>
-                                                <!-- <td>
-                                                    <strong>{{categorySum.tax | currency}}</strong>
-                                                </td> -->
+
                                             </tr>
                                         </tbody>
                                     </table>
@@ -211,7 +258,7 @@
 
 <!-- Z Report Section -->
 <!-- <div  class="z-report  print-roll"> -->
-<div *ngIf="isContentVisible" class="print-roll-bg">
+<!-- <div *ngIf="isContentVisible" class="print-roll-bg">
 
     <div class="z-report  print-roll">
         <div class="print-table">
@@ -402,10 +449,10 @@
                     </thead>
                     <tbody class="border">
                         <tr *ngFor="let product of categorySummary | keyvalue">
-                            <td class="print-table" style="float: left;">{{ product.value.product_name }}</td>
+                            <td class="print-table" style="float: left;">{{ product.value.name}}</td>
                             <td class="print-table">({{ product.value.qty }})</td>
                             <td class="print-table" style="float: right;">{{
-                                (product.value.price*product.value.qty)|currency }}</td>
+                                product.value.cost|currency }}</td>
                         </tr>
 
                     </tbody>
@@ -421,5 +468,5 @@
         </div>
 
     </div>
-</div>
+</div> -->
 <!-- </div> -->

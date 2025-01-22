@@ -16,7 +16,7 @@
                         </div>
                         <div class="align-center">
                             <button style="margin-left: 2rem;" class="btn btn-sm btn-danger btn-fill"
-                            (click)="clearFilters()">Clear Filters</button>
+                                (click)="clearFilters()">Clear Filters</button>
                             <button class="btn btn-sm btn-info btn-fill" (click)="printContent()">
                                 &nbsp;&nbsp;&nbsp;&nbsp;Print&nbsp;&nbsp;&nbsp;&nbsp;
                             </button>
@@ -65,14 +65,12 @@
                         </table>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
-    <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50]"
+    <!-- <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50,100]"
         (pageChanged)="onPageChanged($event)" (countPerPageChanged)="onCountPerPageChanged($event)">
-    </app-pagination>
+    </app-pagination> -->
 </div>
 <div *ngIf="showModal" class="modal-overlay" (click)="close()">
     <div class="modal-content" (click)="$event.stopPropagation()">

@@ -14,15 +14,15 @@
                                 <option value="thisMonth">This Month</option>
                                 <option value="thisYear">This Year</option>
                             </select>
-                            
+
                         </div>
                         <div class="align-center">
                             <input class="form-control" type="date" [(ngModel)]="selectedDateFrom"
                                 (change)="fetchSearchItems()" />
-                            <p class="category">&nbsp;&nbsp;~&nbsp;&nbsp;</p>     
+                            <p class="category">&nbsp;&nbsp;~&nbsp;&nbsp;</p>
                             <input class="form-control" type="date" [(ngModel)]="selectedDateTo"
                                 (change)="fetchSearchItems()" />
-                            <p class="category">&nbsp;&nbsp;</p>  
+                            <p class="category">&nbsp;&nbsp;</p>
                             <button class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">
                                 Clear Filter
                             </button>
@@ -50,12 +50,12 @@
                             <tbody>
                                 <tr>
                                     <td><strong>Total</strong></td>
-                                    <td><strong>{{ getTotal('sale')|currency }}</strong></td>
+                                    <td><strong>{{ getTotal('cost')|currency }}</strong></td>
                                     <td><strong>{{ getTotal('tax') |currency}}</strong></td>
                                 </tr>
                                 <tr *ngFor="let record of records" (click)="selrow(record)">
                                     <td>{{ record.category }}</td>
-                                    <td>{{ (record.sale||'') |currency}}</td>
+                                    <td>{{ (record.cost||'') |currency}}</td>
                                     <td>{{ (record.tax||'') |currency}}</td>
                                 </tr>
                             </tbody>
@@ -63,6 +63,50 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isShowdetailflag" (click)="onBackdropClick($event)">
+    <div class="modal-content" *ngIf="isShowdetailflag" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <span class="modal-title">Products Information
+            </span>
+            <button class="close-button" (click)="onBackdropClick(selectedRecord)">×</button>
+        </div>
+
+        <div class="modal-body">
+
+            <table >
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>QTY</th>
+                        <th>Price</th>
+                        <th>Cost</th>
+                        <th>tax</th>
+                        <th>Discount</th>
+                        <th>weight</th>
+                        <th>seat</th>
+                    </tr>
+
+                </thead>
+                <tbody >
+                    <tr *ngFor="let product of sel_row.products ">
+                        <td><b>{{ product.product_name || '' }}</b></td>
+                        <td>{{ product.qty || '' }}</td>
+                        <td>{{ product.price | currency }}</td>
+                        <td>{{ product.qty*product.price | currency }}</td>
+                        <td>{{ product.tax | currency }}</td>
+                        <td>{{ product.discount.value }}%</td>
+                        <td>{{ product.weight }}</td>
+                        <td>{{ product.seat}}</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
         </div>
     </div>
 </div>

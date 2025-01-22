@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <div class="content table-responsive table-full-width" style="overflow-y: auto;max-height: 64vh;">
+                    <div class="content table-responsive table-full-width" style="overflow-y: auto;max-height: 73vh;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -45,12 +45,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of filteredProducts">
+                                <tr *ngFor="let item of filteredProducts" (click)="selRow(item)">
                                     <td>{{ item.name }}</td>
                                     <td>{{ item?.outlet?.name || '' }}</td>
                                     <td>{{ item.inventory - (soldProducts && soldProducts[item._id]?.qty||0)
                                         }}</td>
-                                    <td>{{ item.supply_price | currency }}</td>
+                                    <td>{{ item.supply_price||0| currency }}</td>
                                     <td>{{
                                         item.inventory - (soldProducts && soldProducts[item._id]?.qty||0)*
                                         item.supply_price
@@ -65,7 +65,93 @@
             </div>
         </div>
     </div>
-    <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50]"
+    <!-- <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50]"
         (pageChanged)="onPageChanged($event)" (countPerPageChanged)="onCountPerPageChanged($event)">
-    </app-pagination>
+    </app-pagination> -->
+</div>
+
+
+<div class="modal-overlay" *ngIf="isShowdetailflag" (click)="onBackdropClick($event)">
+    <div class="modal-content" *ngIf="isShowdetailflag" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <span class="modal-title">Inventory Information
+            </span>
+            <button class="close-button" (click)="onBackdropClick(selectedRecord)">×</button>
+        </div>
+
+        <div class="modal-body">
+            <span> Created At: {{sel_row.created_at |date}}</span>
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Outlet</th>
+                    <th>Supplier</th>
+                    <th>Tax</th>
+                    <th>Type</th>
+                    <th>Inventory</th>
+                </tr>
+                <tr>
+                    <td>{{ sel_row.name }}</td>
+                    <td>{{ sel_row?.outlet?.name || '' }}</td>
+                    <td>{{ sel_row?.supplier?.name || '' }}</td>
+                    <td>{{ sel_row?.tax?.rate || '' |currency }}</td>
+                    <td>{{ sel_row?.type?.name || '' }}</td>
+                    <td>{{ sel_row?.inventory || 0 }}</td>
+                </tr>
+                <tr>
+                    <th>Sold amount</th>
+                    <th>
+                        Current Stock
+                        <!-- <br>
+                        <span style="font-size: xx-small;">
+                            (Inventory - Sold Amount)
+                        </span> -->
+                    </th>
+                    <th>Item Value</th>
+                    <th>Stock Value</th>
+                    <th>Reorder Point</th>
+                    <th>Reorder Amount</th>
+                </tr>
+                <tr>
+                    <td>{{(soldProducts && soldProducts[sel_row._id]?.qty||0)}}</td>
+                    <td>{{ sel_row.inventory - (soldProducts && soldProducts[sel_row._id]?.qty||0)
+                        }}</td>
+                    <td>{{ sel_row.supply_price || 0| currency }}</td>
+                    <td>{{
+                        sel_row.inventory - (soldProducts && soldProducts[sel_row._id]?.qty||0)*
+                        sel_row.supply_price
+                        | currency }}</td>
+                    <td>{{ sel_row.reorder_point }}</td>
+                    <td>{{ sel_row.reorder_point * sel_row.supply_price |currency }}</td>
+                </tr>
+
+            </table>
+            <span>Sold Products</span>
+            <table>
+                <thead>
+                    <th>Sold Date</th>
+                    <th>Product</th>
+                    <th>QTY</th>
+                    <th>Price</th>
+                    <th>Cost</th>
+                    <th>Discount</th>
+                    <!-- <th>product_id</th> -->
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of (soldProducts&& soldProducts[sel_row._id].products) ">
+                        <td>{{ product.sold_date | date }}</td>
+                        <td>{{ product.product.product_name || '' }}</td>
+                        <td>{{ product.product.qty || '' }}</td>
+                        <td>{{ product.product.price | currency }}</td>
+                        <td>{{ product.product.qty*product.product.price | currency }}</td>
+                        <td>{{ product.product.discount.value }}%</td>
+                        <!-- <td>{{ product.product.product_id}}</td> -->
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
 </div>

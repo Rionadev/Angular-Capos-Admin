@@ -61,60 +61,90 @@ textarea {
     position: absolute;
     // max-height: 90%;
     overflow-y: auto;
-    top: 4%;
-    // left: 30%;
+    top: 20%;
+    left: 30%;
 }
 
 .z-report {
     border: 1px solid #8b8b8b;
+    /* Keep the border for print */
     background-color: #f9f9f9;
+    /* Maintain background color */
     margin-top: 20px;
+    /* Keep top margin */
+    padding: 10px;
+    /* Add padding for print */
 }
 
 .z-report h3 {
     text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
+    /* Center align heading */
+    font-size: 20px;
+    /* Adjust font size for print */
+    margin-bottom: 15px;
+    /* Reduce bottom margin */
 }
 
 .z-report h4 {
-    font-size: 20px;
-    margin-top: 15px;
+    font-size: 18px;
+    /* Adjust font size for print */
+    margin-top: 10px;
+    /* Reduce top margin */
 }
 
 .z-report p {
-    font-size: 16px;
+    font-size: 14px;
+    /* Adjust font size for print */
+    margin: 5px 0;
+    /* Add margin for spacing */
 }
 
 .z-report table {
     width: 100%;
+    /* Full width for tables */
     border-collapse: collapse;
+    /* Merge borders */
     margin-top: 10px;
+    /* Maintain top margin */
 }
 
 .z-report th,
 .z-report td {
     border: 1px solid #ddd;
+    /* Keep border for cells */
     text-align: left;
+    /* Left align text */
+    padding: 8px;
+    /* Add padding for cells */
 }
 
 .z-report th {
     background-color: #f2f2f2;
+    /* Light gray background for headers */
     font-weight: bold;
+    /* Bold text for headers */
 }
 
 .z-report .total-border {
     font-weight: bold;
+    /* Bold text for total */
     background-color: #e9e9e9;
+    /* Light background for total */
 }
 
 .print-table {
     border: none !important;
+    /* Remove borders */
     background: none !important;
-    font-size: 1.3rem;
-    padding: 0% !important;
-    margin: 0% !important;
+    /* Remove background */
+    font-size: 1rem;
+    /* Adjust font size for print */
+    padding: 0 !important;
+    /* Remove padding */
+    margin: 0 !important;
+    /* Remove margin */
     text-align: center;
+    /* Center align text */
 }
 
 .mb-1 {
@@ -177,84 +207,123 @@ td {
     }
 }
 
-/* Print Styles */
 @media print {
-    body {
-        margin: 0;
-        padding: 0;
-        font-size: 12pt;
-        /* Adjust font size for print */
+    @page {
+        size: A4;
+        /* Set the page size to A4 */
+        margin: 10mm;
+        /* Set margins for the print */
     }
 
+    body {
+        font-size: 14pt;
+        /* Base font size for print */
+    }
+
+
     .print-roll-bg {
-        position: static;
-        /* Remove absolute positioning for printing */
-        width: auto;
-        /* Allow width to adjust */
-        height: auto;
-        /* Allow height to adjust */
-        z-index: 1;
-        /* Reset z-index */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 95vh;
+        z-index: 1000;
     }
 
     .print-roll {
         width: 100%;
-        /* Full width for printing */
-        max-height: none;
-        /* Remove max height */
-        overflow: visible;
-        /* Ensure all content is visible */
-        padding: 20px;
+        height: 100%;
+        top: 0;
+        left: 0;
+        // position: absolute;
+        // max-height: 90%;
+        // overflow-y: auto;
+        // top: 20%;
+        // left: 30%;
+    }
+
+    .z-report {
+        border: 1px solid #8b8b8b;
+        /* Keep the border for print */
+        background-color: #f9f9f9;
+        /* Maintain background color */
+        margin-top: 20px;
+        /* Keep top margin */
+        padding: 10px;
         /* Add padding for print */
     }
 
-    .border {
-        border: none;
-        /* Remove borders for cleaner print */
+    .z-report h3 {
+        text-align: center;
+        /* Center align heading */
+        font-size: 20px;
+        /* Adjust font size for print */
+        margin-bottom: 15px;
+        /* Reduce bottom margin */
     }
 
-    .just-row {
-        display: block;
-        /* Stack elements for print */
-        margin-bottom: 10px;
-        /* Space between rows */
+    .z-report h4 {
+        font-size: 18px;
+        /* Adjust font size for print */
+        margin-top: 10px;
+        /* Reduce top margin */
     }
 
-    table {
+    .z-report p {
+        font-size: 14px;
+        /* Adjust font size for print */
+        margin: 5px 0;
+        /* Add margin for spacing */
+    }
+
+    .z-report table {
         width: 100%;
         /* Full width for tables */
         border-collapse: collapse;
         /* Merge borders */
+        margin-top: 10px;
+        /* Maintain top margin */
     }
 
-    th,
-    td {
-        border: 1px solid #686868;
-        /* Light border for table cells */
-        padding: 8px;
-        /* Padding inside cells */
+    .z-report th,
+    .z-report td {
+        border: 1px solid #ddd;
+        /* Keep border for cells */
         text-align: left;
-        /* Left-align text */
+        /* Left align text */
+        padding: 8px;
+        /* Add padding for cells */
     }
 
-    th {
+    .z-report th {
         background-color: #f2f2f2;
         /* Light gray background for headers */
         font-weight: bold;
         /* Bold text for headers */
     }
 
-    @page {
-        size: A4;
-        /* Set the page size to A4 */
-        margin: 20mm;
-        /* Set margins for the print */
+    .z-report .total-border {
+        font-weight: bold;
+        /* Bold text for total */
+        background-color: #e9e9e9;
+        /* Light background for total */
     }
 
-    .no-print {
-        display: none;
-        /* Example class to hide elements */
+    .print-table {
+        border: none !important;
+        /* Remove borders */
+        background: none !important;
+        /* Remove background */
+        font-size: 1rem;
+        /* Adjust font size for print */
+        padding: 0 !important;
+        /* Remove padding */
+        margin: 0 !important;
+        /* Remove margin */
+        text-align: center;
+        /* Center align text */
     }
+
 }
 
 .custom-card {
@@ -263,10 +332,13 @@ td {
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    max-width: 400px;
+    width: 400px;
     margin: 20px auto;
     font-family: Arial, sans-serif;
-    margin-top: 20%;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
 }
 
 .custom-card-title {
@@ -322,4 +394,150 @@ textarea {
 
 .custom-submit-btn:hover {
     background-color: #0056b3;
+}
+
+.reg_card {
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 80%;
+    margin: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+.reg_card .reg_left-view {
+    width: 30%;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 20px;
+    position: relative;
+    max-height: 250px; /* Set a max height for the left view */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.reg_card .reg_left-view h2 {
+    margin: 0 0 15px;
+}
+
+.reg_card .reg_left-view ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.reg_card .reg_left-view li {
+    margin: 5px 10px ;
+    text-align: center;
+    cursor: pointer;
+    height: 30px;
+    font-size: medium;
+    transition: background-color 0.3s;
+}
+
+.reg_card .reg_left-view li:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.reg_card .reg_right-content {
+    width: 70%;
+    padding: 20px;
+}
+
+.reg_card .reg_right-content h2 {
+    margin: 0 0 15px;
+}
+
+.reg_card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reg_card th, .reg_card td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.reg_card th {
+    background-color: #f8f9fa;
+}
+
+.reg_card tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+/* Enhanced Scrollbar Styles */
+.reg_card .reg_left-view::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.reg_card .reg_left-view::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Track color */
+    border-radius: 10px; /* Rounded corners for track */
+}
+
+.reg_card .reg_left-view::-webkit-scrollbar-thumb {
+    background: #007bff; /* Thumb color */
+    border-radius: 10px; /* Rounded corners for thumb */
+}
+
+.reg_card .reg_left-view::-webkit-scrollbar-thumb:hover {
+    background: #0056b3; /* Thumb color on hover */
+}
+
+.reg_card .reg_left-view {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #007bff #f1f1f1; /* Thumb and track color */
+}
+
+.reg_card .reg_left-view h2 {
+    margin: 0 0 15px;
+}
+
+.reg_card .reg_left-view ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.reg_card .reg_left-view li {
+    margin: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reg_card .reg_left-view li:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.reg_card .reg_right-content {
+    width: 70%;
+    padding: 20px;
+}
+
+.reg_card .reg_right-content h2 {
+    margin: 0 0 15px;
+}
+
+.reg_card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reg_card th, .reg_card td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.reg_card th {
+    background-color: #f8f9fa;
+}
+
+.reg_card tbody tr:hover {
+    background-color: #f1f1f1;
 }
