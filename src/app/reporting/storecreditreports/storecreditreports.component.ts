@@ -77,56 +77,75 @@ export class StorecreditreportsComponent implements OnInit {
             <title>Z-Report</title>
             <style>
                 @media print {
-                    app-root > * { display: none; }
-                    app-root app-print-layout { display: block; }
-                }
+                        app-root > * { display: none; }
+                        app-root app-print-layout { display: block; }
+                    }
 
-                .header {
-                    font-size: 32px; 
-                    text-align: center;
-                    margin-top: 56px;
-                    margin-bottom: 56px;
-                }
+                    .header {
+                        font-size: 38px; 
+                        text-align: center;
+                        margin-top: 56px;
+                        margin-bottom: 56px;
+                        color: tomato;
+                        position: relative;
+                    }
 
-                .date {
-                    font-size: 18px;
-                    line-height: 0.5;
-                    margin-bottom: 56px;
-                }
-                
-                table, td, th {
-                    border: 1px solid;
-                    padding: 6px 8px;
-                }
-                
-                th {
-                    font-weight: 100;
-                }
+                    .date {
+                        font-size: 18px;
+                        line-height: 0.5;
+                        margin-bottom: 56px;
+                        color: green;
+                    }
+                    
+                    table, td, th {
+                        padding: 6px 8px;
+                    }
+                    
+                    tr:nth-child(even){background-color: #f2f2f2}
 
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    text-align: left;
-                    font-size: 18px;
-                }
+                    th {
+                      background-color: #666699;
+                      color: white;
+                    }
 
-                .footer {
-                    position: fixed;
-                    font-size: 18px;
-                    bottom: 0px;
-                }
+                    tr {
+                        border-bottom: 1px solid #666699;
+                    }
+                    
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        text-align: left;
+                        font-size: 18px;
+                    }
+                    
+                    .image {
+                        position: absolute;
+                        right: 0px;
+                        top: -56px;
+                        
+                    }
 
-                .footer div{
-                    width: 100%;
-                    text-align: center;
-                }
+                    .footer {
+                        position: fixed;
+                        font-size: 18px;
+                        bottom: 0px;
+                    }
 
-
+                    .footer div{
+                        width: 100%;
+                        text-align: center;
+                    }
             </style>
             <body onload="window.print()">
-                <p class="header"><strong>Z-Report</strong></p>
+                <div class="header">
+                  <div class="image">
+                          <img src="https://caposgt.com/assets/image/interface/home/logo.png" width="175" height="50"/>
+                  </div>
+                  <strong>Store Credit Report</strong>
+                </div>
                 <div class="date">
-                <p>PWA: ${this.config.private_web_address}</p>
+                  <p>PWA: ${this.config.private_web_address}</p>
                 </div>
                 <div>
                     <table>
@@ -148,7 +167,7 @@ export class StorecreditreportsComponent implements OnInit {
                     </table>
                 <div>
                 <div class="footer">
-                    <div>Store Credit Report</div>
+                    <div></div>
                 <div>
             </body>
         </html>

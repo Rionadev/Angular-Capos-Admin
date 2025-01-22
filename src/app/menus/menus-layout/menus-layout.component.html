@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="col-md-4  flex-item">
                                             <button class="btn btn-sm btn-info btn-fill" type="button"
-                                                (click)="toggleContent()">
+                                                (click)="printBarcode()">
                                                 Print
                                             </button>
                                             <p class="category margin-top-0 line-height-1">If you want to print barcode of
@@ -242,8 +242,8 @@
                                             cover, as well as manage your store using inventory orders, transfers and rolling
                                             inventory counts.</small></p>
                                     <div class="row item-center margin-top-5">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
+                                        <div class="col-md-3" *ngIf="!currentRow.variant_inv">
+                                            <div class="form-group" >
                                                 <label>Stock Keeping Unit(SKU):</label> <!-- class="text-transform-none" -->
                                                 <input type="text" class="form-control" placeholder="Stock Keeping Unit(SKU)"
                                                     id="sku" name="sku" [(ngModel)]="currentRow.sku" required />
@@ -280,6 +280,35 @@
                                                         (ngModelChange)="onSupplyPriceChange($event)">
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-md-3" *ngIf="currentRow.variant_inv">
+                                        </div>
+                                    </div>
+                                    <div class="row item-center margin-top-5"  *ngIf="!currentRow.variant_inv && currentRow.tracking_inv">
+                                        <div class="col-md-3">
+                                            <div class="form-group" >
+                                                <label>Current Inventory:</label> <!-- class="text-transform-none" -->
+                                                <input type="number" class="form-control" placeholder="Current Inventory"
+                                                    id="inventory" name="inventory" [(ngModel)]="currentRow.inventory" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Reorder Point:</label> <!-- class="text-transform-none" -->
+                                                <input type="text" class="form-control" placeholder="Reorder Point"
+                                                    id="reorder_point" name="reorder_point"
+                                                    [(ngModel)]="currentRow.reorder_point" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Reorder Amount:</label> <!-- class="text-transform-none" -->
+                                                <input type="text" class="form-control" placeholder="Reorder Amount"
+                                                    id="reorder_amount" name="reorder_amount"
+                                                    [(ngModel)]="currentRow.reorder_amount" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
                                         </div>
                                     </div>
                                 </div>

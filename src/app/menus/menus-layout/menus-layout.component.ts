@@ -14,7 +14,7 @@ import { TagsService } from '../../api/tags/tags.service';
   styleUrls: ['./menus-layout.component.scss']
 })
 export class MenusLayoutComponent implements OnInit {
-  
+
   data: any[] = [];
 
   // For Select component
@@ -45,12 +45,12 @@ export class MenusLayoutComponent implements OnInit {
 
   // Search
   keyword: string = '';
-  searchTypes: { name: string; value: string }[] = [{name: "All Types", value:''}];
-  searchBrands: {name: string; value: string}[] = [{name: "All Brands", value:''}];
-  searchSuppliers: {name: string; value: string}[] = [{name: "All Suppliers", value:''}];
-  searchAttributes: {name: string; value: string}[] = [{name: "All Attributes", value:''}];
-  searchTags: {name: string; value: string}[] = [{name: "All Tags", value:''}];
-  searchStatus: {name: string; value: boolean}[] = [{name: "All Status", value: null}, {name: "Active", value: true}, {name: "Inactive", value: false }];
+  searchTypes: { name: string; value: string }[] = [{ name: "All Types", value: '' }];
+  searchBrands: { name: string; value: string }[] = [{ name: "All Brands", value: '' }];
+  searchSuppliers: { name: string; value: string }[] = [{ name: "All Suppliers", value: '' }];
+  searchAttributes: { name: string; value: string }[] = [{ name: "All Attributes", value: '' }];
+  searchTags: { name: string; value: string }[] = [{ name: "All Tags", value: '' }];
+  searchStatus: { name: string; value: boolean }[] = [{ name: "All Status", value: null }, { name: "Active", value: true }, { name: "Inactive", value: false }];
 
   type: string = '';
   brand: string = '';
@@ -66,7 +66,7 @@ export class MenusLayoutComponent implements OnInit {
     private suppliersService: SuppliersService,
     private outletsService: OutletsService,
     private taxesService: TaxesService,
-    private attributesService:AttributesService,
+    private attributesService: AttributesService,
     private tagsService: TagsService,
   ) { }
 
@@ -305,7 +305,7 @@ export class MenusLayoutComponent implements OnInit {
         },
       });
     }
-    
+
     this.currentRow = this.resetRow();
     this.isProductContentVisible = false;
   }
@@ -327,14 +327,14 @@ export class MenusLayoutComponent implements OnInit {
     this.isDeleteModal = true;
   }
 
-  closeDeleteModal(){
+  closeDeleteModal() {
     this.isDeleteModal = false;
   }
 
   deleteRow() {
     /* this.rows = this.rows.filter((row) => row.id !== id); // Remove row by id */
     //this.isContentVisible = false;
-    this.productsService.delete({_id: this.currentDeleteID}).subscribe({
+    this.productsService.delete({ _id: this.currentDeleteID }).subscribe({
       next: (data) => {
         console.log('onGetData', data);
         this.currentPage = 1;
@@ -383,5 +383,47 @@ export class MenusLayoutComponent implements OnInit {
     const endIndex = startIndex + this.countPerPage; */
     //this.paginatedItems = this.allItems.slice(startIndex, endIndex);
     this.onGetData();
+  }
+
+  printBarcode() {
+    const printWindow = window.open('Z-Report', 'Z-Report', 'height=800,width=600');
+    /* printWindow?.document.write('<html><head><title>Print</title>');3508;2480
+    printWindow?.document.write('</head><body >');
+    printWindow?.document.write(document.getElementById('print-section')?.innerHTML || '');
+    printWindow?.document.write('</body></html>'); */
+    printWindow.document.write(`
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Barcode Test</title>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.0/JsBarcode.all.min.js"></script>
+              <style>
+                .content {
+                  margin-top: 36px;
+                  width: 100%;
+                  display: flex;
+                  justify-content: center;
+                }
+              </style>
+          </head>
+          <body onload="window.print()">
+              <div class="content"><svg id="barcode"></svg></div>
+              <script>
+                  JsBarcode("#barcode", "${ this.currentRow.barcode}", {
+                      format: "CODE128",
+                      width: 2,
+                      height: 100,
+                      displayValue: true
+                  });
+              </script>
+          </body>
+          </html>
+        `);
+
+    printWindow?.document.close();
+    setTimeout(function () {
+      printWindow.close();
+    }, 1000);
   }
 }

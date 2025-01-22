@@ -134,6 +134,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'menus/modifiertypes', component: ModifierTypesComponent },
     { path: 'menus/forcedmodifier', component: SingleForcedModifierComponent },
 
-    { path: 'online-store/onestore/home', component: ExternalRedirectComponent },
+    { path: 'online-store', component: ExternalRedirectComponent },
     
 ];
