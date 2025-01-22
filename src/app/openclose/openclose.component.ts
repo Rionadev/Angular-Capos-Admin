@@ -41,8 +41,8 @@ export class OpencloseComponent implements OnInit {
   showZReport = false; // To control visibility of the Z Report
 
   isContentVisible: boolean = false;
-  opencloseHistory: any;
-  sel_openclosehistory: any;
+  opencloseHistory: any = [];
+  sel_openclosehistory: any = [];
 
   constructor(
     @Inject('APP_CONFIG') private config: any,
