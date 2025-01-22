@@ -478,95 +478,84 @@ export class OpencloseComponent implements OnInit {
                 height: 100%;
                 box-sizing: border-box;
               }
-              h1 {
-                text-align: center;
-              }
-              div {
-                page-break-inside: avoid; /* Avoid page breaks inside this div */
-              }
-                div{
-                margin-bottom:1rem;}
+h1 {
+    text-align: center;
+}
+
+div {
+    page-break-inside: avoid; /* Avoid page breaks inside this div */
+    margin-bottom: 1rem; /* Maintain bottom margin */
+}
+
+.border {
+    border-bottom: 1px solid gray; /* Keep the border */
+}
+
 .z-report {
-    border: 1px solid #8b8b8b;
-    /* Keep the border for print */
-    background-color: #f9f9f9;
-    /* Maintain background color */
-    margin-top: 20px;
-    /* Keep top margin */
-    padding: 10px;
-    /* Add padding for print */
+    border: 1px solid #dcdcdc; /* Lighter border for a softer look */
+    background-color: #ffffff; /* White background */
+    margin-top: 20px; /* Keep top margin */
+    padding: 15px; /* Add padding for print */
+    border-radius: 8px; /* Rounded corners for a modern touch */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 .z-report h3 {
-    text-align: center;
-    /* Center align heading */
-    font-size: 20px;
-    /* Adjust font size for print */
-    margin-bottom: 15px;
-    /* Reduce bottom margin */
+    text-align: center; /* Center align heading */
+    font-size: 22px; /* Slightly larger font size */
+    margin-bottom: 15px; /* Reduce bottom margin */
+    color: #333; /* Darker text color for better readability */
 }
 
 .z-report h4 {
-    font-size: 18px;
-    /* Adjust font size for print */
-    margin-top: 10px;
-    /* Reduce top margin */
+    font-size: 20px; /* Slightly larger font size */
+    margin-top: 10px; /* Reduce top margin */
+    color: #555; /* Medium gray color */
 }
 
 .z-report p {
-    font-size: 14px;
-    /* Adjust font size for print */
-    margin: 5px 0;
-    /* Add margin for spacing */
+    font-size: 14px; /* Adjust font size */
+    margin: 5px 0; /* Add margin for spacing */
+    color: #666; /* Lighter gray for paragraph text */
 }
 
 .z-report table {
-    width: 100%;
-    /* Full width for tables */
-    border-collapse: collapse;
-    /* Merge borders */
-    margin-top: 10px;
-    /* Maintain top margin */
+    width: 100%; /* Full width for tables */
+    border-collapse: collapse; /* Merge borders */
+    margin-top: 10px; /* Maintain top margin */
 }
 
 .z-report th,
 .z-report td {
-    border: 1px solid #ddd;
-    /* Keep border for cells */
-    text-align: left;
-    /* Left align text */
-    padding: 8px;
-    /* Add padding for cells */
+    padding: 0.75rem; /* Add padding for cells */
+    text-align: left; /* Left align text */
+    border: none; /* No border for cells */
 }
 
 .z-report th {
-    background-color: #f2f2f2;
-    /* Light gray background for headers */
-    font-weight: bold;
-    /* Bold text for headers */
+    background-color: #f7f7f7; /* Very light gray background for headers */
+    font-weight: bold; /* Bold text for headers */
+    color: #333; /* Darker text color */
+}
+
+/* Style for odd rows */
+.z-report tr:nth-child(odd) {
+
+    background-color: #f0f0f0; /* Light gray for odd rows */
 }
 
 .z-report .total-border {
-    font-weight: bold;
-    /* Bold text for total */
-    background-color: #e9e9e9;
-    /* Light background for total */
+    font-weight: bold; /* Bold text for total */
+    background-color: #f0f0f0; /* Light background for total */
 }
 
 .print-table {
-    border: none !important;
-    /* Remove borders */
-    background: none !important;
-    /* Remove background */
-    font-size: 1rem;
-    /* Adjust font size for print */
-    padding: 0 !important;
-    /* Remove padding */
-    margin: 0 !important;
-    /* Remove margin */
-    text-align: center;
-    /* Center align text */
+    background-color: #ffffff !important; /* White background */
+    font-size: 1rem; /* Adjust font size for print */
+    text-align: center; /* Center align text */
 }
+
+
             </style>
           </head>
           <body>
@@ -597,13 +586,11 @@ export class OpencloseComponent implements OnInit {
                     <div class="just-row">
                         <span>Total Net Sales</span>
                         <span>${this.formatCurrency(this.zSalesTaxesSummary.totalNetSale)}</span>
-                    </div>
-                    <div class="just-row">
+                        +
                         <span>Tax</span>
                         <span>${this.formatCurrency(this.zSalesTaxesSummary.tax)}</span>
-                    </div>
-                </div>
-                <div class="just-row">
+                   
+                      =
                     <span><b>Total Sales</b></span>
                     <span><b>${this.formatCurrency(this.zSalesTaxesSummary.total)}</b></span>
                 </div>
@@ -613,7 +600,7 @@ export class OpencloseComponent implements OnInit {
 
             <div class="mb-1">
                 <div class="border"><b>PAYMENT DETAILS</b></div>
-                <table style="border: none;" class="print-table">
+                <table style="width:100%;" class="print-table">
 
                     <tbody class="border">
                       ${this.str_paymentDetails(this.paymentSummary)}
@@ -634,7 +621,7 @@ export class OpencloseComponent implements OnInit {
             </div>
             <div class="mb-1">
                 <div class="border"><b>SERVER TIPOUTS</b></div>
-                <table style="border: none;" class="print-table">
+                <table style="width:100%" class="print-table">
                     <tbody>
 
                         <tr>
@@ -716,8 +703,8 @@ export class OpencloseComponent implements OnInit {
   </table>
   </div>
   <div class="mb-1">
-    <div><b>TOTAL DISCOUNTS </b></div >
-      <table style="border: none;" class="print-table" >
+    <div class="border"><b>TOTAL DISCOUNTS </b></div >
+      <table style="width:100%" class="print-table" >
         <thead class="border" >
           <tr>
           <td class="print-table" style = "float: left;" > Discount Name </td>
@@ -734,7 +721,7 @@ export class OpencloseComponent implements OnInit {
 
   <div class="mb-1" >
     <div class="border" > <b>CREDIT CARD BREAKDOWN </b></div >
-      <table style="border: none;" class="print-table" >
+      <table style="width:100%" class="print-table" >
         <tbody class="border" >
          ${this.str_payhistory(this.payhistory)}
   </tbody>
@@ -748,8 +735,8 @@ export class OpencloseComponent implements OnInit {
         </table>
         </div>
         <div class="mb-1" >
-          <div><b>SALES CATEGORIES </b></div >
-            <table style="border: none;" class="print-table" >
+          <div class="border"><b>SALES CATEGORIES </b></div >
+            <table style="width:100%" class="print-table" >
               <thead class="border" >
                 <tr>
                 <td class="print-table" style = "float: left;" > Category </td>

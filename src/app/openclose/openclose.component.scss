@@ -68,7 +68,7 @@ textarea {
 .z-report {
     border: 1px solid #8b8b8b;
     /* Keep the border for print */
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     /* Maintain background color */
     margin-top: 20px;
     /* Keep top margin */
@@ -114,7 +114,7 @@ textarea {
     /* Keep border for cells */
     text-align: left;
     /* Left align text */
-    padding: 8px;
+    padding: 0.5rem;
     /* Add padding for cells */
 }
 
@@ -133,15 +133,18 @@ textarea {
 }
 
 .print-table {
-    border: none !important;
+    border: 1px solid #8b8b8b !important;
+    /* Keep the border for print */
+    background-color: #f9f9f9 !important;
+    // border: none !important;
     /* Remove borders */
-    background: none !important;
+    // background: none !important;
     /* Remove background */
     font-size: 1rem;
     /* Adjust font size for print */
-    padding: 0 !important;
+    // padding: 0 !important;
     /* Remove padding */
-    margin: 0 !important;
+    // margin: 0 !important;
     /* Remove margin */
     text-align: center;
     /* Center align text */
@@ -160,7 +163,7 @@ table {
 th,
 td {
     border: 1px solid #ddd;
-    padding: 12px;
+    padding: 0.5rem;
     text-align: center;
     align-items: center;
 }
@@ -287,7 +290,7 @@ td {
 
     .z-report th,
     .z-report td {
-        border: 1px solid #ddd;
+        border: 1px solid #8a8a8a;
         /* Keep border for cells */
         text-align: left;
         /* Left align text */
