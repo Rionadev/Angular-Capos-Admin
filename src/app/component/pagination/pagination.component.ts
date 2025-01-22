@@ -29,9 +29,9 @@ export class PaginationComponent implements OnInit {
   updatePagination() {
     this.totalPages = Math.ceil(this.totalCount / this.countPerPage);
     this.currentPage = Math.min(this.currentPage, this.totalPages); // Adjust if totalPages decreases
-    this.pageChanged.emit(this.currentPage);
-    this.countPerPageChanged.emit(this.countPerPage); // Emit countPerPage to the parent component
     this.currentPage = 1;
+    //this.pageChanged.emit(this.currentPage);
+    this.countPerPageChanged.emit(this.countPerPage); // Emit countPerPage to the parent component
     this.getVisiblePages();
   }
 
