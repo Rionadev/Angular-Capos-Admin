@@ -23,7 +23,7 @@
 
             <button class="custom-submit-btn" (click)="confirmCreate()">OPEN REGISTER</button>
         </div>
-        <div class="reg_card" *ngIf="opencloseHistory.length>0">
+        <div class="reg_card" *ngIf="opencloseHistory?.length>0">
             <div class="reg_left-view">
                 <ul>
                     <li *ngFor="let item of opencloseHistory" (click)="sel_openclosehistory=item;">

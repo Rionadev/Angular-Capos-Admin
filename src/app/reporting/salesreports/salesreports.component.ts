@@ -96,7 +96,7 @@ export class SalesreportsComponent implements OnInit {
       start: new Date(this.selectedDateFrom),
       end: new Date(this.selectedDateTo),
       // page: this.currentPage - 1,
-      // size: 2000,//this.countPerPage,
+      // size: this.countPerPage,
       sale_status: 'all_closed',
     };
 
@@ -107,6 +107,7 @@ export class SalesreportsComponent implements OnInit {
 
     this.customerService.fetchSale(params).subscribe(
       (res) => {
+
         let t_total = 0;
         let t_revenue = 0;
         let t_cog = 0;
@@ -114,7 +115,8 @@ export class SalesreportsComponent implements OnInit {
         let t_margin = 0;
         let t_tax = 0;
         // Group transactions by date
-        const groupedTransactions = res.reduce((acc, item) => {
+        if (res.length == 0) return;
+        const groupedTransactions = res?.reduce((acc, item) => {
           const date = new Date(item.updated_at).toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
           // if (item?.payment_status != 'not paid') {
 
@@ -230,7 +232,7 @@ export class SalesreportsComponent implements OnInit {
     const size = (this.countPerPage).toString();
     console.log(this.countPerPage);
     console.log(this.currentPage);
-
+    this.fetchSearchItems();
   }
 
 
