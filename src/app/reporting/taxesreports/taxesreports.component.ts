@@ -190,14 +190,15 @@ export class TaxesreportsComponent implements OnInit {
 
     getPlain(): string {
         return this.records.map(record =>
-            `<tr><td>${record.category || ''}</td><td>$${Number(record.sale || 0).toFixed(2)}</td><td>$${Number(record.tax || 0).toFixed(2)}</td></tr>`
+            `<tr><td>${record.category || ''}</td><td>$${Number(record.tax_rate || 0).toFixed(2)}</td><td>$${Number(record.cost || 0).toFixed(2)}</td><td>$${Number(record.tax || 0).toFixed(2)}</td></tr>`
         ).join('');
     }
 
     printContent() {
         const plainData = this.getPlain();
-        const saleTotal = Number(this.getTotal('sale')).toFixed(2);
-        const taxTotal = Number(this.getTotal('tax')).toFixed(2);
+        const saleTotal = Number(this.getTotal('cost')).toFixed(2)  || 0;
+        const taxTotal = Number(this.getTotal('tax')).toFixed(2)  || 0;
+        
         const printWindow = window.open('Z-Report', 'Z-Report', 'height=3508,width=2480');
         /* printWindow?.document.write('<html><head><title>Print</title>');
         printWindow?.document.write('</head><body >');
@@ -287,11 +288,13 @@ export class TaxesreportsComponent implements OnInit {
                         <table>
                             <tr>
                                 <th>Category</th>
+                                <th>Tax Rate</th>
                                 <th>Sale</th>
                                 <th>Tax</th>
                             </tr>
                             <tr>
                                 <td><strong>Total</strong></td>
+                                <td><strong></strong></td>
                                 <td><strong>$${saleTotal}</strong></td>
                                 <td><strong>$${taxTotal}</strong></td>
                             </tr>
