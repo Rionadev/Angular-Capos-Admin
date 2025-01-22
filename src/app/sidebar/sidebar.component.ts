@@ -65,7 +65,7 @@ export const ECOMMERCEROUTES: RouteInfo[] = [
   { path: '/ecommerce/orders', title: 'Orders', icon: 'pe-7s-note2', class: '' },
   { path: '/ecommerce/settings', title: 'Ecommerce Settings', icon: 'pe-7s-wallet', class: '' },
   { path: '/ecommerce/pages', title: 'Ecommerce Pages', icon: 'pe-7s-shuffle', class: '' },
-  { path: '/', title: 'Visit Online Store', icon: 'pe-7s-shopbag', class: '' },
+  { path: '/online-store', title: 'Visit Online Store', icon: 'pe-7s-shopbag', class: '' },
 ];
 export const CUSTOMERROUTES: RouteInfo[] = [
   { path: '/customers/customers', title: 'Customers', icon: '', class: '' },
@@ -130,8 +130,8 @@ export class SidebarComponent implements OnInit {
   menuState: string = '';
   onlinePath: string = '';
   constructor(@Inject('APP_CONFIG') private config: any) {
-    this.onlinePath = "/online-store/" + config.private_web_address + "/home";
-    console.log(this.onlinePath);
+    //this.onlinePath = "/online-store/" + config.private_web_address + "/home";
+    //console.log(this.onlinePath);
   }
 
   ngOnInit() {
@@ -145,7 +145,7 @@ export class SidebarComponent implements OnInit {
     this.menusContentItems = MENUSROUTES.filter(menuItems => menuItems);
     this.employeesContentItems = EMPLOYEESROUTES.filter(menuItems => menuItems);
 
-    this.ecommerceMenuItems[this.ecommerceMenuItems.length - 1].path = this.onlinePath;
+    //this.ecommerceMenuItems[this.ecommerceMenuItems.length - 1].path = this.onlinePath;
   }
 
   stockContent(): void {

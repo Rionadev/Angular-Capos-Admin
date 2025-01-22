@@ -39,7 +39,8 @@ export class LoginComponent {
             localStorage.setItem('user_email', response.user?.email);
             localStorage.setItem('user_outlet', response.user?.outlet?._id);
             localStorage.setItem('user_register', response.user?.register);
-            localStorage.setItem('user_info', JSON.stringify(response.user));
+            localStorage.setItem('currentUser', JSON.stringify(response.user));
+            localStorage.setItem('token', JSON.stringify(response.token));
 
             this.config.private_web_address = response.user?.private_web_address;
             this.config.user_email = response.user?.email;

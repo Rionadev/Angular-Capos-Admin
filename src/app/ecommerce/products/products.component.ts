@@ -388,4 +388,46 @@ export class EcommerceProductsComponent implements OnInit {
     this.onGetData();
   }
 
+  printBarcode() {
+    const printWindow = window.open('Z-Report', 'Z-Report', 'height=800,width=600');
+    /* printWindow?.document.write('<html><head><title>Print</title>');3508;2480
+    printWindow?.document.write('</head><body >');
+    printWindow?.document.write(document.getElementById('print-section')?.innerHTML || '');
+    printWindow?.document.write('</body></html>'); */
+    printWindow.document.write(`
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Barcode Test</title>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.0/JsBarcode.all.min.js"></script>
+              <style>
+                .content {
+                  margin-top: 36px;
+                  width: 100%;
+                  display: flex;
+                  justify-content: center;
+                }
+              </style>
+          </head>
+          <body onload="window.print()">
+              <div class="content"><svg id="barcode"></svg></div>
+              <script>
+                  JsBarcode("#barcode", "${ this.currentRow.barcode}", {
+                      format: "CODE128",
+                      width: 2,
+                      height: 100,
+                      displayValue: true
+                  });
+              </script>
+          </body>
+          </html>
+        `);
+
+    printWindow?.document.close();
+    setTimeout(function () {
+      printWindow.close();
+    }, 1000);
+  }
+
 }

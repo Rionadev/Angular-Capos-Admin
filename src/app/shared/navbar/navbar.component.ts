@@ -93,7 +93,8 @@ export class NavbarComponent implements OnInit {
         localStorage.removeItem('user_email');
         localStorage.removeItem('user_outlet');
         localStorage.removeItem('user_register');
-        localStorage.removeItem('user_info');
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('token');
         this.router.navigate(['/login']);
     }
 }

@@ -35,14 +35,14 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'login',
   },
-  {
-    path: 'online-store/onestore/home',
+  /* {
+    path: 'online-store',
     component: ExternalRedirectComponent,
     canActivate: [AuthRedirectGuard], 
     // Protect the login route
     //redirectTo: 'https://caposgt.com/online-store/onestore/home', // Replace with the full URL
     //pathMatch: 'full',
-  },
+  }, */
 ];
 @NgModule({
   imports: [
