@@ -78,6 +78,7 @@ export class TaxesreportsComponent implements OnInit {
                                 if (!sale_tax[el.product_id.type._id]) {
                                     sale_tax[el.product_id.type._id] = {
                                         category: el.product_id.type.name,
+                                        tax_rate: el.tax,
                                         cost: 0,
                                         qty: 0,
                                         tax: 0,
@@ -85,7 +86,7 @@ export class TaxesreportsComponent implements OnInit {
                                     };
                                 }
                                 sale_tax[el.product_id.type._id].cost += el.price * el.qty;
-                                sale_tax[el.product_id.type._id].tax += el.tax;
+                                sale_tax[el.product_id.type._id].tax += el.price * el.tax / 100;
                                 sale_tax[el.product_id.type._id].qty += el.qty;
                                 sale_tax[el.product_id.type._id].products.push(el);
                             });
@@ -187,10 +188,10 @@ export class TaxesreportsComponent implements OnInit {
         return (this.records?.reduce((sum, record) => sum + record[field], 0)).toFixed(2);
     }
 
-    getPlain():string {
-        return this.records.map(record => 
+    getPlain(): string {
+        return this.records.map(record =>
             `<tr><td>${record.category}</td><td>$${record.sale}</td><td>$${record.tax}</td></tr>`
-          ).join('');
+        ).join('');
     }
 
     printContent() {
@@ -259,8 +260,8 @@ export class TaxesreportsComponent implements OnInit {
                 <body onload="window.print()">
                     <p class="header"><strong>Z-Report</strong></p>
                     <div class="date">
-                    <p>Date: ${ this.selectedDateFrom } - ${ this.selectedDateTo }</p>
-                    <p>PWA: ${ this.config.private_web_address}</p>
+                    <p>Date: ${this.selectedDateFrom} - ${this.selectedDateTo}</p>
+                    <p>PWA: ${this.config.private_web_address}</p>
                     </div>
                     <div>
                         <table>
@@ -271,10 +272,10 @@ export class TaxesreportsComponent implements OnInit {
                             </tr>
                             <tr>
                                 <td><strong>Total</strong></td>
-                                <td><strong>$${ saleTotal }</strong></td>
-                                <td><strong>$${ taxTotal }</strong></td>
+                                <td><strong>$${saleTotal}</strong></td>
+                                <td><strong>$${taxTotal}</strong></td>
                             </tr>
-                            ${ plainData }
+                            ${plainData}
                         </table>
                     <div>
                     <div class="footer">
@@ -295,27 +296,27 @@ export class TaxesreportsComponent implements OnInit {
         }, 1000);
     }
 
-    getCSVPlain():string {
-        return this.records.map(record => 
+    getCSVPlain(): string {
+        return this.records.map(record =>
             `${record.category},$${record.sale},$${record.tax}\n`
-          ).join('');
+        ).join('');
     }
 
     exportContent() {
         const header = 'category,sale,tax\n';
-        const total =`Total,${this.getTotal('sale')},${this.getTotal('tax')}\n`;
+        const total = `Total,${this.getTotal('sale')},${this.getTotal('tax')}\n`;
         const rows = this.getCSVPlain();
-        
+
         const content = header + total + rows;
 
         const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
         const url = URL.createObjectURL(blob);
-        
+
         link.setAttribute('href', url);
         link.setAttribute('download', 'tax_reports.csv');
         link.style.visibility = 'hidden';
-        
+
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

@@ -43,20 +43,22 @@
                             <thead>
                                 <tr>
                                     <th>Category</th>
+                                    <th>Tax Rate</th>
                                     <th>Sale</th>
                                     <th>Tax</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><strong>Total</strong></td>
+                                    <td colspan="2"><strong>Total</strong></td>
                                     <td><strong>{{ getTotal('cost')|currency }}</strong></td>
                                     <td><strong>{{ getTotal('tax') |currency}}</strong></td>
                                 </tr>
                                 <tr *ngFor="let record of records" (click)="selrow(record)">
                                     <td>{{ record.category }}</td>
-                                    <td>{{ (record.cost||'') |currency}}</td>
-                                    <td>{{ (record.tax||'') |currency}}</td>
+                                    <td>{{ (record.tax_rate||0)}}%</td>
+                                    <td>{{ (record.cost||0) |currency}}</td>
+                                    <td>{{ (record.tax||0|currency)}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -84,9 +86,9 @@
                         <th>QTY</th>
                         <th>Price</th>
                         <th>Cost</th>
-                        <th>tax</th>
+                        <th>Tax</th>
+                        <th>Tax Rate</th>
                         <th>Discount</th>
-                        <th>weight</th>
                         <th>seat</th>
                     </tr>
 
@@ -97,9 +99,9 @@
                         <td>{{ product.qty || '' }}</td>
                         <td>{{ product.price | currency }}</td>
                         <td>{{ product.qty*product.price | currency }}</td>
-                        <td>{{ product.tax | currency }}</td>
+                        <td>{{ product.tax /100 * product.qty*product.price | currency }}</td>
+                        <td>{{ product.tax  }}%</td>
                         <td>{{ product.discount.value }}%</td>
-                        <td>{{ product.weight }}</td>
                         <td>{{ product.seat}}</td>
                     </tr>
 
