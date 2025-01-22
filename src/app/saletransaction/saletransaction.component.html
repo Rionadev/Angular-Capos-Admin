@@ -179,7 +179,7 @@
             </table>
 
 
-            <table class="report-table" style="max-height: 300px;overflow-y: auto;">
+            <table class="report-table">
                 <thead>
                     <tr>
                         <th>Category</th>
@@ -192,6 +192,26 @@
                         <td>{{category.value.categoryname}}</td>
                         <td>{{category.value.itemCount}}</td>
                         <td>{{category.value.cost |currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="report-table" style="max-height: 300px;overflow-y: auto;">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>QTY</th>
+                        <th>Price</th>
+                        <th>Cost</th>
+                        <th>Barcode</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of selTransactions?.products ">
+                        <td>{{product.product_name}}</td>
+                        <td>{{product.qty}}</td>
+                        <td>{{product.price |currency}}</td>
+                        <td>{{product.price*product.qty |currency}}</td>
+                        <td>{{product.product_id.barcode}}</td>
                     </tr>
                 </tbody>
             </table>

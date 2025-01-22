@@ -53,8 +53,8 @@ export class RegisterclosuresComponent implements OnInit {
     const sevenDaysAgo = new Date(today);
     const oneDayAfter = new Date(today);
 
-    sevenDaysAgo.setDate(today.getDate() - 100); // Subtract 7 days
-    oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
+    sevenDaysAgo.setDate(today.getDate()); // Subtract 7 days
+    oneDayAfter.setDate(today.getDate()); // Subtract 7 days
 
 
     this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
@@ -88,6 +88,8 @@ export class RegisterclosuresComponent implements OnInit {
         // paymentSummary: this.calcCashPayment('paymentSummary', item.payment_data.all_voided),
         // categorySummary: this.calcCashPayment('categorySummary', item.payment_data.all_voided),
       }));
+    this.totalItems = this.filteredRecords.length;
+    console.log(this.totalItems);
   }
   fetchRegisters() {
     //fecthRegister
@@ -409,6 +411,7 @@ export class RegisterclosuresComponent implements OnInit {
   }
   onPageChanged(page: number) {
     this.paginateItems(page);
+
   }
 
   onCountPerPageChanged(count: number) {
@@ -439,6 +442,7 @@ export class RegisterclosuresComponent implements OnInit {
     //     },
     //   });
   }
+
   getPlain(): string {
     return this.filteredRecords.map(item =>
       `<tr>

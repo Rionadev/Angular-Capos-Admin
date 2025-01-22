@@ -34,15 +34,15 @@ export class SalesreportsComponent implements OnInit {
     const sevenDaysAgo = new Date(today);
     const oneDayAfter = new Date(today);
 
-    sevenDaysAgo.setDate(today.getDate() - 100); // Subtract 7 days
-    oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
+    sevenDaysAgo.setDate(today.getDate()); // Subtract 7 days
+    oneDayAfter.setDate(today.getDate()); // Subtract 7 days
 
 
     this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
     this.selectedDateTo = oneDayAfter.toISOString().split('T')[0]; // Set the end date to today
   }
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private customerService: CustomerService,
     @Inject('APP_CONFIG') private config: any,
   ) { }
@@ -95,8 +95,8 @@ export class SalesreportsComponent implements OnInit {
     const params = {
       start: new Date(this.selectedDateFrom),
       end: new Date(this.selectedDateTo),
-      page: this.currentPage - 1,
-      size: 2000,//this.countPerPage,
+      // page: this.currentPage - 1,
+      // size: 2000,//this.countPerPage,
       sale_status: 'all_closed',
     };
 
@@ -114,7 +114,7 @@ export class SalesreportsComponent implements OnInit {
         let t_margin = 0;
         let t_tax = 0;
         // Group transactions by date
-        const groupedTransactions = res.data.reduce((acc, item) => {
+        const groupedTransactions = res.reduce((acc, item) => {
           const date = new Date(item.updated_at).toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
           // if (item?.payment_status != 'not paid') {
 
@@ -230,19 +230,7 @@ export class SalesreportsComponent implements OnInit {
     const size = (this.countPerPage).toString();
     console.log(this.countPerPage);
     console.log(this.currentPage);
-    // this.fetchSearchItems();
 
-    //   this.productsService.read({ range: 'all-factor', page: page, size: size }).subscribe({
-    //     next: (data) => {
-    //       console.log('onGetData', data);
-    //       this.data = data?.data;
-    //       this.totalItems = data?.totalElements;
-    //       //
-    //     },
-    //     error: (err) => {
-    //       console.error('Error fetching stores:', err);
-    //     },
-    //   });
   }
 
 
@@ -250,13 +238,13 @@ export class SalesreportsComponent implements OnInit {
     return this.reportsData.map(transaction =>
       `
       <tr>
-        <td>${ transaction.date }</td>
-        <td>${ Number(transaction.total || 0).toFixed(2) }</td>
-        <td>${ Number(transaction.revenue || 0).toFixed(2) }</td>
-        <td>${ Number(transaction.cog || 0).toFixed(2) }</td>
-        <td>${ Number(transaction.gp || 0).toFixed(2) }</td>
-        <td>${ Number(transaction.margin || 0).toFixed(2) }%</td>
-        <td>${ Number(transaction.tax || 0).toFixed(2) }</td>
+        <td>${transaction.date}</td>
+        <td>${Number(transaction.total || 0).toFixed(2)}</td>
+        <td>${Number(transaction.revenue || 0).toFixed(2)}</td>
+        <td>${Number(transaction.cog || 0).toFixed(2)}</td>
+        <td>${Number(transaction.gp || 0).toFixed(2)}</td>
+        <td>${Number(transaction.margin || 0).toFixed(2)}%</td>
+        <td>${Number(transaction.tax || 0).toFixed(2)}</td>
       </tr>
       `
     ).join('');
@@ -325,7 +313,7 @@ export class SalesreportsComponent implements OnInit {
             <body onload="window.print()">
                 <p class="header"><strong>Z-Report</strong></p>
                 <div class="date">
-                <p>Date: ${ this.selectedDateFrom } - ${ this.selectedDateTo }</p>
+                <p>Date: ${this.selectedDateFrom} - ${this.selectedDateTo}</p>
                 <p>PWA: ${this.config.private_web_address}</p>
                 </div>
                 <div>
@@ -341,12 +329,12 @@ export class SalesreportsComponent implements OnInit {
                         </tr>
                         <tr>
                           <td><strong>Total</strong></td>
-                          <td><strong>$${ Number(this.total_reportData.total || 0).toFixed(2) }</strong></td>
-                          <td><strong>$${ Number(this.total_reportData.revenue || 0).toFixed(2) }</strong></td>
-                          <td><strong>$${ Number(this.total_reportData.cog || 0).toFixed(2) }</strong></td>
-                          <td><strong>$${ Number(this.total_reportData.gp || 0).toFixed(2) }</strong></td>
-                          <td><strong>${ Number(this.total_reportData.margin).toFixed(2) }%</strong></td>
-                          <td><strong>$${ Number(this.total_reportData.tax || 0).toFixed(2) }</strong></td>
+                          <td><strong>$${Number(this.total_reportData.total || 0).toFixed(2)}</strong></td>
+                          <td><strong>$${Number(this.total_reportData.revenue || 0).toFixed(2)}</strong></td>
+                          <td><strong>$${Number(this.total_reportData.cog || 0).toFixed(2)}</strong></td>
+                          <td><strong>$${Number(this.total_reportData.gp || 0).toFixed(2)}</strong></td>
+                          <td><strong>${Number(this.total_reportData.margin).toFixed(2)}%</strong></td>
+                          <td><strong>$${Number(this.total_reportData.tax || 0).toFixed(2)}</strong></td>
                         </tr>
                         ${plainData}
                     </table>
@@ -371,13 +359,13 @@ export class SalesreportsComponent implements OnInit {
 
   getCSVPlain(): string {
     return this.reportsData.map(transaction =>
-      `${ transaction.date },$${ Number(transaction.total || 0).toFixed(2) },$${ Number(transaction.revenue || 0).toFixed(2) },$${ Number(transaction.cog || 0).toFixed(2) },$${ Number(transaction.gp || 0).toFixed(2) },${ Number(transaction.margin || 0).toFixed(2) }%,$${ Number(transaction.tax || 0).toFixed(2) }\n`
+      `${transaction.date},$${Number(transaction.total || 0).toFixed(2)},$${Number(transaction.revenue || 0).toFixed(2)},$${Number(transaction.cog || 0).toFixed(2)},$${Number(transaction.gp || 0).toFixed(2)},${Number(transaction.margin || 0).toFixed(2)}%,$${Number(transaction.tax || 0).toFixed(2)}\n`
     ).join('');
   }
 
   exportContent() {
     const header = 'date, total(incl. tax), revenue, cost of goods, gross profit, margin(%), tax\n';
-    const total = `Total,$${ Number(this.total_reportData.total || 0).toFixed(2) },$${ Number(this.total_reportData.revenue || 0).toFixed(2) },$${ Number(this.total_reportData.cog || 0).toFixed(2) },$${ Number(this.total_reportData.gp || 0).toFixed(2) },${ Number(this.total_reportData.margin).toFixed(2) }%,$${ Number(this.total_reportData.tax || 0).toFixed(2) }\n`;
+    const total = `Total,$${Number(this.total_reportData.total || 0).toFixed(2)},$${Number(this.total_reportData.revenue || 0).toFixed(2)},$${Number(this.total_reportData.cog || 0).toFixed(2)},$${Number(this.total_reportData.gp || 0).toFixed(2)},${Number(this.total_reportData.margin).toFixed(2)}%,$${Number(this.total_reportData.tax || 0).toFixed(2)}\n`;
     const rows = this.getCSVPlain();
     const content = header + total + rows;
 

@@ -326,18 +326,19 @@ td {
 
 }
 
-
-
 .custom-card {
     align-content: center;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    max-width: 400px;
+    width: 400px;
     margin: 20px auto;
     font-family: Arial, sans-serif;
-    margin-top: 20%;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
 }
 
 .custom-card-title {
@@ -393,4 +394,150 @@ textarea {
 
 .custom-submit-btn:hover {
     background-color: #0056b3;
+}
+
+.reg_card {
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 80%;
+    margin: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+.reg_card .reg_left-view {
+    width: 30%;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 20px;
+    position: relative;
+    max-height: 250px; /* Set a max height for the left view */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.reg_card .reg_left-view h2 {
+    margin: 0 0 15px;
+}
+
+.reg_card .reg_left-view ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.reg_card .reg_left-view li {
+    margin: 5px 10px ;
+    text-align: center;
+    cursor: pointer;
+    height: 30px;
+    font-size: medium;
+    transition: background-color 0.3s;
+}
+
+.reg_card .reg_left-view li:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.reg_card .reg_right-content {
+    width: 70%;
+    padding: 20px;
+}
+
+.reg_card .reg_right-content h2 {
+    margin: 0 0 15px;
+}
+
+.reg_card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reg_card th, .reg_card td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.reg_card th {
+    background-color: #f8f9fa;
+}
+
+.reg_card tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+/* Enhanced Scrollbar Styles */
+.reg_card .reg_left-view::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.reg_card .reg_left-view::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Track color */
+    border-radius: 10px; /* Rounded corners for track */
+}
+
+.reg_card .reg_left-view::-webkit-scrollbar-thumb {
+    background: #007bff; /* Thumb color */
+    border-radius: 10px; /* Rounded corners for thumb */
+}
+
+.reg_card .reg_left-view::-webkit-scrollbar-thumb:hover {
+    background: #0056b3; /* Thumb color on hover */
+}
+
+.reg_card .reg_left-view {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #007bff #f1f1f1; /* Thumb and track color */
+}
+
+.reg_card .reg_left-view h2 {
+    margin: 0 0 15px;
+}
+
+.reg_card .reg_left-view ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.reg_card .reg_left-view li {
+    margin: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reg_card .reg_left-view li:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.reg_card .reg_right-content {
+    width: 70%;
+    padding: 20px;
+}
+
+.reg_card .reg_right-content h2 {
+    margin: 0 0 15px;
+}
+
+.reg_card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reg_card th, .reg_card td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.reg_card th {
+    background-color: #f8f9fa;
+}
+
+.reg_card tbody tr:hover {
+    background-color: #f1f1f1;
 }
