@@ -29,6 +29,9 @@ export class DashboardComponent implements OnInit {
   maxSales: number = 0;
   maxOrders: number = 0;
 
+  sumSales: number = 0;
+  sumOrders: number = 0;
+
   salesData: any[] = [];
   ordersData: any[] = [];
   productsData: any[] = [];
@@ -282,6 +285,9 @@ export class DashboardComponent implements OnInit {
     this.maxOrders = Math.max(...ordersOnlyArray);
     const maxAxis = Math.max(this.maxSales, this.maxOrders);
 
+    this.sumOrders = ordersOnlyArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    this.sumSales = salesOnlyArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    
     this.chartData = {
       labels: datesOnlyArray,
       series: [

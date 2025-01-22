@@ -84,6 +84,7 @@ import { ConfirmModalComponent } from '../../component/confirm-modal/confirm-mod
 import { PaginationComponent } from '../../component/pagination/pagination.component';
 import { TagInputComponent } from '../../component/tag-input/tag-input.component';
 import { OpencloseZComponent } from 'app/openclose-z/openclose-z.component';
+import { ExternalRedirectComponent } from '../../external-redirect/external-redirect.component';
 
 @NgModule({
   imports: [
@@ -171,6 +172,7 @@ import { OpencloseZComponent } from 'app/openclose-z/openclose-z.component';
     ModifierTypesComponent,
     SingleForcedModifierComponent,
 
+    ExternalRedirectComponent
   ]
 })
 
