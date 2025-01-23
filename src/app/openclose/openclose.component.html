@@ -109,10 +109,8 @@
 
 
                     <div class="card1 mb-3" style="align-items: center;justify-content: space-between;">
-                        <div class="col-md-3 reg-item">
-                            <h3><b>Register Details</b></h3>
-                        </div>
-                        <div class="col-md-8">
+                       
+                        <div class="col-md-10">
                             <table>
                                 <thead>
                                     <th>Outlet</th>
@@ -129,7 +127,7 @@
                             </table>
                         </div>
 
-                        <div style="display: grid;gap: 2rem;">
+                        <div class="col-md-2" style="display: grid;gap: 2rem;">
                             <button *ngIf="!isClosedReg" class="btn btn-sm btn-success btn-fill"
                                 (click)="toggleContent()">
                                 Close Register</button>
