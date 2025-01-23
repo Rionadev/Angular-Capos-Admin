@@ -8,6 +8,13 @@
     align-items: center;          /* Vertically centers the items */
 }
 
+.add-content-first {
+    width: 100%; 
+    display: flex; 
+    flex-direction: row;
+    gap: 5px;
+}
+
 .card .content {
     padding: 10px 15px 10px 15px;
 }
@@ -80,6 +87,10 @@ hr{
     margin-top: 10px;
 }
 
+.margin-left-0 {
+    margin-left: 0px;
+}
+
 .margin-top-5 {
     margin-top: 5px;
 }
@@ -87,6 +98,15 @@ hr{
 .margin-top-15 {
     margin-top: 15px;
 }
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.margin-top-25 {
+    margin-top: 25px;
+}
+
 .margin-bottom-5 {
     margin-bottom: 5px;
 }
@@ -235,4 +255,13 @@ td div .description {
 
 .title i {
     cursor: pointer;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.label {
+    font-size: 12px;
+    text-transform: uppercase;
 }
