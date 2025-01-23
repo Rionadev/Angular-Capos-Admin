@@ -463,8 +463,9 @@ export class OpencloseComponent implements OnInit {
       printWindow.document.open();
       printWindow.document.write(`
         <html>
+       
           <head>
-            <title>Open|Close Register</title>
+            <title>Z-Report</title>
             <style>
               @page {
                 size: A4; /* Set the page size to A4 */
@@ -478,6 +479,7 @@ export class OpencloseComponent implements OnInit {
                 height: 100%;
                 box-sizing: border-box;
               }
+                 
 h1 {
     text-align: center;
 }
@@ -554,12 +556,27 @@ div {
     font-size: 1rem; /* Adjust font size for print */
     text-align: center; /* Center align text */
 }
-
+ .header {
+                        font-size: 38px; 
+                        text-align: center;
+                        margin-top: 56px;
+                        margin-bottom: 56px;
+                        color: tomato;
+                        position: relative;
+                    }
 
             </style>
           </head>
           <body>
-            <h1>Z Report</h1>
+          <h1>Z-Report</h1>
+       <!-- <div class="header">
+                    	<div class="image">
+                              <img src="https://caposgt.com/assets/image/interface/home/logo.png" width="175" height="50"/>
+                        </div>
+                        <strong>Z-Report</strong>
+                    </div>
+                    </div>
+                <div class="date">-->
             <div>${this.getStrContent()}</div>
             <script>
               window.onafterprint = function() {
