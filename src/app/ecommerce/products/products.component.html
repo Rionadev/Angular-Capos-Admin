@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="col-md-4  flex-item">
                                             <button class="btn btn-sm btn-info btn-fill" type="button"
-                                            (click)="printBarcode()">
+                                                (click)="printBarcode()">
                                                 Print
                                             </button>
                                             <p class="category margin-top-0 line-height-1">If you want to print barcode of
@@ -148,7 +148,8 @@
                                                     <!-- [(checked)]="currentRow.enabled" (tagsChange)="currentRow.enabled = $event" -->
                                                     <app-toggle-switch [(checked)]="currentRow.enabled"
                                                         (tagsChange)="currentRow.enabled = $event"></app-toggle-switch>
-                                                    Sell Online
+                                                    Sell Online<small>(Make this product active for sale
+                                                        in-store)</small>
                                                 </div>
                                                 <div class="flex-item">
                                                     <app-toggle-switch [(checked)]="currentRow.touch"
@@ -240,76 +241,76 @@
                                             weeks
                                             cover, as well as manage your store using inventory orders, transfers and rolling
                                             inventory counts.</small></p>
-                                        <div class="row item-center margin-top-5">
-                                            <div class="col-md-3" *ngIf="!currentRow.variant_inv">
-                                                <div class="form-group" >
-                                                    <label>Stock Keeping Unit(SKU):</label> <!-- class="text-transform-none" -->
-                                                    <input type="text" class="form-control" placeholder="Stock Keeping Unit(SKU)"
-                                                        id="sku" name="sku" [(ngModel)]="currentRow.sku" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Supplier:</label> <!-- class="text-transform-none" -->
-                                                    <app-editable-select [options]="suppliers" [currentValue]="currentRow.supplier"
-                                                        (newOptionAdded)="onCreateNewSupplier($event)" (valueChanged)="currentRow.supplier = $event"></app-editable-select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Supplier Code:</label> <!-- class="text-transform-none" -->
-                                                    <input type="text" class="form-control" placeholder="Supplier Code"
-                                                        id="supplier_code" name="supplier_code"
-                                                        [(ngModel)]="currentRow.supplier_code" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Supply Price:</label> <!-- class="text-transform-none" -->
-                                                    <div class="input-group">
-                                                        <!-- <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button">
-                                                                $
-                                                            </button>
-                                                        </span> -->
-                                                        <span class="input-group-addon" id="sizing-addon1">$</span>
-                                                        <input type="number" id="supply_price" name="supply_price"
-                                                            class="form-control" placeholder="Supply Price"
-                                                            [(ngModel)]="currentRow.supply_price"
-                                                            (ngModelChange)="onSupplyPriceChange($event)">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3" *ngIf="currentRow.variant_inv">
+                                    <div class="row item-center margin-top-5">
+                                        <div class="col-md-3" *ngIf="!currentRow.variant_inv">
+                                            <div class="form-group" >
+                                                <label>Stock Keeping Unit(SKU):</label> <!-- class="text-transform-none" -->
+                                                <input type="text" class="form-control" placeholder="Stock Keeping Unit(SKU)"
+                                                    id="sku" name="sku" [(ngModel)]="currentRow.sku" required />
                                             </div>
                                         </div>
-                                        <div class="row item-center margin-top-5"  *ngIf="!currentRow.variant_inv && currentRow.tracking_inv">
-                                            <div class="col-md-3">
-                                                <div class="form-group" >
-                                                    <label>Current Inventory:</label> <!-- class="text-transform-none" -->
-                                                    <input type="number" class="form-control" placeholder="Current Inventory"
-                                                        id="inventory" name="inventory" [(ngModel)]="currentRow.inventory" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Reorder Point:</label> <!-- class="text-transform-none" -->
-                                                    <input type="text" class="form-control" placeholder="Reorder Point"
-                                                        id="reorder_point" name="reorder_point"
-                                                        [(ngModel)]="currentRow.reorder_point" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Reorder Amount:</label> <!-- class="text-transform-none" -->
-                                                    <input type="text" class="form-control" placeholder="Reorder Amount"
-                                                        id="reorder_amount" name="reorder_amount"
-                                                        [(ngModel)]="currentRow.reorder_amount" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Supplier:</label> <!-- class="text-transform-none" -->
+                                                <app-editable-select [options]="suppliers" [currentValue]="currentRow.supplier"
+                                                    (newOptionAdded)="onCreateNewSupplier($event)" (valueChanged)="currentRow.supplier = $event"></app-editable-select>
                                             </div>
                                         </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Supplier Code:</label> <!-- class="text-transform-none" -->
+                                                <input type="text" class="form-control" placeholder="Supplier Code"
+                                                    id="supplier_code" name="supplier_code"
+                                                    [(ngModel)]="currentRow.supplier_code" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Supply Price:</label> <!-- class="text-transform-none" -->
+                                                <div class="input-group">
+                                                    <!-- <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button">
+                                                            $
+                                                        </button>
+                                                    </span> -->
+                                                    <span class="input-group-addon" id="sizing-addon1">$</span>
+                                                    <input type="number" id="supply_price" name="supply_price"
+                                                        class="form-control" placeholder="Supply Price"
+                                                        [(ngModel)]="currentRow.supply_price"
+                                                        (ngModelChange)="onSupplyPriceChange($event)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3" *ngIf="currentRow.variant_inv">
+                                        </div>
+                                    </div>
+                                    <div class="row item-center margin-top-5"  *ngIf="!currentRow.variant_inv && currentRow.tracking_inv">
+                                        <div class="col-md-3">
+                                            <div class="form-group" >
+                                                <label>Current Inventory:</label> <!-- class="text-transform-none" -->
+                                                <input type="number" class="form-control" placeholder="Current Inventory"
+                                                    id="inventory" name="inventory" [(ngModel)]="currentRow.inventory" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Reorder Point:</label> <!-- class="text-transform-none" -->
+                                                <input type="text" class="form-control" placeholder="Reorder Point"
+                                                    id="reorder_point" name="reorder_point"
+                                                    [(ngModel)]="currentRow.reorder_point" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Reorder Amount:</label> <!-- class="text-transform-none" -->
+                                                <input type="text" class="form-control" placeholder="Reorder Amount"
+                                                    id="reorder_amount" name="reorder_amount"
+                                                    [(ngModel)]="currentRow.reorder_amount" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -397,6 +398,165 @@
                                 </div>
                             </div>
                             <hr>
+                            <div class="row" *ngIf="currentRow.variant_inv">
+                                <div class="col-md-3">
+                                    <div class="header">
+                                        <h4 class="title">Variants</h4>
+                                        <p class="category">
+                                            These are products that have different variants, like size or color. Turn this on to specify up to three attributes (like color), and unlimited values for each attribute (like green, blue, black).
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 margin-top-15">
+                                    <div class="add-content">
+                                        <div class="row col-md-12 margin-right-0">
+                                            <div class="row col-md-3">
+                                                <select class="form-control" id="attribute-select" [(ngModel)]="currentVariantRow.attribute">
+                                                    <option *ngFor="let row of searchAttributesForVariants" [value]="row.value">{{row.name}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <app-tag-input class="" [(tags)]="currentVariantRow.value"
+                                                    (tagsChange)="currentVariantRow.value = $event"></app-tag-input>
+                                            </div>
+                                        </div>
+                                        <div class="align-items">
+                                            <button class="btn btn-sm btn-info btn-fill" (click)="onAddVariant()">Save</button>
+                                        </div>
+                                    </div>
+                                    <div class="content margin-top-5">
+                                        <div class="sub-table table-responsive table-full-width">
+                                            <table class="table table-hover table-striped">
+                                                  <thead>
+                                                      <tr>
+                                                          <!-- <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th> -->
+                                                          <th>Name</th>
+                                                          <th>Value</th>
+                                                          <th>Action</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                      <tr *ngFor="let row of currentVariants">
+                                                          <!-- <td *ngFor="let cell of row">{{cell}}</td> -->
+                                                          <td>{{ getNameByAttributeID(row.attribute) }}</td>
+                                                          <td>{{row.value}}</td>
+                                                          <td>
+                                                            <button class="btn btn-sm btn-info" (click)="onEditVariant(row)" data-toggle="tooltip"
+                                                                title="Edit">
+                                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-danger" (click)="showVariantDeleteModal(row.attribute)">
+                                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                            </button>
+                                                          </td>
+                                                      </tr>
+                                                      <tr *ngIf="currentVariants.length === 0">
+                                                        <td colspan="3" class="margin-top-5 text-center">
+                                                            <label>No Variants</label>
+                                                        </td>
+                                                      </tr>
+                                                  </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-left-0 margin-top-5">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Name:</label> <!-- class="text-transform-none" -->
+                                                <input type="text" class="form-control" placeholder="Name"
+                                                    id="currentVariantProductRow.name" name="currentVariantProductRow.name"
+                                                    [(ngModel)]="currentVariantProductRow.name" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>SKU:</label> <!-- class="text-transform-none" -->
+                                                <input type="text" class="form-control" placeholder="SKU"
+                                                    id="currentVariantProductRow.sku" name="currentVariantProductRow.sku"
+                                                    [(ngModel)]="currentVariantProductRow.sku" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group" >
+                                                <label>Supplier Code:</label> <!-- class="text-transform-none" -->
+                                                <input type="number" class="form-control" placeholder="Supplier Code"
+                                                    id="currentVariantProductRow.supplier_code" name="currentVariantProductRow.supplier_code" [(ngModel)]="currentVariantProductRow.supplier_code" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Supply Price:</label> <!-- class="text-transform-none" -->
+                                                <input type="text" class="form-control" placeholder="Supply Price"
+                                                    id="currentVariantProductRow.supply_price" name="currentVariantProductRow.supply_price"
+                                                    [(ngModel)]="currentVariantProductRow.supply_price" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Retail Price:</label> <!-- class="text-transform-none" -->
+                                                <input type="number" class="form-control" placeholder="Retail Price"
+                                                    id="currentVariantProductRow.retail_price" name="currentVariantProductRow.retail_price"
+                                                    [(ngModel)]="currentVariantProductRow.retail_price" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 add-content">
+                                            <div class="margin-top-25">
+                                                <div class="flex-item">
+                                                    <app-toggle-switch [(checked)]="currentVariantProductRow.enabled" (tagsChange)="currentVariantProductRow.enabled = $event"></app-toggle-switch>
+                                                    <p class="category label margin-top-0">Active</p>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-info btn-fill margin-top-20" (click)="onAddVariantProduct()">Save</button>
+                                        </div>
+                                    </div>
+                                    <div class="content margin-top-5">
+                                        <div class="sub-table table-responsive table-full-width">
+                                            <table class="table table-hover table-striped">
+                                                  <thead>
+                                                      <tr>
+                                                          <!-- <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th> -->
+                                                          <th>Name</th>
+                                                          <th>SKU</th>
+                                                          <th>Supplier code</th>
+                                                          <th>Supply Price</th>
+                                                          <th>Retail Price</th>
+                                                          <th>Enable</th>
+                                                          <th>Delete</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                      <tr *ngFor="let row of currentVariantProducts">
+                                                          <!-- <td *ngFor="let cell of row">{{cell}}</td> -->
+                                                          <td>{{row.name}}</td>
+                                                          <td>{{row.sku}}</td>
+                                                          <td>{{row.supplier_code}}</td>
+                                                          <td>{{row.supply_price}}</td>
+                                                          <td>{{row.retail_price}}</td>
+                                                          <td>
+                                                            <app-toggle-switch [(checked)]="row.enabled" [readOnly]="true"></app-toggle-switch>
+                                                          </td>
+                                                          <td>
+                                                            <button class="btn btn-sm btn-info" (click)="onEditVariantProduct(row)" data-toggle="tooltip"
+                                                                title="Edit">
+                                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-danger" (click)="showVariantProductDeleteModal(row.name)">
+                                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                            </button>
+                                                          </td>
+                                                      </tr>
+                                                      <tr *ngIf="currentVariantProducts.length === 0">
+                                                        <td colspan="7" class="margin-top-5 text-center">
+                                                            <label>No Variants</label>
+                                                        </td>
+                                                      </tr>
+                                                  </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr *ngIf="currentRow.variant_inv">
                             <div class="row margin-bottom-5">
                                 <div class="col-md-3">
                                     <div class="header">
@@ -670,3 +830,4 @@
     [description]="'Do you really want to remove this Product ?'" [confirmButtonCaption]="'Delete'"
     [cancelButtonCaption]="'Cancel'" (confirmed)="deleteRow()" (cancelled)="closeDeleteModal()">
 </app-confirm-modal>
+<app-toast></app-toast>
