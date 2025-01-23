@@ -82,8 +82,8 @@ export class InventoryreportsComponent implements OnInit {
   fetchSearchItems() {
     let params: any = {
       range: 'all-factor',
-      // page: this.currentPage - 1,
-      // size: this.countPerPage,
+      page: this.currentPage - 1,
+      size: this.countPerPage,
       // tracking_inv: true,
     };
     // Add keyword to params if searchTerm is not empty
@@ -93,11 +93,12 @@ export class InventoryreportsComponent implements OnInit {
     this.customerService.fetchProducts(params).subscribe(
       (res) => {
         this.arr_productIDs = [];
-        res.forEach(element => {
+        this.totalItems = res?.totalElements || 100;
+        res.data.forEach(element => {
           this.arr_productIDs.push(element._id);
         });
         this.fetchSoldProdcuts(this.arr_productIDs);
-        this.products = res;
+        this.products = res.data;
         this.filteredProducts = [...this.products];
 
       },

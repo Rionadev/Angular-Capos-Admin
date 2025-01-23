@@ -32,8 +32,14 @@ export class PaymentreportsComponent implements OnInit {
     total_other_amount = 0;
 
 
+    // Pagination
+    totalItems: number = 100; // Total number of items
+    countPerPage: number = 10; // Default items per page
+    currentPage: number = 1;
+
 
     filteredTransactions: any;
+    before_filteredTransactions: any;
     constructor(
         private customerService: CustomerService,
         @Inject('APP_CONFIG') private config: any,
@@ -50,6 +56,45 @@ export class PaymentreportsComponent implements OnInit {
 
         this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
         this.selectedDateTo = oneDayAfter.toISOString().split('T')[0]; // Set the end date to today
+    }
+    onPageChanged(page: number) {
+        this.paginateItems(page);
+    }
+
+    onCountPerPageChanged(count: number) {
+        if (this.countPerPage != count) {
+            this.countPerPage = count; // Update count per page
+            this.paginateItems(1);
+        }
+    }
+    paginateItems(page: number) {
+        this.currentPage = page;
+        /* const startIndex = (page - 1) * this.countPerPage; // Default items per page
+        const endIndex = startIndex + this.countPerPage; */
+        //this.paginatedItems = this.allItems.slice(startIndex, endIndex);
+        this.onGetData();
+    }
+    onGetData() {
+        const page = (this.currentPage - 1);
+        const size = (this.countPerPage);
+
+
+        // Convert the object values to an array
+        const arr_data = Object.entries(this.before_filteredTransactions);
+
+
+        // Store the original array for recovery
+        const originalTransactions = [...arr_data]; // Create a copy of the original array
+
+        // Calculate the start and end indices for slicing
+        const startIndex = page * size; // Starting index
+        const endIndex = startIndex + size; // Ending index
+
+        // Create the new array based on pagination
+        this.filteredTransactions = Object.fromEntries(arr_data.slice(startIndex, endIndex));
+
+        console.log('Paginated data:', this.filteredTransactions); // Output: Paginated data
+        console.log('Original data:', originalTransactions); // Output: Original data
     }
     init_rowtotal() {
         this.sotre_credit_amount = 0;
@@ -120,11 +165,13 @@ export class PaymentreportsComponent implements OnInit {
                             this.calc_store_credit('other', value, key);
                         calc_total[key].total_amount =
                             this.calc_store_credit('total', value, key);
-                        if (key == '2022-10-11') { console.log(calc_total[key]); }
+                        // if (key == '2022-10-11') { console.log(calc_total[key]); }
 
                     });
                 }
-                this.filteredTransactions = calc_total;
+                this.before_filteredTransactions = calc_total;
+                this.onGetData();
+                this.totalItems = Object.keys(calc_total).length;
                 this.transactions = res;
                 // console.log(this.transactions);
             },
