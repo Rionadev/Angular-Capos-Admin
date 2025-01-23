@@ -95,8 +95,8 @@ export class SalesreportsComponent implements OnInit {
     const params = {
       start: new Date(this.selectedDateFrom),
       end: new Date(this.selectedDateTo),
-      page: this.currentPage - 1,
-      size: this.countPerPage,
+      // page: this.currentPage - 1,
+      // size: this.countPerPage,
       sale_status: 'all_closed',
     };
 
@@ -115,9 +115,9 @@ export class SalesreportsComponent implements OnInit {
         let t_margin = 0;
         let t_tax = 0;
         // Group transactions by date
-        if (res.data.length == 0) return;
-        this.totalItems = res.data.length;
-        const groupedTransactions = res?.data.reduce((acc, item) => {
+        if (res.length == 0) return;
+        this.totalItems = res.length;
+        const groupedTransactions = res?.reduce((acc, item) => {
           const date = new Date(item.updated_at).toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
           // if (item?.payment_status != 'not paid') {
 
@@ -190,7 +190,6 @@ export class SalesreportsComponent implements OnInit {
 
         console.log(this.reportsData); // View the grouped data
         console.log(this.total_reportData); // View the grouped data
-
       },
       (error) => {
         console.error('Error fetching customer data:', error);

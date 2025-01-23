@@ -186,14 +186,17 @@ export class CustomerService {
 
   }
 
-  fecthLastOpenCloseDatar(): Observable<any> {
-    // Make the API call
+  fecthTodayPaymentInfo(): Observable<any> {
+    const today = new Date();
+
     let params = {
-      user_id: this.config.user_id,
+      start: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0),
+      end: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59),
+      // user_id: this.config.user_id,
       outlet: this.config.outlet_id,
       // register: this.config.register_id,
       private_web_address: this.config.private_web_address,
-      status: 2,
+      // status: 2,
     }
     let httpParams = new HttpParams();
 
@@ -204,7 +207,9 @@ export class CustomerService {
       }
     });
     // return this.http.get(`${this.config.apiUrl}/sale/fetchtodysale`, { params });
-    return this.http.get(`${this.config.apiUrl}/sell/openclose/opencloselist`, { params });
+    // return this.http.get(`${this.config.apiUrl}/sell/openclose/opencloselist`, { params });
+    return this.http.get(`${this.config.apiUrl}/sale/sale`, { params: httpParams });
+
 
   }
 
