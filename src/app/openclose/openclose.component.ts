@@ -14,6 +14,7 @@ import { run } from 'googleapis/build/src/apis/run';
 export class OpencloseComponent implements OnInit {
 
   isClosedReg = false;
+  todaydate: string;
 
   isOpenClose = false;
   isConfirmClose = false;
@@ -27,6 +28,15 @@ export class OpencloseComponent implements OnInit {
 
   isCreateOpenClose = false;
 
+  todayPayInfo: any = {
+    cash: 0,
+    credit: 0,
+    debit: 0,
+    other: 0,
+    refunds: 0,
+    voided: 0,
+    sum: 0,
+  };
 
   total_creditcard_amount = 0;
 
@@ -123,8 +133,18 @@ export class OpencloseComponent implements OnInit {
     this.isContentVisible = false;
   }
   ngOnInit() {
+    this.todaydate = this.formatDate(new Date());
     this.fetchSearchItems();
+  }
+  formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
 
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
   nowday(str: string): string {
@@ -184,12 +204,10 @@ export class OpencloseComponent implements OnInit {
   }
   getLastRegisters() {
     console.log('-----------------')
-    this.customerService.fecthLastOpenCloseDatar().subscribe(
+    this.customerService.fecthTodayPaymentInfo().subscribe(
       (res) => {
-        let paymentlist = [];
-        this.opencloseHistory = res;
-        if (this.opencloseHistory.payment_data) {
-          this.calc_quickView(this.opencloseHistory.payment_data);
+        if (res.length > 0) {
+          this.calc_quickView(res);
         }
       },
       (error) => {
@@ -838,68 +856,45 @@ div {
       return str;
     }
   }
-  last_payment = {
-    cash: 0,
-    credit: 0,
-    debit: 0,
-    other: 0,
-    sotre_credit: 0,
-    refunds: 0,
-    voided: 0,
-    sum: 0,
 
-  };
   calc_quickView(pay_data: any) {
-    this.last_payment = {
+    this.todayPayInfo = {
       cash: 0,
       credit: 0,
       debit: 0,
       other: 0,
-      sotre_credit: 0,
       refunds: 0,
       voided: 0,
       sum: 0,
     };
-    //all payment
-    if (pay_data && pay_data.all_payments.length > 0) {
-      pay_data.all_payments.forEach(element => {
-        if (element.payment_status == 'cash') {
-          this.last_payment['cash'] += element.total_paid;
-          this.last_payment.sum += element.total_paid;
-        } else if (element.payment_status == 'credit') {
-          this.last_payment['credit'] += element.total_paid;
-          this.last_payment.sum += element.total_paid;
+    pay_data.forEach(element => {
+      if (element.voided == true) {
+        this.todayPayInfo.voided += element.total;
+      } else {
+        if (element.sale_status == 'completed' ||
+          element.sale_status == 'on_account_completed' ||
+          element.sale_status == 'layby_completed' ||
+          element.sale_status == 'on_account' ||
+          element.sale_status == 'delivery_completed' ||
+          element.sale_status == 'pickup_completed'
+        ) {
+          if (element.payment_status == 'cash') {
+            this.todayPayInfo.cash += element.total;
+          } else if (element.payment_status == 'credit') {
+            this.todayPayInfo.credit += element.total;
+          } else if (element.payment_status == 'debit') {
+            this.todayPayInfo.debit += element.total;
+          } else {
+            this.todayPayInfo.other += element.total;
+          }
 
-        } else if (element.payment_status == 'debit') {
-          this.last_payment['debit'] += element.total_paid;
-          this.last_payment.sum += element.total_paid;
-        } else {
-          this.last_payment['other'] += element.total_paid;
-          this.last_payment.sum += element.total_paid;
+        } else if (element.sale_status == 'return_completed') {
+          this.todayPayInfo.refunds += element.total;
+
         }
-      });
-    }
-    //returns
-    if (pay_data && pay_data.all_returns.length > 0) {
-      pay_data.all_returns.forEach(element => {
-        this.last_payment['refunds'] += element.total_paid;
-        this.last_payment.sum += element.total_paid;
-      });
-    }
-    //voided
-    if (pay_data && pay_data.all_voided.length > 0) {
-      pay_data.all_voided.forEach(element => {
-        this.last_payment['voided'] += element.total_paid;
-        this.last_payment.sum += element.total_paid;
-      });
-    }
-    //cash move add to cash
-    if (pay_data && pay_data.cash_movements.length > 0) {
-      pay_data.cash_movements.forEach(element => {
-        this.last_payment['cash'] += element.transaction;
-        this.last_payment.sum += element.transaction;
-      });
-    }
-
+      }
+      this.todayPayInfo.sum += element.total;
+    });
+    console.log(this.todayPayInfo);
   }
 }

@@ -32,7 +32,7 @@
                     </div>
                     <div>
                         <table>
-                            <thead>
+                            <!-- <thead>
                                 <tr>
                                     <th>Register</th>
                                     <th>Outlet</th>
@@ -55,32 +55,37 @@
                                 <td colspan="2">{{opencloseHistory.opening_time | date: 'medium'}}</td>
                                 <td colspan="2">{{opencloseHistory.closing_time | date: 'medium'}}</td>
 
-                            </tbody>
+                            </tbody> -->
                             <thead>
                                 <tr>
+                                    <th colspan="7">
+                                        {{todaydate |date}}
+                                    </th>
+                                </tr>
+                                <tr>
                                     <th>Cash</th>
-                                    <th>Credit Card</th>
-                                    <th>Debit Card</th>
-                                    <th>Store Credit</th>
+                                    <th>Credit</th>
+                                    <th>Debit</th>
                                     <th>Other</th>
                                     <th>Refunds</th>
                                     <th>Voided</th>
+                                    <th>Sum</th>
+
                                 </tr>
-                                {{calc_quickView(opencloseHistory.payment_data)}}
+                                <!-- {{calc_quickView(opencloseHistory.payment_data)}} -->
                             </thead>
                             <tbody>
-                                <td>{{last_payment.cash |currency}}</td>
-                                <td>{{last_payment.credit |currency}}</td>
-                                <td>{{last_payment.debit |currency}}</td>
-                                <td>{{opencloseHistory.open_value |currency}}</td>
-                                <td>{{last_payment.other |currency}}</td>
-                                <td>{{last_payment.refunds |currency}}</td>
-                                <td>{{last_payment.voided |currency}}</td>
+                                <td>{{todayPayInfo.cash |currency}}</td>
+                                <td>{{todayPayInfo.credit |currency}}</td>
+                                <td>{{todayPayInfo.debit |currency}}</td>
+                                <td>{{todayPayInfo.other |currency}}</td>
+                                <td>{{todayPayInfo.refunds |currency}}</td>
+                                <td>{{todayPayInfo.voided |currency}}</td>
+                                <td>{{todayPayInfo.sum |currency}}</td>
                             </tbody>
                             <tr>
                                 <th colspan="7">
-                                    {{last_payment.sum|currency}}
-
+                                    {{todayPayInfo.sum|currency}}
                                 </th>
                             </tr>
                         </table>
@@ -128,9 +133,7 @@
                             <button *ngIf="!isClosedReg" class="btn btn-sm btn-success btn-fill"
                                 (click)="toggleContent()">
                                 Close Register</button>
-                            <button
-                             
-                              class="btn btn-sm btn-info btn-fill" (click)="printReport()">
+                            <button class="btn btn-sm btn-info btn-fill" (click)="printReport()">
                                 Print</button>
                             <button *ngIf="isClosedReg" class="btn btn-sm btn-primary btn-fill"
                                 (click)="fetchSearchItems()">

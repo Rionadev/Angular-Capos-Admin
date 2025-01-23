@@ -94,7 +94,7 @@
                     <td>{{ sel_row.name }}</td>
                     <td>{{ sel_row?.outlet?.name || '' }}</td>
                     <td>{{ sel_row?.supplier?.name || '' }}</td>
-                    <td>{{ sel_row?.tax?.rate || '' |currency }}</td>
+                    <td>{{ sel_row?.tax?.rate || 0 }}%</td>
                     <td>{{ sel_row?.type?.name || '' }}</td>
                     <td>{{ sel_row?.inventory || 0 }}</td>
                 </tr>
