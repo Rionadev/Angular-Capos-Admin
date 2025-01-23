@@ -195,6 +195,7 @@ export class SaletransactionComponent implements OnInit {
     // let newProductTypes = [];
     if (this.selTransactions.products.length > 0) {
       this.selTransactions.products.forEach(goods => {
+        if(!goods.product_id)
         if (!this.selTransactions.categories[goods.product_id.type._id]) {
           this.selTransactions.categories[goods.product_id.type._id] = {
             categoryname: goods.product_id.type.name || '',

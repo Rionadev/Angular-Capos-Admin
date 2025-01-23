@@ -3,6 +3,7 @@ import { ReportingService } from 'app/api/reporting/api.service';
 import { CustomerService } from 'app/api/salesledger/api.service';
 import { ToastService } from 'app/component/toast/toast.service';
 import { quantity } from 'chartist';
+import { run } from 'googleapis/build/src/apis/run';
 
 
 @Component({
@@ -42,7 +43,6 @@ export class OpencloseComponent implements OnInit {
 
   isContentVisible: boolean = false;
   opencloseHistory: any = [];
-  sel_openclosehistory: any = [];
 
   constructor(
     @Inject('APP_CONFIG') private config: any,
@@ -126,6 +126,7 @@ export class OpencloseComponent implements OnInit {
     this.fetchSearchItems();
 
   }
+
   nowday(str: string): string {
     let today = new Date();
     if (str !== 'now') {
@@ -185,7 +186,11 @@ export class OpencloseComponent implements OnInit {
     console.log('-----------------')
     this.customerService.fecthLastOpenCloseDatar().subscribe(
       (res) => {
+        let paymentlist = [];
         this.opencloseHistory = res;
+        if (this.opencloseHistory.payment_data) {
+          this.calc_quickView(this.opencloseHistory.payment_data);
+        }
       },
       (error) => {
         console.error('Error fetching customer data:', error);
@@ -193,6 +198,10 @@ export class OpencloseComponent implements OnInit {
       }
     );
 
+  }
+  goToReg() {
+    // this.init_var();
+    console.log(this.selected_reg);
   }
   fetchSearchItems() {
     this.init_var();
@@ -454,8 +463,9 @@ export class OpencloseComponent implements OnInit {
       printWindow.document.open();
       printWindow.document.write(`
         <html>
+       
           <head>
-            <title>Open|Close Register</title>
+            <title>Z-Report</title>
             <style>
               @page {
                 size: A4; /* Set the page size to A4 */
@@ -469,99 +479,104 @@ export class OpencloseComponent implements OnInit {
                 height: 100%;
                 box-sizing: border-box;
               }
-              h1 {
-                text-align: center;
-              }
-              div {
-                page-break-inside: avoid; /* Avoid page breaks inside this div */
-              }
-                div{
-                margin-bottom:1rem;}
+                 
+h1 {
+    text-align: center;
+}
+
+div {
+    page-break-inside: avoid; /* Avoid page breaks inside this div */
+    margin-bottom: 1rem; /* Maintain bottom margin */
+}
+
+.border {
+    border-bottom: 1px solid gray; /* Keep the border */
+}
+
 .z-report {
-    border: 1px solid #8b8b8b;
-    /* Keep the border for print */
-    background-color: #f9f9f9;
-    /* Maintain background color */
-    margin-top: 20px;
-    /* Keep top margin */
-    padding: 10px;
-    /* Add padding for print */
+    border: 1px solid #dcdcdc; /* Lighter border for a softer look */
+    background-color: #ffffff; /* White background */
+    margin-top: 20px; /* Keep top margin */
+    padding: 15px; /* Add padding for print */
+    border-radius: 8px; /* Rounded corners for a modern touch */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 .z-report h3 {
-    text-align: center;
-    /* Center align heading */
-    font-size: 20px;
-    /* Adjust font size for print */
-    margin-bottom: 15px;
-    /* Reduce bottom margin */
+    text-align: center; /* Center align heading */
+    font-size: 22px; /* Slightly larger font size */
+    margin-bottom: 15px; /* Reduce bottom margin */
+    color: #333; /* Darker text color for better readability */
 }
 
 .z-report h4 {
-    font-size: 18px;
-    /* Adjust font size for print */
-    margin-top: 10px;
-    /* Reduce top margin */
+    font-size: 20px; /* Slightly larger font size */
+    margin-top: 10px; /* Reduce top margin */
+    color: #555; /* Medium gray color */
 }
 
 .z-report p {
-    font-size: 14px;
-    /* Adjust font size for print */
-    margin: 5px 0;
-    /* Add margin for spacing */
+    font-size: 14px; /* Adjust font size */
+    margin: 5px 0; /* Add margin for spacing */
+    color: #666; /* Lighter gray for paragraph text */
 }
 
 .z-report table {
-    width: 100%;
-    /* Full width for tables */
-    border-collapse: collapse;
-    /* Merge borders */
-    margin-top: 10px;
-    /* Maintain top margin */
+    width: 100%; /* Full width for tables */
+    border-collapse: collapse; /* Merge borders */
+    margin-top: 10px; /* Maintain top margin */
 }
 
 .z-report th,
 .z-report td {
-    border: 1px solid #ddd;
-    /* Keep border for cells */
-    text-align: left;
-    /* Left align text */
-    padding: 8px;
-    /* Add padding for cells */
+    padding: 0.75rem; /* Add padding for cells */
+    text-align: left; /* Left align text */
+    border: none; /* No border for cells */
 }
 
 .z-report th {
-    background-color: #f2f2f2;
-    /* Light gray background for headers */
-    font-weight: bold;
-    /* Bold text for headers */
+    background-color: #f7f7f7; /* Very light gray background for headers */
+    font-weight: bold; /* Bold text for headers */
+    color: #333; /* Darker text color */
+}
+
+/* Style for odd rows */
+.z-report tr:nth-child(odd) {
+
+    background-color: #f0f0f0; /* Light gray for odd rows */
 }
 
 .z-report .total-border {
-    font-weight: bold;
-    /* Bold text for total */
-    background-color: #e9e9e9;
-    /* Light background for total */
+    font-weight: bold; /* Bold text for total */
+    background-color: #f0f0f0; /* Light background for total */
 }
 
 .print-table {
-    border: none !important;
-    /* Remove borders */
-    background: none !important;
-    /* Remove background */
-    font-size: 1rem;
-    /* Adjust font size for print */
-    padding: 0 !important;
-    /* Remove padding */
-    margin: 0 !important;
-    /* Remove margin */
-    text-align: center;
-    /* Center align text */
+    background-color: #ffffff !important; /* White background */
+    font-size: 1rem; /* Adjust font size for print */
+    text-align: center; /* Center align text */
 }
+ .header {
+                        font-size: 38px; 
+                        text-align: center;
+                        margin-top: 56px;
+                        margin-bottom: 56px;
+                        color: tomato;
+                        position: relative;
+                    }
+
             </style>
           </head>
           <body>
-            <h1>Z Report</h1>
+          <h1>Z-Report</h1>
+       <!-- <div class="header">
+                    	<div class="image">
+                              <img src="https://caposgt.com/assets/image/interface/home/logo.png" width="175" height="50"/>
+                        </div>
+                        <strong>Z-Report</strong>
+                    </div>
+                    </div>
+                <div class="date">-->
             <div>${this.getStrContent()}</div>
             <script>
               window.onafterprint = function() {
@@ -588,13 +603,11 @@ export class OpencloseComponent implements OnInit {
                     <div class="just-row">
                         <span>Total Net Sales</span>
                         <span>${this.formatCurrency(this.zSalesTaxesSummary.totalNetSale)}</span>
-                    </div>
-                    <div class="just-row">
+                        +
                         <span>Tax</span>
                         <span>${this.formatCurrency(this.zSalesTaxesSummary.tax)}</span>
-                    </div>
-                </div>
-                <div class="just-row">
+                   
+                      =
                     <span><b>Total Sales</b></span>
                     <span><b>${this.formatCurrency(this.zSalesTaxesSummary.total)}</b></span>
                 </div>
@@ -604,7 +617,7 @@ export class OpencloseComponent implements OnInit {
 
             <div class="mb-1">
                 <div class="border"><b>PAYMENT DETAILS</b></div>
-                <table style="border: none;" class="print-table">
+                <table style="width:100%;" class="print-table">
 
                     <tbody class="border">
                       ${this.str_paymentDetails(this.paymentSummary)}
@@ -625,7 +638,7 @@ export class OpencloseComponent implements OnInit {
             </div>
             <div class="mb-1">
                 <div class="border"><b>SERVER TIPOUTS</b></div>
-                <table style="border: none;" class="print-table">
+                <table style="width:100%" class="print-table">
                     <tbody>
 
                         <tr>
@@ -707,8 +720,8 @@ export class OpencloseComponent implements OnInit {
   </table>
   </div>
   <div class="mb-1">
-    <div><b>TOTAL DISCOUNTS </b></div >
-      <table style="border: none;" class="print-table" >
+    <div class="border"><b>TOTAL DISCOUNTS </b></div >
+      <table style="width:100%" class="print-table" >
         <thead class="border" >
           <tr>
           <td class="print-table" style = "float: left;" > Discount Name </td>
@@ -725,7 +738,7 @@ export class OpencloseComponent implements OnInit {
 
   <div class="mb-1" >
     <div class="border" > <b>CREDIT CARD BREAKDOWN </b></div >
-      <table style="border: none;" class="print-table" >
+      <table style="width:100%" class="print-table" >
         <tbody class="border" >
          ${this.str_payhistory(this.payhistory)}
   </tbody>
@@ -739,8 +752,8 @@ export class OpencloseComponent implements OnInit {
         </table>
         </div>
         <div class="mb-1" >
-          <div><b>SALES CATEGORIES </b></div >
-            <table style="border: none;" class="print-table" >
+          <div class="border"><b>SALES CATEGORIES </b></div >
+            <table style="width:100%" class="print-table" >
               <thead class="border" >
                 <tr>
                 <td class="print-table" style = "float: left;" > Category </td>
@@ -824,5 +837,69 @@ export class OpencloseComponent implements OnInit {
         `;
       return str;
     }
+  }
+  last_payment = {
+    cash: 0,
+    credit: 0,
+    debit: 0,
+    other: 0,
+    sotre_credit: 0,
+    refunds: 0,
+    voided: 0,
+    sum: 0,
+
+  };
+  calc_quickView(pay_data: any) {
+    this.last_payment = {
+      cash: 0,
+      credit: 0,
+      debit: 0,
+      other: 0,
+      sotre_credit: 0,
+      refunds: 0,
+      voided: 0,
+      sum: 0,
+    };
+    //all payment
+    if (pay_data && pay_data.all_payments.length > 0) {
+      pay_data.all_payments.forEach(element => {
+        if (element.payment_status == 'cash') {
+          this.last_payment['cash'] += element.total_paid;
+          this.last_payment.sum += element.total_paid;
+        } else if (element.payment_status == 'credit') {
+          this.last_payment['credit'] += element.total_paid;
+          this.last_payment.sum += element.total_paid;
+
+        } else if (element.payment_status == 'debit') {
+          this.last_payment['debit'] += element.total_paid;
+          this.last_payment.sum += element.total_paid;
+        } else {
+          this.last_payment['other'] += element.total_paid;
+          this.last_payment.sum += element.total_paid;
+        }
+      });
+    }
+    //returns
+    if (pay_data && pay_data.all_returns.length > 0) {
+      pay_data.all_returns.forEach(element => {
+        this.last_payment['refunds'] += element.total_paid;
+        this.last_payment.sum += element.total_paid;
+      });
+    }
+    //voided
+    if (pay_data && pay_data.all_voided.length > 0) {
+      pay_data.all_voided.forEach(element => {
+        this.last_payment['voided'] += element.total_paid;
+        this.last_payment.sum += element.total_paid;
+      });
+    }
+    //cash move add to cash
+    if (pay_data && pay_data.cash_movements.length > 0) {
+      pay_data.cash_movements.forEach(element => {
+        this.last_payment['cash'] += element.transaction;
+        this.last_payment.sum += element.transaction;
+      });
+    }
+
   }
 }
