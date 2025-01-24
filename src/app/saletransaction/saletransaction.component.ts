@@ -9,30 +9,33 @@ import { UtilService } from 'app/api/utils/api.service';
   styleUrls: ['./saletransaction.component.scss']
 })
 export class SaletransactionComponent implements OnInit {
+
+  totalItems: number = 100; // Total number of items
+  countPerPage: number = 10; // Default items per page
+  currentPage: number = 1;
+  before_filteredTransactions: any;
+
   selTransactions: any;
   isshowedit = false;
   currentDeleteID = '';
   isDeleteModal = false;
   selectedCustomer: string = 'all';
+  selectedPayType: string = 'all';
   selectedUser: string = 'all';
   selectedStatus: string = 'all';
   selectedDateFrom: string = '';
   selectedDateTo: string = '';
 
-  customers = [
-    { value: 'all', label: 'All Customer' },
-    { value: 'new@gmail.com', label: 'New Customer (new@gmail.com)' },
-    { value: 'test@gmail.com', label: 'Test Customer (test@gmail.com)' },
-    { value: 'saboor@gmail.com', label: 'Abdul Saboor (saboor@gmail.com)' },
-  ];
+  customers = [];
   users = [];
   sale_status = [];
+  pay_types = [];
   onCustomerChange() {
     // Logic to handle the change in selected customer
     console.log('Selected Customer:', this.selectedCustomer);
   }
   transactions = [];
-  producttype: any;
+  // producttype: any;
 
   filteredTransactions = [...this.transactions];
   constructor(
@@ -46,9 +49,7 @@ export class SaletransactionComponent implements OnInit {
     const sevenDaysAgo = new Date(today);
     const oneDayAfter = new Date(today);
 
-    sevenDaysAgo.setDate(today.getDate()); // Subtract 7 days
-    oneDayAfter.setDate(today.getDate()); // Subtract 7 days
-
+    oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
 
     this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
     this.selectedDateTo = oneDayAfter.toISOString().split('T')[0]; // Set the end date to today
@@ -65,38 +66,21 @@ export class SaletransactionComponent implements OnInit {
     return `${year}-${month}-${day}`; // 'yyyy-MM-dd'
   }
   fetchSearchItems() {
-    // this.http.get<any[]>(`${environment.apiUrl}/sale/getSearchItem`).subscribe(data => {
-
-    // });
     const params = {
       from: this.selectedDateFrom,
       to: this.selectedDateTo,
       sale_status: 'all_closed',
     };
 
-    // Log the params to check their structure
-    this.utilservice.getProductType().subscribe(
-      (res) => {
-        this.producttype = {};
-        Object.keys(res).forEach(key => {
-          const element = res[key]; // Access the element using the key
-          if (element._id) { // Check if _id exists
-            this.producttype[element._id] = element; // Assign the element to producttype using _id as the key
-          }
-        });
-      },
-      (error) => {
-        console.error('Error fetching customer data:', error);
-        // Handle the error as needed
-      }
-    );
-
-    // console.log(this.arr_categories['']);
     this.customerService.fetchSaleHistory(params).subscribe(
       (res) => {
         this.customers = [];
         this.sale_status = [];
+        this.pay_types = [];
         this.users = [];
+
+        this.totalItems = res.length;
+
         this.transactions = res.map(item => {
 
           if (item.customer && item.customer.email) {
@@ -147,24 +131,27 @@ export class SaletransactionComponent implements OnInit {
               }
             }
           }
+          if (item.payment_status) {
+            const status1 = item.payment_status;
+            if (status1) {
+              const customerExists = this.pay_types.some(
+                status => status.value === status1
+              );
+              if (!customerExists) {
+                this.pay_types.push({
+                  value: status1,
+                  label: status1
+                });
+              }
+            }
+          }
 
-          // Map transaction
-          // return {
-          //   date: new Date(item.created_at).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
-          //   receipt: item.sale_number, // Receipt number
-          //   user: `${item.user_id.first_name} ${item.user_id.last_name}`, // Full name of user
-          //   user_email: item.user_id.email, // Email of user
-          //   register: item.register.name, // Register name
-          //   customer: item.customer.name || '', // Customer name
-          //   customer_email: item.customer.email || '', // Customer email
-          //   status: item.sale_status, // Sale status
-          //   total: item.total, // Total amount
-          // };
         });
         this.transactions = res;
 
-        this.filteredTransactions = [...this.transactions];
-
+        // this.filteredTransactions = [...this.transactions];
+        this.before_filteredTransactions = [...this.transactions];
+        this.onGetData();
         // Convert set to array and parse JSON
         this.customers = [
           { value: 'all', label: 'All Customer' },
@@ -179,6 +166,10 @@ export class SaletransactionComponent implements OnInit {
           { value: 'all', label: 'All Status' },
           ...this.sale_status
         ];
+        this.pay_types = [
+          { value: 'all', label: 'All Status' },
+          ...this.pay_types
+        ];
         console.log('transactions:', this.transactions);
 
       },
@@ -190,19 +181,20 @@ export class SaletransactionComponent implements OnInit {
   }
 
   editRow(row: any): void {
+    console.log(row);
     this.selTransactions = row;
     this.selTransactions.categories = {};
     // let newProductTypes = [];
     if (this.selTransactions.products.length > 0) {
       this.selTransactions.products.forEach(goods => {
-        if(!goods.product_id)
-        if (!this.selTransactions.categories[goods.product_id.type._id]) {
-          this.selTransactions.categories[goods.product_id.type._id] = {
-            categoryname: goods.product_id.type.name || '',
-            itemCount: 0,
-            cost: 0,
+        if (goods.product_id)
+          if (!this.selTransactions.categories[goods.product_id.type._id]) {
+            this.selTransactions.categories[goods.product_id.type._id] = {
+              categoryname: goods.product_id.type.name || '',
+              itemCount: 0,
+              cost: 0,
+            }
           }
-        }
         this.selTransactions.categories[goods.product_id.type._id].itemCount += goods.qty;
         this.selTransactions.categories[goods.product_id.type._id].cost += goods.price * goods.qty;
       });
@@ -212,24 +204,28 @@ export class SaletransactionComponent implements OnInit {
     this.isshowedit = true;
   }
   searchTransactions() {
-
-    this.filteredTransactions = this.transactions.filter(transaction => {
+    console.log(this.selectedPayType);
+    this.before_filteredTransactions = this.transactions.filter(transaction => {
       const customerMatches = this.selectedCustomer === 'all' || transaction.customer.email === this.selectedCustomer;
       const userMatches = this.selectedUser === 'all' || transaction.user_id.email === this.selectedUser;
       const statusMatches = this.selectedStatus === 'all' || transaction.sale_status === this.selectedStatus;
-
-      return customerMatches && userMatches && statusMatches;
+      const paystatusMatches = this.selectedPayType === 'all' || transaction.payment_status === this.selectedPayType;
+      return customerMatches && userMatches && statusMatches && paystatusMatches;
     });
+    this.onGetData();
 
   }
 
   clearFilters() {
     this.selectedCustomer = 'all';
+    this.selectedPayType = 'all';
     this.selectedUser = 'all';
     this.selectedStatus = 'all';
     // this.setDateFromTo();
 
     this.filteredTransactions = [...this.transactions]; // Reset to original transactions
+    this.onGetData();
+
   }
 
   showDeleteModal(id: string) {
@@ -280,4 +276,42 @@ export class SaletransactionComponent implements OnInit {
     this.onClose();
   }
 
+  onPageChanged(page: number) {
+    this.paginateItems(page);
+  }
+
+  onCountPerPageChanged(count: number) {
+    if (this.countPerPage != count) {
+      this.countPerPage = count; // Update count per page
+      this.paginateItems(1);
+    }
+  }
+  paginateItems(page: number) {
+    this.currentPage = page;
+    /* const startIndex = (page - 1) * this.countPerPage; // Default items per page
+    const endIndex = startIndex + this.countPerPage; */
+    //this.paginatedItems = this.allItems.slice(startIndex, endIndex);
+    this.onGetData();
+  }
+  onGetData() {
+    const page = (this.currentPage - 1);
+    const size = (this.countPerPage);
+    console.log(this.countPerPage);
+    console.log(this.currentPage);
+
+    // Convert the object values to an array
+    const arr_data = (this.before_filteredTransactions);
+
+
+    // Store the original array for recovery
+    // const originalTransactions = [...arr_data]; // Create a copy of the original array
+
+    // Calculate the start and end indices for slicing
+    const startIndex = page * size; // Starting index
+    const endIndex = startIndex + size; // Ending index
+
+    // Create the new array based on pagination
+    this.filteredTransactions = arr_data.slice(startIndex, endIndex);
+
+  }
 }

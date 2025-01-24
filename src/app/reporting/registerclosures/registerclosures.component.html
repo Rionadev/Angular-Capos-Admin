@@ -125,7 +125,7 @@
             </span>
             <button class="close-button" (click)="onBackdropClick(selectedRecord)">×</button>
         </div>
-       
+
         <!-- Register Details -->
         <div class="modal-body">
             <table>
@@ -205,70 +205,82 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{detail_records.all.paymentinfo.sum |currency}}</td>
-                        <td>{{detail_records.all.categoryinfo.sum|currency}}</td>
-                        <td>{{detail_records.all.sel_info.tax|currency}}</td>
-                        <td>{{detail_records.all.sel_info.cash_tip|currency}}/<br>
-                            {{detail_records.all.sel_info.tip|currency}}
+                        <td>{{detail_records.all && detail_records.all.paymentinfo.sum || 0 |currency}}</td>
+                        <td>{{detail_records.all && detail_records.all.categoryinfo.sum || 0|currency}}</td>
+                        <td>{{detail_records.all && detail_records.all.sel_info.tax||0 |currency}}</td>
+                        <td>{{detail_records.all && detail_records.all.sel_info.cash_tip || 0|currency}}/<br>
+                            {{detail_records.all && detail_records.all.sel_info.tip || 0 |currency}}
                         </td>
 
-                        <td>{{detail_records.return.paymentinfo.sum |currency}}</td>
-                        <td>{{detail_records.return.categoryinfo.sum|currency}}</td>
-                        <td>{{detail_records.return.sel_info.tax|currency}}</td>
-                        <td>{{detail_records.return.sel_info.cash_tip|currency}}/<br>
-                            {{detail_records.return.sel_info.tip|currency}}
+                        <td>{{detail_records.all && detail_records.return.paymentinfo.sum || 0 |currency}}</td>
+                        <td>{{detail_records.all && detail_records.return.categoryinfo.sum || 0|currency}}</td>
+                        <td>{{detail_records.all && detail_records.return.sel_info.tax || 0|currency}}</td>
+                        <td>{{detail_records.all && detail_records.return.sel_info.cash_tip || 0|currency}}/<br>
+                            {{detail_records.all && detail_records.return.sel_info.tip || 0|currency}}
                         </td>
 
-                        <td>{{detail_records.voided.paymentinfo.sum |currency}}</td>
-                        <td>{{detail_records.voided.categoryinfo.sum|currency}}</td>
-                        <td>{{detail_records.voided.sel_info.tax|currency}}</td>
-                        <td>{{detail_records.voided.sel_info.cash_tip|currency}}/<br>
-                            {{detail_records.voided.sel_info.tip|currency}}
+                        <td>{{detail_records.all && detail_records.voided.paymentinfo.sum || 0 |currency}}</td>
+                        <td>{{detail_records.all && detail_records.voided.categoryinfo.sum || 0 |currency}}</td>
+                        <td>{{detail_records.all && detail_records.voided.sel_info.tax || 0 |currency}}</td>
+                        <td>{{detail_records.all && detail_records.voided.sel_info.cash_tip || 0 |currency}}/<br>
+                            {{detail_records.all && detail_records.voided.sel_info.tip || 0 |currency}}
                         </td>
                     </tr>
                     <tr>
-                        <td>{{detail_records.all.paymentinfo.sum |currency}}</td>
-                        <td colspan="3"> {{(detail_records.all.categoryinfo.sum +
+                        <td>{{detail_records.all && detail_records.all.paymentinfo.sum || 0 |currency}}</td>
+                        <td colspan="3"> {{
+                            detail_records.all && (
+                            detail_records.all.categoryinfo.sum +
                             detail_records.all.sel_info.tax+
                             detail_records.all.sel_info.cash_tip+
-                            detail_records.all.sel_info.tip)|currency}}
+                            detail_records.all.sel_info.tip) || 0 |currency}}
                         </td>
 
-                        <td>{{detail_records.return.paymentinfo.sum |currency}}</td>
-                        <td colspan="3"> {{(detail_records.return.categoryinfo.sum +
+                        <td>{{detail_records.all && detail_records.return.paymentinfo.sum || 0 |currency}}</td>
+                        <td colspan="3"> {{
+                            detail_records.all &&
+                            (detail_records.return.categoryinfo.sum +
                             detail_records.return.sel_info.tax+
                             detail_records.return.sel_info.cash_tip+
-                            detail_records.return.sel_info.tip)|currency}}
+                            detail_records.return.sel_info.tip) || 0|currency}}
                         </td>
 
-                        <td>{{detail_records.voided.paymentinfo.sum |currency}}</td>
-                        <td colspan="3"> {{(detail_records.voided.categoryinfo.sum +
+                        <td>{{detail_records.all && detail_records.voided.paymentinfo.sum || 0 |currency}}</td>
+                        <td colspan="3"> {{
+                            detail_records.all &&
+                            (detail_records.voided.categoryinfo.sum +
                             detail_records.voided.sel_info.tax+
                             detail_records.voided.sel_info.cash_tip+
-                            detail_records.voided.sel_info.tip)|currency}}
+                            detail_records.voided.sel_info.tip)||0 |currency}}
                         </td>
                     </tr>
                     <tr>
                         <td colspan="4">
-                            {{(detail_records.all.paymentinfo.sum-
+                            {{
+                            detail_records.all && 
+                            (detail_records.all.paymentinfo.sum-
                             detail_records.all.categoryinfo.sum -
                             detail_records.all.sel_info.tax-
                             detail_records.all.sel_info.cash_tip-
-                            detail_records.all.sel_info.tip)|currency}}
+                            detail_records.all.sel_info.tip)||0|currency}}
                         </td>
                         <td colspan="4">
-                            {{(detail_records.return.paymentinfo.sum-
+                            {{
+                            detail_records.all && 
+                            (detail_records.return.paymentinfo.sum-
                             detail_records.return.categoryinfo.sum -
                             detail_records.return.sel_info.tax-
                             detail_records.return.sel_info.cash_tip-
-                            detail_records.return.sel_info.tip)|currency}}
+                            detail_records.return.sel_info.tip)||0 |currency}}
                         </td>
                         <td colspan="4">
-                            {{(detail_records.voided.paymentinfo.sum-
+                            {{
+                            detail_records.all && 
+                            (detail_records.voided.paymentinfo.sum-
                             detail_records.voided.categoryinfo.sum -
                             detail_records.voided.sel_info.tax-
                             detail_records.voided.sel_info.cash_tip-
-                            detail_records.voided.sel_info.tip)|currency}}
+                            detail_records.voided.sel_info.tip)||0|currency}}
                         </td>
 
                     </tr>
@@ -304,11 +316,7 @@
                 </tr>
             </table>
             <table>
-           
-
                 <tbody *ngIf="!(detail_records?.all?.categoryinfo?.length > 0)">
-
-    
                     <tr>
                         <th>Category</th>
                         <th>Qty</th>
@@ -316,10 +324,12 @@
                     </tr>
                     <tr>
                         <td colspan="2"><b>Total</b></td>
-                        <td>{{detail_records.all.categoryinfo.sum |currency}}</td>
+                        <td>{{ detail_records.all.categoryinfo && detail_records.all.categoryinfo.sum || 0 |currency}}
+                        </td>
                     </tr>
 
-                    <tr *ngFor="let category of detail_records.all.categoryinfo | keyvalue">
+                    <tr
+                        *ngFor="let category of  detail_records.all.categoryinfo &&  detail_records.all.categoryinfo  | keyvalue">
                         <ng-container *ngIf="category.key !== 'sum'">
                             <td><b>{{ category.value.name || '' }}</b></td>
                             <td>{{ category.value.qty || '' }}</td>
@@ -327,7 +337,7 @@
                         </ng-container>
                     </tr>
                 </tbody>
-               
+
 
             </table>
 

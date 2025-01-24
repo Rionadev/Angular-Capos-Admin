@@ -13,7 +13,7 @@ export class TaxesreportsComponent implements OnInit {
 
     selectedDateFrom: any;
     selectedDateTo: any;
-    categoryData: any;
+    // categoryData: any;
 
     searchTerm: string = '';
     selectedPeriod: string = 'today';
@@ -37,7 +37,7 @@ export class TaxesreportsComponent implements OnInit {
         const sevenDaysAgo = new Date(today);
         const oneDayAfter = new Date(today);
 
-        sevenDaysAgo.setDate(today.getDate() - 100); // Subtract 7 days
+        sevenDaysAgo.setDate(today.getDate() ); // Subtract 7 days
         oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
 
 
@@ -52,21 +52,21 @@ export class TaxesreportsComponent implements OnInit {
         };
         // this.reportingService.fetchSaleTaxReport().subscribe(
 
-        this.customerService.getType().subscribe(
-            (res) => {
-                this.categoryData = {};
-                if (res.length > 0) {
-                    res.forEach(element => {
-                        this.categoryData[element._id] = element;
-                    });
-                }
-                console.log(this.categoryData);
-            },
-            (error) => {
-                console.error('Error fetching customer data:', error);
-                // Handle the error as needed
-            }
-        );
+        // this.customerService.getType().subscribe(
+        //     (res) => {
+        //         this.categoryData = {};
+        //         if (res.length > 0) {
+        //             res.forEach(element => {
+        //                 this.categoryData[element._id] = element;
+        //             });
+        //         }
+        //         console.log(this.categoryData);
+        //     },
+        //     (error) => {
+        //         console.error('Error fetching customer data:', error);
+        //         // Handle the error as needed
+        //     }
+        // );
         this.customerService.fetchSale(params).subscribe(
             (res) => {
                 let sale_tax = {};
