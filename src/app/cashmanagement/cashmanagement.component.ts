@@ -43,11 +43,13 @@ export class CashmanagementComponent implements OnInit {
     // console.log('id', this.config.user_id);
 
   }
- 
+
   setDateFromTo() {
     const today = new Date();
     const fromDate = new Date(today.setHours(0, 0, 0, 0)); // Set to today 00:00:00
-    const toDate = new Date(today.setHours(23, 59, 59, 999)); // Current date and time
+    // const toDate = new Date(today.setHours(23, 59, 59, 999)); // Current date and time
+    const toDate = new Date();
+    toDate.setDate(today.getDate() + 1);
 
     this.selectedDateFrom = fromDate.toISOString().split('T')[0]; // Set the start date to today
     this.selectedDateTo = toDate.toISOString().split('T')[0]; // Set the end date to now

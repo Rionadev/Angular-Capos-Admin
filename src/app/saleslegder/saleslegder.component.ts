@@ -9,6 +9,13 @@ import { CustomerService } from 'app/api/salesledger/api.service';
   styleUrls: ['./saleslegder.component.scss']
 })
 export class SaleslegderComponent implements OnInit {
+
+  totalItems: number = 100; // Total number of items
+  countPerPage: number = 10; // Default items per page
+  currentPage: number = 1;
+  before_filteredTransactions: any;
+
+
   selectedCustomer: string = 'all';
   selectedUser: string = 'all';
   selectedStatus: string = 'all';
@@ -36,10 +43,7 @@ export class SaleslegderComponent implements OnInit {
     const today = new Date();
     const sevenDaysAgo = new Date(today);
     const oneDayAfter = new Date(today);
-
-    sevenDaysAgo.setDate(today.getDate()); // Subtract 7 days
-    oneDayAfter.setDate(today.getDate()); // Subtract 7 days
-
+    oneDayAfter.setDate(today.getDate() + 1);
 
     this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
     this.selectedDateTo = oneDayAfter.toISOString().split('T')[0]; // Set the end date to today
@@ -49,9 +53,7 @@ export class SaleslegderComponent implements OnInit {
     this.fetchSearchItems();
   }
   fetchSearchItems() {
-    // this.http.get<any[]>(`${environment.apiUrl}/sale/getSearchItem`).subscribe(data => {
 
-    // });
     const params = {
       from: this.selectedDateFrom,
       to: this.selectedDateTo,
@@ -66,6 +68,8 @@ export class SaleslegderComponent implements OnInit {
         this.customers = [];
         this.sale_status = [];
         this.users = [];
+
+        if (res.length > 0) this.totalItems = res.length;
 
         this.transactions = res.map(item => {
           // if (item.payment_status != 'not paid') 
@@ -137,8 +141,10 @@ export class SaleslegderComponent implements OnInit {
           return null; // Return null if payment status is 'not paid'
         }).filter(item => item !== null); // Filter out null values;
 
-        this.filteredTransactions = [...this.transactions];
-
+        // this.filteredTransactions = [...this.transactions];
+        this.totalItems = this.transactions.length;
+        this.before_filteredTransactions = [...this.transactions];
+        this.onGetData();
         // Convert set to array and parse JSON
         this.customers = [
           { value: 'all', label: 'All Customer' },
@@ -162,17 +168,23 @@ export class SaleslegderComponent implements OnInit {
     );
   }
   searchTransactions() {
-    this.filteredTransactions = this.transactions.filter(transaction => {
+    this.before_filteredTransactions = this.transactions.filter(transaction => {
       const customerMatches = this.selectedCustomer === 'all' || transaction.customer_email === this.selectedCustomer;
       const userMatches = this.selectedUser === 'all' || transaction.user_email === this.selectedUser;
       const statusMatches = this.selectedStatus === 'all' || transaction.status === this.selectedStatus;
 
       return customerMatches && userMatches && statusMatches;
     });
+    this.onGetData();
     console.log('Filtered Transactions:', this.filteredTransactions);
   }
   calculateTotal() {
-    return this.filteredTransactions.reduce((acc, transaction) => acc + transaction.total, 0) || 0;
+    if (this.before_filteredTransactions) {
+
+      return this.before_filteredTransactions.reduce((acc, transaction) => acc + transaction.total, 0) || 0;
+    } else {
+      return 0;
+    }
   }
   clearFilters() {
     this.selectedCustomer = 'all';
@@ -180,6 +192,47 @@ export class SaleslegderComponent implements OnInit {
     this.selectedStatus = 'all';
     // this.setDateFromTo();
 
-    this.filteredTransactions = [...this.transactions]; // Reset to original transactions
+    // this.filteredTransactions = [...this.transactions]; // Reset to original transactions
+    this.before_filteredTransactions = [...this.transactions]; // Reset to original transactions
+    this.onGetData();
+
+  }
+  onPageChanged(page: number) {
+    this.paginateItems(page);
+  }
+
+  onCountPerPageChanged(count: number) {
+    if (this.countPerPage != count) {
+      this.countPerPage = count; // Update count per page
+      this.paginateItems(1);
+    }
+  }
+  paginateItems(page: number) {
+    this.currentPage = page;
+    /* const startIndex = (page - 1) * this.countPerPage; // Default items per page
+    const endIndex = startIndex + this.countPerPage; */
+    //this.paginatedItems = this.allItems.slice(startIndex, endIndex);
+    this.onGetData();
+  }
+  onGetData() {
+    const page = (this.currentPage - 1);
+    const size = (this.countPerPage);
+
+    // Convert the object values to an array
+    const arr_data = //Object.entries
+      (this.before_filteredTransactions);
+
+
+    // Store the original array for recovery
+    const originalTransactions = [...arr_data]; // Create a copy of the original array
+
+    // Calculate the start and end indices for slicing
+    const startIndex = page * size; // Starting index
+    const endIndex = startIndex + size; // Ending index
+
+    // Create the new array based on pagination
+    this.filteredTransactions = //Object.fromEntries
+      (arr_data.slice(startIndex, endIndex));
+
   }
 }

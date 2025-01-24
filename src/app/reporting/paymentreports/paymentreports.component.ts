@@ -51,7 +51,7 @@ export class PaymentreportsComponent implements OnInit {
         const oneDayAfter = new Date(today);
 
         sevenDaysAgo.setDate(today.getDate()); // Subtract 7 days
-        oneDayAfter.setDate(today.getDate()); // Subtract 7 days
+        oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
 
 
         this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago

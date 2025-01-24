@@ -33,6 +33,15 @@
                                     </option>
                                 </select>
                             </div>
+                            <div class="col-md-4">
+                                <!-- <label>Status:</label> -->
+                                <select [(ngModel)]="selectedPayType" class="form-control" name="status"
+                                    (change)="searchTransactions()">
+                                    <option *ngFor="let el of pay_types" [value]="el.value">
+                                        {{ el.label }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
                         <div class="align-center">
                             <input type="date" [(ngModel)]="selectedDateFrom" class="form-control"
@@ -49,7 +58,7 @@
 
                 <!-- Transactions Table -->
                 <div class="card">
-                    <div class="content table-responsive table-full-width">
+                    <div class="content table-responsive table-full-width" style="height: 63vh;overflow-y: auto;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -59,6 +68,7 @@
                                     <th>Register</th>
                                     <th>Customer</th>
                                     <th>Status</th>
+                                    <th>Payment</th>
                                     <th>Total</th>
                                     <th>Action</th>
                                 </tr>
@@ -78,6 +88,7 @@
                                         <br><small>{{ transaction.customer.email || '' }}</small>
                                     </td>
                                     <td>{{ transaction.sale_status }}</td>
+                                    <td>{{ transaction.payment_status }}</td>
                                     <td>{{ transaction.total_paid | currency }}</td>
                                     <td>
                                         <!-- <button class="btn btn-sm btn-info" (click)="editRow(transaction)"
@@ -98,6 +109,9 @@
             </div>
         </div>
     </div>
+    <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50]"
+        (pageChanged)="onPageChanged($event)" (countPerPageChanged)="onCountPerPageChanged($event)">
+    </app-pagination>
 </div>
 <app-confirm-modal *ngIf="isDeleteModal" [title]="'Remove User'"
     [description]="'Do you really want to remove this User ?'" [confirmButtonCaption]="'Delete'"
