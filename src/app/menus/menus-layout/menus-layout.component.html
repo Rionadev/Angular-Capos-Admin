@@ -297,7 +297,8 @@
                                                 <label>Reorder Point:</label> <!-- class="text-transform-none" -->
                                                 <input type="text" class="form-control" placeholder="Reorder Point"
                                                     id="reorder_point" name="reorder_point"
-                                                    [(ngModel)]="currentRow.reorder_point" required />
+                                                    [(ngModel)]="currentRow.reorder_point"
+                                                    (ngModelChange)="onReorderAmount()" />
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -305,7 +306,8 @@
                                                 <label>Reorder Amount:</label> <!-- class="text-transform-none" -->
                                                 <input type="text" class="form-control" placeholder="Reorder Amount"
                                                     id="reorder_amount" name="reorder_amount"
-                                                    [(ngModel)]="currentRow.reorder_amount" required />
+                                                    [(ngModel)]="currentRow.reorder_amount" 
+                                                    (ngModelChange)="onReorderAmount()" />
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -488,7 +490,7 @@
                                                 <label>Supply Price:</label> <!-- class="text-transform-none" -->
                                                 <input type="text" class="form-control" placeholder="Supply Price"
                                                     id="currentVariantProductRow.supply_price" name="currentVariantProductRow.supply_price"
-                                                    [(ngModel)]="currentVariantProductRow.supply_price" required />
+                                                    [(ngModel)]="currentVariantProductRow.supply_price" (ngModelChange)="changeVariantProducts()" />
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -507,6 +509,40 @@
                                                 </div>
                                             </div>
                                             <button class="btn btn-sm btn-info btn-fill margin-top-20" (click)="onAddVariantProduct()">Save</button>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-left-0 margin-top-5">
+                                        <div class="col-md-2">
+                                            <div class="form-group" >
+                                                <label>Inventory:</label> <!-- class="text-transform-none" -->
+                                                <input type="number" class="form-control" placeholder="Inventory"
+                                                    [(ngModel)]="currentVariantProductRow.inventory" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group" >
+                                                <label>Reorder Point:</label> <!-- class="text-transform-none" -->
+                                                <input type="number" class="form-control" placeholder="Reorder Point"
+                                                    [(ngModel)]="currentVariantProductRow.reorder_point" (ngModelChange)="changeVariantProducts()" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group" >
+                                                <label>Reorder Amount:</label> <!-- class="text-transform-none" -->
+                                                <input type="number" class="form-control" placeholder="Reorder Amount"
+                                                    [(ngModel)]="currentVariantProductRow.reorder_amount" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Markup:</label> <!-- class="text-transform-none" -->
+                                                <input type="text" class="form-control" placeholder="Markup"
+                                                    [(ngModel)]="currentVariantProductRow.markup" (ngModelChange)="changeVariantProducts()" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-2">
                                         </div>
                                     </div>
                                     <div class="content margin-top-5">
@@ -733,8 +769,8 @@
                             </div> -->
                         </div>
                         <div class="row align-center margin-right-0">
-                            <button class="btn btn-sm btn-info btn-fill">Clear</button>
-                            <button class="btn btn-sm btn-info btn-fill">Search</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="onClear()">Clear</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="onSearch()">Search</button>
                         </div>
                     </div>
                 </div>
