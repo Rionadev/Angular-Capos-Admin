@@ -361,6 +361,11 @@ export class MenusLayoutComponent implements OnInit {
     if (this.currentRow.supply_price == '') this.currentRow.supply_price = 0;
     if (this.currentRow.markup == '') this.currentRow.markup = 0;
     this.currentRow.retail_price = this.currentRow.supply_price * (this.currentRow.markup / 100 + 1);
+    this.onReorderAmount();
+  }
+
+  onReorderAmount() {
+    this.currentRow.reorder_amount = this.currentRow.supply_price * this.currentRow.reorder_point;
   }
 
   onMarkUpChange(event: KeyboardEvent) {
@@ -579,6 +584,49 @@ export class MenusLayoutComponent implements OnInit {
     setTimeout(function () {
       printWindow.close();
     }, 1000);
+  }
+
+  changeVariantProducts() {
+    this.currentVariantProductRow.reorder_amount = this.currentVariantProductRow.supply_price * this.currentVariantProductRow.reorder_point;
+    this.currentVariantProductRow.retail_price = this.currentVariantProductRow.supply_price * this.currentVariantProductRow.markup;
+  }
+
+  onClear() {
+    this.type = '';
+    this.brand = '';
+    this.supplier = '';
+    this.attribute = '';
+    this.tag = '';
+    this.keyword = '';
+    this.onGetData();
+  }
+
+  onSearch() {
+    const page = (this.currentPage - 1).toString();
+    const size = (this.countPerPage).toString();
+    this.productsService.read(
+      { 
+        range: 'all-factor', 
+        page: page, 
+        size: size,
+        type: this.type,
+        brand: this.brand,
+        supplier: this.supplier,
+        attribute: this.attribute,
+        tag: this.tag,
+        keyword: this.keyword,
+      }
+    ).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        this.data = data?.data;
+        this.totalItems = data?.totalElements;
+        //
+      },
+      error: (err) => {
+        console.error('Error fetching stores:', err);
+      },
+    });
   }
 }
 

@@ -103,14 +103,12 @@ export class EcommerceProductsComponent implements OnInit {
     this.toastService.showToast('This is a error message!', 'error', 3000); */
 
   onAddVariant() {
-    if (!this.currentVariantRow.attribute || this.currentVariantRow.value.length == 0)
-    {
+    if (!this.currentVariantRow.attribute || this.currentVariantRow.value.length == 0) {
       this.toastService.showToast('Please check out!', 'warning', 3000);
       return;
     }
-    
-    if(this.existVariantInVariantsTable(this.currentVariantRow.attribute))
-    {
+
+    if (this.existVariantInVariantsTable(this.currentVariantRow.attribute)) {
       // Update existing row
       const index = this.currentVariants.findIndex((row) => row.attribute === this.currentVariantRow.attribute);
       if (index !== -1) {
@@ -118,7 +116,7 @@ export class EcommerceProductsComponent implements OnInit {
       }
     }
     else
-      this.currentVariants.push(this.currentVariantRow);  
+      this.currentVariants.push(this.currentVariantRow);
 
     this.currentVariantRow = this.resetVariantRow();
   }
@@ -128,22 +126,19 @@ export class EcommerceProductsComponent implements OnInit {
     this.isDeleteModal = true;
   }
 
-  onDeleteVariant()
-  {
+  onDeleteVariant() {
     this.currentVariants = this.currentVariants.filter((row) => row.attribute !== this.currentDeleteVariant); // Remove row by id */
     this.currentDeleteVariant = '';
     //this.isContentVisible = false;
   }
 
-  onEditVariant(row)
-  {
+  onEditVariant(row) {
     /* this.rows = this.rows.filter((row) => row.id !== id); // Remove row by id */
     //this.isContentVisible = false;
     this.currentVariantRow = { ...row };
   }
 
-  resetVariantRow():any
-  {
+  resetVariantRow(): any {
     return {
       attribute: '',
       value: [],
@@ -155,22 +150,19 @@ export class EcommerceProductsComponent implements OnInit {
     return foundVariant ? foundVariant.name : null;
   }
 
-  existVariantInVariantsTable(id)
-  {
+  existVariantInVariantsTable(id) {
     const foundVariant = this.currentVariants.find(obj => obj.attribute == id);
     return foundVariant ? true : false;
   }
 
   // For Variant Products
   onAddVariantProduct() {
-    if (!this.currentVariantProductRow.name)
-    {
+    if (!this.currentVariantProductRow.name) {
       this.toastService.showToast('Please check out!', 'warning', 3000);
       return;
     }
-    
-    if(this.existVariantInVariantProductsTable(this.currentVariantProductRow.name))
-    {
+
+    if (this.existVariantInVariantProductsTable(this.currentVariantProductRow.name)) {
       // Update existing row
       const index = this.currentVariantProducts.findIndex((row) => row.name === this.currentVariantProductRow.name);
       if (index !== -1) {
@@ -178,7 +170,7 @@ export class EcommerceProductsComponent implements OnInit {
       }
     }
     else
-      this.currentVariantProducts.push(this.currentVariantProductRow);  
+      this.currentVariantProducts.push(this.currentVariantProductRow);
 
     this.currentVariantProductRow = this.resetVariantProductRow();
   }
@@ -188,28 +180,24 @@ export class EcommerceProductsComponent implements OnInit {
     this.isDeleteModal = true;
   }
 
-  onDeleteVariantProduct()
-  {
+  onDeleteVariantProduct() {
     this.currentVariantProducts = this.currentVariantProducts.filter((row) => row.name !== this.currentDeleteVariantProduct); // Remove row by id */
     this.currentDeleteVariantProduct = '';
     //this.isContentVisible = false;
   }
 
-  onEditVariantProduct(row)
-  {
+  onEditVariantProduct(row) {
     /* this.rows = this.rows.filter((row) => row.id !== id); // Remove row by id */
     //this.isContentVisible = false;
     this.currentVariantProductRow = { ...row };
   }
 
-  existVariantInVariantProductsTable(name)
-  {
+  existVariantInVariantProductsTable(name) {
     const foundVariant = this.currentVariantProducts.find(obj => obj.name == name);
     return foundVariant ? true : false;
   }
 
-  resetVariantProductRow():any
-  {
+  resetVariantProductRow(): any {
     return {
       name: '',
       enabled: false,
@@ -335,7 +323,7 @@ export class EcommerceProductsComponent implements OnInit {
   onGetData() {
     const page = (this.currentPage - 1).toString();
     const size = (this.countPerPage).toString();
-    this.productsService.read({ range: 'all-factor', page: page, size: size }).subscribe({
+    this.productsService.read({ range: 'all-factor', page: page, size: size, enabled: true }).subscribe({
       next: (data) => {
         console.log('onGetData', data);
         this.data = data?.data;
@@ -363,6 +351,11 @@ export class EcommerceProductsComponent implements OnInit {
     if (this.currentRow.supply_price == '') this.currentRow.supply_price = 0;
     if (this.currentRow.markup == '') this.currentRow.markup = 0;
     this.currentRow.retail_price = this.currentRow.supply_price * (this.currentRow.markup / 100 + 1);
+    this.onReorderAmount();
+  }
+
+  onReorderAmount() {
+    this.currentRow.reorder_amount = this.currentRow.supply_price * this.currentRow.reorder_point;
   }
 
   onMarkUpChange(event: KeyboardEvent) {
@@ -461,7 +454,7 @@ export class EcommerceProductsComponent implements OnInit {
     this.currentRow.tax = row.tax?._id;
 
     this.currentVariantProducts = row.variant_products;
-    this.currentVariants =  row.variants;
+    this.currentVariants = row.variants;
 
     this.currentDeleteVariant = '';
     this.currentDeleteVariantProduct = '';
@@ -566,7 +559,7 @@ export class EcommerceProductsComponent implements OnInit {
           <body onload="window.print()">
               <div class="content"><svg id="barcode"></svg></div>
               <script>
-                  JsBarcode("#barcode", "${ this.currentRow.barcode}", {
+                  JsBarcode("#barcode", "${this.currentRow.barcode}", {
                       format: "CODE128",
                       width: 2,
                       height: 100,
@@ -581,5 +574,48 @@ export class EcommerceProductsComponent implements OnInit {
     setTimeout(function () {
       printWindow.close();
     }, 1000);
+  }
+
+  changeVariantProducts() {
+    this.currentVariantProductRow.reorder_amount = this.currentVariantProductRow.supply_price * this.currentVariantProductRow.reorder_point;
+    this.currentVariantProductRow.retail_price = this.currentVariantProductRow.supply_price * this.currentVariantProductRow.markup;
+  }
+
+  onClear() {
+    this.type = '';
+    this.brand = '';
+    this.supplier = '';
+    this.attribute = '';
+    this.tag = '';
+    this.keyword = '';
+    this.onGetData();
+  }
+
+  onSearch() {
+    const page = (this.currentPage - 1).toString();
+    const size = (this.countPerPage).toString();
+    this.productsService.read(
+      { 
+        range: 'all-factor', 
+        page: page, 
+        size: size,
+        type: this.type,
+        brand: this.brand,
+        supplier: this.supplier,
+        attribute: this.attribute,
+        tag: this.tag,
+        keyword: this.keyword,
+      }
+    ).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        this.data = data?.data;
+        this.totalItems = data?.totalElements;
+        //
+      },
+      error: (err) => {
+        console.error('Error fetching stores:', err);
+      },
+    });
   }
 }
