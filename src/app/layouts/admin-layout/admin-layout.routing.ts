@@ -38,6 +38,8 @@ import { StorecreditreportsComponent } from 'app/reporting/storecreditreports/st
 import { TaxesreportsComponent } from 'app/reporting/taxesreports/taxesreports.component';
 
 import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.component';
+import { HomeDashboardComponent} from '../../dashboard/dashboard.component';
+
 import { CollectionsComponent } from '../../ecommerce/collections/collections.component';
 import { EcommerceProductsComponent } from '../../ecommerce/products/products.component';
 import { OrdersComponent } from '../../ecommerce/orders/orders.component';
@@ -65,8 +67,9 @@ import { SingleForcedModifierComponent } from '../../menus/single-forced-modifie
 import { OpencloseZComponent } from 'app/openclose-z/openclose-z.component';
 import { ExternalRedirectComponent } from '../../external-redirect/external-redirect.component';
 
+
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard', component: DashboardComponent },//HomeComponent
+    { path: 'dashboard', component: HomeDashboardComponent },//HomeComponent
     { path: 'openclose', component: OpencloseComponent },
     { path: 'cashmanagement', component: CashmanagementComponent },
     { path: 'saleslegder', component: SaleslegderComponent },
