@@ -104,9 +104,9 @@ export class EmployeesComponent implements OnInit {
 
   onGetUsers(): void {
     const params = {
-      /* name: this.keyword,
+      /* name: this.keyword, */
       role: this.role, // Example role
-      outlet: this.outlet, // Example outlet */
+      outlet: this.outlet, // Example outlet
     };
 
     this.apiService.getUsers(params).subscribe({
@@ -305,6 +305,7 @@ export class EmployeesComponent implements OnInit {
     this.keyword = '';
     this.role = '';
     this.outlet = '';
+    this.onGetUsers();
   }
 
   onSearch() {

@@ -1,19 +1,18 @@
 import { Inject, Component, OnInit } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
-import { LegendItem, ChartType } from '../../lbd/lbd-chart/lbd-chart.component';
+import { LegendItem, ChartType } from '../lbd/lbd-chart/lbd-chart.component';
 import * as Chartist from 'chartist';
-import { OrdersService } from '../../api/orders/orders.service';
-import { SalesService } from '../../api/sales/sales.service';
+import { OrdersService } from '../api/orders/orders.service';
+import { SalesService } from '../api/sales/sales.service';
 import { CustomerService } from 'app/api/salesledger/api.service';
-import { ProductsService } from '../../api/products/api.service';
+import { ProductsService } from '../api/products/api.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-home-dashboard',
+  templateUrl: './home-dashboard.component.html',
+  styleUrls: ['./home-dashboard.component.scss']
 })
-
-export class DashboardComponent implements OnInit {
+export class HomeDashboardComponent implements OnInit {
 
   activePeriod: string = 'daily';
   displayMode: string = 'daily';

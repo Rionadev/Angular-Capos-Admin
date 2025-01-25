@@ -55,6 +55,7 @@ import { PreferencesComponent } from '../../setting/preferences/preferences.comp
 
 // Ecommerce
 import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.component';
+import { HomeDashboardComponent} from '../../home-dashboard/home-dashboard.component';
 import { CollectionsComponent } from '../../ecommerce/collections/collections.component';
 import { EcommerceProductsComponent } from '../../ecommerce/products/products.component';
 import { OrdersComponent } from '../../ecommerce/orders/orders.component';
@@ -152,6 +153,7 @@ import { ExternalRedirectComponent } from '../../external-redirect/external-redi
     ProductattributesComponent,
 
     // Ecommerce
+    HomeDashboardComponent,
     DashboardComponent,
     CollectionsComponent,
     EcommerceProductsComponent,

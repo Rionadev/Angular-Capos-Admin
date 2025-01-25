@@ -7,6 +7,7 @@ import { OutletsService } from '../../api/outlets/outlets.service';
 import { TaxesService } from '../../api/taxes/taxes.service';
 import { AttributesService } from '../../api/attributes/attributes.service';
 import { TagsService } from '../../api/tags/tags.service';
+import { ToastService } from '../../component/toast/toast.service';
 
 @Component({
   selector: 'app-menus-layout',
@@ -59,6 +60,17 @@ export class MenusLayoutComponent implements OnInit {
   tag: string = '';
   status: boolean = null;
 
+  // Variants
+  currentVariants: any[] = [];
+  currentVariantRow: any = this.resetVariantRow();
+  searchAttributesForVariants: { name: string; value: string }[] = [];
+  currentDeleteVariant: string = '';
+
+  // VariantProducts
+  currentVariantProducts: any[] = [];
+  currentVariantProductRow: any = this.resetVariantProductRow();
+  currentDeleteVariantProduct: string = '';
+
   constructor(
     private productsService: ProductsService,
     private productTypesService: ProducttypesService,
@@ -68,6 +80,7 @@ export class MenusLayoutComponent implements OnInit {
     private taxesService: TaxesService,
     private attributesService: AttributesService,
     private tagsService: TagsService,
+    private toastService: ToastService,
   ) { }
 
   ngOnInit(): void {
@@ -82,12 +95,132 @@ export class MenusLayoutComponent implements OnInit {
     this.onGetTags();
   }
 
+  /* this.toastService.showToast('This is a success message!', 'success', 3000);
+    this.toastService.showToast('This is a info message!', 'info', 3000);
+    this.toastService.showToast('This is a warning message!', 'warning', 3000);
+    this.toastService.showToast('This is a error message!', 'error', 3000); */
+
+  onAddVariant() {
+    if (!this.currentVariantRow.attribute || this.currentVariantRow.value.length == 0)
+    {
+      this.toastService.showToast('Please check out!', 'warning', 3000);
+      return;
+    }
+    
+    if(this.existVariantInVariantsTable(this.currentVariantRow.attribute))
+    {
+      // Update existing row
+      const index = this.currentVariants.findIndex((row) => row.attribute === this.currentVariantRow.attribute);
+      if (index !== -1) {
+        this.currentVariants[index] = { ...this.currentVariantRow }; // Update row
+      }
+    }
+    else
+      this.currentVariants.push(this.currentVariantRow);  
+
+    this.currentVariantRow = this.resetVariantRow();
+  }
+
+  showVariantDeleteModal(variant: string) {
+    this.currentDeleteVariant = variant;
+    this.isDeleteModal = true;
+  }
+
+  onDeleteVariant()
+  {
+    this.currentVariants = this.currentVariants.filter((row) => row.attribute !== this.currentDeleteVariant); // Remove row by id */
+    this.currentDeleteVariant = '';
+    //this.isContentVisible = false;
+  }
+
+  onEditVariant(row)
+  {
+    /* this.rows = this.rows.filter((row) => row.id !== id); // Remove row by id */
+    //this.isContentVisible = false;
+    this.currentVariantRow = { ...row };
+  }
+
+  resetVariantRow():any
+  {
+    return {
+      attribute: '',
+      value: [],
+    }
+  }
+
+  getNameByAttributeID(id) {
+    const foundVariant = this.searchAttributes.find(obj => obj.value === id);
+    return foundVariant ? foundVariant.name : null;
+  }
+
+  existVariantInVariantsTable(id)
+  {
+    const foundVariant = this.currentVariants.find(obj => obj.attribute == id);
+    return foundVariant ? true : false;
+  }
+
+  // For Variant Products
+  onAddVariantProduct() {
+    if (!this.currentVariantProductRow.name)
+    {
+      this.toastService.showToast('Please check out!', 'warning', 3000);
+      return;
+    }
+    
+    if(this.existVariantInVariantProductsTable(this.currentVariantProductRow.name))
+    {
+      // Update existing row
+      const index = this.currentVariantProducts.findIndex((row) => row.name === this.currentVariantProductRow.name);
+      if (index !== -1) {
+        this.currentVariantProducts[index] = { ...this.currentVariantProductRow }; // Update row
+      }
+    }
+    else
+      this.currentVariantProducts.push(this.currentVariantProductRow);  
+
+    this.currentVariantProductRow = this.resetVariantProductRow();
+  }
+
+  showVariantProductDeleteModal(name: string) {
+    this.currentDeleteVariantProduct = name;
+    this.isDeleteModal = true;
+  }
+
+  onDeleteVariantProduct()
+  {
+    this.currentVariantProducts = this.currentVariantProducts.filter((row) => row.name !== this.currentDeleteVariantProduct); // Remove row by id */
+    this.currentDeleteVariantProduct = '';
+    //this.isContentVisible = false;
+  }
+
+  onEditVariantProduct(row)
+  {
+    /* this.rows = this.rows.filter((row) => row.id !== id); // Remove row by id */
+    //this.isContentVisible = false;
+    this.currentVariantProductRow = { ...row };
+  }
+
+  existVariantInVariantProductsTable(name)
+  {
+    const foundVariant = this.currentVariantProducts.find(obj => obj.name == name);
+    return foundVariant ? true : false;
+  }
+
+  resetVariantProductRow():any
+  {
+    return {
+      name: '',
+      enabled: false,
+    }
+  }
+
   onGetAttribues() {
     this.attributesService.read({}).subscribe({
       next: (data) => {
         console.log('onGetData', data);
         data.forEach(item => {
           this.searchAttributes.push({ name: item.name, value: item._id });
+          this.searchAttributesForVariants.push({ name: item.name, value: item._id });
         });
       },
       error: (err) => {
@@ -228,6 +361,11 @@ export class MenusLayoutComponent implements OnInit {
     if (this.currentRow.supply_price == '') this.currentRow.supply_price = 0;
     if (this.currentRow.markup == '') this.currentRow.markup = 0;
     this.currentRow.retail_price = this.currentRow.supply_price * (this.currentRow.markup / 100 + 1);
+    this.onReorderAmount();
+  }
+
+  onReorderAmount() {
+    this.currentRow.reorder_amount = this.currentRow.supply_price * this.currentRow.reorder_point;
   }
 
   onMarkUpChange(event: KeyboardEvent) {
@@ -286,10 +424,14 @@ export class MenusLayoutComponent implements OnInit {
   }
 
   saveRow(): void {
+    this.currentRow.variants = [...this.currentVariants];
+    this.currentRow.variant_products = [...this.currentVariantProducts];
+
     if (this.currentRow._id) {
       this.productsService.update(this.currentRow).subscribe({
         next: (data) => {
           console.log('saveRow', data);
+          this.onGetData();
         },
         error: (err) => {
           console.error('Error fetching product:', err);
@@ -299,6 +441,7 @@ export class MenusLayoutComponent implements OnInit {
       this.productsService.create(this.currentRow).subscribe({
         next: (data) => {
           console.log('saveRow', data);
+          this.onGetData();
         },
         error: (err) => {
           console.error('Error fetching product:', err);
@@ -306,6 +449,8 @@ export class MenusLayoutComponent implements OnInit {
       });
     }
 
+    this.currentVariants = [];
+    this.currentVariantProducts = [];
     this.currentRow = this.resetRow();
     this.isProductContentVisible = false;
   }
@@ -317,6 +462,13 @@ export class MenusLayoutComponent implements OnInit {
     this.currentRow.type = row.type?._id;
     this.currentRow.supplier = row.supplier?._id;
     this.currentRow.tax = row.tax?._id;
+
+    this.currentVariantProducts = row.variant_products;
+    this.currentVariants =  row.variants;
+
+    this.currentDeleteVariant = '';
+    this.currentDeleteVariantProduct = '';
+
     //this.currentRow.outlet = row.outlet?._id;
     console.log("edit", this.currentRow);
     this.isProductContentVisible = true;
@@ -329,22 +481,29 @@ export class MenusLayoutComponent implements OnInit {
 
   closeDeleteModal() {
     this.isDeleteModal = false;
+    this.currentDeleteVariant = '';
+    this.currentDeleteVariantProduct = '';
   }
 
   deleteRow() {
     /* this.rows = this.rows.filter((row) => row.id !== id); // Remove row by id */
     //this.isContentVisible = false;
-    this.productsService.delete({ _id: this.currentDeleteID }).subscribe({
-      next: (data) => {
-        console.log('onGetData', data);
-        this.currentPage = 1;
-        this.onGetData();
-        //
-      },
-      error: (err) => {
-        console.error('Error fetching products:', err);
-      },
-    });
+    if (this.currentDeleteVariant != '')
+      this.onDeleteVariant();
+    else if (this.currentDeleteVariantProduct != '')
+      this.onDeleteVariantProduct();
+    else if (this.currentDeleteID != '')
+      this.productsService.delete({ _id: this.currentDeleteID }).subscribe({
+        next: (data) => {
+          console.log('onGetData', data);
+          this.currentPage = 1;
+          this.onGetData();
+          //
+        },
+        error: (err) => {
+          console.error('Error fetching products:', err);
+        },
+      });
     /* this.rows = this.rows.filter((row) => row.id !== this.currentDeleteID); // Remove row by id
     this.isDeleteModal = false; */
     this.isDeleteModal = false;
@@ -426,4 +585,73 @@ export class MenusLayoutComponent implements OnInit {
       printWindow.close();
     }, 1000);
   }
+
+  changeVariantProducts() {
+    this.currentVariantProductRow.reorder_amount = this.currentVariantProductRow.supply_price * this.currentVariantProductRow.reorder_point;
+    this.currentVariantProductRow.retail_price = this.currentVariantProductRow.supply_price * this.currentVariantProductRow.markup;
+  }
+
+  onClear() {
+    this.type = '';
+    this.brand = '';
+    this.supplier = '';
+    this.attribute = '';
+    this.tag = '';
+    this.keyword = '';
+    this.onGetData();
+  }
+
+  onSearch() {
+    const page = (this.currentPage - 1).toString();
+    const size = (this.countPerPage).toString();
+    this.productsService.read(
+      { 
+        range: 'all-factor', 
+        page: page, 
+        size: size,
+        type: this.type,
+        brand: this.brand,
+        supplier: this.supplier,
+        attribute: this.attribute,
+        tag: this.tag,
+        keyword: this.keyword,
+      }
+    ).subscribe({
+      next: (data) => {
+        console.log('onGetData', data);
+        this.data = data?.data;
+        this.totalItems = data?.totalElements;
+        //
+      },
+      error: (err) => {
+        console.error('Error fetching stores:', err);
+      },
+    });
+  }
 }
+
+/*
+variant_products: [
+  {
+      name: String,
+      sku: String,            
+      supplier_code: String,
+      supply_price: {type: Number, default: 0},
+      retail_price: {type: Number, default: 0},
+      enabled: {type: Boolean, default: true},
+      inventory: {type: Number, default: 0},
+      reorder_point: {type: Number, default: 0},
+      reorder_amount: {type: Number, default: 0},
+      markup: {type: Number, default: 0},
+      image: {type: String, default: ''},
+      pair: [Number],
+      pair_str: String
+  }
+],
+variants: [
+  {
+      attribute: {type: mongoose.Schema.Types.ObjectId, ref: 'Attribute', default: null},
+      value: [String]
+  }
+], 
+*/
