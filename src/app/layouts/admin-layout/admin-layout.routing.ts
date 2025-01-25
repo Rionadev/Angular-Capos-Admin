@@ -38,7 +38,7 @@ import { StorecreditreportsComponent } from 'app/reporting/storecreditreports/st
 import { TaxesreportsComponent } from 'app/reporting/taxesreports/taxesreports.component';
 
 import { DashboardComponent } from '../../ecommerce/dashboard/dashboard.component';
-import { HomeDashboardComponent} from '../../dashboard/dashboard.component';
+import { HomeDashboardComponent} from '../../home-dashboard/home-dashboard.component';
 
 import { CollectionsComponent } from '../../ecommerce/collections/collections.component';
 import { EcommerceProductsComponent } from '../../ecommerce/products/products.component';
@@ -70,6 +70,7 @@ import { ExternalRedirectComponent } from '../../external-redirect/external-redi
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeDashboardComponent },//HomeComponent
+    { path: 'default', component: HomeComponent },
     { path: 'openclose', component: OpencloseComponent },
     { path: 'cashmanagement', component: CashmanagementComponent },
     { path: 'saleslegder', component: SaleslegderComponent },

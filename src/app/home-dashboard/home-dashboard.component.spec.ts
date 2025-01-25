@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeDashboardComponent } from './dashboard.component';
+import { HomeDashboardComponent } from './home-dashboard.component';
 
 describe('HomeDashboardComponent', () => {
   let component: HomeDashboardComponent;
   let fixture: ComponentFixture<HomeDashboardComponent>;
 
   beforeEach(async () => {
-    await TestBed.HomeDashboardComponent({
+    await TestBed.configureTestingModule({
       declarations: [ HomeDashboardComponent ]
     })
     .compileComponents();

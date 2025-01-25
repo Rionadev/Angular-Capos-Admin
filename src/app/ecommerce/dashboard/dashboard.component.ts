@@ -16,10 +16,13 @@ import { ProductsService } from '../../api/products/api.service';
 export class DashboardComponent implements OnInit {
 
   activePeriod: string = 'daily';
+  displayMode: string = 'daily';
 
   public chartType: ChartType;
-  public chartData: any;
-  public chartOptions: any;
+  public chartSalesData: any;
+  public chartOrdersData: any;
+  public chartSalesOptions: any;
+  public chartOrdersOptions: any;
   public chartResponsive: any[];
   public chartLegendItems: LegendItem[];
 
@@ -31,6 +34,9 @@ export class DashboardComponent implements OnInit {
 
   sumSales: number = 0;
   sumOrders: number = 0;
+
+  month: string = ''; // For Sales Report
+  today: string = ''; // For Sales Report
 
   salesData: any[] = [];
   ordersData: any[] = [];
@@ -51,6 +57,8 @@ export class DashboardComponent implements OnInit {
   stockLevels: number = 0;
   stockOnHand: number = 0;
 
+  // Product Report
+  currentDate: string = '';
   constructor(
     @Inject('APP_CONFIG') private config: any,
     private productsService: ProductsService,
@@ -61,32 +69,27 @@ export class DashboardComponent implements OnInit {
     const today = new Date();
     this.start = today.toISOString().split('T')[0];
     this.end = today.toISOString().split('T')[0];
+    this.currentDate = today.toISOString().split('T')[0];
   }
 
   ngOnInit() {
     this.onSetChart();
-    this.onGetSalesData();
-    this.onGetOrdersData();
-
-    this.onGetSalesReport();
-    this.onGetProductReport();
-    this.onStockReport();
+    this.setActivePeriod('daily');
   }
 
   onGetSalesReport() {
-    const today = new Date();
-    const start = today.toISOString().split('T')[0];
-    const end = today.toISOString().split('T')[0];
+    const today = new Date(this.end);
 
     //totalForThisMonth: number = 0;
     //totalForToday: number = 0;
     // For today
     this.customerService.fetchSaleHistory({
       from: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
-      to: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
+      to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
     }).subscribe(
       (res) => {
         // Get Real Paid. total_paid item.
+        console.log('sales-today', res);
         this.totalForToday = this.getTotal(res, "total_paid");
       },
       (error) => {
@@ -95,12 +98,13 @@ export class DashboardComponent implements OnInit {
       }
     );
 
-    // Fpor Month
+    // For Month
     this.customerService.fetchSaleHistory({
       from: new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0],
       to: new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0],
     }).subscribe(
       (res) => {
+        console.log('sales-month', res);
         this.totalForThisMonth = this.getTotal(res, "total_paid");
       },
       (error) => {
@@ -188,18 +192,38 @@ export class DashboardComponent implements OnInit {
 
   onSetChart() {
     this.chartType = ChartType.Line;
-    this.chartData = {
+    this.chartSalesData = {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       series: [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       ]
     };
-    this.chartOptions = {
+    this.chartSalesOptions = {
       low: 0,
       high: 10,
       showArea: false,
       height: '245px',
+      axisX: {
+        showGrid: false,
+      },
+      /* lineSmooth: Chartist.Interpolation.simple({
+        divisor: 1
+      }), */
+      showLine: true,
+      showPoint: true,
+    };
+    this.chartOrdersData = {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      series: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ]
+    };
+    this.chartOrdersOptions = {
+      low: 0,
+      high: 10,
+      showArea: false,
+      height: '245px',
+      fullWidth: false,
       axisX: {
         showGrid: false,
       },
@@ -225,6 +249,28 @@ export class DashboardComponent implements OnInit {
   }
 
   setActivePeriod(tab: string): void {
+    const today = new Date();
+    this.end = today.toISOString().split('T')[0];
+    const start = new Date(today);
+
+    if (tab == 'daily')
+    {
+      start.setDate(today.getDate() - 7);
+      this.start = start.toISOString().split('T')[0];
+      
+    }
+    else if (tab == 'monthly')
+    {
+      start.setDate(1);
+      this.start = start.toISOString().split('T')[0];
+    }
+    else if (tab == 'yearly' )
+    {
+      start.setMonth(0);
+      start.setDate(1);
+      this.start = start.toISOString().split('T')[0];
+    }
+
     this.activePeriod = tab;
     this.onGetAllData();
   }
@@ -234,10 +280,28 @@ export class DashboardComponent implements OnInit {
   }
 
   onSearch() {
+    //this.activePeriod = 'search';
     this.onGetAllData();
   }
 
   onGetAllData() {
+    // Set Display Mode.
+    // Calculate the difference in milliseconds
+    const differenceInMilliseconds = Math.abs(new Date(this.start).getTime() - new Date(this.end).getTime());
+    const difference = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+    if (difference >= 0 && difference <= 31)
+      this.displayMode = 'daily';
+    else if (difference >= 32 && difference <= 366)
+      this.displayMode = 'monthly';
+    else if (difference >= 367)
+      this.displayMode = 'yearly';
+
+    this.today = this.end;
+    const month = new Date(this.end);
+    month.setDate(1);
+    this.month = month.toISOString().split('T')[0].split('-').slice(0, 2).join('-');
+
     this.salesService.read({
       start: this.start,
       end: this.end
@@ -261,11 +325,16 @@ export class DashboardComponent implements OnInit {
         console.error('Error fetching sales:', err);
       },
     });
+
+    this.onGetSalesReport();
+    this.onGetProductReport();
+    this.onStockReport();
   }
 
   onDataProcessing() {
+    
     const dateArray = this.generateDateArray(this.start, this.end);
-    console.log("dateArray", dateArray);
+
     const salesData = this.updateDateArray(dateArray, this.salesData, false);
     const ordersData = this.updateDateArray(dateArray, this.ordersData, true);
 
@@ -288,14 +357,21 @@ export class DashboardComponent implements OnInit {
     this.sumOrders = ordersOnlyArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     this.sumSales = salesOnlyArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     
-    this.chartData = {
+    this.chartSalesData = {
       labels: datesOnlyArray,
       series: [
-        salesOnlyArray,
+        salesOnlyArray
+      ]
+    };
+    this.chartSalesOptions.high = this.maxSales;
+
+    this.chartOrdersData = {
+      labels: datesOnlyArray,
+      series: [
         ordersOnlyArray
       ]
     };
-    this.chartOptions.high = maxAxis;
+    this.chartOrdersOptions.high = this.maxOrders;
   }
 
   onDateChange(): void {
@@ -319,11 +395,11 @@ export class DashboardComponent implements OnInit {
     saleData.forEach(sale => {
       let saleDate: string;
 
-      if (this.activePeriod === 'daily') {
+      if (this.displayMode === 'daily') {
         saleDate = new Date(sale.created_at).toISOString().split('T')[0]; // YYYY-MM-DD
-      } else if (this.activePeriod === 'monthly') {
+      } else if (this.displayMode === 'monthly') {
         saleDate = `${new Date(sale.created_at).getFullYear()}-${String(new Date(sale.created_at).getMonth() + 1).padStart(2, '0')}`; // YYYY-MM
-      } else if (this.activePeriod === 'yearly') {
+      } else if (this.displayMode === 'yearly') {
         saleDate = `${new Date(sale.created_at).getFullYear()}`; // YYYY
       }
 
@@ -348,11 +424,11 @@ export class DashboardComponent implements OnInit {
     const dateArray: { date: string; value: number }[] = [];
 
     //
-    if (this.activePeriod === 'monthly') {
+    if (this.displayMode === 'monthly') {
       if (end.getDate() < start.getDate())
         end.setDate(start.getDate());
     }
-    if (this.activePeriod === 'yearly') {
+    if (this.displayMode === 'yearly') {
       if (end.getDate() < start.getDate())
         end.setDate(start.getDate());
       if (end.getMonth() < start.getMonth())
@@ -362,15 +438,15 @@ export class DashboardComponent implements OnInit {
     while (start <= end) {
       let formattedDate: string;
       // Format the date based on the interval
-      if (this.activePeriod === 'daily') {
+      if (this.displayMode === 'daily') {
         formattedDate = start.toISOString().split('T')[0]; // YYYY-MM-DD
         dateArray.push({ date: formattedDate, value: 0 });
         start.setDate(start.getDate() + 1); // Increment by 1 day
-      } else if (this.activePeriod === 'monthly') {
+      } else if (this.displayMode === 'monthly') {
         formattedDate = `${start.getFullYear()}-${String(start.getMonth() + 1).padStart(2, '0')}`; // YYYY-MM
         dateArray.push({ date: formattedDate, value: 0 });
         start.setMonth(start.getMonth() + 1); // Increment by 1 month
-      } else if (this.activePeriod === 'yearly') {
+      } else if (this.displayMode === 'yearly') {
         formattedDate = `${start.getFullYear()}`; // YYYY
         dateArray.push({ date: formattedDate, value: 0 });
         start.setFullYear(start.getFullYear() + 1); // Increment by 1 year
@@ -379,4 +455,5 @@ export class DashboardComponent implements OnInit {
 
     return dateArray;
   }
+
 }

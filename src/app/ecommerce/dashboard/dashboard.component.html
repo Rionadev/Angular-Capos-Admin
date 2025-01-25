@@ -24,11 +24,8 @@
                             <div class="col-md-2 text-center margin-top-30">
                                 <div class="show">
                                     <p class="category">Sales</p>
-                                    <p class="category">{{ sumSales | currency }} Tax excl.</p>
-                                </div>
-                                <div class="show margin-top-5">
-                                    <p class="category">Orders</p>
-                                    <p class="category">{{ sumOrders.toFixed(0) }}</p>
+                                    <p class="category"><small>({{this.start}} - {{this.end}})</small></p>
+                                    <p class="category"><strong>{{ sumSales | currency }} Tax excl.</strong></p>
                                 </div>
                             </div>
                             <div class="col-md-10">
@@ -36,8 +33,31 @@
                                     [title]="''"
                                     [subtitle]="''"
                                     [chartType]="chartType"
-                                    [chartData]="chartData"
-                                    [chartOptions]="chartOptions"
+                                    [chartData]="chartSalesData"
+                                    [chartOptions]="chartSalesOptions"
+                                    [chartResponsive]="chartResponsive"
+                                    [legendItems]="chartLegendItems"
+                                    [withHr]="true"
+                                    [footerIconClass]="'fa fa-history'"
+                                    [footerText]="'Updated 3 minutes ago'">
+                                </lbd-chart>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 text-center margin-top-30">
+                                <div class="show">
+                                    <p class="category">Orders</p>
+                                    <p class="category"><small>({{this.start}} - {{this.end}})</small></p>
+                                    <p class="category"><strong>{{ sumOrders.toFixed(0) }}</strong></p>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <lbd-chart
+                                    [title]="''"
+                                    [subtitle]="''"
+                                    [chartType]="chartType"
+                                    [chartData]="chartOrdersData"
+                                    [chartOptions]="chartOrdersOptions"
                                     [chartResponsive]="chartResponsive"
                                     [legendItems]="chartLegendItems"
                                     [withHr]="true"
@@ -56,12 +76,12 @@
                                     <p class="category">Sales Report</p>
                                 </div>
                                 <div class="show">
-                                    <p class="category">Total for this month</p>
-                                    <p class="category">{{ totalForThisMonth | currency }}</p>
+                                    <p class="category">Total for this month ({{ month }})</p>
+                                    <p class="category"><strong>{{ totalForThisMonth | currency }}</strong></p>
                                 </div>
                                 <div class="show margin-top-5">
-                                    <p class="category">Total for today</p>
-                                    <p class="category">{{ totalForToday | currency }}</p>
+                                    <p class="category">Total for today ({{ today }})</p>
+                                    <p class="category"><strong>{{ totalForToday | currency }}</strong></p>
                                 </div>
                             </div>
                             <div class="col-md-4 text-center padding-10">
@@ -73,8 +93,8 @@
                                     <p class="category">${{ totalByUser }}</p>
                                 </div> -->
                                 <div class="show">
-                                    <p class="category">Total by Outlet</p>
-                                    <p class="category">{{ totalByOutlet | currency }}</p>
+                                    <p class="category">Total by Outlet ({{currentDate}})</p>
+                                    <p class="category"><strong>{{ totalByOutlet | currency }}</strong></p>
                                 </div>
                                 <!-- <div class="show margin-top-5">
                                     <p class="category">Total by Customer</p>
@@ -87,11 +107,11 @@
                                 </div>
                                 <div class="show">
                                     <p class="category">Stock Levels</p>
-                                    <p class="category">{{ stockLevels.toFixed(0) }}</p>
+                                    <p class="category"><strong>{{ stockLevels.toFixed(0) }}</strong></p>
                                 </div>
                                 <div class="show margin-top-5">
                                     <p class="category">Stock on Hand</p>
-                                    <p class="category">{{ stockOnHand.toFixed(0) }}</p>
+                                    <p class="category"><strong>{{ stockOnHand.toFixed(0) }}</strong></p>
                                 </div>
                             </div>
                         </div>
