@@ -65,10 +65,9 @@
                                     <input type="date" class="form-control" [(ngModel)]="dueDateEnd" />
                                 </div>
                             </div>
-                            <div class="col " style="align-self: center;gap: 1rem; flex-direction: column;
+                            <div class="col " style="align-self: center; display: grid;
                                 font-size: 2rem;">
-                                <button style="margin-bottom: 1rem;" class="btn btn-sm btn-danger btn-fill"
-                                    (click)="clearFilters()">
+                                <button class="btn btn-sm btn-danger btn-fill" (click)="clearFilters()">
                                     <i class="pe-7s-refresh"></i>
                                 </button>
                                 <button class="btn btn-sm btn-info btn-fill" (click)="searchByIndex()">
@@ -234,6 +233,7 @@
                                 <th style="width: 15%;"><b>Current Inventory</b></th>
                                 <th style="width: 15%;"><b>Quantity</b></th>
                                 <th style="width: 15%;"><b>Supply Price</b></th>
+                                <th style="width: 15%;"><b>Tax</b></th>
                                 <th style="width: 15%;"><b>Total Cost</b></th>
                                 <th></th>
                             </tr>
@@ -250,7 +250,10 @@
                                     <input type="number" id="price" class="form-control" placeholder=""
                                         [(ngModel)]="product.supply_price" min="0" />
                                 </td>
-                                <td><b>{{product.qty * product.supply_price | currency}}</b></td>
+                                <td>{{product.tax.rate}} %</td>
+                                <td><b>{{product.qty * product.supply_price*(100+product?.tax?.rate)/100 |
+                                        currency}}</b>
+                                </td>
                                 <td>
                                     <button class="btn btn-sm btn-danger" (click)="deleteproduct(product)"
                                         data-toggle="tooltip" title="Delete">

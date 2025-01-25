@@ -324,6 +324,7 @@ export class ManageordersComponent implements OnInit {
       inventory: product.inventory,
       product_id: product._id,
       variant_id: '',
+      tax: product.tax,
     });
     console.log(this.newOrder);
   }
@@ -336,7 +337,7 @@ export class ManageordersComponent implements OnInit {
   calcCost(): number {
     return this.newOrder.products.reduce((total, product) => {
       // console.log(product);
-      return total + (product.qty * product.supply_price);
+      return total + (product.qty * product.supply_price) * (100 + product?.tax?.rate) / 100;
     }, 0);
   }
 }
