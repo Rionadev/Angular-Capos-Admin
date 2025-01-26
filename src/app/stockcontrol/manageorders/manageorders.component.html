@@ -18,11 +18,11 @@
                             <div class="form-group">
                                 <label>Invoice/Order Number</label>
                                 <input type="text" class="form-control" placeholder="Invoice/Order Number"
-                                    [(ngModel)]="searchInvoice" />
+                                    [(ngModel)]="searchInvoice" (input)="filterRows()" />
                             </div>
                             <div class="form-group margin-left-10">
                                 <label>Order Type</label>
-                                <select class="form-control" [(ngModel)]="selectedOrderType">
+                                <select class="form-control" [(ngModel)]="selectedOrderType" (change)="filterRows()">
                                     <option value="">All Orders</option>
                                     <option value="purchase">Purchase Orders</option>
                                     <option value="return">Return Orders</option>
@@ -31,7 +31,7 @@
                             </div>
                             <div class="form-group margin-left-10">
                                 <label>Outlet</label>
-                                <select class="form-control" [(ngModel)]="selectedOutlet">
+                                <select class="form-control" [(ngModel)]="selectedOutlet" (change)="filterRows()">
                                     <option value="">All Outlets</option>
                                     <option *ngFor="let outlet of outlets" [value]="outlet._id">{{
                                         outlet.name }}
@@ -40,7 +40,7 @@
                             </div>
                             <div class="form-group margin-left-10">
                                 <label>Supplier</label>
-                                <select class="form-control" [(ngModel)]="selectedSupplier">
+                                <select class="form-control" [(ngModel)]="selectedSupplier" (change)="filterRows()">
                                     <option value="">All Suppliers</option>
                                     <option *ngFor="let supplier of suppliers" [value]="supplier._id">{{
                                         supplier.description }}
@@ -80,7 +80,7 @@
 
                 <!-- Data Table -->
                 <div class="card">
-                    <div class="content table-responsive table-full-width">
+                    <div class="content table-responsive table-full-width" style="height: 54vh; overflow-y: auto;">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
@@ -94,16 +94,16 @@
                                     <th>Created</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="5" class="text-center"><strong>Total:</strong></td>
-                                    <td><strong>{{ total_items}}</strong></td>
-                                    <td><strong>{{ total_cost | currency }}</strong></td>
-                                    <td></td>
-                                </tr>
-                            </tfoot>
+                            <!-- <tfoot> -->
+                            <tr>
+                                <td colspan="5" class="text-center"><strong>Total:</strong></td>
+                                <td><strong>{{ total_items}}</strong></td>
+                                <td><strong>{{ total_cost | currency }}</strong></td>
+                                <td></td>
+                            </tr>
+                            <!-- </tfoot> -->
                             <tbody>
-                                <tr *ngFor="let row of orderData">
+                                <tr *ngFor="let row of orderData" (click)="selectRow(row)">
                                     <td>{{ row.type }}</td>
                                     <td>{{ row.order_number }}</td>
                                     <td>{{ row?.supplier?.name ||'' }}</td>
@@ -123,6 +123,9 @@
             </div>
         </div>
     </div>
+    <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50]"
+        (pageChanged)="onPageChanged($event)" (countPerPageChanged)="onCountPerPageChanged($event)">
+    </app-pagination>
 </div>
 <div class="main-content" *ngIf="isOrderModal">
     <div class="card margin-bottom-10">
@@ -134,6 +137,9 @@
                 </span>
             </div>
             <div style="display: flex; justify-content: right;">
+                <button class="btn btn-sm btn-info btn-fill" (click)="receiveOrder()">
+                    Rceive
+                </button>
                 <button class="btn btn-sm btn-info btn-fill" (click)="saveOrder()">
                     Save
                 </button>
@@ -155,8 +161,8 @@
                 <div class="row space-between p-1">
                     <div class="col-md-6">
                         <label for="supplier">Supplier:</label>
-                        <select id="supplier" class="form-control"
-                            (change)="selectOption('supplier', $event.target.value)">
+                        <select id="supplier" class="form-control" [(ngModel)]="newOrder.supplier">
+                            <!-- (change)="selectOption('supplier', $event.target.value)" -->
                             <option *ngFor="let supplier of productSuppliers" [value]="supplier._id">{{
                                 supplier.description }}
                             </option>
@@ -164,8 +170,8 @@
                     </div>
                     <div class="col-md-6">
                         <label for="deliveredTo">Delivered To:</label>
-                        <select id="deliveredTo" class="form-control"
-                            (change)="selectOption('deliver_to', $event.target.value)">
+                        <select id="deliveredTo" class="form-control" [(ngModel)]="newOrder.deliver_to">
+                            <!-- (change)="selectOption('deliver_to', $event.target.value)" -->
                             <option *ngFor="let outlet of productOutlets" [value]="outlet._id">{{ outlet.name }}
                             </option>
                         </select>
@@ -250,10 +256,10 @@
                                     <input type="number" id="price" class="form-control" placeholder=""
                                         [(ngModel)]="product.supply_price" min="0" />
                                 </td>
-                                <td>{{product.tax.rate}} %</td>
-                                <td><b>{{product.qty * product.supply_price*(100+product?.tax?.rate)/100 |
-                                        currency}}</b>
-                                </td>
+                                <td>{{product.tax?.rate||0}}%</td>
+                                <td><b>{{product.qty * product.supply_price
+                                        *(100+product.tax?.rate||0)/100| currency}}</b></td>
+                                <td>
                                 <td>
                                     <button class="btn btn-sm btn-danger" (click)="deleteproduct(product)"
                                         data-toggle="tooltip" title="Delete">

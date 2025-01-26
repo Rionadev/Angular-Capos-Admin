@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { StockService } from 'app/api/stockcontrol/api.service';
 import { ToastService } from 'app/component/toast/toast.service';
 interface Transaction {
@@ -36,6 +37,7 @@ export class ReceivestockComponent implements OnInit {
   constructor(
     private stockService: StockService,
     private toastService: ToastService,
+    private router: Router,
   ) { }
   initVar(): void {
 
@@ -54,10 +56,9 @@ export class ReceivestockComponent implements OnInit {
       invoice_number: '', // Default as an empty string
       delivery_date: new Date().toISOString().split('T')[0],//null, // Date object or null
       note: '', // Any notes related to the order
-      // status: 'open', // Default status
       products: [], // Array of product objects
-      status: 'receive',
-      // type: 'purchase' // Default type
+      status: 'closed',
+      type: 'receive' // Default type
     };
   }
   ngOnInit(): void {
@@ -177,7 +178,7 @@ export class ReceivestockComponent implements OnInit {
     }
     this.stockService.updateProductInventory(params).subscribe(
       (res) => {
-
+        this.router.navigate(['/stockcontrol/manageorders']);
       },
       (error) => {
         console.error('Error fetching customer data:', error);
