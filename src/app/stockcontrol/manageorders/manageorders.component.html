@@ -342,7 +342,7 @@
                 <tbody>
                     <tr *ngFor="let product of seletedRow.products">
                         <td>{{ product.product_name }}</td>
-                        <td>{{ product.product_id.inventory || '' }}</td>
+                        <td>{{ product.product_id.inventory || 0 }}</td>
                         <td>{{ product.qty || 0 }}</td>
                         <td>{{ product.supply_price| currency }}</td>
                         <td>{{ product.qty * product.supply_price |currency }}</td>
