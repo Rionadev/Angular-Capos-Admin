@@ -55,7 +55,7 @@ export class RegisterclosuresComponent implements OnInit {
     const oneDayAfter = new Date(today);
 
     sevenDaysAgo.setDate(today.getDate()); // Subtract 7 days
-    oneDayAfter.setDate(today.getDate()+1); // Subtract 7 days
+    oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
 
 
     this.selectedDateFrom = sevenDaysAgo.toISOString().split('T')[0]; // Set the start date to 7 days ago
@@ -329,29 +329,32 @@ export class RegisterclosuresComponent implements OnInit {
         }
         if (sale_info.products.length > 0) {
           sale_info.products.forEach(product => {
+            if (product.product_id && product.product_id.type) {
 
-            if (!this.sel_total_caetory[product.product_id.type._id]) {
-              this.sel_total_caetory[product.product_id.type._id] = {
-                cost: 0,
-                name: product.product_id.type.name,
-                qty: 0,
+              if (!this.sel_total_caetory[product.product_id.type._id]) {
+                this.sel_total_caetory[product.product_id.type._id] = {
+                  cost: 0,
+                  name: product.product_id.type.name,
+                  qty: 0,
+                }
               }
-            }
-            this.sel_total_caetory[product.product_id.type._id].qty += product.qty || 0;
-            this.sel_total_caetory[product.product_id.type._id].cost += product.qty * product.price || 0;
-            this.sel_total_caetory.sum += product.qty * product.price || 0;
+              this.sel_total_caetory[product.product_id.type._id].qty += product.qty || 0;
+              this.sel_total_caetory[product.product_id.type._id].cost += product.qty * product.price || 0;
+              this.sel_total_caetory.sum += product.qty * product.price || 0;
 
-            if (!result.categoryinfo[product.product_id.type._id]) {
-              result.categoryinfo[product.product_id.type._id] = {
-                cost: 0,
-                name: product.product_id.type.name,
-                qty: 0,
+              if (!result.categoryinfo[product.product_id.type._id]) {
+                result.categoryinfo[product.product_id.type._id] = {
+                  cost: 0,
+                  name: product.product_id.type.name,
+                  qty: 0,
+                }
               }
-            }
-            result.categoryinfo[product.product_id.type._id].qty += product.qty || 0;
-            result.categoryinfo[product.product_id.type._id].cost += product.qty * product.price || 0;
+              result.categoryinfo[product.product_id.type._id].qty += product.qty || 0;
+              result.categoryinfo[product.product_id.type._id].cost += product.qty * product.price || 0;
 
-            result.categoryinfo.sum += product.qty * product.price || 0;
+              result.categoryinfo.sum += product.qty * product.price || 0;
+            }
+
           });
         }
 

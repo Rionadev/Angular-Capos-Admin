@@ -37,7 +37,7 @@ export class TaxesreportsComponent implements OnInit {
         const sevenDaysAgo = new Date(today);
         const oneDayAfter = new Date(today);
 
-        sevenDaysAgo.setDate(today.getDate() ); // Subtract 7 days
+        sevenDaysAgo.setDate(today.getDate()); // Subtract 7 days
         oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
 
 
@@ -75,20 +75,24 @@ export class TaxesreportsComponent implements OnInit {
                     res.forEach(element => {
                         if (element.products.length > 0) {
                             element.products.forEach(el => {
-                                if (!sale_tax[el.product_id.type._id]) {
-                                    sale_tax[el.product_id.type._id] = {
-                                        category: el.product_id.type.name,
-                                        tax_rate: el.tax,
-                                        cost: 0,
-                                        qty: 0,
-                                        tax: 0,
-                                        products: [],
-                                    };
+                                // console.log(el.product_id);
+                                if (el.product_id) {
+
+                                    if (!sale_tax[el.product_id.type._id]) {
+                                        sale_tax[el.product_id.type._id] = {
+                                            category: el.product_id.type.name,
+                                            tax_rate: el.tax,
+                                            cost: 0,
+                                            qty: 0,
+                                            tax: 0,
+                                            products: [],
+                                        };
+                                    }
+                                    sale_tax[el.product_id.type._id].cost += el.price * el.qty;
+                                    sale_tax[el.product_id.type._id].tax += el.price * el.tax / 100;
+                                    sale_tax[el.product_id.type._id].qty += el.qty;
+                                    sale_tax[el.product_id.type._id].products.push(el);
                                 }
-                                sale_tax[el.product_id.type._id].cost += el.price * el.qty;
-                                sale_tax[el.product_id.type._id].tax += el.price * el.tax / 100;
-                                sale_tax[el.product_id.type._id].qty += el.qty;
-                                sale_tax[el.product_id.type._id].products.push(el);
                             });
                         }
                     });
@@ -196,9 +200,9 @@ export class TaxesreportsComponent implements OnInit {
 
     printContent() {
         const plainData = this.getPlain();
-        const saleTotal = Number(this.getTotal('cost')).toFixed(2)  || 0;
-        const taxTotal = Number(this.getTotal('tax')).toFixed(2)  || 0;
-        
+        const saleTotal = Number(this.getTotal('cost')).toFixed(2) || 0;
+        const taxTotal = Number(this.getTotal('tax')).toFixed(2) || 0;
+
         const printWindow = window.open('Z-Report', 'Z-Report', 'height=3508,width=2480');
         /* printWindow?.document.write('<html><head><title>Print</title>');
         printWindow?.document.write('</head><body >');

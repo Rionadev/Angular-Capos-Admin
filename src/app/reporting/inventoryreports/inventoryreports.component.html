@@ -139,7 +139,7 @@
 
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of (soldProducts&& soldProducts[sel_row._id].products) ">
+                    <tr *ngFor="let product of (soldProducts[sel_row._id] && soldProducts[sel_row._id].products) ">
                         <td>{{ product.sold_date | date }}</td>
                         <td>{{ product.product.product_name || '' }}</td>
                         <td>{{ product.product.qty || '' }}</td>

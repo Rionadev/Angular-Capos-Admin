@@ -178,11 +178,11 @@
                         <tr *ngFor="let openclose of sel_row.data.openclose">
                             <td>{{ openclose.status }}</td>
                             <td>{{ openclose.open_note }}</td>
-                            <td>{{ getFormattedDate(openclose.opening_time) }}</td>
+                            <td>{{ openclose.opening_time && openclose.opening_time  |date }}</td>
                             <td>{{ openclose.open_value | currency }}</td>
                             <td>{{ openclose.close_note }}</td>
                             <td>{{ openclose.closure_status }}</td>
-                            <td>{{ getFormattedDate(openclose.closing_time) }}</td>
+                            <td>{{ openclose.closing_time && openclose.closing_time |date }}</td>
                         </tr>
                     </tbody>
                 </table>

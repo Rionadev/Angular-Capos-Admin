@@ -187,7 +187,8 @@ export class SaletransactionComponent implements OnInit {
     // let newProductTypes = [];
     if (this.selTransactions.products.length > 0) {
       this.selTransactions.products.forEach(goods => {
-        if (goods.product_id)
+        if (goods.product_id && goods.product_id.type) {
+
           if (!this.selTransactions.categories[goods.product_id.type._id]) {
             this.selTransactions.categories[goods.product_id.type._id] = {
               categoryname: goods.product_id.type.name || '',
@@ -195,8 +196,9 @@ export class SaletransactionComponent implements OnInit {
               cost: 0,
             }
           }
-        this.selTransactions.categories[goods.product_id.type._id].itemCount += goods.qty;
-        this.selTransactions.categories[goods.product_id.type._id].cost += goods.price * goods.qty;
+          this.selTransactions.categories[goods.product_id.type._id].itemCount += goods.qty;
+          this.selTransactions.categories[goods.product_id.type._id].cost += goods.price * goods.qty;
+        }
       });
     }
     console.log(this.selTransactions);

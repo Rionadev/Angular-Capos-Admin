@@ -225,7 +225,7 @@
                         <td>{{product.qty}}</td>
                         <td>{{product.price |currency}}</td>
                         <td>{{product.price*product.qty |currency}}</td>
-                        <td>{{product.product_id.barcode}}</td>
+                        <td>{{product.product_id && product.product_id.barcode || ''}}</td>
                     </tr>
                 </tbody>
             </table>
