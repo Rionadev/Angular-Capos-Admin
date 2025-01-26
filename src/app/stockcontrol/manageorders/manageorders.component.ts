@@ -22,6 +22,7 @@ export class ManageordersComponent implements OnInit {
   orderData: any;
 
 
+  isShowdetailflag = false;
   total_items = 0;
   total_cost = 0;
   ngOnInit(): void {
@@ -425,6 +426,7 @@ export class ManageordersComponent implements OnInit {
   }
   seletedRow: any;
   selectRow(row: any) {
+    this.seletedRow = row;
     if (row.status == 'open') {
       this.newOrder = {
         order_number: row.order_number, // String representation of the order number
@@ -442,12 +444,14 @@ export class ManageordersComponent implements OnInit {
       };
       console.log(this.newOrder);
       this.isOrderModal = true;
-      this.seletedRow = row;
-
-
     } else {
-
+      console.log('--seletedRow------', this.seletedRow);
+      this.isShowdetailflag = true;
     }
+  }
+  formatedDate(date: any) {
+    const fdate = new Date(date);
+    return fdate.toISOString().split('T')[0];
   }
   updateOrder() {
     if (this.newOrder.supplier == '' ||
@@ -470,5 +474,8 @@ export class ManageordersComponent implements OnInit {
         }
       );
     }
+  }
+  onBackdropClick() {
+    this.isShowdetailflag = false;
   }
 }

@@ -280,3 +280,76 @@
     </div>
 </div>
 <app-toast></app-toast>
+
+
+<div class="modal-overlay" *ngIf="isShowdetailflag" (click)="onBackdropClick($event)">
+    <div class="modal-content" *ngIf="isShowdetailflag" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <span class="modal-title">Order Information
+            </span>
+            <button class="close-button" (click)="onBackdropClick(selectedRecord)">×</button>
+        </div>
+
+        <div class="modal-body">
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Order<br>Number</th>
+                    <th>Supplier</th>
+                    <th>Deliver To</th>
+                    <th>Invoice <br>Number</th>
+                    <th>Delivery Date</th>
+                </tr>
+                <tr>
+                    <td>{{ seletedRow.type || '' }}</td>
+                    <td>{{ seletedRow.order_number || '' }}</td>
+                    <td>{{ seletedRow.supplier?.name || '' }}</td>
+                    <td>{{ seletedRow.deliver_to?.name || '' }}<br>
+                        <span style="color: gray;font-size: small;">
+                            {{ seletedRow.deliver_to?.email || '' }}
+                        </span>
+                    </td>
+                    <td>{{ seletedRow.invoice_number || '' }}</td>
+                    <td>{{ formatedDate(seletedRow.delivery_date) |date }}</td>
+                </tr>
+                <tr>
+                    <th> QTY </th>
+                    <th>Cost</th>
+                    <th colspan="4">Note</th>
+                </tr>
+                <tr>
+                    <td>
+                        {{ calcItemCount(seletedRow.products) }}
+                    </td>
+                    <td>{{ calcProductCost(seletedRow.products) | currency }}</td>
+                    <td colspan="4">
+                        <span  style="white-space: normal; word-wrap: break-word;">
+                            {{seletedRow.note}}
+                        </span>
+                    </td>
+                </tr>
+            </table>
+            <span>Ordered Products</span>
+            <table>
+                <thead>
+                    <th>Product</th>
+                    <th>Current<br>Inventory</th>
+                    <th>Quantity</th>
+                    <th>Supply<br>Price</th>
+                    <th>Total Cost</th>
+                    <!-- <th>product_id</th> -->
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of seletedRow.products">
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.product_id.inventory || '' }}</td>
+                        <td>{{ product.qty || 0 }}</td>
+                        <td>{{ product.supply_price| currency }}</td>
+                        <td>{{ product.qty * product.supply_price |currency }}</td>
+                        <!-- <td>{{ product.product.product_id}}</td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
