@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StockService } from 'app/api/stockcontrol/api.service';
+import { ToastService } from 'app/component/toast/toast.service';
 interface Transaction {
   name: string;
   email: string;
@@ -24,7 +25,9 @@ export class ReceivestockComponent implements OnInit {
   selectedOutletTo: string;
   selectedOutletFrom: string;
   deliveryDate: string;
-  returnNumber: string;
+  sel_invoiceNumber: number;
+  receiveNumber: string;
+  note: string;
 
 
   //product search
@@ -32,9 +35,15 @@ export class ReceivestockComponent implements OnInit {
   filteredProducts: any = [];
   constructor(
     private stockService: StockService,
+    private toastService: ToastService,
   ) { }
   initVar(): void {
-    this.returnNumber = this.generateRandomNumberBasedOnDate();
+
+    this.selectedSupplier = '';
+    this.selectedOutletTo = '';
+    this.sel_invoiceNumber = 0;
+
+    this.receiveNumber = this.generateRandomNumberBasedOnDate();
     this.deliveryDate = new Date().toISOString().split('T')[0];
     this.newOrder = {
       // user_id: null, // Assuming user_id will be set later
@@ -47,6 +56,7 @@ export class ReceivestockComponent implements OnInit {
       note: '', // Any notes related to the order
       // status: 'open', // Default status
       products: [], // Array of product objects
+      status: 'receive',
       // type: 'purchase' // Default type
     };
   }
@@ -100,6 +110,7 @@ export class ReceivestockComponent implements OnInit {
       inventory: product.inventory,
       product_id: product._id,
       variant_id: '',
+      tax: product.tax,
     });
     console.log(this.newOrder);
   }
@@ -111,7 +122,9 @@ export class ReceivestockComponent implements OnInit {
   calcCost(): number {
     return this.newOrder.products.reduce((total, product) => {
       // console.log(product);
-      return total + (product.qty * product.supply_price);
+      return total + (product.qty * product.supply_price *
+        (100 + product.tax?.rate || 0) / 100
+      );
     }, 0);
   }
   generateRandomNumberBasedOnDate() {
@@ -122,4 +135,57 @@ export class ReceivestockComponent implements OnInit {
     // Combine date part with random part
     return datePart + String(randomPart).padStart(2, '0'); // Ensure random part is 2 digits
   }
+  receiveStock() {
+    // if (this.selectedSupplier != '') {
+    // }
+    this.newOrder.supplier = this.selectedSupplier;
+    this.newOrder.deliver_to = this.selectedOutletTo;
+    this.newOrder.invoice_number = this.sel_invoiceNumber;
+    this.newOrder.delivery_date = this.deliveryDate;
+    this.newOrder.order_number = this.receiveNumber;
+    this.newOrder.note = this.note;
+    console.log(this.newOrder);
+    if (this.newOrder.supplier == '' ||
+      this.newOrder.deliver_to == '' ||
+      this.newOrder.products.length == 0
+    ) {
+      this.toastService.showToast('Please fill in all required fields.', 'warning', 3000);
+      return;
+    } else {
+      console.log(this.newOrder);
+
+      this.stockService.orderProduct(this.newOrder).subscribe(
+        (res) => {
+          res.result.products.forEach(element => {
+            this.updateInventory(
+              element.product_id,
+              element.qty,
+            )
+          });
+        },
+        (error) => {
+          console.error('Error fetching customer data:', error);
+          // Handle the error as needed
+        }
+      );
+    }
+  }
+  updateInventory(product_id: string, qty: number) {
+    const params = {
+      product_id: product_id,
+      qty: -qty,
+    }
+    this.stockService.updateProductInventory(params).subscribe(
+      (res) => {
+
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+  }
+  reset() {
+
+  };
 }

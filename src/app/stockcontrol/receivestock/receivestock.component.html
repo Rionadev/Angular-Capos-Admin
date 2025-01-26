@@ -13,7 +13,7 @@
                             </p>
                         </div>
                         <div class="align-center">
-                            <button class="btn btn-sm btn-success btn-fill">
+                            <button class="btn btn-sm btn-success btn-fill" (click)="receiveStock()">
                                 Receive
                             </button>
 
@@ -55,7 +55,7 @@
                                     <div class="col-md-6">
                                         <label for="supplierInvoiceNumber">Supplier Invoice Number:</label>
                                         <input type="text" id="supplierInvoiceNumber" class="form-control"
-                                            placeholder="Enter Invoice Number" />
+                                            placeholder="Enter Invoice Number" [(ngModel)]="sel_invoiceNumber" />
                                     </div>
                                     <div class="col-md-6">
                                         <label for="deliveryDate">Delivery Date:</label>
@@ -67,13 +67,13 @@
                                     <div class="col-md-6">
                                         <label for="orderNumber">Order Number:</label>
                                         <input type="text" id="orderNumber" class="form-control"
-                                            placeholder="Enter Order Number" [(ngModel)]="returnNumber" />
+                                            placeholder="Enter Order Number" [(ngModel)]="receiveNumber" />
                                         <p class="category">This is to help to identify this order </p>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="note">Note:</label>
-                                        <textarea id="note" class="form-control" rows="3"
-                                            placeholder="Enter any notes"></textarea>
+                                        <textarea id="note" class="form-control" rows="3" placeholder="Enter any notes"
+                                            [(ngModel)]="note"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -118,8 +118,9 @@
                                                 <th style="width: 15%;"><b>Current Inventory</b></th>
                                                 <th style="width: 15%;"><b>Quantity</b></th>
                                                 <th style="width: 15%;"><b>Supply Price</b></th>
+                                                <th style="width: 15%;"><b>Tax Rate</b></th>
                                                 <th style="width: 15%;"><b>Total Cost</b></th>
-                                                <th></th>
+                                                <th style="width: 15%;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -134,7 +135,9 @@
                                                     <input type="number" id="price" class="form-control" placeholder=""
                                                         [(ngModel)]="product.supply_price" min="0" />
                                                 </td>
-                                                <td><b>{{product.qty * product.supply_price | currency}}</b></td>
+                                                <td>{{product.tax?.rate||0}}%</td>
+                                                <td><b>{{product.qty * product.supply_price
+                                                        *(100+product.tax?.rate||0)/100| currency}}</b></td>
                                                 <td>
                                                     <button class="btn btn-sm btn-danger"
                                                         (click)="deleteproduct(product)" data-toggle="tooltip"
@@ -159,4 +162,4 @@
             </div>
         </div>
     </div>
-</div>
+</div><app-toast></app-toast>

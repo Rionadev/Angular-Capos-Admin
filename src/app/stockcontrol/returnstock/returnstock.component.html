@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card margin-bottom-10">
                     <div class="content add-content">
-                        <div>
+                        <div class="align-center">
                             <p class="category">
                                 Count and receive products that have been delivered from your suppliers to ensure your
                                 inventory
@@ -12,71 +12,73 @@
                                 <a href="#">Need help ?</a>
                             </p>
                         </div>
-                        <div>
-                            <button class="btn btn-sm btn-success btn-fill">
+                        <div class="align-center">
+                            <button class="btn btn-sm btn-success btn-fill" (click)="returnStock()">
                                 Return
                             </button>
+
                         </div>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card margin-bottom-10">
                     <div class="content">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="header">
                                     <h4 class="title">Details</h4>
                                     <p class="category">
-                                        Adding details for this order helps you stay on top of all your orders and main
-                                        data.
+
                                     </p>
                                 </div>
                             </div>
                             <div class="col-md-9">
                                 <div class="row space-between p-1">
                                     <div class="col-md-6">
-                                        <label for="deliveredTo">Delivery To*:</label>
+                                        <label for="supplier">Delivery To:</label>
+                                        <select id="supplier" class="form-control" [(ngModel)]="selectedSupplier">
+                                            <option *ngFor="let supplier of suppliers" [value]="supplier._id">{{
+                                                supplier.description }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="deliveredTo">Return From:</label>
                                         <select class="form-control" [(ngModel)]="selectedOutletTo">
                                             <option *ngFor="let outlet of outlets" [value]="outlet._id">{{
                                                 outlet.name }}
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="returnFrom">Return From*:</label>
-                                        <select class="form-control" [(ngModel)]="selectedOutletFrom">
-                                            <option *ngFor="let outlet of outlets" [value]="outlet._id">{{
-                                                outlet.name }}
-                                            </option>
-                                        </select>
-                                    </div>
                                 </div>
                                 <div class="row space-between p-1">
                                     <div class="col-md-6">
-                                        <label for="returnNumber">Return Number*:</label>
-                                        <input type="text" id="returnNumber" class="form-control"
-                                            placeholder="Enter Return Number" [(ngModel)]="returnNumber" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="nameReference">Name/Reference:</label>
-                                        <input type="text" id="nameReference" class="form-control"
-                                            placeholder="Enter Name/Reference" />
-                                    </div>
-                                </div>
-                                <div class="row space-between p-1">
-                                    <div class="col-md-6">
-                                        <label for="supplierInvoiceNumber">Supplier Invoice:</label>
+                                        <label for="supplierInvoiceNumber">Supplier Invoice Number:</label>
                                         <input type="text" id="supplierInvoiceNumber" class="form-control"
-                                            placeholder="Enter Invoice Number" />
+                                            placeholder="Enter Invoice Number" [(ngModel)]="sel_invoiceNumber" />
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="deliveryDate">Delivery Date*:</label>
+                                        <label for="deliveryDate">Delivery Date:</label>
                                         <input type="date" id="deliveryDate" class="form-control"
                                             [(ngModel)]="deliveryDate" />
+                                    </div>
+                                </div>
+                                <div class="row space-between p-1">
+                                    <div class="col-md-6">
+                                        <label for="orderNumber">Return Number:</label>
+                                        <input type="text" id="orderNumber" class="form-control"
+                                            placeholder="Enter Order Number" [(ngModel)]="returnNumber" />
+                                        <p class="category">This is to help to identify this order </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="note">Name/Reference:</label>
+                                        <input type="text" id="refer" class="form-control" placeholder="Name/Reference"
+                                            [(ngModel)]="note" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <hr>
                     <div class="content">
                         <div class="row">
                             <div class="col-md-3">
@@ -115,8 +117,9 @@
                                                 <th style="width: 15%;"><b>Current Inventory</b></th>
                                                 <th style="width: 15%;"><b>Quantity</b></th>
                                                 <th style="width: 15%;"><b>Supply Price</b></th>
+                                                <th style="width: 15%;"><b>Tax Rate</b></th>
                                                 <th style="width: 15%;"><b>Total Cost</b></th>
-                                                <th></th>
+                                                <th style="width: 15%;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -131,7 +134,9 @@
                                                     <input type="number" id="price" class="form-control" placeholder=""
                                                         [(ngModel)]="product.supply_price" min="0" />
                                                 </td>
-                                                <td><b>{{product.qty * product.supply_price | currency}}</b></td>
+                                                <td>{{product.tax?.rate||0}}%</td>
+                                                <td><b>{{product.qty * product.supply_price
+                                                        *(100+product.tax?.rate||0)/100| currency}}</b></td>
                                                 <td>
                                                     <button class="btn btn-sm btn-danger"
                                                         (click)="deleteproduct(product)" data-toggle="tooltip"
@@ -156,4 +161,4 @@
             </div>
         </div>
     </div>
-</div>
+</div><app-toast></app-toast>
