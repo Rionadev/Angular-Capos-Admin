@@ -81,6 +81,17 @@ export class StockService {
     // Make the API call
     return this.http.post(`${this.config.apiUrl}/product/order`, param);
   }
+  updateorderProduct(param: any): Observable<any> {
+    param.products = param.products.map(({ inventory, ...rest }) => rest);
+    param = {
+      ...param,
+      private_web_address: this.config.private_web_address,
+
+    };
+
+    // Make the API call
+    return this.http.put(`${this.config.apiUrl}/product/order`, param);
+  }
   //orderProduct
   updateProductInventory(param: any): Observable<any> {
 

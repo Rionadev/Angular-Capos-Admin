@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { StockService } from 'app/api/stockcontrol/api.service';
 import { ToastService } from 'app/component/toast/toast.service';
 
@@ -28,6 +29,8 @@ export class ReturnstockComponent implements OnInit {
   constructor(
     private stockService: StockService,
     private toastService: ToastService,
+    private router: Router,
+
   ) { }
   initVar(): void {
 
@@ -48,7 +51,8 @@ export class ReturnstockComponent implements OnInit {
       note: '', // Any notes related to the order
       // status: 'open', // Default status
       products: [], // Array of product objects
-      status: 'receive',
+      status: 'closed',
+      type:'return'
       // type: 'purchase' // Default type
     };
   }
@@ -145,7 +149,6 @@ export class ReturnstockComponent implements OnInit {
       return;
     } else {
       console.log(this.newOrder);
-
       this.stockService.orderProduct(this.newOrder).subscribe(
         (res) => {
           res.result.products.forEach(element => {
@@ -154,6 +157,7 @@ export class ReturnstockComponent implements OnInit {
               element.qty,
             )
           });
+          this.initVar();
         },
         (error) => {
           console.error('Error fetching customer data:', error);
@@ -169,6 +173,7 @@ export class ReturnstockComponent implements OnInit {
     }
     this.stockService.updateProductInventory(params).subscribe(
       (res) => {
+        this.router.navigate(['/stockcontrol/manageorders']);
 
       },
       (error) => {

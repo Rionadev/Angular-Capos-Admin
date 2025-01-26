@@ -8,7 +8,13 @@ import { ToastService } from 'app/component/toast/toast.service';
   styleUrls: ['./manageorders.component.scss']
 })
 export class ManageordersComponent implements OnInit {
-  allRows: any;
+
+  totalItems: number = 100; // Total number of items
+  countPerPage: number = 10; // Default items per page
+  currentPage: number = 1;
+  sel_row: any;
+
+  before_Page_Filtered: any;
   isOrderModal = false;
   keyword = '';
   filteredProducts = [];
@@ -16,10 +22,11 @@ export class ManageordersComponent implements OnInit {
   orderData: any;
 
 
+  isShowdetailflag = false;
   total_items = 0;
   total_cost = 0;
   ngOnInit(): void {
-
+    this.searchByIndex();
     this.setDateFromTo();
     this.reset();
     this.fetchSearchItems();
@@ -50,9 +57,6 @@ export class ManageordersComponent implements OnInit {
   dueDateStart: string | null = null;
   dueDateEnd: string | null = null;
 
-  filteredRows: any;
-  currentPage: number = 1;
-  totalPages: number = 1;
 
   setDateFromTo() {
     this.orderData = [];
@@ -60,7 +64,7 @@ export class ManageordersComponent implements OnInit {
     const sevenDaysAgo = new Date(today);
     const oneDayAfter = new Date(today);
 
-    sevenDaysAgo.setDate(today.getDate() - 1000); // Subtract 7 days
+    sevenDaysAgo.setDate(today.getDate() - 7); // Subtract 7 days
     oneDayAfter.setDate(today.getDate() + 1); // Subtract 7 days
 
 
@@ -71,60 +75,44 @@ export class ManageordersComponent implements OnInit {
     this.dueDateEnd = oneDayAfter.toISOString().split('T')[0]; // Set the end date to today
   }
 
+  beforeFiltered: any;
   // Method to filter rows based on the criteria
   filterRows() {
-    this.filteredRows = this.allRows.filter(row => {
-      const matchesInvoice = !this.searchInvoice || row.number.includes(this.searchInvoice);
-      const matchesOrderType = !this.selectedOrderType || row.type === this.selectedOrderType;
-      const matchesOutlet = !this.selectedOutlet || row.from === this.selectedOutlet;
-      const matchesSupplier = !this.selectedSupplier || row.from === this.selectedSupplier;
+    this.before_Page_Filtered = this.beforeFiltered.filter(row => {
+      // console.log(row.deliver_to._id);
+      const matchesInvoice = !this.searchInvoice || row.invoice_number.includes(this.searchInvoice);
+      const matchesOrderNumber = !this.searchInvoice || row.order_number.includes(this.searchInvoice);
+      const matchesOrderType = !this.selectedOrderType || row.type == this.selectedOrderType;
+      const matchesOutlet = (!this.selectedOutlet || !row.deliver_to) || row.deliver_to._id == this.selectedOutlet;
+      const matchesSupplier = (!this.selectedSupplier || !row.supplier) || row.supplier._id == this.selectedSupplier;
 
-      // const matchesCreatedAt = (!this.createdAtStart || new Date(row.created) >= new Date(this.createdAtStart)) &&
-      //   (!this.createdAtEnd || new Date(row.created) <= new Date(this.createdAtEnd));
-
-      // const matchesDueDate = (!this.dueDateStart || new Date(row.dueDate) >= new Date(this.dueDateStart)) &&
-      //   (!this.dueDateEnd || new Date(row.dueDate) <= new Date(this.dueDateEnd));
-
-      return matchesInvoice && matchesOrderType && matchesOutlet && matchesSupplier;
+      return matchesOrderType && matchesOutlet && matchesSupplier && (matchesInvoice || matchesOrderNumber);
       //  && matchesCreatedAt && matchesDueDate;
     });
-    this.updatePagination();
+    this.totalItems = this.before_Page_Filtered.length;
+    this.onGetData();
+    this.getTotal();
+
   }
   searchByIndex() {
-    let params: any = {
-      date_from: this.createdAtStart,
-      date_to: this.createdAtEnd,
-      due_from: this.dueDateStart,
-      due_to: this.dueDateEnd,
-    };
-    if (this.selectedOrderType != '') {
-      params = {
-        ...params,
-        type: this.selectedOrderType,
-      };
-    }
-    if (this.selectedOutlet != '') {
-      params = {
-        ...params,
-        outlet: this.selectedOutlet,
-      };
-    }
-    if (this.selectedSupplier != '') {
-      params = {
-        ...params,
-        supplier: this.selectedSupplier,
-      };
-    }
-    if (this.searchInvoice != '') {
-      params = {
-        ...params,
-        kewyword: this.searchInvoice,
-      };
-    }
-    this.stockService.readOrderProduct(params).subscribe(
+    this.productOutlets = [{ _id: '', name: '' }];
+    this.productSuppliers = [{ _id: '', description: '' }];
+    //fetchOutlet
+    this.stockService.fetchOutlet().subscribe(
       (res) => {
-        this.orderData = res;
-        this.getTotal();
+        this.outlets = [...res];
+        this.productOutlets = [...this.productOutlets, ...res];
+
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+    this.stockService.fetchSupplier().subscribe(
+      (res) => {
+        this.suppliers = [...res];
+        this.productSuppliers = [...this.productSuppliers, ...res];
       },
       (error) => {
         console.error('Error fetching customer data:', error);
@@ -164,43 +152,14 @@ export class ManageordersComponent implements OnInit {
       };
     }
 
-    this.productOutlets = [{ _id: '', name: '' }];
-    this.productSuppliers = [{ _id: '', description: '' }];
-    //fetchOutlet
-    this.stockService.fetchOutlet().subscribe(
-      (res) => {
-        this.outlets = [...res];
-        this.productOutlets = [...this.productOutlets, ...res];
-
-      },
-      (error) => {
-        console.error('Error fetching customer data:', error);
-        // Handle the error as needed
-      }
-    );
-    this.stockService.fetchSupplier().subscribe(
-      (res) => {
-        this.suppliers = [...res];
-        this.productSuppliers = [...this.productSuppliers, ...res];
-      },
-      (error) => {
-        console.error('Error fetching customer data:', error);
-        // Handle the error as needed
-      }
-    );
-    // this.stockService.fetchCustomer().subscribe(
-    //   (res) => {
-    //     this.customers = [...this.customers, ...res];
-    //   },
-    //   (error) => {
-    //     console.error('Error fetching customer data:', error);
-    //     // Handle the error as needed
-    //   }
-    // );
     this.stockService.readOrderProduct(params).subscribe(
       (res) => {
-        this.orderData = res;
+        // this.orderData = res;
+        this.beforeFiltered = res;
+        this.before_Page_Filtered = res;
         this.getTotal();
+        this.onGetData();
+        this.totalItems = res.length;
         console.log(this.total_cost);
       },
       (error) => {
@@ -224,6 +183,10 @@ export class ManageordersComponent implements OnInit {
     this.setDateFromTo();
     this.fetchSearchItems();
     // this.filterRows(); // Reapply filter to reset the displayed rows
+    // this.orderData = this.beforeFiltered;
+    this.before_Page_Filtered = this.beforeFiltered;
+    this.totalItems = this.beforeFiltered.length;
+    this.onGetData();
   }
 
   updatePagination() {
@@ -235,7 +198,9 @@ export class ManageordersComponent implements OnInit {
   }
   getTotal(): void {
     this.total_items = 0;
-    this.orderData?.forEach(element => {
+    this.total_cost = 0;
+
+    this.before_Page_Filtered?.forEach(element => {
       element.products.forEach(el => {
         this.total_items += el.qty;
         this.total_cost += el.qty * el.supply_price;
@@ -246,8 +211,11 @@ export class ManageordersComponent implements OnInit {
 
   // Other methods...
   showModal(): void {
+    this.reset();
     this.isOrderModal = true;
     this.newOrder.order_number = this.generateRandomNumberBasedOnDate();
+    this.seletedRow = null;
+
   }
   saveOrder() {
     if (this.newOrder.supplier == '' ||
@@ -258,20 +226,108 @@ export class ManageordersComponent implements OnInit {
       return;
     } else {
       console.log(this.newOrder);
+      this.newOrder.type = 'purchase';
+      this.newOrder.status = 'open';
 
-      this.stockService.orderProduct(this.newOrder).subscribe(
-        (res) => {
-          this.reset();
+      if (this.seletedRow) {
+        this.stockService.updateorderProduct(this.newOrder).subscribe(
+          (res) => {
+            this.reset();
+            this.fetchSearchItems();
+            this.closeModal();
+          },
+          (error) => {
+            console.error('Error fetching customer data:', error);
+            // Handle the error as needed
+          }
+        );
+      } else {
+        // console.log('--------------new---------------');
+        this.stockService.orderProduct(this.newOrder).subscribe(
+          (res) => {
+            this.reset();
+            this.fetchSearchItems();
+            this.closeModal();
+          },
+          (error) => {
+            console.error('Error fetching customer data:', error);
+            // Handle the error as needed
+          }
+        );
+      }
+      // return;
 
-          this.isOrderModal = false;
-          this.clearFilters();
-        },
-        (error) => {
-          console.error('Error fetching customer data:', error);
-          // Handle the error as needed
-        }
-      );
+
     }
+  }
+  receiveOrder() {
+    if (this.newOrder.supplier == '' ||
+      this.newOrder.deliver_to == '' ||
+      this.newOrder.products.length == 0
+    ) {
+      this.toastService.showToast('Please fill in all required fields.', 'warning', 3000);
+      return;
+    } else {
+      this.newOrder.status = 'closed';
+      this.newOrder.type = 'receive';
+      console.log(this.newOrder);
+      if (this.seletedRow) {
+        this.stockService.updateorderProduct(this.newOrder).subscribe(
+          (res) => {
+            this.reset();
+            this.fetchSearchItems();
+            this.closeModal();
+            res.result.products.forEach(element => {
+              this.updateInventory(
+                element.product_id,
+                element.qty,
+              )
+            });
+          },
+          (error) => {
+            console.error('Error fetching customer data:', error);
+            // Handle the error as needed
+          }
+        );
+      } else {
+        // console.log('--------------new---------------');
+        this.stockService.orderProduct(this.newOrder).subscribe(
+          (res) => {
+            this.reset();
+            this.fetchSearchItems();
+            this.closeModal();
+            res.result.products.forEach(element => {
+              this.updateInventory(
+                element.product_id,
+                element.qty,
+              )
+            });
+          },
+          (error) => {
+            console.error('Error fetching customer data:', error);
+            // Handle the error as needed
+          }
+        );
+      }
+
+    }
+  }
+  updateInventory(product_id: string, qty: number) {
+    const params = {
+      product_id: product_id,
+      qty: -qty,
+    }
+    this.stockService.updateProductInventory(params).subscribe(
+      (res) => {
+        this.reset();
+        this.fetchSearchItems();
+        this.closeModal();
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
   }
   closeModal(): void {
     this.isOrderModal = false;
@@ -337,7 +393,89 @@ export class ManageordersComponent implements OnInit {
   calcCost(): number {
     return this.newOrder.products.reduce((total, product) => {
       // console.log(product);
-      return total + (product.qty * product.supply_price) * (100 + product?.tax?.rate) / 100;
+      return total + (product.qty * product.supply_price *
+        (100 + product.tax?.rate || 0) / 100
+      );
     }, 0);
+  }
+
+  onPageChanged(page: number) {
+    this.paginateItems(page);
+  }
+
+  onCountPerPageChanged(count: number) {
+    if (this.countPerPage != count) {
+      this.countPerPage = count; // Update count per page
+      this.paginateItems(1);
+    }
+  }
+  paginateItems(page: number) {
+    this.currentPage = page;
+
+    this.onGetData();
+  }
+  onGetData() {
+    const page = (this.currentPage - 1);
+    const size = (this.countPerPage);
+
+    const startIndex = page * size; // Starting index
+    const endIndex = startIndex + size; // Ending index
+
+    // Create the new array based on pagination
+    this.orderData = this.before_Page_Filtered.slice(startIndex, endIndex);
+  }
+  seletedRow: any;
+  selectRow(row: any) {
+    this.seletedRow = row;
+    if (row.status == 'open') {
+      this.newOrder = {
+        order_number: row.order_number, // String representation of the order number
+        deliver_to: row.deliver_to._id, // Assuming deliver_to will be set later (Outlet ID)
+        supplier: row.supplier._id, // Supplier ID (ObjectId)
+        invoice_number: row.invoice_number, // Default as an empty string
+        delivery_date: new Date().toISOString().split('T')[0],//null, // Date object or null
+        note: row.note,
+        products: row.products, // Array of product objects,
+        status: 'closed',
+        type: 'receive',
+        field: 'all',
+        _id: row._id,
+
+      };
+      console.log(this.newOrder);
+      this.isOrderModal = true;
+    } else {
+      console.log('--seletedRow------', this.seletedRow);
+      this.isShowdetailflag = true;
+    }
+  }
+  formatedDate(date: any) {
+    const fdate = new Date(date);
+    return fdate.toISOString().split('T')[0];
+  }
+  updateOrder() {
+    if (this.newOrder.supplier == '' ||
+      this.newOrder.deliver_to == '' ||
+      this.newOrder.products.length == 0
+    ) {
+      this.toastService.showToast('Please fill in all required fields.', 'warning', 3000);
+      return;
+    } else {
+      // console.log(this.newOrder);
+      this.stockService.updateorderProduct(this.newOrder).subscribe(
+        (res) => {
+          this.reset();
+          this.fetchSearchItems();
+          this.closeModal();
+        },
+        (error) => {
+          console.error('Error fetching customer data:', error);
+          // Handle the error as needed
+        }
+      );
+    }
+  }
+  onBackdropClick() {
+    this.isShowdetailflag = false;
   }
 }

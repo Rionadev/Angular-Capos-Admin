@@ -161,6 +161,94 @@ table td {
     background-color: #f0f0f0;
     /* Highlight on hover */
 }
-th{
+
+th {
     text-align: center;
+}
+
+tr {
+    cursor: pointer;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* Ensure modal is on top */
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 600px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #f1f1f1;
+    /* Light grey header */
+    border-bottom: 1px solid #ddd;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 16px;
+    max-height: 800px;
+    overflow: auto;
+}
+
+.modal-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.modal-content th {
+    background-color: #f9f9f9;
+    /* Light background for headers */
+    padding: 5px;
+    border: #e0e0e0 solid 1px;
+    // text-align: left;
+}
+
+.modal-content td {
+    padding: 5px;
+    border: 1px solid #ddd;
+}
+
+.modal-content tr:nth-child(even) {
+    background-color: #f2f2f2;
+    /* Zebra striping */
+}
+
+.modal-content tr:hover {
+    background-color: #e1f5fe;
+    /* Highlight on hover */
+}
+
+.modal-title {
+    flex: 1;
+    text-align: center;
+    font-size: large;
+    font-weight: bolder;
 }
