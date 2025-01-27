@@ -93,8 +93,8 @@ export class SalesreportsComponent implements OnInit {
 
     // });
     const params = {
-      start: new Date(this.selectedDateFrom),
-      end: new Date(this.selectedDateTo),
+      start: this.selectedDateFrom,
+      end: this.selectedDateTo,
       // page: this.currentPage - 1,
       // size: this.countPerPage,
       sale_status: 'all_closed',
@@ -118,7 +118,7 @@ export class SalesreportsComponent implements OnInit {
         if (res.length == 0) return;
         this.totalItems = res.length;
         const groupedTransactions = res?.reduce((acc, item) => {
-          const date = new Date(item.updated_at).toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
+          const date = new Date(item.created_at).toISOString().split('T')[0]; // Format date to 'YYYY-MM-DD'
           // if (item?.payment_status != 'not paid') {
 
           // Group by date
@@ -148,23 +148,23 @@ export class SalesreportsComponent implements OnInit {
 
           calc_row.forEach(transaction => {
             console.log(transaction.sale_status);
-            if (transaction.payment_status != 'not paid') {
+            // if (transaction.payment_status != 'not paid') {
 
-              total += transaction.total; // include tax
-              revenue += transaction.subtotal; //sale products
-              tax += transaction.tax; //Tax
-              cog += transaction.total_paid; //Cost of Products
-              gp += transaction.subtotal - transaction.total_paid; //Gross profit
-              //total whole
-              t_total += total;
-              t_revenue += revenue;
-              t_tax += tax;
-              t_cog += cog;
-              t_gp += gp;
-            } else {
-              // console.log('--------', transaction);
+            total += transaction.total; // include tax
+            revenue += transaction.subtotal; //sale products
+            tax += transaction.tax; //Tax
+            cog += transaction.total_paid; //Cost of Products
+            gp += transaction.subtotal - transaction.total_paid; //Gross profit
+            //total whole
+            t_total += transaction.total;
+            t_revenue += transaction.subtotal;
+            t_tax += transaction.tax;
+            t_cog += transaction.total_paid;
+            t_gp += transaction.subtotal - transaction.total_paid;
+            // } else {
+            //   // console.log('--------', transaction);
 
-            }
+            // }
           });
 
 
