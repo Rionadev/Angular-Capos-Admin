@@ -160,7 +160,6 @@ export class PaymentreportsComponent implements OnInit {
                         calc_total[key].credit_amount =
                             this.calc_store_credit('credit', value, key);
 
-
                         calc_total[key].debit_amount =
                             this.calc_store_credit('debit', value, key);
 
