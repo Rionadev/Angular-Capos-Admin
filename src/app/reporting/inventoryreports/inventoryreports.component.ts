@@ -50,21 +50,36 @@ export class InventoryreportsComponent implements OnInit {
         res.forEach(element => {
           if (element.products.length > 0) {
             element.products.forEach(el => {
-              if (!this.soldProducts[el.product_id]) {
-                this.soldProducts[el.product_id] = {
+              if (!this.soldProducts[el.product_id._id]) {
+                this.soldProducts[el.product_id._id] = {
                   product_name: el.product_name,
                   qty: 0,
-                  price: el.price,
+                  price: 0,
+                  cost: 0,
                   products: []
                 }
               }
 
               if (el.voided != 'false') {
-                this.soldProducts[el.product_id].qty += el.qty;
-                this.soldProducts[el.product_id].products.push(
+                // console.log('-------------', el.product_id.supply_price,
+                //   el.product_id.retail_price, 'qty:', el.qty,
+                // );
+                console.log(`cost= ${el.product_id.supply_price}*${el.qty}`);
+                console.log(`price= ${el.product_id.retail_price}*${el.qty}`);
+
+                this.soldProducts[el.product_id._id].qty += el.qty;
+                this.soldProducts[el.product_id._id].price += el.qty * el.product_id.supply_price || 0;
+                this.soldProducts[el.product_id._id].cost += el.qty * el.product_id.retail_price || 0;
+                this.soldProducts[el.product_id._id].products.push(
                   {
                     product: el,
                     sold_date: element.created_at,
+                    price: el.product_id.supply_price * el.qty || 0,
+                    cost: el.product_id.retail_price * el.qty || 0,
+                    qty: el.qty,
+                    supply_price: el.product_id.supply_price || 0,
+                    retail_price: el.product_id.retail_price || 0,
+
                   });
               }
             });
@@ -182,6 +197,7 @@ export class InventoryreportsComponent implements OnInit {
                         margin-bottom: 56px;
                         color: tomato;
                         position: relative;
+
                     }
 
                     .date {
