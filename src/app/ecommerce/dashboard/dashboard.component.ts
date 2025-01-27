@@ -78,6 +78,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onGetSalesReport() {
+    const yesterday = new Date(this.start);
     const today = new Date(this.end);
 
     //totalForThisMonth: number = 0;
@@ -101,7 +102,7 @@ export class DashboardComponent implements OnInit {
     // For Month
     this.customerService.fetchSaleHistory({
       from: new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0],
-      to: new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0],
+      to: new Date(today.getFullYear(), today.getMonth() + 1, 1).toISOString().split('T')[0],
     }).subscribe(
       (res) => {
         console.log('sales-month', res);
@@ -113,10 +114,54 @@ export class DashboardComponent implements OnInit {
       }
     );
 
+    // For Period Sales 
+    this.customerService.fetchSaleHistory({
+      //from: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
+      //to: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
+      to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
+      from: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
+    }).subscribe(
+      (res) => {
+        // Get Real Paid. total_paid item.
+        console.log('sales-today', res);
+        this.sumSales = this.getTotal(res, "total_paid");
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
   }
 
   onGetProductReport() {
-    this.salesService.read({})
+
+    const yesterday = new Date(this.start);
+    const today = new Date(this.end);
+
+    //totalForThisMonth: number = 0;
+    //totalForToday: number = 0;
+    // For today
+    //from: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
+    //to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
+
+    this.customerService.fetchSaleHistory({
+      //from: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
+      //to: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
+      to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
+      from: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
+    }).subscribe(
+      (res) => {
+        // Get Real Paid. total_paid item.
+        console.log('sales-today', res);
+        this.totalByOutlet = this.getTotal(res, "total_paid");
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+
+    /* this.salesService.read({})
       .subscribe({
         next: (data) => {
           console.log('Product Report', data);
@@ -136,7 +181,7 @@ export class DashboardComponent implements OnInit {
         error: (err) => {
           console.error('Error fetching sales:', err);
         },
-      });
+      }); */
   }
 
   onStockReport() {
@@ -336,7 +381,7 @@ export class DashboardComponent implements OnInit {
     const dateArray = this.generateDateArray(this.start, this.end);
 
     const salesData = this.updateDateArray(dateArray, this.salesData, false);
-    const ordersData = this.updateDateArray(dateArray, this.ordersData, true);
+    const ordersData = this.updateDateArray(dateArray, this.salesData, true);
 
     let datesOnlyArray = dateArray?.map(item => item.date);
     const salesOnlyArray = salesData?.map(item => item.value);
@@ -355,7 +400,7 @@ export class DashboardComponent implements OnInit {
     const maxAxis = Math.max(this.maxSales, this.maxOrders);
 
     this.sumOrders = ordersOnlyArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-    this.sumSales = salesOnlyArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    //this.sumSales = salesOnlyArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     
     this.chartSalesData = {
       labels: datesOnlyArray,
