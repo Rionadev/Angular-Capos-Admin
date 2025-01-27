@@ -151,13 +151,15 @@ export class SalesreportsComponent implements OnInit {
             // if (transaction.payment_status != 'not paid') {
 
             total += transaction.total; // include tax
-            revenue += transaction.subtotal; //sale products
-            tax += transaction.tax; //Tax
-            // cog += transaction.total_paid; //Cost of Products
             if (transaction.products.length > 0) {
               transaction.products.forEach(element => {
-                // cog += element.price * element.qty;
-                // t_cog += element.price * element.qty;
+                revenue += element.product_id.retail_price * element.qty;
+                t_revenue += element.product_id.retail_price * element.qty;
+              });
+            }
+            tax += transaction.tax; //Tax
+            if (transaction.products.length > 0) {
+              transaction.products.forEach(element => {
                 cog += element.product_id.supply_price * element.qty;
                 t_cog += element.product_id.supply_price * element.qty;
               });
@@ -165,14 +167,9 @@ export class SalesreportsComponent implements OnInit {
             gp += transaction.subtotal - transaction.total_paid; //Gross profit
             //total whole
             t_total += transaction.total;
-            t_revenue += transaction.subtotal;
             t_tax += transaction.tax;
-            // t_cog += transaction.total_paid;
             t_gp += transaction.subtotal - transaction.total_paid;
-            // } else {
-            //   // console.log('--------', transaction);
 
-            // }
           });
 
 
