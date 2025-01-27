@@ -118,7 +118,7 @@
                         }}</td>
                     <td>{{ sel_row.supply_price || 0| currency }}</td>
                     <td>{{
-                        sel_row.inventory - (soldProducts && soldProducts[sel_row._id]?.qty||0)*
+                        (sel_row.inventory - (soldProducts && soldProducts[sel_row._id]?.qty||0))*
                         sel_row.supply_price
                         | currency }}</td>
                     <td>{{ sel_row.reorder_point }}</td>
