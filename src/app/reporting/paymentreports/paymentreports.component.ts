@@ -15,6 +15,8 @@ export class PaymentreportsComponent implements OnInit {
     // endDate: string = this.getFormattedDate(new Date()); // Today
     sotre_credit_amount = 0;
     cash_conceal_amount = 0;
+    cash_move_amount = 0;
+
     cash_amount = 0;
     credit_amount = 0;
     debit_amount = 0;
@@ -24,6 +26,7 @@ export class PaymentreportsComponent implements OnInit {
 
     total_sotre_credit_amount = 0;
     total_cash_conceal_amount = 0;
+    total_cash_move_amount = 0;
     total_cash_amount = 0;
     total_credit_amount = 0;
     total_debit_amount = 0;
@@ -99,6 +102,8 @@ export class PaymentreportsComponent implements OnInit {
     init_rowtotal() {
         this.sotre_credit_amount = 0;
         this.cash_conceal_amount = 0;
+        this.total_cash_move_amount = 0;
+
         this.cash_amount = 0;
         this.credit_amount = 0;
         this.debit_amount = 0;
@@ -111,6 +116,7 @@ export class PaymentreportsComponent implements OnInit {
 
         this.total_sotre_credit_amount = 0;
         this.total_cash_conceal_amount = 0;
+        this.total_cash_move_amount = 0;
         this.total_cash_amount = 0;
         this.total_credit_amount = 0;
         this.total_debit_amount = 0;
@@ -147,9 +153,10 @@ export class PaymentreportsComponent implements OnInit {
                             this.calc_store_credit('store_credit', value, key);
                         calc_total[key].cash_conceal_amount =
                             this.calc_store_credit('cash_concealed_total', value, key);
+                        calc_total[key].cash_move_amount =
+                            this.calc_store_credit('cash_move', value, key);
                         calc_total[key].cash_amount =
                             this.calc_store_credit('cash', value, key);
-
                         calc_total[key].credit_amount =
                             this.calc_store_credit('credit', value, key);
 
@@ -227,13 +234,13 @@ export class PaymentreportsComponent implements OnInit {
                 return sum == 0 ? '' : sum;
 
                 break;
-            case 'cash':
+            case 'cash_move':
                 if (Object.keys(row?.cash).length > 0) {
                     Object.entries(row.cash).forEach(([key, value]: [key: any, value: any]) => {
                         sum += value.transaction;
                     });
                 }
-                this.cash_amount = sum;
+                this.cash_move_amount = sum;
                 // this.filteredTransactions[key] =
                 // {
                 //     ...this.filteredTransactions[key],
@@ -267,6 +274,30 @@ export class PaymentreportsComponent implements OnInit {
                 // };
 
                 return sum == 0 ? '' : sum;
+
+                break;
+            case 'cash':
+                if (Object.keys(row?.sales).length > 0) {
+                    Object.entries(row.sales).forEach(([key, value]: [key: any, value: any]) => {
+                        if (value.payments.length > 0) {
+                            value.payments.forEach(element => {
+                                if (element.type == 'cash') {
+                                    sum += element.amount;
+                                }
+                            });
+
+                        }
+                    });
+                }
+                this.cash_amount = sum;
+                // this.filteredTransactions[key] =
+                // {
+                //     ...this.filteredTransactions[key],
+                //     credit_amount: sum
+                // };
+
+                return sum == 0 ? '' : sum;
+
 
                 break;
             case 'credit':
@@ -357,6 +388,7 @@ export class PaymentreportsComponent implements OnInit {
                 this.total_sotre_credit_amount += this.sotre_credit_amount;
                 this.total_cash_conceal_amount += this.cash_conceal_amount;
                 this.total_cash_amount += this.cash_amount;
+                this.total_cash_move_amount += this.cash_move_amount;
                 this.total_credit_amount += this.credit_amount;
                 this.total_debit_amount += this.debit_amount;
                 this.total_refund_amount += this.refund_amount;
@@ -366,6 +398,7 @@ export class PaymentreportsComponent implements OnInit {
                 //calc row
                 const total_sum = this.sotre_credit_amount +
                     this.cash_conceal_amount +
+                    this.cash_move_amount +
                     this.cash_amount +
                     this.credit_amount +
                     this.debit_amount +
@@ -512,6 +545,7 @@ export class PaymentreportsComponent implements OnInit {
                                 <th>Date</th>
                                 <th>Store Credit</th>
                                 <th>Cash(Concealed Total)</th>
+                                <th>Cash Move</th>
                                 <th>Cash</th>
                                 <th>Credit</th>
                                 <th>Debit</th>
@@ -524,6 +558,7 @@ export class PaymentreportsComponent implements OnInit {
                                 <td><strong>Total</strong></td>
                                 <td><strong>$${Number(this.total_sotre_credit_amount).toFixed(2) || 0}</strong></td>
                                 <td><strong>$${Number(this.total_cash_conceal_amount).toFixed(2) || 0}</strong></td>
+                                <td><strong>$${Number(this.total_cash_move_amount).toFixed(2) || 0}</strong></td>
                                 <td><strong>$${Number(this.total_cash_amount).toFixed(2) || 0}</strong></td>
                                 <td><strong>$${Number(this.total_credit_amount).toFixed(2) || 0}</strong></td>
                                 <td><strong>$${Number(this.total_debit_amount).toFixed(2) || 0}</strong></td>
@@ -533,6 +568,7 @@ export class PaymentreportsComponent implements OnInit {
                                 <td><strong>$${Number(
             this.total_sotre_credit_amount +
             this.total_cash_conceal_amount +
+            this.total_cash_move_amount +
             this.total_cash_amount +
             this.total_credit_amount +
             this.total_debit_amount +
@@ -569,7 +605,7 @@ export class PaymentreportsComponent implements OnInit {
 
     exportContent() {
         const header = 'Date,Store Credit,Cash(Concealed Total),Cash,Credit,Debit,Other,Refunds,Voided,Total\n';
-        const total = `Total,$${Number(this.total_sotre_credit_amount).toFixed(2) || 0},$${Number(this.total_cash_conceal_amount).toFixed(2) || 0},$${Number(this.total_cash_amount).toFixed(2) || 0},$${Number(this.total_credit_amount).toFixed(2) || 0},$${Number(this.total_debit_amount).toFixed(2) || 0},$${Number(this.total_other_amount).toFixed(2) || 0},$${Number(this.total_refund_amount).toFixed(2) || 0},$${Number(this.total_voided_amount).toFixed(2) || 0},$${Number(this.total_sotre_credit_amount + this.total_cash_conceal_amount + this.total_cash_amount + this.total_credit_amount + this.total_debit_amount + this.total_other_amount + this.total_refund_amount + this.total_voided_amount).toFixed(2) || 0}\n`;
+        const total = `Total,$${Number(this.total_sotre_credit_amount).toFixed(2) || 0},$${Number(this.total_cash_conceal_amount).toFixed(2) || 0},$${Number(this.total_cash_move_amount).toFixed(2) || 0},$${Number(this.total_cash_amount).toFixed(2) || 0},$${Number(this.total_credit_amount).toFixed(2) || 0},$${Number(this.total_debit_amount).toFixed(2) || 0},$${Number(this.total_other_amount).toFixed(2) || 0},$${Number(this.total_refund_amount).toFixed(2) || 0},$${Number(this.total_voided_amount).toFixed(2) || 0},$${Number(this.total_sotre_credit_amount + this.total_cash_conceal_amount + this.total_cash_amount + this.total_cash_move_amount + this.total_credit_amount + this.total_debit_amount + this.total_other_amount + this.total_refund_amount + this.total_voided_amount).toFixed(2) || 0}\n`;
         const rows = this.getCSVPlain();
 
         const content = header + total + rows;

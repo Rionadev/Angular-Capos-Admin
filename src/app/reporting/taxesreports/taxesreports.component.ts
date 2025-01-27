@@ -49,6 +49,8 @@ export class TaxesreportsComponent implements OnInit {
         const params = {
             start: new Date(this.selectedDateFrom),
             end: new Date(this.selectedDateTo),
+            sale_status: 'all_closed',
+
         };
         // this.reportingService.fetchSaleTaxReport().subscribe(
 
