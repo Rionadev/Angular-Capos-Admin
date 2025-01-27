@@ -156,8 +156,10 @@ export class SalesreportsComponent implements OnInit {
             // cog += transaction.total_paid; //Cost of Products
             if (transaction.products.length > 0) {
               transaction.products.forEach(element => {
-                cog += element.price * element.qty;
-                t_cog += element.price * element.qty;
+                // cog += element.price * element.qty;
+                // t_cog += element.price * element.qty;
+                cog += element.product_id.supply_price * element.qty;
+                t_cog += element.product_id.supply_price * element.qty;
               });
             }
             gp += transaction.subtotal - transaction.total_paid; //Gross profit
