@@ -153,13 +153,19 @@ export class SalesreportsComponent implements OnInit {
             total += transaction.total; // include tax
             revenue += transaction.subtotal; //sale products
             tax += transaction.tax; //Tax
-            cog += transaction.total_paid; //Cost of Products
+            // cog += transaction.total_paid; //Cost of Products
+            if (transaction.products.length > 0) {
+              transaction.products.forEach(element => {
+                cog += element.price * element.qty;
+                t_cog += element.price * element.qty;
+              });
+            }
             gp += transaction.subtotal - transaction.total_paid; //Gross profit
             //total whole
             t_total += transaction.total;
             t_revenue += transaction.subtotal;
             t_tax += transaction.tax;
-            t_cog += transaction.total_paid;
+            // t_cog += transaction.total_paid;
             t_gp += transaction.subtotal - transaction.total_paid;
             // } else {
             //   // console.log('--------', transaction);
