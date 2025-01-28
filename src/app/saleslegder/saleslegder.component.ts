@@ -129,7 +129,8 @@ export class SaleslegderComponent implements OnInit {
 
             // Map transaction
             return {
-              date: item.created_at,//new Date(item.created_at).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
+              date: new Date(item.created_at).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
+              time: new Date(item.created_at).toISOString().split('T')[1].split('.')[0],
               receipt: item.sale_number, // Receipt number
               user: `${item.user_id?.first_name || ''} ${item.user_id?.last_name || ''}`, // Full name of user
               user_email: item?.user_id?.email || '', // Email of user

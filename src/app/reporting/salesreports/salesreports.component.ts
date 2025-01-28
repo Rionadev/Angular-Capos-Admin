@@ -152,12 +152,15 @@ export class SalesreportsComponent implements OnInit {
             // if (transaction.payment_status != 'not paid') {
 
             total += transaction.subtotal; // include tax
-            if (transaction.products.length > 0) {
-              transaction.products.forEach(element => {
-                revenue += (element?.product_id?.retail_price || 0) * element.qty;
-                t_revenue += (element?.product_id?.retail_price || 0) * element.qty;
-              });
-            }
+            revenue += transaction.subtotal;
+            t_revenue += transaction.subtotal;
+            // if (transaction.products.length > 0) {
+            //   transaction.products.forEach(element => {
+            //     // revenue += (element?.product_id?.retail_price || 0) * element.qty;
+            //     // t_revenue += (element?.product_id?.retail_price || 0) * element.qty;
+
+            //   });
+            // }
             tax += transaction.tax; //Tax
             if (transaction.products.length > 0) {
               transaction.products.forEach(element => {
