@@ -84,8 +84,8 @@
                                     </td>
                                     <td>{{ transaction.register.name }}</td>
                                     <td class="compact-spacing">
-                                        {{ transaction.customer.name || '' }}
-                                        <br><small>{{ transaction.customer.email || '' }}</small>
+                                        {{ transaction?.customer?.name || '' }}
+                                        <br><small>{{ transaction?.customer?.email || '' }}</small>
                                     </td>
                                     <td>{{ transaction.sale_status }}</td>
                                     <td>{{ transaction.payment_status }}</td>

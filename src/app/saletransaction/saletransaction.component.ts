@@ -67,8 +67,8 @@ export class SaletransactionComponent implements OnInit {
   }
   fetchSearchItems() {
     const params = {
-      from: this.selectedDateFrom,
-      to: this.selectedDateTo,
+      start: this.selectedDateFrom,
+      end: this.selectedDateTo,
       sale_status: 'all_closed',
     };
 
@@ -83,7 +83,7 @@ export class SaletransactionComponent implements OnInit {
 
         this.transactions = res.map(item => {
 
-          if (item.customer && item.customer.email) {
+          if (item.customer && item.customer?.email) {
             const customerEmail = item.customer?.email;
             if (customerEmail) {
               const customerExists = this.customers.some(
@@ -214,6 +214,7 @@ export class SaletransactionComponent implements OnInit {
       const paystatusMatches = this.selectedPayType === 'all' || transaction.payment_status === this.selectedPayType;
       return customerMatches && userMatches && statusMatches && paystatusMatches;
     });
+    this.totalItems = this.before_filteredTransactions.length;
     this.onGetData();
 
   }

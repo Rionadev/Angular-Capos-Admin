@@ -55,8 +55,10 @@ export class SaleslegderComponent implements OnInit {
   fetchSearchItems() {
 
     const params = {
-      from: this.selectedDateFrom,
-      to: this.selectedDateTo,
+      // from: this.selectedDateFrom,
+      // to: this.selectedDateTo,
+      start: this.selectedDateFrom,
+      end: this.selectedDateTo,
       sale_status: 'all_closed',
     };
 
@@ -77,7 +79,7 @@ export class SaleslegderComponent implements OnInit {
             console.log(item.payment_status);
 
             if (item.customer && item.customer.email) {
-              const customerEmail = item.customer?.email;
+              const customerEmail = item.customer?.email || '';
               if (customerEmail) {
                 const customerExists = this.customers.some(
                   customer => customer.value === customerEmail
@@ -86,8 +88,8 @@ export class SaleslegderComponent implements OnInit {
                 if (!customerExists) {
                   this.customers.push({
                     value: customerEmail,
-                    label: item.customer.name
-                      ? `${item.customer.name} (${customerEmail})`
+                    label: item?.customer?.name || ''
+                      ? `${item?.customer?.name || ''} (${customerEmail})`
                       : `New Customer (${customerEmail})`
                   });
                 }
@@ -127,13 +129,13 @@ export class SaleslegderComponent implements OnInit {
 
             // Map transaction
             return {
-              date: new Date(item.created_at).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
+              date: item.created_at,//new Date(item.created_at).toISOString().split('T')[0], // Format date to 'YYYY-MM-DD'
               receipt: item.sale_number, // Receipt number
-              user: `${item.user_id.first_name} ${item.user_id.last_name}`, // Full name of user
-              user_email: item.user_id.email, // Email of user
-              register: item.register.name, // Register name
-              customer: item.customer.name || '', // Customer name
-              customer_email: item.customer.email || '', // Customer email
+              user: `${item.user_id?.first_name || ''} ${item.user_id?.last_name || ''}`, // Full name of user
+              user_email: item?.user_id?.email || '', // Email of user
+              register: item?.register?.name || '', // Register name
+              customer: item?.customer?.name || '', // Customer name
+              customer_email: item?.customer?.email || '', // Customer email
               status: item.sale_status, // Sale status
               total: item.total, // Total amount
               subtotal: item.subtotal,
@@ -176,6 +178,7 @@ export class SaleslegderComponent implements OnInit {
 
       return customerMatches && userMatches && statusMatches;
     });
+    this.totalItems = this.before_filteredTransactions.length;
     this.onGetData();
     console.log('Filtered Transactions:', this.filteredTransactions);
   }

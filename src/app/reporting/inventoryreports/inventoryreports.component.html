@@ -48,8 +48,9 @@
                                 <tr *ngFor="let item of filteredProducts" (click)="selRow(item)">
                                     <td>{{ item.name }}</td>
                                     <td>{{ item?.outlet?.name || '' }}</td>
-                                    <td>{{ item.inventory - (soldProducts && soldProducts[item._id]?.qty||0)
-                                        }}</td>
+                                    <!-- <td>{{ item.inventory - (soldProducts && soldProducts[item._id]?.qty||0)
+                                        }}</td> -->
+                                    <td>{{item.inventory || 0}}</td>
                                     <td>{{ item.supply_price||0| currency }}</td>
                                     <td>{{
                                         item.inventory - (soldProducts && soldProducts[item._id]?.qty||0)*
@@ -114,13 +115,17 @@
                 </tr>
                 <tr>
                     <td>{{(soldProducts && soldProducts[sel_row._id]?.qty||0)}}</td>
-                    <td>{{ sel_row.inventory - (soldProducts && soldProducts[sel_row._id]?.qty||0)
-                        }}</td>
+                    <!-- <td>{{ sel_row.inventory - (soldProducts && soldProducts[sel_row._id]?.qty||0)
+                        }}</td> -->
+                    <td>{{sel_row.inventory||0}}</td>
                     <td>{{ sel_row.supply_price || 0| currency }}</td>
-                    <td>{{
+                    <!-- <td>{{
                         (sel_row.inventory - (soldProducts && soldProducts[sel_row._id]?.qty||0))*
                         sel_row.supply_price
-                        | currency }}</td>
+                        | currency }}</td> -->
+                    <td>
+                        {{sel_row.inventory*sel_row.supply_price}}
+                    </td>
                     <td>{{ sel_row.reorder_point }}</td>
                     <td>{{ sel_row.reorder_point * sel_row.supply_price |currency }}</td>
                 </tr>
@@ -133,9 +138,9 @@
                     <th>Product</th>
                     <th>QTY</th>
                     <th>Supply<br>Price</th>
-                    <th>Price</th>
+                    <th>cost</th>
                     <th>Retail<br>Price</th>
-                    <th>Cost</th>
+                    <th>price</th>
                     <!-- <th>Discount</th> -->
                     <!-- <th>product_id</th> -->
 
@@ -144,17 +149,19 @@
                     <tr>
                         <td colspan="2"><strong>Total</strong></td>
                         <td>{{soldProducts[sel_row._id].qty}}</td>
-                        <td colspan="2">{{soldProducts[sel_row._id].price |currency}}</td>
-                        <td colspan="2">{{soldProducts[sel_row._id].cost |currency}}</td>
+                        <td></td>
+                        <td>{{soldProducts[sel_row._id].cost |currency}}</td>
+                        <td></td>
+                        <td>{{soldProducts[sel_row._id].price |currency}}</td>
                     </tr>
                     <tr *ngFor="let product of (soldProducts[sel_row._id] && soldProducts[sel_row._id].products) ">
                         <td>{{ product.sold_date | date }}</td>
                         <td>{{ product.product.product_name || '' }}</td>
                         <td>{{ product.product.qty || '' }}</td>
                         <td>{{ product.supply_price || '' | currency }}</td>
-                        <td>{{ product.price || '' | currency }}</td>
+                        <td>{{ product.cost || '' | currency }}</td>
                         <td>{{ product.retail_price || '' | currency }}</td>
-                        <td>{{ product.cost ||'' | currency }}</td>
+                        <td>{{ product.price ||'' | currency }}</td>
                         <!-- <td>{{ product.product.discount.value }}%</td> -->
                         <!-- <td>{{ product.product.product_id}}</td> -->
                     </tr>

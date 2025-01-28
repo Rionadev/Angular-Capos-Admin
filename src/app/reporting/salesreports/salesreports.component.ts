@@ -181,23 +181,26 @@ export class SalesreportsComponent implements OnInit {
             cog: cog.toFixed(2),
             gp: gp.toFixed(2),
             tax: tax.toFixed(2),
-            margin: ((gp / revenue) * 100).toFixed(2),
+            margin: ((gp / (revenue || 1)) * 100).toFixed(2) || 0,
           });
         });
-        this.filteredTransactions = groupedTransactionsArray;
-        this.totalItems = groupedTransactionsArray.length;
-        this.beforeFiltered = groupedTransactionsArray
+        this.filteredTransactions = this.reportsData;
+        // this.totalItems = Object.keys(this.reportsData).length; // Counts top-level properties
+        this.totalItems = this.reportsData.length; // Counts top-level properties
+
+        this.beforeFiltered = this.reportsData;
         this.total_reportData = {
           total: t_total.toFixed(2),
           revenue: t_revenue.toFixed(2),
           cog: t_cog.toFixed(2),
           gp: t_gp.toFixed(2),
           tax: t_tax.toFixed(2),
-          margin: ((t_gp / t_revenue) * 100).toFixed(2),
+          margin: ((t_gp / (t_revenue || 1)) * 100).toFixed(2) || 0,
         }
 
-        console.log(this.reportsData); // View the grouped data
-        console.log(this.total_reportData); // View the grouped data
+        this.onGetData();
+        // console.log(this.reportsData); // View the grouped data
+        // console.log(this.total_reportData); // View the grouped data
       },
       (error) => {
         console.error('Error fetching customer data:', error);
@@ -236,12 +239,29 @@ export class SalesreportsComponent implements OnInit {
     this.onGetData();
   }
   onGetData() {
-    const page = (this.currentPage - 1).toString();
-    const size = (this.countPerPage).toString();
-    console.log(this.countPerPage);
-    console.log(this.currentPage);
-    
-    // this.fetchSearchItems();
+    const page = (this.currentPage - 1);
+    const size = (this.countPerPage);
+    // console.log(this.countPerPage);
+    // console.log(this.currentPage);
+    // Convert the object values to an array
+    const arr_data = this.beforeFiltered;
+
+
+    // Store the original array for recovery
+    const originalTransactions = arr_data; // Create a copy of the original array
+
+    // Calculate the start and end indices for slicing
+    const startIndex = page * size; // Starting index
+    const endIndex = startIndex + size; // Ending index
+
+    // Create the new array based on pagination
+    // this.reportsData = Object.fromEntries(arr_data.slice(startIndex, endIndex));
+    this.reportsData = arr_data.slice(startIndex, endIndex);
+    console.log(this.reportsData);
+    // this.totalItems = this.reportsData.length;
+
+    // console.log('Paginated data:', this.filteredTransactions); // Output: Paginated data
+    // console.log('Original data:', originalTransactions); // Output: Original data
   }
 
 
@@ -254,7 +274,7 @@ export class SalesreportsComponent implements OnInit {
         <td>${Number(transaction.revenue || 0).toFixed(2)}</td>
         <td>${Number(transaction.cog || 0).toFixed(2)}</td>
         <td>${Number(transaction.gp || 0).toFixed(2)}</td>
-        <td>${Number(transaction.margin || 0).toFixed(2)}%</td>
+        <td>${Number(transaction?.margin || 0).toFixed(2)}%</td>
         <td>${Number(transaction.tax || 0).toFixed(2)}</td>
       </tr>
       `
