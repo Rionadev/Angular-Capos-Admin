@@ -9,11 +9,11 @@ interface Product {
 }
 
 @Component({
-  selector: 'app-supplliers',
-  templateUrl: './supplliers.component.html',
-  styleUrls: ['./supplliers.component.scss']
+  selector: 'app-suppliers',
+  templateUrl: './suppliers.component.html',
+  styleUrls: ['./suppliers.component.scss']
 })
-export class SupplliersComponent implements OnInit {
+export class SuppliersComponent implements OnInit {
   rows: Product[] = [];
   currentRow: Product = { id: null, name: '', description: '', markup: 0, product: '' };
   isContentVisible: boolean = false;
