@@ -135,7 +135,7 @@ export class SaleslegderComponent implements OnInit {
               customer: item.customer.name || '', // Customer name
               customer_email: item.customer.email || '', // Customer email
               status: item.sale_status, // Sale status
-              total: item.total_paid, // Total amount
+              total: item.total, // Total amount
             };
           }
           return null; // Return null if payment status is 'not paid'

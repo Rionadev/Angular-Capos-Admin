@@ -74,8 +74,8 @@ export class InventoryreportsComponent implements OnInit {
                   {
                     product: el,
                     sold_date: element.created_at,
-                    price: el.product_id.supply_price * el.qty || 0,
-                    cost: el.product_id.retail_price * el.qty || 0,
+                    price: el.product_id.retail_price * el.qty || 0,
+                    cost: el.product_id.supply_price * el.qty || 0,
                     qty: el.qty,
                     supply_price: el.product_id.supply_price || 0,
                     retail_price: el.product_id.retail_price || 0,
