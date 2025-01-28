@@ -84,8 +84,9 @@ export class HomeDashboardComponent implements OnInit {
     //totalForToday: number = 0;
     // For today
     this.customerService.fetchSaleHistory({
-      from: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
-      to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
+      sale_status: "all_closed",
+      start: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
+      end: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
     }).subscribe(
       (res) => {
         // Get Real Paid. total_paid item.
@@ -100,8 +101,9 @@ export class HomeDashboardComponent implements OnInit {
 
     // For Month
     this.customerService.fetchSaleHistory({
-      from: new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0],
-      to: new Date(today.getFullYear(), today.getMonth() + 1, 1).toISOString().split('T')[0],
+      sale_status: "all_closed",
+      start: new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0],
+      end: new Date(today.getFullYear(), today.getMonth() + 1, 1).toISOString().split('T')[0],
     }).subscribe(
       (res) => {
         console.log('sales-month', res);
@@ -115,10 +117,11 @@ export class HomeDashboardComponent implements OnInit {
 
     // For Period Sales 
     this.customerService.fetchSaleHistory({
+      sale_status: "all_closed",
       //from: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
       //to: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
-      to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
-      from: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
+      end: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
+      start: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
     }).subscribe(
       (res) => {
         // Get Real Paid. total_paid item.
@@ -144,10 +147,11 @@ export class HomeDashboardComponent implements OnInit {
     //to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
 
     this.customerService.fetchSaleHistory({
+      sale_status: "all_closed",
       //from: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
       //to: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
-      to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
-      from: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
+      end: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
+      start: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
     }).subscribe(
       (res) => {
         // Get Real Paid. total_paid item.
