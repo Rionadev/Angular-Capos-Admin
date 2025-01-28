@@ -90,7 +90,7 @@ export class HomeDashboardComponent implements OnInit {
       (res) => {
         // Get Real Paid. total_paid item.
         console.log('sales-today', res);
-        this.totalForToday = this.getTotal(res, "total_paid");
+        this.totalForToday = this.getTotal(res, "subtotal");
       },
       (error) => {
         console.error('Error fetching customer data:', error);
@@ -105,7 +105,7 @@ export class HomeDashboardComponent implements OnInit {
     }).subscribe(
       (res) => {
         console.log('sales-month', res);
-        this.totalForThisMonth = this.getTotal(res, "total_paid");
+        this.totalForThisMonth = this.getTotal(res, "subtotal");
       },
       (error) => {
         console.error('Error fetching customer data:', error);
@@ -123,7 +123,7 @@ export class HomeDashboardComponent implements OnInit {
       (res) => {
         // Get Real Paid. total_paid item.
         console.log('sales-today', res);
-        this.sumSales = this.getTotal(res, "total_paid");
+        this.sumSales = this.getTotal(res, "subtotal");
       },
       (error) => {
         console.error('Error fetching customer data:', error);
@@ -152,7 +152,7 @@ export class HomeDashboardComponent implements OnInit {
       (res) => {
         // Get Real Paid. total_paid item.
         console.log('sales-today', res);
-        this.totalByOutlet = this.getTotal(res, "total_paid");
+        this.totalByOutlet = this.getTotal(res, "subtotal");
       },
       (error) => {
         console.error('Error fetching customer data:', error);
