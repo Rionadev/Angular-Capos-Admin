@@ -341,21 +341,11 @@
                                         </td>
 
                                         <td>
-                                            <button *ngIf="!(row.isEditing)" class="btn btn-info btn-simple btn-xs"
-                                                (click)="editRow(row)">
-                                                <i class="fa fa-edit" style="font-size: 1.7rem;"></i>
+                                            <button class="btn btn-sm btn-info" (click)="editRow(row)" data-toggle="tooltip" title="Edit">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                             </button>
-                                            <button *ngIf="!(row.isEditing)" class="btn btn-danger btn-simple btn-xs"
-                                                (click)="deleteRow(row)">
-                                                <i class="fa fa-times" style="font-size: 1.7rem;"></i>
-                                            </button>
-                                            <button *ngIf="row.isEditing" class="btn btn-info btn-simple btn-xs"
-                                                (click)="saveRow(row)">
-                                                <i class="pe-7s-diskette" style="font-size: 1.7rem;"></i>
-                                            </button>
-                                            <button *ngIf="row.isEditing" class="btn btn-danger btn-simple btn-xs"
-                                                (click)="cancelEdit(row)">
-                                                <i class="pe-7s-close" style="font-size: 1.7rem;"></i>
+                                            <button class="btn btn-sm btn-danger" (click)="deleteRow(row)" data-toggle="tooltip" title="Delete">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </button>
                                         </td>
                                     </tr>
@@ -364,17 +354,18 @@
 
 
                         </div>
+                        <div>
+                            <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50]"
+                                (pageChanged)="onPageChanged($event)" (countPerPageChanged)="onCountPerPageChanged($event)">
+                            </app-pagination>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
-    <div>
-        <app-pagination class="float-right" [totalCount]="totalItems" [countsPerPageOptions]="[5, 10, 20, 50]"
-            (pageChanged)="onPageChanged($event)" (countPerPageChanged)="onCountPerPageChanged($event)">
-        </app-pagination>
-    </div>
+    
 </div>
 <app-confirm-modal *ngIf="isDeleteModal" [title]="'Remove Supplier Information'"
     [description]="'Do you really want to remove the Information of Supplier ?'" [confirmButtonCaption]="'Delete'"
