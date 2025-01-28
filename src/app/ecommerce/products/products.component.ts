@@ -605,6 +605,7 @@ export class EcommerceProductsComponent implements OnInit {
         attribute: this.attribute,
         tag: this.tag,
         keyword: this.keyword,
+        enabled: true,
       }
     ).subscribe({
       next: (data) => {

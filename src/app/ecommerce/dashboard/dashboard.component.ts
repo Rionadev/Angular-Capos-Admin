@@ -84,10 +84,9 @@ export class DashboardComponent implements OnInit {
     //totalForThisMonth: number = 0;
     //totalForToday: number = 0;
     // For today
-    this.customerService.fetchSaleHistory({
-      sale_status: "all_closed",
-      start: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
-      end: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
+    this.ordersService.read({
+      date_from: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
+      date_to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
     }).subscribe(
       (res) => {
         // Get Real Paid. total_paid item.
@@ -101,10 +100,9 @@ export class DashboardComponent implements OnInit {
     );
 
     // For Month
-    this.customerService.fetchSaleHistory({
-      sale_status: "all_closed",
-      start: new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0],
-      end: new Date(today.getFullYear(), today.getMonth() + 1, 1).toISOString().split('T')[0],
+    this.ordersService.read({
+      date_from: new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0],
+      date_to: new Date(today.getFullYear(), today.getMonth() + 1, 1).toISOString().split('T')[0],
     }).subscribe(
       (res) => {
         console.log('sales-month', res);
@@ -117,12 +115,12 @@ export class DashboardComponent implements OnInit {
     );
 
     // For Period Sales 
-    this.customerService.fetchSaleHistory({
-      sale_status: "all_closed",
+    this.ordersService.read({
       //from: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
       //to: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
-      end: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
-      start: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
+      
+      date_from: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
+      date_to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
     }).subscribe(
       (res) => {
         // Get Real Paid. total_paid item.
@@ -147,12 +145,11 @@ export class DashboardComponent implements OnInit {
     //from: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
     //to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
 
-    this.customerService.fetchSaleHistory({
-      sale_status: "all_closed",
+    this.ordersService.read({
       //from: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0],
       //to: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
-      end: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
-      start: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
+      date_to: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toISOString().split('T')[0],
+      date_from: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()).toISOString().split('T')[0],
     }).subscribe(
       (res) => {
         // Get Real Paid. total_paid item.
@@ -189,7 +186,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onStockReport() {
-    this.productsService.read({ range: 'stock_level' }).subscribe({
+    this.productsService.read({ range: 'stock_level_online' }).subscribe({
       next: (data) => {
         console.log('productsData', data);
         this.stockLevels = data.stock_level;
@@ -351,9 +348,9 @@ export class DashboardComponent implements OnInit {
     month.setDate(1);
     this.month = month.toISOString().split('T')[0].split('-').slice(0, 2).join('-');
 
-    this.salesService.read({
-      start: this.start,
-      end: this.end
+    this.ordersService.read({
+      date_from: this.start,
+      date_to: this.end
     }).subscribe({
       next: (sales) => {
         this.salesData = sales;
