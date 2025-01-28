@@ -24,7 +24,7 @@ import { PricebooksComponent } from 'app/Old_product/pricebooks/pricebooks.compo
 import { ProductsComponent } from 'app/Old_product/products/products.component';
 import { ProductEditModalComponent } from 'app/Old_product/product-edit-modal/product-edit-modal.component';
 import { ProducttypesComponent } from 'app/Old_product/producttypes/producttypes.component';
-import { SupplliersComponent } from 'app/Old_product/supplliers/supplliers.component';
+
 import { ProductattributesComponent } from 'app/Old_product/productattributes/productattributes.component';
 import { ProducttagsComponent } from 'app/Old_product/producttags/producttags.component';
 import { ToggleSwitchComponent } from 'app/component/toggle-switch/toggle-switch.component';
@@ -80,6 +80,8 @@ import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/
 import { ModifierComponent } from '../../menus/modifier/modifier.component';
 import { ModifierTypesComponent } from '../../menus/modifier-types/modifier-types.component';
 import { SingleForcedModifierComponent } from '../../menus/single-forced-modifier/single-forced-modifier.component';
+import { SupplliersComponent } from '../../menus/supplliers/supplliers.component';
+
 import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/toggle-icon-button.component';
 import { ConfirmModalComponent } from '../../component/confirm-modal/confirm-modal.component';
 import { PaginationComponent } from '../../component/pagination/pagination.component';
@@ -148,7 +150,6 @@ import { ExternalRedirectComponent } from '../../external-redirect/external-redi
     ProductsComponent,
     PricebooksComponent,
     ProducttypesComponent,
-    SupplliersComponent,
     ProducttagsComponent,
     ProductattributesComponent,
 
@@ -173,7 +174,8 @@ import { ExternalRedirectComponent } from '../../external-redirect/external-redi
     ModifierComponent,
     ModifierTypesComponent,
     SingleForcedModifierComponent,
-
+    SupplliersComponent,
+    
     ExternalRedirectComponent
   ]
 })
