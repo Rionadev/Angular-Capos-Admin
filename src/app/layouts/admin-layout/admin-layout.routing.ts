@@ -24,7 +24,7 @@ import { PreferencesComponent } from '../../setting/preferences/preferences.comp
 import { ProductsComponent } from 'app/Old_product/products/products.component';
 import { PricebooksComponent } from 'app/Old_product/pricebooks/pricebooks.component';
 import { ProducttypesComponent } from 'app/Old_product/producttypes/producttypes.component';
-import { SupplliersComponent } from 'app/Old_product/supplliers/supplliers.component';
+
 import { ProducttagsComponent } from 'app/Old_product/producttags/producttags.component';
 import { ProductattributesComponent } from 'app/Old_product/productattributes/productattributes.component';
 import { OpencloseComponent } from 'app/openclose/openclose.component';
@@ -64,9 +64,10 @@ import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/
 import { ModifierComponent } from '../../menus/modifier/modifier.component';
 import { ModifierTypesComponent } from '../../menus/modifier-types/modifier-types.component';
 import { SingleForcedModifierComponent } from '../../menus/single-forced-modifier/single-forced-modifier.component';
+import { SupplliersComponent } from '../../menus/supplliers/supplliers.component';
+
 import { OpencloseZComponent } from 'app/openclose-z/openclose-z.component';
 import { ExternalRedirectComponent } from '../../external-redirect/external-redirect.component';
-
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeDashboardComponent },//HomeComponent
@@ -115,7 +116,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'products/product', component: ProductsComponent },
     { path: 'products/pricebooks', component: PricebooksComponent },
     { path: 'products/producttypes', component: ProducttypesComponent },
-    { path: 'products/supplliers', component: SupplliersComponent },
     { path: 'products/producttags', component: ProducttagsComponent },
     { path: 'products/productattributes', component: ProductattributesComponent },
 
@@ -137,6 +137,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'menus/modifier', component: ModifierComponent },
     { path: 'menus/modifiertypes', component: ModifierTypesComponent },
     { path: 'menus/forcedmodifier', component: SingleForcedModifierComponent },
+    { path: 'menus/supplliers', component: SupplliersComponent },
 
     { path: 'online-store', component: ExternalRedirectComponent },
     
