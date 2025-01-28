@@ -64,7 +64,7 @@ import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/
 import { ModifierComponent } from '../../menus/modifier/modifier.component';
 import { ModifierTypesComponent } from '../../menus/modifier-types/modifier-types.component';
 import { SingleForcedModifierComponent } from '../../menus/single-forced-modifier/single-forced-modifier.component';
-import { SupplliersComponent } from '../../menus/supplliers/supplliers.component';
+import { SuppliersComponent } from '../../menus/suppliers/suppliers.component';
 
 import { OpencloseZComponent } from 'app/openclose-z/openclose-z.component';
 import { ExternalRedirectComponent } from '../../external-redirect/external-redirect.component';
@@ -137,7 +137,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'menus/modifier', component: ModifierComponent },
     { path: 'menus/modifiertypes', component: ModifierTypesComponent },
     { path: 'menus/forcedmodifier', component: SingleForcedModifierComponent },
-    { path: 'menus/supplliers', component: SupplliersComponent },
+    { path: 'menus/suppliers', component: SuppliersComponent },
 
     { path: 'online-store', component: ExternalRedirectComponent },
     

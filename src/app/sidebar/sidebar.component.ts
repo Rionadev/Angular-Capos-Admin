@@ -99,6 +99,7 @@ export const MENUSROUTES: RouteInfo[] = [
   { path: '/menus/forcedmodifiergroup', title: 'Forced Modifier Group', icon: 'pe-7s-ticket', class: '' },
   { path: '/menus/modifier', title: 'Modifier', icon: 'pe-7s-keypad', class: '' },
   { path: '/menus/modifiertypes', title: 'Modifier Types', icon: 'pe-7s-albums', class: '' },
+  { path: '/menus/suppliers', title: 'Suppliers', icon: 'pe-7s-albums', class: '' },
 ];
 
 @Component({

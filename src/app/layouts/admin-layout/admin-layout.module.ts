@@ -80,7 +80,7 @@ import { ForcedModifierGroupComponent } from '../../menus/forced-modifier-group/
 import { ModifierComponent } from '../../menus/modifier/modifier.component';
 import { ModifierTypesComponent } from '../../menus/modifier-types/modifier-types.component';
 import { SingleForcedModifierComponent } from '../../menus/single-forced-modifier/single-forced-modifier.component';
-import { SupplliersComponent } from '../../menus/supplliers/supplliers.component';
+import { SuppliersComponent } from '../../menus/suppliers/suppliers.component';
 
 import { ToggleIconButtonComponent } from '../../component/toggle-icon-button/toggle-icon-button.component';
 import { ConfirmModalComponent } from '../../component/confirm-modal/confirm-modal.component';
@@ -174,8 +174,8 @@ import { ExternalRedirectComponent } from '../../external-redirect/external-redi
     ModifierComponent,
     ModifierTypesComponent,
     SingleForcedModifierComponent,
-    SupplliersComponent,
-    
+    SuppliersComponent,
+
     ExternalRedirectComponent
   ]
 })
