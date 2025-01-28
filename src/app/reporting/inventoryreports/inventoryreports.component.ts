@@ -68,8 +68,8 @@ export class InventoryreportsComponent implements OnInit {
                 console.log(`price= ${el.product_id.retail_price}*${el.qty}`);
 
                 this.soldProducts[el.product_id._id].qty += el.qty;
-                this.soldProducts[el.product_id._id].price += el.qty * el.product_id.supply_price || 0;
-                this.soldProducts[el.product_id._id].cost += el.qty * el.product_id.retail_price || 0;
+                this.soldProducts[el.product_id._id].cost += el.qty * el.product_id.supply_price || 0;
+                this.soldProducts[el.product_id._id].price += el.qty * el.product_id.retail_price || 0;
                 this.soldProducts[el.product_id._id].products.push(
                   {
                     product: el,

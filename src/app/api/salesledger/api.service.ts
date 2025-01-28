@@ -78,7 +78,9 @@ export class CustomerService {
     console.log('Constructed HttpParams:', httpParams.toString());
 
     // Make the API call
-    return this.http.get(`${this.config.apiUrl}/sale/sales_ledger`, { params: httpParams });
+    // return this.http.get(`${this.config.apiUrl}/sale/sales_ledger`, { params: httpParams });
+    return this.http.get(`${this.config.apiUrl}/sale/sale`, { params: httpParams });
+
   }
   deletesaletransaction(params: any): Observable<any> {
     let httpParams = new HttpParams();
