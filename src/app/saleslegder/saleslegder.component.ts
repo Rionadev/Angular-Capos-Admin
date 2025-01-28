@@ -135,7 +135,8 @@ export class SaleslegderComponent implements OnInit {
               customer: item.customer.name || '', // Customer name
               customer_email: item.customer.email || '', // Customer email
               status: item.sale_status, // Sale status
-              total: item.total_paid, // Total amount
+              total: item.total, // Total amount
+              subtotal: item.subtotal,
             };
           }
           return null; // Return null if payment status is 'not paid'
@@ -181,7 +182,7 @@ export class SaleslegderComponent implements OnInit {
   calculateTotal() {
     if (this.before_filteredTransactions) {
 
-      return this.before_filteredTransactions.reduce((acc, transaction) => acc + transaction.total, 0) || 0;
+      return this.before_filteredTransactions.reduce((acc, transaction) => acc + transaction.subtotal, 0) || 0;
     } else {
       return 0;
     }
