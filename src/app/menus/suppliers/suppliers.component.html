@@ -196,7 +196,7 @@
                                         <div class="form-group">
                                             <label>Country</label>
                                             <select class="form-control"
-                                                [(ngModel)]="currentRow.physical_address.Country">
+                                                [(ngModel)]="currentRow.physical_address.country">
                                                 <option *ngFor="let country of countries" [value]="country._id">
                                                     {{ country.country_name }}
                                                 </option>
@@ -266,7 +266,7 @@
                                             <div class="form-group">
                                                 <label>Country</label>
                                                 <select class="form-control"
-                                                    [(ngModel)]="currentRow.postal_address.Country">
+                                                    [(ngModel)]="currentRow.postal_address.country">
                                                     <option *ngFor="let country of countries" [value]="country._id">
                                                         {{ country.country_name }}
                                                     </option>
