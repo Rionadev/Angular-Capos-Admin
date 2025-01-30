@@ -82,10 +82,11 @@
                                         {{transaction.user_id.last_name}}<br><small>{{ transaction.user_id.email
                                             }}</small>
                                     </td>
-                                    <td>{{ transaction.register.name }}</td>
+                                    <td>{{ transaction.register && transaction.register.name }}</td>
                                     <td class="compact-spacing">
-                                        {{ transaction?.customer?.name || '' }}
-                                        <br><small>{{ transaction?.customer?.email || '' }}</small>
+                                        {{ transaction?.customer && transaction?.customer?.name || '' }}
+                                        <br><small>{{ transaction?.customer && transaction?.customer?.email || ''
+                                            }}</small>
                                     </td>
                                     <td>{{ transaction.sale_status }}</td>
                                     <td>{{ transaction.payment_status }}</td>
@@ -144,10 +145,11 @@
                         <td>
                             <p style="display:grid ;">
                                 <span>
-                                    {{ selTransactions.user_id.first_name }} {{ selTransactions.user_id.last_name }}
+                                    {{ selTransactions?.user_id?.first_name ||'' }} {{
+                                    selTransactions?.user_id?.last_name||'' }}
                                 </span>
                                 <span style="font-size: small; color: rgb(117, 117, 117);">
-                                    {{ selTransactions.user_id.email }}
+                                    {{ selTransactions?.user_id?.email ||'' }}
                                 </span>
                             </p>
                         </td>
@@ -156,19 +158,19 @@
                         </td>
                         <td>
                             <p style="display:grid ;">
-                                <span>{{ selTransactions.customer.name || '' }}</span>
+                                <span>{{ selTransactions?.customer?.name || '' }}</span>
                                 <span style="font-size: small; color: rgb(117, 117, 117);">
-                                    {{ selTransactions.customer.email || '' }}
+                                    {{ selTransactions?.customer?.email || '' }}
                                 </span>
                             </p>
                         </td>
                         <td>
                             <p style="display:grid ;">
                                 <span>
-                                    {{selTransactions.outlet?.name||''}}
+                                    {{selTransactions?.outlet?.name||''}}
                                 </span>
                                 <span style="font-size: small; color: rgb(117, 117, 117);">
-                                    {{ selTransactions.outlet?.email||'' }}
+                                    {{ selTransactions?.outlet?.email||'' }}
                                 </span>
                             </p>
                         </td>

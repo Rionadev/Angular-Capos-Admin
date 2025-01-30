@@ -83,8 +83,8 @@ export class SaletransactionComponent implements OnInit {
 
         this.transactions = res.map(item => {
 
-          if (item.customer && item.customer?.email) {
-            const customerEmail = item.customer?.email;
+          if (item?.customer && item?.customer?.email) {
+            const customerEmail = item.customer && item.customer?.email || '';
             if (customerEmail) {
               const customerExists = this.customers.some(
                 customer => customer.value === customerEmail
@@ -93,8 +93,8 @@ export class SaletransactionComponent implements OnInit {
               if (!customerExists) {
                 this.customers.push({
                   value: customerEmail,
-                  label: item.customer.name
-                    ? `${item.customer.name} (${customerEmail})`
+                  label: (item?.customer && item?.customer?.name)
+                    ? `${(item?.customer && item?.customer?.name) || 'New Customer'} (${customerEmail})`
                     : `New Customer (${customerEmail})`
                 });
               }
@@ -187,11 +187,11 @@ export class SaletransactionComponent implements OnInit {
     // let newProductTypes = [];
     if (this.selTransactions.products.length > 0) {
       this.selTransactions.products.forEach(goods => {
-        if (goods.product_id && goods.product_id.type) {
+        if (goods?.product_id && goods.product_id?.type?._id) {
 
           if (!this.selTransactions.categories[goods.product_id.type._id]) {
             this.selTransactions.categories[goods.product_id.type._id] = {
-              categoryname: goods.product_id.type.name || '',
+              categoryname: goods?.product_id?.type?.name || '',
               itemCount: 0,
               cost: 0,
             }
@@ -208,7 +208,7 @@ export class SaletransactionComponent implements OnInit {
   searchTransactions() {
     console.log(this.selectedPayType);
     this.before_filteredTransactions = this.transactions.filter(transaction => {
-      const customerMatches = this.selectedCustomer === 'all' || transaction.customer.email === this.selectedCustomer;
+      const customerMatches = this.selectedCustomer === 'all' || transaction.customer?.email === this.selectedCustomer;
       const userMatches = this.selectedUser === 'all' || transaction.user_id.email === this.selectedUser;
       const statusMatches = this.selectedStatus === 'all' || transaction.sale_status === this.selectedStatus;
       const paystatusMatches = this.selectedPayType === 'all' || transaction.payment_status === this.selectedPayType;

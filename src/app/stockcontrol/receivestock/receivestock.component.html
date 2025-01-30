@@ -16,7 +16,9 @@
                             <button class="btn btn-sm btn-success btn-fill" (click)="receiveStock()">
                                 Receive
                             </button>
-
+                            <button class="btn btn-sm btn-warning btn-fill" (click)="cancelReceiveStock()">
+                                Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -38,7 +40,7 @@
                                         <label for="supplier">Supplier:</label>
                                         <select id="supplier" class="form-control" [(ngModel)]="selectedSupplier">
                                             <option *ngFor="let supplier of suppliers" [value]="supplier._id">{{
-                                                supplier.description }}
+                                                supplier.name }}
                                             </option>
                                         </select>
                                     </div>
