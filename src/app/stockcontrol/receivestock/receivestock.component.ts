@@ -44,7 +44,7 @@ export class ReceivestockComponent implements OnInit {
     this.selectedSupplier = '';
     this.selectedOutletTo = '';
     this.sel_invoiceNumber = 0;
-
+    this.note = '';
     this.receiveNumber = this.generateRandomNumberBasedOnDate();
     this.deliveryDate = new Date().toISOString().split('T')[0];
     this.newOrder = {
@@ -189,4 +189,8 @@ export class ReceivestockComponent implements OnInit {
   reset() {
 
   };
+  cancelReceiveStock() {
+    this.initVar();
+
+  }
 }

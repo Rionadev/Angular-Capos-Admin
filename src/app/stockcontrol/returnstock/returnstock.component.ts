@@ -40,6 +40,7 @@ export class ReturnstockComponent implements OnInit {
 
     this.returnNumber = this.generateRandomNumberBasedOnDate();
     this.deliveryDate = new Date().toISOString().split('T')[0];
+    this.note = '';
     this.newOrder = {
       // user_id: null, // Assuming user_id will be set later
       // private_web_address: '', // Add appropriate value if needed
@@ -52,7 +53,7 @@ export class ReturnstockComponent implements OnInit {
       // status: 'open', // Default status
       products: [], // Array of product objects
       status: 'closed',
-      type:'return'
+      type: 'return'
       // type: 'purchase' // Default type
     };
   }
@@ -185,4 +186,8 @@ export class ReturnstockComponent implements OnInit {
   reset() {
 
   };
+  cancelReturnStock() {
+    this.initVar();
+
+  }
 }
