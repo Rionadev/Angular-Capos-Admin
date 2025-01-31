@@ -25,6 +25,7 @@ export class CustomersComponent implements OnInit {
     private toastService: ToastService,
     @Inject('APP_CONFIG') private config: any,
   ) {
+    this.newCustomer = this.reset();
     this.selectedCustomer = '';
     this.selectedGroup = 'all';
     this.selectedCountry = 'all';
@@ -126,7 +127,10 @@ export class CustomersComponent implements OnInit {
     });
   }
   viewTransaction(transaction: any) {
-    this.selectedTransaction = transaction;
+    this.selectedTransaction = {
+      ...this.selectedTransaction,
+      ...transaction
+    };
     this.isModalOpen = true; // Open the modal
   }
   closeModal() {
@@ -145,12 +149,12 @@ export class CustomersComponent implements OnInit {
   validateFields(): boolean {
     const requiredFields = [
       this.selectedTransaction.name,
-      this.selectedTransaction.code,
-      this.selectedTransaction.groupId,
-      this.selectedTransaction.gender,
+      // this.selectedTransaction.code,
+      // this.selectedTransaction.groupId,
+      // this.selectedTransaction.gender,
       this.selectedTransaction.email,
-      this.selectedTransaction.physical_address.street,
-      this.selectedTransaction.physical_address.city
+      // this.selectedTransaction.physical_address.street,
+      // this.selectedTransaction.physical_address.city
     ];
 
     return requiredFields.every(field => field && field.trim() !== '');
@@ -160,7 +164,7 @@ export class CustomersComponent implements OnInit {
     console.log(this.selectedTransaction);
     if (!this.validateFields()) {
       // alert('Please fill in all required fields.');
-      this.toastService.showToast('Please fill in all required fields.', 'warning', 3000);
+      this.toastService.showToast('Please fill in fields of name and email.', 'warning', 3000);
 
       return;
     }
@@ -192,7 +196,10 @@ export class CustomersComponent implements OnInit {
 
   editTransaction(transaction: any) {
     // this.addcustomer();
-    this.selectedTransaction = transaction;
+    this.selectedTransaction = {
+      ...this.reset(),
+      ...transaction
+    };
     this.isContentVisible = !this.isContentVisible;
 
   }
@@ -205,7 +212,7 @@ export class CustomersComponent implements OnInit {
         "suburb": "",
         "postcode": "",
         "state": "",
-        "country": '631fdb843e72cb53ad0a5ca4'
+        "country": ''
       },
       "postal_address": {
         "street": "",
@@ -213,7 +220,7 @@ export class CustomersComponent implements OnInit {
         "suburb": "",
         "postcode": "",
         "state": "",
-        "country": "631fdb843e72cb53ad0a5ca4"
+        "country": ""
       },
       "custom_information": {
         "field1": "",

@@ -15,11 +15,12 @@
                         </div>
                         <div class="align-center">
                             <div class="file-upload-container" style="align-items: center;">
-                                <label for="fileInput" class="custom-file-upload" style="margin: 2px ;" >
+                                <label for="fileInput" class="custom-file-upload" style="margin: 2px ;">
                                     Import Customers
                                 </label>
                                 <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Import Customers</button> -->
-                                <input type="file" id="fileInput" class="hidden" accept=".csv" (change)="handleSelect($event)"/>
+                                <input type="file" id="fileInput" class="hidden" accept=".csv"
+                                    (change)="handleSelect($event)" />
                             </div>
                             <!-- <button class="btn btn-sm btn-info btn-fill" style="margin-right: 2rem;">
                                 Import Customers
@@ -268,21 +269,21 @@
                                     </div>
                                     <div style="display: flex;  margin-top: 20px;">
                                         <div class="col-md-3">
-                                            <h3>Custom Fields</h3>
+                                            <h3>Custom Information</h3>
                                         </div>
                                         <div class="col-md-9">
                                             <div class="row space-between">
                                                 <div class="col-md-6">
                                                     <label for="customField1">Custom Field 1:</label>
                                                     <input type="text" id="customField1" class="form-control"
-                                                        placeholder="Enter Custom Field 1" [(ngModel)]="selectedTransaction.custom_information
-.field1" />
+                                                        placeholder="Enter Custom Field 1"
+                                                        [(ngModel)]="selectedTransaction?.custom_information.field1" />
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="customField2">Custom Field 2:</label>
                                                     <input type="text" id="customField2" class="form-control"
-                                                        placeholder="Enter Custom Field 2" [(ngModel)]="selectedTransaction.custom_information
-                                                        .field2" />
+                                                        placeholder="Enter Custom Field 2" [(ngModel)]="selectedTransaction?.custom_information
+                                                       .field2" />
                                                 </div>
                                             </div>
                                         </div>
@@ -363,12 +364,10 @@
                                         <button class="btn btn-sm btn-info" (click)="viewTransaction(transaction)">
                                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                         </button>
-                                        <button class="btn btn-sm btn-warning"
-                                            (click)="editTransaction(transaction)">
+                                        <button class="btn btn-sm btn-warning" (click)="editTransaction(transaction)">
                                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                         </button>
-                                        <button class="btn btn-sm btn-danger"
-                                            (click)="deleteTransaction(transaction)">
+                                        <button class="btn btn-sm btn-danger" (click)="deleteTransaction(transaction)">
                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                         </button>
                                     </td>
