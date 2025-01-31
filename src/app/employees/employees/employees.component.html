@@ -89,7 +89,8 @@
                                 <div class="form-group">
                                     <label>Outlet:</label>
                                     <select class="form-control" id="edit-outlet-select" [(ngModel)]="outletForm">
-                                        <option *ngFor="let outlet of outlets" [value]="outlet.value">{{ outlet.name }}</option>
+                                        <option *ngFor="let outlet of outlets" [value]="outlet.value">{{ outlet.name }}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -182,7 +183,8 @@
                                     Upload CSV file
                                 </label>
                                 <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Upload CSV file</button> -->
-                                <input type="file" id="fileInput" class="hidden" />
+                                <input type="file" id="fileInput" class="hidden" accept=".csv"
+                                    (change)="handleSelect($event)" />
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -202,12 +204,14 @@
                             </div>
                             <div class="col-sm-4">
                                 <select class="form-control" id="outlet-select" [(ngModel)]="outlet">
-                                    <option *ngFor="let outlet of outlets" [value]="outlet.value">{{ outlet.name }}</option>
+                                    <option *ngFor="let outlet of outlets" [value]="outlet.value">{{ outlet.name }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
                         <div class="">
-                            <button class="btn btn-sm btn-info btn-fill" (click)="onClearFilters()">Clear Filters</button>
+                            <button class="btn btn-sm btn-info btn-fill" (click)="onClearFilters()">Clear
+                                Filters</button>
                             <button class="btn btn-sm btn-info btn-fill" (click)="onSearch()">Search</button>
                         </div>
                     </div>

@@ -1,3 +1,5 @@
+<app-toast></app-toast>
+
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
@@ -13,11 +15,11 @@
                         </div>
                         <div class="align-center">
                             <div class="file-upload-container" style="align-items: center;">
-                                <label for="fileInput" class="custom-file-upload" style="margin: 2px ;">
+                                <label for="fileInput" class="custom-file-upload" style="margin: 2px ;" >
                                     Import Customers
                                 </label>
                                 <!-- <button class="btn btn-sm btn-info btn-fill" for="fileInput">Import Customers</button> -->
-                                <input type="file" id="fileInput" class="hidden" />
+                                <input type="file" id="fileInput" class="hidden" accept=".csv" (change)="handleSelect($event)"/>
                             </div>
                             <!-- <button class="btn btn-sm btn-info btn-fill" style="margin-right: 2rem;">
                                 Import Customers
@@ -36,7 +38,6 @@
                         (click)="closecustomer()">
 
                         <div class="modal-dialog" role="document" (click)="$event.stopPropagation()">
-                            <app-toast></app-toast>
                             <div class="modal-content">
                                 <div class="modal-body">
                                     <div

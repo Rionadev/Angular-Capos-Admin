@@ -288,18 +288,32 @@ export class CustomerService {
   }
 
   saveCumtomerData(params: any) {
-    params = {
-      ...params,
-      private_web_address: this.config.private_web_address
-    }
-    if (params._id) {
-      return this.http.put(`${this.config.apiUrl}/customers/customer`,
-        params
-      );
-    } else {
+    if (params.range && params.range == 'csv-import') {
+      params = {
+        ...params,
+        store_name: this.config.outlet_id,
+        private_web_address: this.config.private_web_addres,
+        user_id: this.config.user_id,
+      }
+      console.log('-----------------', params);
       return this.http.post(`${this.config.apiUrl}/customers/customer`,
         params
       );
+    } else {
+
+      params = {
+        ...params,
+        private_web_address: this.config.private_web_address
+      }
+      if (params._id) {
+        return this.http.put(`${this.config.apiUrl}/customers/customer`,
+          params
+        );
+      } else {
+        return this.http.post(`${this.config.apiUrl}/customers/customer`,
+          params
+        );
+      }
     }
   }
 }

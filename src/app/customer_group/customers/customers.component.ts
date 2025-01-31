@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { CustomerService } from 'app/api/salesledger/api.service';
 import { ToastService } from 'app/component/toast/toast.service';
 
@@ -23,6 +23,7 @@ export class CustomersComponent implements OnInit {
     private renderer: Renderer2,
     private customerService: CustomerService,
     private toastService: ToastService,
+    @Inject('APP_CONFIG') private config: any,
   ) {
     this.selectedCustomer = '';
     this.selectedGroup = 'all';
@@ -274,5 +275,107 @@ export class CustomersComponent implements OnInit {
     /* this.rows = this.rows.filter((row) => row.id !== this.currentDeleteID); // Remove row by id
     this.isDeleteModal = false; */
     this.isDeleteModal = false;
+  }
+  handleSelect(event: any) {
+    const file = event.target.files[0];
+    if (file && file.type === 'text/csv') {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const csvData = e.target.result;
+        const customers = this.parseCSV(csvData);
+        console.log('--------', customers);
+        if (customers.length > 0) {
+          this.importCustomers(customers);
+        }
+      };
+      reader.readAsText(file);
+    } else {
+      // alert('Please select a valid CSV file.');
+      this.toastService.showToast('Please select a valid CSV file.', 'warning', 3000);
+
+    }
+  }
+  parseCSV(data: string) {
+    const rows = data.split('\n').map(row => row.split(',').map(cell => cell.trim()));
+    console.log(rows);
+
+    // Get the header row (first row)
+    const headers = rows[0];
+
+    return rows.slice(1).map(row => {
+      // Check if the row is empty
+      if (row.every(cell => cell === '')) return null;
+
+      // Create the new data structure
+      const newData: { [key: string]: any } = {};
+      const customInformation: { [key: string]: any } = {};
+      const physicalAddress: { [key: string]: any } = {};
+      const postalAddress: { [key: string]: any } = {};
+
+      // Use the header row to create keys
+      headers.forEach((header, index) => {
+        if (index === 0) {
+          // Use the first element as the unique identifier (e.g., 'name')
+          newData['name'] = row[index]; // Change 'name' if you want a different key
+        } else if (header.startsWith('custom_information.')) {
+          // Handle custom_information fields
+          const fieldName = header.split('custom_information.')[1];
+          customInformation[fieldName] = row[index];
+        } else if (header.startsWith('physical_address.')) {
+          // Handle physical_address fields
+          const fieldName = header.split('physical_address.')[1];
+          physicalAddress[fieldName] = row[index];
+        } else if (header.startsWith('postal_address.')) {
+          // Handle postal_address fields
+          const fieldName = header.split('postal_address.')[1];
+          postalAddress[fieldName] = row[index];
+        } else {
+          // Map the header to the corresponding value
+          newData[header] = row[index];
+        }
+      });
+
+      // Add nested objects to newData if they have any fields
+      if (Object.keys(customInformation).length > 0) {
+        newData['custom_information'] = customInformation;
+      }
+      if (Object.keys(physicalAddress).length > 0) {
+        newData['physical_address'] = physicalAddress;
+      }
+      if (Object.keys(postalAddress).length > 0) {
+        newData['postal_address'] = postalAddress;
+      }
+
+      // Check if private_web_address is 'onestore'
+      if (newData['private_web_address'] === this.config.private_web_address) {
+        return newData; // Return the transformed object only if the condition is met
+      }
+
+      return null; // Return null if the condition is not met
+    }).filter(customer => customer !== null); // Filter out any null items
+  }
+
+  importCustomers(customers: any[]) {
+
+
+    const payload = {
+      range: 'csv-import',
+      // store_name: 'Your Store Name', // Replace with actual store name
+      // user_id: 'Your User ID', // Replace with actual user ID
+      data: customers
+    };
+
+    this.customerService.saveCumtomerData(payload).subscribe(
+      (res) => {
+
+        this.fetchSearchItems();
+        this.closecustomer();
+      },
+      (error) => {
+        console.error('Error fetching customer data:', error);
+        // Handle the error as needed
+      }
+    );
+    console.log('----------------------', payload);
   }
 }
