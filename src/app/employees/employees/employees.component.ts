@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject  } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ApiService } from '../../api/employees/api.service';
 import { RolesService } from '../../api/roles/roles.service';
 import { CountriesService } from '../../api/countries/countries.service';
@@ -58,7 +58,7 @@ export class EmployeesComponent implements OnInit {
   role: string = '';
   roles: { name: string; value: string }[] = [{ name: 'All Roles', value: '' }];
   outlet: string = '';
-  outlets: { name: string; value: string }[] =  [{ name: 'All Outlets', value: '' }];
+  outlets: { name: string; value: string }[] = [{ name: 'All Outlets', value: '' }];
   keyword: string = '';
 
   isDeleteModal: boolean = false;
@@ -67,13 +67,13 @@ export class EmployeesComponent implements OnInit {
   countries: any[] = [];
 
   constructor(
-    @Inject('APP_CONFIG') private config: any, 
-    private apiService: ApiService, 
-    private rolesService: RolesService, 
+    @Inject('APP_CONFIG') private config: any,
+    private apiService: ApiService,
+    private rolesService: RolesService,
     private countriesService: CountriesService,
     private toastService: ToastService,
     private outletsService: OutletsService,
-  ) { 
+  ) {
     console.log(this.config.apiUrl);
   }
 
@@ -83,7 +83,7 @@ export class EmployeesComponent implements OnInit {
     this.onGetCountries();
     this.onGetOutlets();
   }
-  
+
   onGetOutlets() {
     this.outletsService.read({}).subscribe({
       next: (data) => {
@@ -97,7 +97,7 @@ export class EmployeesComponent implements OnInit {
       },
     });
   }
-  
+
   toggleContent(): void {
     this.isContentVisible = !this.isContentVisible; // Toggle the visibility
   }
@@ -151,6 +151,89 @@ export class EmployeesComponent implements OnInit {
     this.isImportContentVisible = !this.isImportContentVisible; // Toggle the visibility
     this.isContentVisible = false;
   }
+  handleSelect(event: any) {
+    const file = event.target.files[0];
+    if (file && file.type === 'text/csv') {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const csvData = e.target.result;
+        const customers = this.parseCSV(csvData);
+        console.log('--------', customers);
+
+      };
+      reader.readAsText(file);
+    } else {
+      // alert('Please select a valid CSV file.');
+      this.toastService.showToast('Please select a valid CSV file.', 'warning', 3000);
+
+    }
+  }
+  parseCSV(data: string) {
+    const rows = data.split('\n').map(row => row.split(',').map(cell => cell.trim()));
+    console.log(rows);
+
+    // Get the header row (first row)
+    const headers = rows[0];
+
+    return rows.slice(1).map(row => {
+      // Check if the row is empty
+      if (row.every(cell => cell === '')) return null;
+
+      // Create the new data structure
+      const newData: { [key: string]: any } = {};
+      const customInformation: { [key: string]: any } = {};
+      const physicalAddress: { [key: string]: any } = {};
+      const postalAddress: { [key: string]: any } = {};
+
+      // Use the header row to create keys
+      headers.forEach((header, index) => {
+        if (index === 0) {
+          // Use the first element as the unique identifier (e.g., 'name')
+          newData['name'] = row[index]; // Change 'name' if you want a different key
+        } 
+        else if (header.startsWith('defaultTax.')) {
+          // Handle custom_information fields
+          // const fieldName = header.split('custom_information.')[1];
+          // customInformation[fieldName] = row[index];
+        } 
+        else if (header.startsWith('regisgter.')) {
+          // Handle custom_information fields
+          // const fieldName = header.split('custom_information.')[1];
+          // customInformation[fieldName] = row[index];
+        } 
+        else if (header.startsWith('physical_address.')) {
+          // Handle physical_address fields
+          const fieldName = header.split('physical_address.')[1];
+          physicalAddress[fieldName] = row[index];
+        } else if (header.startsWith('postal_address.')) {
+          // Handle postal_address fields
+          const fieldName = header.split('postal_address.')[1];
+          postalAddress[fieldName] = row[index];
+        } else {
+          // Map the header to the corresponding value
+          newData[header] = row[index];
+        }
+      });
+
+      // Add nested objects to newData if they have any fields
+      if (Object.keys(customInformation).length > 0) {
+        newData['custom_information'] = customInformation;
+      }
+      if (Object.keys(physicalAddress).length > 0) {
+        newData['physical_address'] = physicalAddress;
+      }
+      if (Object.keys(postalAddress).length > 0) {
+        newData['postal_address'] = postalAddress;
+      }
+
+      // Check if private_web_address is 'onestore'
+      if (newData['private_web_address'] === this.config.private_web_address) {
+        return newData; // Return the transformed object only if the condition is met
+      }
+
+      return null; // Return null if the condition is not met
+    }).filter(customer => customer !== null); // Filter out any null items
+  }
 
   saveRow(): void {
     if (this.currentRow._id) {
@@ -200,7 +283,7 @@ export class EmployeesComponent implements OnInit {
         weekly_target: 0,
         monthly_target: 0,
       };
-  
+
       this.apiService.create(params).subscribe({
         next: (data) => {
           console.log(data);
@@ -228,7 +311,7 @@ export class EmployeesComponent implements OnInit {
     this.isContentVisible = true;
   }
 
-  formatDate(temp: Date) : string {
+  formatDate(temp: Date): string {
     const date = new Date(temp);
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed
@@ -246,12 +329,12 @@ export class EmployeesComponent implements OnInit {
     this.isDeleteModal = true;
   }
 
-  closeDeleteModal(){
+  closeDeleteModal() {
     this.isDeleteModal = false;
   }
 
   deleteRow() {
-    this.apiService.delete({_id: this.currentDeleteID}).subscribe({
+    this.apiService.delete({ _id: this.currentDeleteID }).subscribe({
       next: (data) => {
         console.log(data);
         this.onGetUsers();
